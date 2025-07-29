@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinefex Archives</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* Dark blue-gray background */
+        }
+        .magazine-cover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .magazine-cover:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 6px 6px rgba(0, 0, 0, 0.3);
+        }
+        .modal-overlay, #viewer {
+            transition: opacity 0.3s ease;
+        }
+        .modal-content {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body class="text-white">
+
+    <!-- Header -->
+    <header class="py-6 px-4 sm:px-6 lg:px-8 bg-gray-900/80 backdrop-blur-sm sticky top-0 z-20">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-white">Cinefex Archives</h1>
+            <p class="mt-2 text-lg text-gray-400">A tribute to the journal of cinematic illusions.</p>
+            <!-- Navigation for buckets -->
+            <nav id="bucket-nav" class="mt-6">
+                <div class="flex flex-wrap justify-center gap-2">
+                    <!-- Navigation links will be dynamically inserted here -->
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Magazine Grid -->
+    <main id="magazine-grid" class="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
+        <!-- Loading indicator -->
+        <p id="loading-indicator" class="text-center col-span-full text-gray-400">Loading archive...</p>
+    </main>
+
+    <!-- Details Modal -->
+    <div id="modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <div id="modal-overlay" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+        <div id="modal-content" class="relative bg-gray-800 rounded-lg shadow-xl w-full max-w-5xl max-h-[90vh] flex flex-col md:flex-row overflow-hidden">
+            <!-- Modal content will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <!-- Iframe Viewer -->
+    <div id="viewer" class="fixed inset-0 z-[60] bg-gray-900 hidden">
+        <iframe id="viewer-iframe" class="w-full h-full border-0" allowfullscreen></iframe>
+        <button id="viewer-close" class="absolute top-4 right-4 text-gray-300 hover:text-white bg-black/50 rounded-full p-2 transition-colors">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.getElementById('magazine-grid');
+            const navContainer = document.querySelector('#bucket-nav div');
+            const loadingIndicator = document.getElementById('loading-indicator');
+            
+            const modal = document.getElementById('modal');
+            const modalOverlay = document.getElementById('modal-overlay');
+            const modalContent = document.getElementById('modal-content');
+
+            const viewer = document.getElementById('viewer');
+            const viewerIframe = document.getElementById('viewer-iframe');
+            const viewerCloseBtn = document.getElementById('viewer-close');
+
+            /**
+             * Fetches issue data from a JSON file and initializes the application.
+             */
+            async function initializeArchive() {
+                try {
+                    const response = await fetch('issues.json');
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const allMagazines = await response.json();
+                    loadingIndicator.style.display = 'none';
+                    renderMagazines(allMagazines);
+                } catch (error) {
+                    loadingIndicator.textContent = 'Failed to load archive data. Please make sure issues.json is in the correct directory.';
+                    console.error("Error loading archive data:", error);
+                }
+            }
+            
+            function renderMagazines(magazines) {
+                grid.innerHTML = '';
+                const buckets = magazines.reduce((acc, magazine) => {
+                    let bucketKey;
+                    if (magazine.year <= 1985) bucketKey = '1980-1985';
+                    else {
+                        const startYear = Math.floor((magazine.year - 1) / 5) * 5 + 1;
+                        const endYear = startYear + 4;
+                        bucketKey = `${startYear}-${endYear}`;
+                    }
+                    if (!acc[bucketKey]) acc[bucketKey] = [];
+                    acc[bucketKey].push(magazine);
+                    return acc;
+                }, {});
+
+                const sortedBucketKeys = Object.keys(buckets).sort((a, b) => parseInt(a.split('-')[0]) - parseInt(b.split('-')[0]));
+                renderNavigation(sortedBucketKeys);
+
+                sortedBucketKeys.forEach(key => {
+                    const bucketContainer = document.createElement('section');
+                    bucketContainer.id = `bucket-${key}`;
+                    bucketContainer.className = 'pt-24 -mt-24';
+                    const header = document.createElement('h2');
+                    header.className = 'text-3xl font-bold mt-12 mb-6 text-cyan-400 border-b border-gray-700 pb-2';
+                    header.textContent = key;
+                    bucketContainer.appendChild(header);
+                    const bucketGrid = document.createElement('div');
+                    bucketGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8';
+                    buckets[key].forEach(magazine => {
+                        const coverElement = document.createElement('div');
+                        coverElement.className = 'magazine-cover cursor-pointer group';
+                        
+                        const aspectRatioClass = magazine.issue < 127 ? 'aspect-[9/8]' : '';
+                        const fallbackLogic = `this.onerror=null; this.src='https://placehold.co/450x400/111827/ffffff?text=Image+Not+Found'`;
+                        coverElement.innerHTML = `<img src="${magazine.coverUrl}" alt="Cover of Cinefex Issue ${magazine.issue}" class="w-full rounded-lg shadow-lg ${aspectRatioClass} object-cover" onerror="${fallbackLogic}"><div class="mt-3 text-center"><h3 class="font-semibold text-white">Issue ${magazine.issue}</h3><p class="text-sm text-gray-400 group-hover:text-white transition-colors">${magazine.year}</p></div>`;
+                        coverElement.addEventListener('click', () => openModal(magazine));
+                        bucketGrid.appendChild(coverElement);
+                    });
+                    bucketContainer.appendChild(bucketGrid);
+                    grid.appendChild(bucketContainer);
+                });
+            }
+
+            function renderNavigation(bucketKeys) {
+                navContainer.innerHTML = '';
+                bucketKeys.forEach(key => {
+                    const link = document.createElement('a');
+                    link.href = `#bucket-${key}`;
+                    link.textContent = key;
+                    link.className = 'px-3 py-1 bg-gray-700 text-gray-300 rounded-full text-sm font-semibold hover:bg-cyan-500 hover:text-white transition-colors';
+                    navContainer.appendChild(link);
+                });
+            }
+            
+            function openModal(magazine) {
+                const fallbackLogic = `this.onerror=null; this.src='https://placehold.co/450x400/111827/ffffff?text=Image+Not+Found'`;
+                modalContent.innerHTML = `
+                    <div class="w-full md:w-1/2 p-0">
+                        <img src="${magazine.coverUrl}" alt="Cover of Cinefex Issue ${magazine.issue}" class="w-full h-full object-cover" onerror="${fallbackLogic}">
+                    </div>
+                    <div id="modal-dynamic-content" class="w-full md:w-2/2 p-6 sm:p-8 flex flex-col"></div>
+                    <button id="modal-close" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                `;
+                displayArticleList(magazine);
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                document.getElementById('modal-close').addEventListener('click', closeModal);
+            }
+
+            function displayArticleList(magazine) {
+                const dynamicContent = document.getElementById('modal-dynamic-content');
+                let articlesHtml = magazine.articles.map(article => 
+                    `<button class="article-btn w-full text-left px-4 py-3 bg-gray-700 hover:bg-gray-600 rounded-md font-semibold transition-colors text-white" data-article='${JSON.stringify(article)}' data-issue-number='${magazine.issue}'>${article.name}</button>`
+                ).join('');
+
+                dynamicContent.innerHTML = `
+                    <div class="flex-grow overflow-y-auto">
+                        <span class="text-sm font-semibold text-cyan-400">CINEFEX #${magazine.issue}</span>
+                        <h2 class="text-2xl sm:text-3xl font-bold mt-2 mb-4">${magazine.title}</h2>
+                        <p class="text-gray-300 leading-relaxed mb-6">${magazine.description}</p>
+                        <h3 class="font-bold text-lg mb-3 text-gray-200">Articles</h3>
+                        <div class="space-y-3">${articlesHtml}</div>
+                    </div>
+                `;
+
+                dynamicContent.querySelectorAll('.article-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const articleData = JSON.parse(btn.dataset.article);
+                        const issueNumber = parseInt(btn.dataset.issueNumber);
+                        displayViewOptions({ ...magazine, issue: issueNumber }, articleData);
+                    });
+                });
+            }
+
+            function displayViewOptions(magazine, article) {
+                const dynamicContent = document.getElementById('modal-dynamic-content');
+                dynamicContent.innerHTML = `
+                    <div class="flex-grow">
+                        <button id="back-to-articles" class="text-sm text-cyan-400 hover:text-cyan-300 mb-4 flex items-center">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                            Back to Article List
+                        </button>
+                        <span class="text-sm font-semibold text-cyan-400">CINEFEX #${magazine.issue}</span>
+                        <h2 class="text-2xl sm:text-3xl font-bold mt-2 mb-4">${article.name}</h2>
+                        <p class="text-gray-300 leading-relaxed mb-6">Select a format to view the article.</p>
+                    </div>
+                    <div class="mt-auto flex flex-col sm:flex-row gap-4">
+                        <button id="read-online-btn" class="flex-1 px-4 py-3 bg-cyan-600 hover:bg-cyan-500 rounded-md font-semibold transition-colors text-white">Read Online</button>
+                        <button id="view-layout-btn" class="flex-1 px-4 py-3 bg-gray-600 hover:bg-gray-500 rounded-md font-semibold transition-colors text-white">View Original Layout</button>
+                    </div>
+                `;
+                document.getElementById('back-to-articles').addEventListener('click', () => displayArticleList(magazine));
+                document.getElementById('read-online-btn').addEventListener('click', () => openViewer(article.readingUrl, magazine.issue));
+                document.getElementById('view-layout-btn').addEventListener('click', () => openViewer(article.archiveUrl, magazine.issue));
+            }
+
+            function closeModal() {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+
+            function openViewer(url, issueNumber) {
+                closeModal();
+                viewerIframe.src = url;
+                viewer.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+
+                // If the issue is 127+ and it's a reading view, inject styles on load.
+                if (issueNumber >= 127 && url.includes('ReadingView')) {
+                    viewerIframe.onload = () => injectStyles(viewerIframe);
+                } else {
+                    viewerIframe.onload = null; // Clear any previous onload handler
+                }
+            }
+            
+            function injectStyles(iframe) {
+                try {
+                    const doc = iframe.contentDocument || iframe.contentWindow.document;
+                    if (!doc) return;
+
+                    // Create a more aggressive "rescue" stylesheet for Quirks Mode
+                    const style = doc.createElement('style');
+                    style.textContent = `
+                        /* Aggressive Reset and Base Styles */
+                        html, body {
+                            margin: 0 !important;
+                            padding: 0 !important;
+                            box-sizing: border-box !important;
+                        }
+                        body { 
+                            background-color: #f8f9fa !important; 
+                            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+                            color: #212529 !important;
+                            padding: 2rem 4rem !important;
+                            line-height: 1.7 !important;
+                            max-width: 800px;
+                            margin-left: auto !important;
+                            margin-right: auto !important;
+                        }
+                        /* Force non-standard <page> tags to behave like blocks */
+                        page {
+                            display: block !important;
+                            margin-bottom: 1.5em !important; 
+                        }
+                        /* Style the inner .page divs */
+                        .page { 
+                            font-size: 1.1rem !important;
+                            text-align: justify !important;
+                        }
+                        /* Hide empty image containers and other layout divs */
+                        .img-all, [style*="background"] {
+                            display: none !important;
+                        }
+                    `;
+                    doc.head.appendChild(style);
+
+                    // Extract title from meta and create an <h1>
+                    const titleMeta = doc.querySelector('meta[name="dc:Title"]');
+                    if (titleMeta && doc.body) {
+                        const titleText = titleMeta.getAttribute('content');
+                        // Remove if an h1 already exists from a previous load
+                        const oldH1 = doc.querySelector('h1.injected-title');
+                        if(oldH1) oldH1.remove();
+
+                        const h1 = doc.createElement('h1');
+                        h1.className = 'injected-title';
+                        h1.textContent = titleText;
+                        h1.style.fontSize = '2.5rem';
+                        h1.style.fontWeight = 'bold';
+                        h1.style.marginBottom = '1rem';
+                        h1.style.borderBottom = '1px solid #d1d5db';
+                        h1.style.paddingBottom = '0.5rem';
+                        h1.style.textAlign = 'left';
+                        doc.body.insertBefore(h1, doc.body.firstChild);
+                    }
+                } catch (e) {
+                    console.error("Failed to inject styles into iframe:", e);
+                }
+            }
+
+            function closeViewer() {
+                viewer.classList.add('hidden');
+                viewerIframe.src = '';
+                document.body.style.overflow = '';
+            }
+            
+            modalOverlay.addEventListener('click', closeModal);
+            viewerCloseBtn.addEventListener('click', closeViewer);
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (!viewer.classList.contains('hidden')) closeViewer();
+                    else if (!modal.classList.contains('hidden')) closeModal();
+                }
+            });
+            
+            // Initialize the entire application
+            initializeArchive();
+        });
+    </script>
+
+</body>
+</html>

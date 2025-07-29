@@ -1,0 +1,30 @@
+/* --- Final Corrected ArchivalView.css --- */
+
+html {
+    text-align: center;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0);
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* This is the new, critical rule that fixes the stacking */
+page {
+    display: block;
+    margin: 0 auto 20px auto; /* Centers the page and adds space below */
+    height: 768px;
+    width: 864px;
+}
+
+/* This rule now just styles the div inside the <page> tag */
+.page {
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}

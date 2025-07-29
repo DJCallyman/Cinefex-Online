@@ -1,0 +1,2170 @@
+[
+    {
+        "issue": 1,
+        "title": "Star Trek / Alien",
+        "year": 1980,
+        "coverUrl": "issues/1/images/cover.jpg",
+        "description": "Featuring articles on Star Trek / Alien.",
+        "articles": [
+            {
+                "name": "Star Trek",
+                "readingUrl": "issues/1/1.ReadingView.html",
+                "archiveUrl": "issues/1/1.ArchivalView.html"
+            },
+            {
+                "name": "Alien",
+                "readingUrl": "issues/1/2.ReadingView.html",
+                "archiveUrl": "issues/1/2.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 2,
+        "title": "The Empire Strikes Back / Greg Jein / Star Trek: The Motion Picture",
+        "year": 1980,
+        "coverUrl": "issues/2/images/Cinefex-2-p1-img01.jpg",
+        "description": "Featuring articles on The Empire Strikes Back / Greg Jein / Star Trek: The Motion Picture.",
+        "articles": [
+            {
+                "name": "The Empire Strikes Back",
+                "readingUrl": "issues/2/1.ReadingView.html",
+                "archiveUrl": "issues/2/1.ArchivalView.html"
+            },
+            {
+                "name": "Greg Jein",
+                "readingUrl": "issues/2/2.ReadingView.html",
+                "archiveUrl": "issues/2/2.ArchivalView.html"
+            },
+            {
+                "name": "Star Trek: The Motion Picture",
+                "readingUrl": "issues/2/3.ReadingView.html",
+                "archiveUrl": "issues/2/3.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 3,
+        "title": "The Empire Strikes Back / Phase IV / Walter Murch",
+        "year": 1980,
+        "coverUrl": "issues/3/images/Cinefex-3-p1-img01.jpg",
+        "description": "Featuring articles on The Empire Strikes Back / Phase IV / Walter Murch.",
+        "articles": [
+            {
+                "name": "The Empire Strikes Back",
+                "readingUrl": "issues/3/1.ReadingView.html",
+                "archiveUrl": "issues/3/1.ArchivalView.html"
+            },
+            {
+                "name": "Phase IV",
+                "readingUrl": "issues/3/2.ReadingView.html",
+                "archiveUrl": "issues/3/2.ArchivalView.html"
+            },
+            {
+                "name": "Walter Murch",
+                "readingUrl": "issues/3/3.ReadingView.html",
+                "archiveUrl": "issues/3/3.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 5,
+        "title": "Clash of the Titans / Caveman / Caveman / Caveman",
+        "year": 1981,
+        "coverUrl": "issues/5/images/Cinefex-5-p1-img01.jpg",
+        "description": "Featuring articles on Clash of the Titans / Caveman / Caveman / Caveman.",
+        "articles": [
+            {
+                "name": "Clash of the Titans",
+                "readingUrl": "issues/5/1.ReadingView.html",
+                "archiveUrl": "issues/5/1.ArchivalView.html"
+            },
+            {
+                "name": "Caveman",
+                "readingUrl": "issues/5/4.ReadingView.html",
+                "archiveUrl": "issues/5/2.ArchivalView.html"
+            },
+            {
+                "name": "Caveman",
+                "readingUrl": "issues/5/4.ReadingView.html",
+                "archiveUrl": "issues/5/3.ArchivalView.html"
+            },
+            {
+                "name": "Caveman",
+                "readingUrl": "issues/5/4.ReadingView.html",
+                "archiveUrl": "issues/5/4.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 6,
+        "title": "Dragonslayer / Raiders of the Lost Ark / CGI",
+        "year": 1981,
+        "coverUrl": "issues/6/images/Cinefex-6-p1-img01.jpg",
+        "description": "Featuring articles on Dragonslayer / Raiders of the Lost Ark / CGI.",
+        "articles": [
+            {
+                "name": "Dragonslayer",
+                "readingUrl": "issues/6/1.ReadingView.html",
+                "archiveUrl": "issues/6/1.ArchivalView.html"
+            },
+            {
+                "name": "Raiders of the Lost Ark",
+                "readingUrl": "issues/6/2.ReadingView.html",
+                "archiveUrl": "issues/6/2.ArchivalView.html"
+            },
+            {
+                "name": "CGI",
+                "readingUrl": "issues/6/3.ReadingView.html",
+                "archiveUrl": "issues/6/3.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 8,
+        "title": "Tron / Silent Running",
+        "year": 1982,
+        "coverUrl": "issues/8/images/Cinefex-8-p1-img01.jpg",
+        "description": "Featuring articles on Tron / Silent Running.",
+        "articles": [
+            {
+                "name": "Tron",
+                "readingUrl": "issues/8/1.ReadingView.html",
+                "archiveUrl": "issues/8/1.ArchivalView.html"
+            },
+            {
+                "name": "Silent Running",
+                "readingUrl": "issues/8/2.ReadingView.html",
+                "archiveUrl": "issues/8/2.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 9,
+        "title": "Blade Runner",
+        "year": 1982,
+        "coverUrl": "issues/9/images/Cinefex-9-p1-img01.jpg",
+        "description": "Featuring articles on Blade Runner.",
+        "articles": [
+            {
+                "name": "Blade Runner",
+                "readingUrl": "issues/9/1.ReadingView.html",
+                "archiveUrl": "issues/9/1.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 10,
+        "title": "Poltergeist / Firefox",
+        "year": 1982,
+        "coverUrl": "issues/10/images/Cinefex-10-p1-img01.jpg",
+        "description": "Featuring articles on Poltergeist / Firefox.",
+        "articles": [
+            {
+                "name": "Poltergeist",
+                "readingUrl": "issues/10/1.ReadingView.html",
+                "archiveUrl": "issues/10/1.ArchivalView.html"
+            },
+            {
+                "name": "Firefox",
+                "readingUrl": "issues/10/2.ReadingView.html",
+                "archiveUrl": "issues/10/2.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 11,
+        "title": "E.T. / Blade Runner",
+        "year": 1982,
+        "coverUrl": "issues/11/images/Cinefex-11-p1-img01.jpg",
+        "description": "Featuring articles on E.T. / Blade Runner.",
+        "articles": [
+            {
+                "name": "E.T.",
+                "readingUrl": "issues/11/1.ReadingView.html",
+                "archiveUrl": "issues/11/1.ArchivalView.html"
+            },
+            {
+                "name": "Blade Runner",
+                "readingUrl": "issues/11/2.ReadingView.html",
+                "archiveUrl": "issues/11/2.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 12,
+        "title": "Something Wicked This Way Comes / The Howling, The Thing, Krull / The Fool",
+        "year": 1983,
+        "coverUrl": "issues/12/images/Cinefex-12-p1-img01.jpg",
+        "description": "Featuring articles on Something Wicked This Way Comes / The Howling, The Thing, Krull / The Fool.",
+        "articles": [
+            {
+                "name": "Something Wicked This Way Comes",
+                "readingUrl": "issues/12/1.ReadingView.html",
+                "archiveUrl": "issues/12/1.ArchivalView.html"
+            },
+            {
+                "name": "The Howling, The Thing, Krull",
+                "readingUrl": "issues/12/2.ReadingView.html",
+                "archiveUrl": "issues/12/2.ArchivalView.html"
+            },
+            {
+                "name": "The Fool",
+                "readingUrl": "issues/12/3.ReadingView.html",
+                "archiveUrl": "issues/12/3.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 13,
+        "title": "Return of the Jedi",
+        "year": 1983,
+        "coverUrl": "issues/13/images/Cinefex-13-p1-img01.jpg",
+        "description": "Featuring articles on Return of the Jedi.",
+        "articles": [
+            {
+                "name": "Return of the Jedi",
+                "readingUrl": "issues/13/1.ReadingView.html",
+                "archiveUrl": "issues/13/1.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 14,
+        "title": "The Right Stuff / Brainstorm / Twilight Zone",
+        "year": 1983,
+        "coverUrl": "issues/14/images/Cinefex-14-p1-img01.jpg",
+        "description": "Featuring articles on The Right Stuff / Brainstorm / Twilight Zone.",
+        "articles": [
+            {
+                "name": "The Right Stuff",
+                "readingUrl": "issues/14/1.ReadingView.html",
+                "archiveUrl": "issues/14/1.ArchivalView.html"
+            },
+            {
+                "name": "Brainstorm",
+                "readingUrl": "issues/14/2.ReadingView.html",
+                "archiveUrl": "issues/14/2.ArchivalView.html"
+            },
+            {
+                "name": "Twilight Zone",
+                "readingUrl": "issues/14/3.ReadingView.html",
+                "archiveUrl": "issues/14/3.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 16,
+        "title": "Greystoke and Altered States",
+        "year": 1984,
+        "coverUrl": "issues/16/images/Cinefex-16-p1-img01.jpg",
+        "description": "Featuring articles on Greystoke and Altered States.",
+        "articles": [
+            {
+                "name": "Greystoke and Altered States",
+                "readingUrl": "issues/16/1.ReadingView.html",
+                "archiveUrl": "issues/16/1.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 17,
+        "title": "Ghostbusters / The Last Starfighter",
+        "year": 1984,
+        "coverUrl": "issues/17/images/Cinefex-17-p1-img01.jpg",
+        "description": "Featuring articles on Ghostbusters / The Last Starfighter.",
+        "articles": [
+            {
+                "name": "Ghostbusters",
+                "readingUrl": "issues/17/1.ReadingView.html",
+                "archiveUrl": "issues/17/1.ArchivalView.html"
+            },
+            {
+                "name": "The Last Starfighter",
+                "readingUrl": "issues/17/2.ReadingView.html",
+                "archiveUrl": "issues/17/2.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 18,
+        "title": "Indiana Jones II / Star Trek III",
+        "year": 1984,
+        "coverUrl": "issues/18/images/Cinefex-18-p1-img01.jpg",
+        "description": "Featuring articles on Indiana Jones II / Star Trek III.",
+        "articles": [
+            {
+                "name": "Indiana Jones II",
+                "readingUrl": "issues/18/1.ReadingView.html",
+                "archiveUrl": "issues/18/1.ArchivalView.html"
+            },
+            {
+                "name": "Star Trek III",
+                "readingUrl": "issues/18/2.ReadingView.html",
+                "archiveUrl": "issues/18/2.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 19,
+        "title": "Gremlins / Buckaroo Banzai / Dreamscape",
+        "year": 1984,
+        "coverUrl": "issues/19/images/Cinefex-19-p1-img01.jpg",
+        "description": "Featuring articles on Gremlins / Buckaroo Banzai / Dreamscape.",
+        "articles": [
+            {
+                "name": "Gremlins",
+                "readingUrl": "issues/19/1.ReadingView.html",
+                "archiveUrl": "issues/19/1.ArchivalView.html"
+            },
+            {
+                "name": "Buckaroo Banzai",
+                "readingUrl": "issues/19/2.ReadingView.html",
+                "archiveUrl": "issues/19/2.ArchivalView.html"
+            },
+            {
+                "name": "Dreamscape",
+                "readingUrl": "issues/19/3.ReadingView.html",
+                "archiveUrl": "issues/19/3.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 20,
+        "title": "2010",
+        "year": 1985,
+        "coverUrl": "issues/20/images/Cinefex-20-p1-img01.jpg",
+        "description": "Featuring articles on 2010.",
+        "articles": [
+            {
+                "name": "2010",
+                "readingUrl": "issues/20/1.ReadingView.html",
+                "archiveUrl": "issues/20/1.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 21,
+        "title": "The Terminator / The Shape of \u2018Dune\u2019",
+        "year": 1985,
+        "coverUrl": "issues/21/images/Cinefex-21-p1-img01.jpg",
+        "description": "Featuring articles on The Terminator / The Shape of \u2018Dune\u2019.",
+        "articles": [
+            {
+                "name": "The Terminator",
+                "readingUrl": "issues/21/1.ReadingView.html",
+                "archiveUrl": "issues/21/1.ArchivalView.html"
+            },
+            {
+                "name": "The Shape of \u2018Dune\u2019",
+                "readingUrl": "issues/21/2.ReadingView.html",
+                "archiveUrl": "issues/21/2.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 22,
+        "title": "Return to Oz / Baby",
+        "year": 1985,
+        "coverUrl": "issues/22/images/Cinefex-22-p1-img01.jpg",
+        "description": "Featuring articles on Return to Oz / Baby.",
+        "articles": [
+            {
+                "name": "Return to Oz",
+                "readingUrl": "issues/22/1.ReadingView.html",
+                "archiveUrl": "issues/22/1.ArchivalView.html"
+            },
+            {
+                "name": "Baby",
+                "readingUrl": "issues/22/2.ReadingView.html",
+                "archiveUrl": "issues/22/2.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 23,
+        "title": "Explorers / Lifeforce / My Science Project",
+        "year": 1985,
+        "coverUrl": "issues/23/images/Cinefex-23-p1-img01.jpg",
+        "description": "Featuring articles on Explorers / Lifeforce / My Science Project.",
+        "articles": [
+            {
+                "name": "Explorers",
+                "readingUrl": "issues/23/1.ReadingView.html",
+                "archiveUrl": "issues/23/1.ArchivalView.html"
+            },
+            {
+                "name": "Lifeforce",
+                "readingUrl": "issues/23/2.ReadingView.html",
+                "archiveUrl": "issues/23/2.ArchivalView.html"
+            },
+            {
+                "name": "My Science Project",
+                "readingUrl": "issues/23/3.ReadingView.html",
+                "archiveUrl": "issues/23/3.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 24,
+        "title": "Cocoon / The Goonies / Back to the Future",
+        "year": 1985,
+        "coverUrl": "issues/24/images/Cinefex-24-p1-img01.jpg",
+        "description": "Featuring articles on Cocoon / The Goonies / Back to the Future.",
+        "articles": [
+            {
+                "name": "Cocoon",
+                "readingUrl": "issues/24/1.ReadingView.html",
+                "archiveUrl": "issues/24/1.ArchivalView.html"
+            },
+            {
+                "name": "The Goonies",
+                "readingUrl": "issues/24/2.ReadingView.html",
+                "archiveUrl": "issues/24/2.ArchivalView.html"
+            },
+            {
+                "name": "Back to the Future",
+                "readingUrl": "issues/24/3.ReadingView.html",
+                "archiveUrl": "issues/24/3.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 25,
+        "title": "Enemy Mine / Fright Night / German Special Effects",
+        "year": 1986,
+        "coverUrl": "issues/25/images/Cinefex-25-p1-img01.jpg",
+        "description": "Featuring articles on Enemy Mine / Fright Night / German Special Effects.",
+        "articles": [
+            {
+                "name": "Enemy Mine",
+                "readingUrl": "issues/25/1.ReadingView.html",
+                "archiveUrl": "issues/25/1.ArchivalView.html"
+            },
+            {
+                "name": "Fright Night",
+                "readingUrl": "issues/25/2.ReadingView.html",
+                "archiveUrl": "issues/25/2.ArchivalView.html"
+            },
+            {
+                "name": "German Special Effects",
+                "readingUrl": "issues/25/3.ReadingView.html",
+                "archiveUrl": "issues/25/3.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 26,
+        "title": "Poltergeist II / Young Sherlock Holmes",
+        "year": 1986,
+        "coverUrl": "issues/26/images/Cinefex-26-p1-img01.jpg",
+        "description": "Featuring articles on Poltergeist II / Young Sherlock Holmes.",
+        "articles": [
+            {
+                "name": "Poltergeist II",
+                "readingUrl": "issues/26/1.ReadingView.html",
+                "archiveUrl": "issues/26/1.ArchivalView.html"
+            },
+            {
+                "name": "Young Sherlock Holmes",
+                "readingUrl": "issues/26/2.ReadingView.html",
+                "archiveUrl": "issues/26/2.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 27,
+        "title": "Aliens",
+        "year": 1986,
+        "coverUrl": "issues/27/images/Cinefex-27-p1-img01.jpg",
+        "description": "Featuring articles on Aliens.",
+        "articles": [
+            {
+                "name": "Aliens",
+                "readingUrl": "issues/27/1.ReadingView.html",
+                "archiveUrl": "issues/27/1.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 28,
+        "title": "The Fly / Big Trouble in Little China / Short Circuit",
+        "year": 1986,
+        "coverUrl": "issues/28/images/Cinefex-28-p1-img01.jpg",
+        "description": "Featuring articles on The Fly / Big Trouble in Little China / Short Circuit.",
+        "articles": [
+            {
+                "name": "The Fly",
+                "readingUrl": "issues/28/1.ReadingView.html",
+                "archiveUrl": "issues/28/1.ArchivalView.html"
+            },
+            {
+                "name": "Big Trouble in Little China",
+                "readingUrl": "issues/28/2.ReadingView.html",
+                "archiveUrl": "issues/28/2.ArchivalView.html"
+            },
+            {
+                "name": "Short Circuit",
+                "readingUrl": "issues/28/3.ReadingView.html",
+                "archiveUrl": "issues/28/3.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 29,
+        "title": "Humpback to the Future / After the Fall / Sky Wars",
+        "year": 1987,
+        "coverUrl": "issues/29/images/Cinefex-29-p1-img01.jpg",
+        "description": "Featuring articles on Humpback to the Future / After the Fall / Sky Wars.",
+        "articles": [
+            {
+                "name": "Humpback to the Future",
+                "readingUrl": "issues/29/1.ReadingView.html",
+                "archiveUrl": "issues/29/1.ArchivalView.html"
+            },
+            {
+                "name": "After the Fall",
+                "readingUrl": "issues/29/2.ReadingView.html",
+                "archiveUrl": "issues/29/2.ArchivalView.html"
+            },
+            {
+                "name": "Sky Wars",
+                "readingUrl": "issues/29/3.ReadingView.html",
+                "archiveUrl": "issues/29/3.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 30,
+        "title": "Little Shop of Horrors / The Gate / The Golden Child",
+        "year": 1987,
+        "coverUrl": "issues/30/images/Cinefex-30-p1-img01.jpg",
+        "description": "Featuring articles on Little Shop of Horrors / The Gate / The Golden Child.",
+        "articles": [
+            {
+                "name": "Little Shop of Horrors",
+                "readingUrl": "issues/30/1.ReadingView.html",
+                "archiveUrl": "issues/30/1.ArchivalView.html"
+            },
+            {
+                "name": "The Gate",
+                "readingUrl": "issues/30/2.ReadingView.html",
+                "archiveUrl": "issues/30/2.ArchivalView.html"
+            },
+            {
+                "name": "The Golden Child",
+                "readingUrl": "issues/30/3.ReadingView.html",
+                "archiveUrl": "issues/30/3.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 31,
+        "title": "Spaceballs / The Witches of Eastwick / Masters of the Universe",
+        "year": 1987,
+        "coverUrl": "issues/31/images/Cinefex-31-p1-img01.jpg",
+        "description": "Featuring articles on Spaceballs / The Witches of Eastwick / Masters of the Universe.",
+        "articles": [
+            {
+                "name": "Spaceballs",
+                "readingUrl": "issues/31/1.ReadingView.html",
+                "archiveUrl": "issues/31/1.ArchivalView.html"
+            },
+            {
+                "name": "The Witches of Eastwick",
+                "readingUrl": "issues/31/2.ReadingView.html",
+                "archiveUrl": "issues/31/2.ArchivalView.html"
+            },
+            {
+                "name": "Masters of the Universe",
+                "readingUrl": "issues/31/3.ReadingView.html",
+                "archiveUrl": "issues/31/3.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 32,
+        "title": "RoboCop / Innerspace",
+        "year": 1987,
+        "coverUrl": "issues/32/images/Cinefex-32-p1-img01.jpg",
+        "description": "Featuring articles on RoboCop / Innerspace.",
+        "articles": [
+            {
+                "name": "RoboCop",
+                "readingUrl": "issues/32/1.ReadingView.html",
+                "archiveUrl": "issues/32/1.ArchivalView.html"
+            },
+            {
+                "name": "Innerspace",
+                "readingUrl": "issues/32/2.ReadingView.html",
+                "archiveUrl": "issues/32/2.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 33,
+        "title": "Moonraker, Octopussy, A View to a kill and The Living Daylights / Aging Gracefully with Dick Smith / Predator",
+        "year": 1988,
+        "coverUrl": "issues/33/images/Cinefex-33-p1-img01.jpg",
+        "description": "Featuring articles on Moonraker, Octopussy, A View to a kill and The Living Daylights / Aging Gracefully with Dick Smith / Predator.",
+        "articles": [
+            {
+                "name": "Moonraker, Octopussy, A View to a kill and The Living Daylights",
+                "readingUrl": "issues/33/1.ReadingView.html",
+                "archiveUrl": "issues/33/1.ArchivalView.html"
+            },
+            {
+                "name": "Aging Gracefully with Dick Smith",
+                "readingUrl": "issues/33/2.ReadingView.html",
+                "archiveUrl": "issues/33/2.ArchivalView.html"
+            },
+            {
+                "name": "Predator",
+                "readingUrl": "issues/33/3.ReadingView.html",
+                "archiveUrl": "issues/33/3.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 34,
+        "title": "Beetlejuice / Batteries Not Included",
+        "year": 1988,
+        "coverUrl": "issues/34/images/Cinefex-34-p1-img01.jpg",
+        "description": "Featuring articles on Beetlejuice / Batteries Not Included.",
+        "articles": [
+            {
+                "name": "Beetlejuice",
+                "readingUrl": "issues/34/1.ReadingView.html",
+                "archiveUrl": "issues/34/1.ArchivalView.html"
+            },
+            {
+                "name": "Batteries Not Included",
+                "readingUrl": "issues/34/2.ReadingView.html",
+                "archiveUrl": "issues/34/2.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 35,
+        "title": "Who Framed Roger Rabbit / Willow",
+        "year": 1988,
+        "coverUrl": "issues/35/images/Cinefex-35-p1-img01.jpg",
+        "description": "Featuring articles on Who Framed Roger Rabbit / Willow.",
+        "articles": [
+            {
+                "name": "Who Framed Roger Rabbit",
+                "readingUrl": "issues/35/1.ReadingView.html",
+                "archiveUrl": "issues/35/1.ArchivalView.html"
+            },
+            {
+                "name": "Willow",
+                "readingUrl": "issues/35/2.ReadingView.html",
+                "archiveUrl": "issues/35/2.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 36,
+        "title": "Alien Nation / Die Hard / Dead Ringers / The Blob",
+        "year": 1988,
+        "coverUrl": "issues/36/images/Cinefex-36-p1-img01.jpg",
+        "description": "Featuring articles on Alien Nation / Die Hard / Dead Ringers / The Blob.",
+        "articles": [
+            {
+                "name": "Alien Nation",
+                "readingUrl": "issues/36/1.ReadingView.html",
+                "archiveUrl": "issues/36/1.ArchivalView.html"
+            },
+            {
+                "name": "Die Hard",
+                "readingUrl": "issues/36/2.ReadingView.html",
+                "archiveUrl": "issues/36/2.ArchivalView.html"
+            },
+            {
+                "name": "Dead Ringers",
+                "readingUrl": "issues/36/3.ReadingView.html",
+                "archiveUrl": "issues/36/3.ArchivalView.html"
+            },
+            {
+                "name": "The Blob",
+                "readingUrl": "issues/36/4.ReadingView.html",
+                "archiveUrl": "issues/36/4.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 38,
+        "title": "The Adventures of Baron Munchausen",
+        "year": 1989,
+        "coverUrl": "issues/38/images/Cinefex-38-p1-img01.jpg",
+        "description": "Featuring articles on The Adventures of Baron Munchausen.",
+        "articles": [
+            {
+                "name": "The Adventures of Baron Munchausen",
+                "readingUrl": "issues/38/1.ReadingView.html",
+                "archiveUrl": "issues/38/1.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 39,
+        "title": "The Abyss",
+        "year": 1989,
+        "coverUrl": "issues/39/images/Cinefex-39-p1-img01.jpg",
+        "description": "Featuring articles on The Abyss.",
+        "articles": [
+            {
+                "name": "The Abyss",
+                "readingUrl": "issues/39/1.ReadingView.html",
+                "archiveUrl": "issues/39/1.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 40,
+        "title": "Ghostbusters II / Indiana Jones and the Last Crusade",
+        "year": 1989,
+        "coverUrl": "issues/40/images/Cinefex-40-p1-img01.jpg",
+        "description": "Featuring articles on Ghostbusters II / Indiana Jones and the Last Crusade.",
+        "articles": [
+            {
+                "name": "Ghostbusters II",
+                "readingUrl": "issues/40/1.ReadingView.html",
+                "archiveUrl": "issues/40/1.ArchivalView.html"
+            },
+            {
+                "name": "Indiana Jones and the Last Crusade",
+                "readingUrl": "issues/40/2.ReadingView.html",
+                "archiveUrl": "issues/40/2.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 45,
+        "title": "Flight of the Intruder / RoboCop 2 / Die Hard 2",
+        "year": 1991,
+        "coverUrl": "issues/45/images/Cinefex-45-p1-img01.jpg",
+        "description": "Featuring articles on Flight of the Intruder / RoboCop 2 / Die Hard 2.",
+        "articles": [
+            {
+                "name": "Flight of the Intruder",
+                "readingUrl": "issues/45/1.ReadingView.html",
+                "archiveUrl": "issues/45/1.ArchivalView.html"
+            },
+            {
+                "name": "RoboCop 2",
+                "readingUrl": "issues/45/2.ReadingView.html",
+                "archiveUrl": "issues/45/2.ArchivalView.html"
+            },
+            {
+                "name": "Die Hard 2",
+                "readingUrl": "issues/45/3.ReadingView.html",
+                "archiveUrl": "issues/45/3.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 46,
+        "title": "Gremlins 2 and Ratboy / Back to the Future / The Godfather",
+        "year": 1991,
+        "coverUrl": "issues/46/images/Cinefex-46-p1-img01.jpg",
+        "description": "Featuring articles on Gremlins 2 and Ratboy / Back to the Future / The Godfather.",
+        "articles": [
+            {
+                "name": "Gremlins 2 and Ratboy",
+                "readingUrl": "issues/46/1.ReadingView.html",
+                "archiveUrl": "issues/46/1.ArchivalView.html"
+            },
+            {
+                "name": "Back to the Future",
+                "readingUrl": "issues/46/2.ReadingView.html",
+                "archiveUrl": "issues/46/2.ArchivalView.html"
+            },
+            {
+                "name": "The Godfather",
+                "readingUrl": "issues/46/3.ReadingView.html",
+                "archiveUrl": "issues/46/3.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 47,
+        "title": "Terminator 2: Judgement Day",
+        "year": 1991,
+        "coverUrl": "issues/47/images/Cinefex-47-p1-img01.jpg",
+        "description": "Featuring articles on Terminator 2: Judgement Day.",
+        "articles": [
+            {
+                "name": "Terminator 2: Judgement Day",
+                "readingUrl": "issues/47/1.ReadingView.html",
+                "archiveUrl": "issues/47/1.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 48,
+        "title": "Backdraft / The Rocketeer / Cast a Deadly Spell",
+        "year": 1991,
+        "coverUrl": "issues/48/images/Cinefex-48-p1-img01.jpg",
+        "description": "Featuring articles on Backdraft / The Rocketeer / Cast a Deadly Spell.",
+        "articles": [
+            {
+                "name": "Backdraft",
+                "readingUrl": "issues/48/1.ReadingView.html",
+                "archiveUrl": "issues/48/1.ArchivalView.html"
+            },
+            {
+                "name": "The Rocketeer",
+                "readingUrl": "issues/48/2.ReadingView.html",
+                "archiveUrl": "issues/48/2.ArchivalView.html"
+            },
+            {
+                "name": "Cast a Deadly Spell",
+                "readingUrl": "issues/48/3.ReadingView.html",
+                "archiveUrl": "issues/48/3.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 49,
+        "title": "Hook / Naked Lunch / Star Trek VI",
+        "year": 1992,
+        "coverUrl": "issues/49/images/cover.jpg",
+        "description": "Featuring articles on Hook / Naked Lunch / Star Trek VI.",
+        "articles": [
+            {
+                "name": "Hook",
+                "readingUrl": "issues/49/1.ReadingView.html",
+                "archiveUrl": "issues/49/1.ArchivalView.html"
+            },
+            {
+                "name": "Naked Lunch",
+                "readingUrl": "issues/49/2.ReadingView.html",
+                "archiveUrl": "issues/49/2.ArchivalView.html"
+            },
+            {
+                "name": "Star Trek VI",
+                "readingUrl": "issues/49/3.ReadingView.html",
+                "archiveUrl": "issues/49/3.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 50,
+        "title": "A Message from the Publisher / Effects Scene: 64th Academy Awards / Video Beat: Morphing to the Music / Profile: Joseph Viskocil / Zealots and Xenomorphs / Cyberworld / Commercial Spot: Widebody Whales / Commercial Spot: Reflections of the Dead / Laser Revolution: Laserdisc Manifesto / Index: Cinefex 1-50",
+        "year": 1992,
+        "coverUrl": "issues/50/images/Cinefex-50-p1-img01.jpg",
+        "description": "Featuring articles on A Message from the Publisher / Effects Scene: 64th Academy Awards / Video Beat: Morphing to the Music / Profile: Joseph Viskocil / Zealots and Xenomorphs / Cyberworld / Commercial Spot: Widebody Whales / Commercial Spot: Reflections of the Dead / Laser Revolution: Laserdisc Manifesto / Index: Cinefex 1-50.",
+        "articles": [
+            {
+                "name": "A Message from the Publisher",
+                "readingUrl": "issues/50/1.ReadingView.html",
+                "archiveUrl": "issues/50/1.ArchivalView.html"
+            },
+            {
+                "name": "Effects Scene: 64th Academy Awards",
+                "readingUrl": "issues/50/2.ReadingView.html",
+                "archiveUrl": "issues/50/2.ArchivalView.html"
+            },
+            {
+                "name": "Video Beat: Morphing to the Music",
+                "readingUrl": "issues/50/3.ReadingView.html",
+                "archiveUrl": "issues/50/3.ArchivalView.html"
+            },
+            {
+                "name": "Profile: Joseph Viskocil",
+                "readingUrl": "issues/50/4.ReadingView.html",
+                "archiveUrl": "issues/50/4.ArchivalView.html"
+            },
+            {
+                "name": "Zealots and Xenomorphs",
+                "readingUrl": "issues/50/5.ReadingView.html",
+                "archiveUrl": "issues/50/5.ArchivalView.html"
+            },
+            {
+                "name": "Cyberworld",
+                "readingUrl": "issues/50/6.ReadingView.html",
+                "archiveUrl": "issues/50/6.ArchivalView.html"
+            },
+            {
+                "name": "Commercial Spot: Widebody Whales",
+                "readingUrl": "issues/50/7.ReadingView.html",
+                "archiveUrl": "issues/50/7.ArchivalView.html"
+            },
+            {
+                "name": "Commercial Spot: Reflections of the Dead",
+                "readingUrl": "issues/50/8.ReadingView.html",
+                "archiveUrl": "issues/50/8.ArchivalView.html"
+            },
+            {
+                "name": "Laser Revolution: Laserdisc Manifesto",
+                "readingUrl": "issues/50/9.ReadingView.html",
+                "archiveUrl": "issues/50/9.ArchivalView.html"
+            },
+            {
+                "name": "Index: Cinefex 1-50",
+                "readingUrl": "issues/50/10.ReadingView.html",
+                "archiveUrl": "issues/50/10.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 51,
+        "title": "Effects Scene: Technology And Magic / Profile: Katherine Kean / Quick Cuts: Dating The Babe / Batman Returns / Commercial Spot: Dodge Blocks / Video Beat: Short Intruders / Laser Revolution: The Eighth Wonder",
+        "year": 1992,
+        "coverUrl": "issues/51/images/Cinefex-51-p1-img01.jpg",
+        "description": "Featuring articles on Effects Scene: Technology And Magic / Profile: Katherine Kean / Quick Cuts: Dating The Babe / Batman Returns / Commercial Spot: Dodge Blocks / Video Beat: Short Intruders / Laser Revolution: The Eighth Wonder.",
+        "articles": [
+            {
+                "name": "Effects Scene: Technology And Magic",
+                "readingUrl": "issues/51/1.ReadingView.html",
+                "archiveUrl": "issues/51/1.ArchivalView.html"
+            },
+            {
+                "name": "Profile: Katherine Kean",
+                "readingUrl": "issues/51/2.ReadingView.html",
+                "archiveUrl": "issues/51/2.ArchivalView.html"
+            },
+            {
+                "name": "Quick Cuts: Dating The Babe",
+                "readingUrl": "issues/51/3.ReadingView.html",
+                "archiveUrl": "issues/51/3.ArchivalView.html"
+            },
+            {
+                "name": "Batman Returns",
+                "readingUrl": "issues/51/4.ReadingView.html",
+                "archiveUrl": "issues/51/4.ArchivalView.html"
+            },
+            {
+                "name": "Commercial Spot: Dodge Blocks",
+                "readingUrl": "issues/51/5.ReadingView.html",
+                "archiveUrl": "issues/51/5.ArchivalView.html"
+            },
+            {
+                "name": "Video Beat: Short Intruders",
+                "readingUrl": "issues/51/6.ReadingView.html",
+                "archiveUrl": "issues/51/6.ArchivalView.html"
+            },
+            {
+                "name": "Laser Revolution: The Eighth Wonder",
+                "readingUrl": "issues/51/7.ReadingView.html",
+                "archiveUrl": "issues/51/7.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 52,
+        "title": "Commercial Spot: Simian Simulation / Commercial Spot: Elevator To The Stars / Quick Cuts: Video Hell / Honey, I Blew Up The Kid / Death Becomes Her / Quick Cuts: Panic On Liberty Island / Profile: Alan Munro / Video Beat: Morphing To The Madness / Laser Revolution: The Lost World Revisited / Effects Scene: Therapy In Pen-And-Ink",
+        "year": 1992,
+        "coverUrl": "issues/52/images/Cinefex-52-p1-img01.jpg",
+        "description": "Featuring articles on Commercial Spot: Simian Simulation / Commercial Spot: Elevator To The Stars / Quick Cuts: Video Hell / Honey, I Blew Up The Kid / Death Becomes Her / Quick Cuts: Panic On Liberty Island / Profile: Alan Munro / Video Beat: Morphing To The Madness / Laser Revolution: The Lost World Revisited / Effects Scene: Therapy In Pen-And-Ink.",
+        "articles": [
+            {
+                "name": "Commercial Spot: Simian Simulation",
+                "readingUrl": "issues/52/1.ReadingView.html",
+                "archiveUrl": "issues/52/1.ArchivalView.html"
+            },
+            {
+                "name": "Commercial Spot: Elevator To The Stars",
+                "readingUrl": "issues/52/2.ReadingView.html",
+                "archiveUrl": "issues/52/2.ArchivalView.html"
+            },
+            {
+                "name": "Quick Cuts: Video Hell",
+                "readingUrl": "issues/52/3.ReadingView.html",
+                "archiveUrl": "issues/52/3.ArchivalView.html"
+            },
+            {
+                "name": "Honey, I Blew Up The Kid",
+                "readingUrl": "issues/52/4.ReadingView.html",
+                "archiveUrl": "issues/52/4.ArchivalView.html"
+            },
+            {
+                "name": "Death Becomes Her",
+                "readingUrl": "issues/52/5.ReadingView.html",
+                "archiveUrl": "issues/52/5.ArchivalView.html"
+            },
+            {
+                "name": "Quick Cuts: Panic On Liberty Island",
+                "readingUrl": "issues/52/6.ReadingView.html",
+                "archiveUrl": "issues/52/6.ArchivalView.html"
+            },
+            {
+                "name": "Profile: Alan Munro",
+                "readingUrl": "issues/52/7.ReadingView.html",
+                "archiveUrl": "issues/52/7.ArchivalView.html"
+            },
+            {
+                "name": "Video Beat: Morphing To The Madness",
+                "readingUrl": "issues/52/8.ReadingView.html",
+                "archiveUrl": "issues/52/8.ArchivalView.html"
+            },
+            {
+                "name": "Laser Revolution: The Lost World Revisited",
+                "readingUrl": "issues/52/9.ReadingView.html",
+                "archiveUrl": "issues/52/9.ArchivalView.html"
+            },
+            {
+                "name": "Effects Scene: Therapy In Pen-And-Ink",
+                "readingUrl": "issues/52/10.ReadingView.html",
+                "archiveUrl": "issues/52/10.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 53,
+        "title": "Quick Cuts: Muppetized Dickens / Commercial Spot: True Colors / Effects Scene: Full Moon Rising / Heart of Darkness / A Close Encounter with Steven Spielberg / Commercial Spot: Sci-Fi Pest Control / Profile: Doug Beswick / Laser Revolution: Harryhausen Cornucopia",
+        "year": 1993,
+        "coverUrl": "issues/53/images/Cinefex-53-p1-img01.jpg",
+        "description": "Featuring articles on Quick Cuts: Muppetized Dickens / Commercial Spot: True Colors / Effects Scene: Full Moon Rising / Heart of Darkness / A Close Encounter with Steven Spielberg / Commercial Spot: Sci-Fi Pest Control / Profile: Doug Beswick / Laser Revolution: Harryhausen Cornucopia.",
+        "articles": [
+            {
+                "name": "Quick Cuts: Muppetized Dickens",
+                "readingUrl": "issues/53/1.ReadingView.html",
+                "archiveUrl": "issues/53/1.ArchivalView.html"
+            },
+            {
+                "name": "Commercial Spot: True Colors",
+                "readingUrl": "issues/53/2.ReadingView.html",
+                "archiveUrl": "issues/53/2.ArchivalView.html"
+            },
+            {
+                "name": "Effects Scene: Full Moon Rising",
+                "readingUrl": "issues/53/3.ReadingView.html",
+                "archiveUrl": "issues/53/3.ArchivalView.html"
+            },
+            {
+                "name": "Heart of Darkness",
+                "readingUrl": "issues/53/4.ReadingView.html",
+                "archiveUrl": "issues/53/4.ArchivalView.html"
+            },
+            {
+                "name": "A Close Encounter with Steven Spielberg",
+                "readingUrl": "issues/53/5.ReadingView.html",
+                "archiveUrl": "issues/53/5.ArchivalView.html"
+            },
+            {
+                "name": "Commercial Spot: Sci-Fi Pest Control",
+                "readingUrl": "issues/53/6.ReadingView.html",
+                "archiveUrl": "issues/53/6.ArchivalView.html"
+            },
+            {
+                "name": "Profile: Doug Beswick",
+                "readingUrl": "issues/53/7.ReadingView.html",
+                "archiveUrl": "issues/53/7.ArchivalView.html"
+            },
+            {
+                "name": "Laser Revolution: Harryhausen Cornucopia",
+                "readingUrl": "issues/53/8.ReadingView.html",
+                "archiveUrl": "issues/53/8.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 54,
+        "title": "Quick Cuts: Unfriendly Skies / Commercial Spot: Thoroughbred Animation / Video Beat: Deep Space Miniatures / Commercial Spot: What\u2019s Up, Nike? / Effects in the Vertical Realm / Toy Wars / Video Beat: Chronicling Young Indy / Effects Scene: The Perigee of Apogee / Profile: Peter Kuran / Laserdisc Revolution: Tall Tales and Epic Lore",
+        "year": 1993,
+        "coverUrl": "issues/54/images/cover.jpg",
+        "description": "Featuring articles on Quick Cuts: Unfriendly Skies / Commercial Spot: Thoroughbred Animation / Video Beat: Deep Space Miniatures / Commercial Spot: What\u2019s Up, Nike? / Effects in the Vertical Realm / Toy Wars / Video Beat: Chronicling Young Indy / Effects Scene: The Perigee of Apogee / Profile: Peter Kuran / Laserdisc Revolution: Tall Tales and Epic Lore.",
+        "articles": [
+            {
+                "name": "Quick Cuts: Unfriendly Skies",
+                "readingUrl": "issues/54/1.ReadingView.html",
+                "archiveUrl": "issues/54/1.ArchivalView.html"
+            },
+            {
+                "name": "Commercial Spot: Thoroughbred Animation",
+                "readingUrl": "issues/54/2.ReadingView.html",
+                "archiveUrl": "issues/54/2.ArchivalView.html"
+            },
+            {
+                "name": "Video Beat: Deep Space Miniatures",
+                "readingUrl": "issues/54/3.ReadingView.html",
+                "archiveUrl": "issues/54/3.ArchivalView.html"
+            },
+            {
+                "name": "Commercial Spot: What\u2019s Up, Nike?",
+                "readingUrl": "issues/54/4.ReadingView.html",
+                "archiveUrl": "issues/54/4.ArchivalView.html"
+            },
+            {
+                "name": "Effects in the Vertical Realm",
+                "readingUrl": "issues/54/5.ReadingView.html",
+                "archiveUrl": "issues/54/5.ArchivalView.html"
+            },
+            {
+                "name": "Toy Wars",
+                "readingUrl": "issues/54/6.ReadingView.html",
+                "archiveUrl": "issues/54/6.ArchivalView.html"
+            },
+            {
+                "name": "Video Beat: Chronicling Young Indy",
+                "readingUrl": "issues/54/7.ReadingView.html",
+                "archiveUrl": "issues/54/7.ArchivalView.html"
+            },
+            {
+                "name": "Effects Scene: The Perigee of Apogee",
+                "readingUrl": "issues/54/8.ReadingView.html",
+                "archiveUrl": "issues/54/8.ArchivalView.html"
+            },
+            {
+                "name": "Profile: Peter Kuran",
+                "readingUrl": "issues/54/9.ReadingView.html",
+                "archiveUrl": "issues/54/9.ArchivalView.html"
+            },
+            {
+                "name": "Laserdisc Revolution: Tall Tales and Epic Lore",
+                "readingUrl": "issues/54/10.ReadingView.html",
+                "archiveUrl": "issues/54/10.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 55,
+        "title": "Video Beat: Deep Space Wormholes / Quick Cuts: Under Heavy Cetacean / Company Tile: Pixar / Quick Cuts: Once More into the Abyss / Quick Cuts: Hail to the Impostor / The Beauty in the Beasts / Portfolio: Jurassic Park Denizens / Commercial Spot: Evolutionary Auto / Effects Scene: In the Digital Domain / Quick Cuts: A Crash in the Andes / Effects Scene: Cinematic Archaeology / LaserDisc Revolution: Jurassic Reality",
+        "year": 1993,
+        "coverUrl": "issues/55/images/cover.jpg",
+        "description": "Featuring articles on Video Beat: Deep Space Wormholes / Quick Cuts: Under Heavy Cetacean / Company Tile: Pixar / Quick Cuts: Once More into the Abyss / Quick Cuts: Hail to the Impostor / The Beauty in the Beasts / Portfolio: Jurassic Park Denizens / Commercial Spot: Evolutionary Auto / Effects Scene: In the Digital Domain / Quick Cuts: A Crash in the Andes / Effects Scene: Cinematic Archaeology / LaserDisc Revolution: Jurassic Reality.",
+        "articles": [
+            {
+                "name": "Video Beat: Deep Space Wormholes",
+                "readingUrl": "issues/55/1.ReadingView.html",
+                "archiveUrl": "issues/55/1.ArchivalView.html"
+            },
+            {
+                "name": "Quick Cuts: Under Heavy Cetacean",
+                "readingUrl": "issues/55/2.ReadingView.html",
+                "archiveUrl": "issues/55/2.ArchivalView.html"
+            },
+            {
+                "name": "Company Tile: Pixar",
+                "readingUrl": "issues/55/3.ReadingView.html",
+                "archiveUrl": "issues/55/3.ArchivalView.html"
+            },
+            {
+                "name": "Quick Cuts: Once More into the Abyss",
+                "readingUrl": "issues/55/4.ReadingView.html",
+                "archiveUrl": "issues/55/4.ArchivalView.html"
+            },
+            {
+                "name": "Quick Cuts: Hail to the Impostor",
+                "readingUrl": "issues/55/5.ReadingView.html",
+                "archiveUrl": "issues/55/5.ArchivalView.html"
+            },
+            {
+                "name": "The Beauty in the Beasts",
+                "readingUrl": "issues/55/6.ReadingView.html",
+                "archiveUrl": "issues/55/6.ArchivalView.html"
+            },
+            {
+                "name": "Portfolio: Jurassic Park Denizens",
+                "readingUrl": "issues/55/7.ReadingView.html",
+                "archiveUrl": "issues/55/7.ArchivalView.html"
+            },
+            {
+                "name": "Commercial Spot: Evolutionary Auto",
+                "readingUrl": "issues/55/8.ReadingView.html",
+                "archiveUrl": "issues/55/8.ArchivalView.html"
+            },
+            {
+                "name": "Effects Scene: In the Digital Domain",
+                "readingUrl": "issues/55/9.ReadingView.html",
+                "archiveUrl": "issues/55/9.ArchivalView.html"
+            },
+            {
+                "name": "Quick Cuts: A Crash in the Andes",
+                "readingUrl": "issues/55/10.ReadingView.html",
+                "archiveUrl": "issues/55/10.ArchivalView.html"
+            },
+            {
+                "name": "Effects Scene: Cinematic Archaeology",
+                "readingUrl": "issues/55/11.ReadingView.html",
+                "archiveUrl": "issues/55/11.ArchivalView.html"
+            },
+            {
+                "name": "LaserDisc Revolution: Jurassic Reality",
+                "readingUrl": "issues/55/12.ReadingView.html",
+                "archiveUrl": "issues/55/12.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 56,
+        "title": "Quick Cuts: Digital Soul Searching / Quick Cuts: Feline Fabrication / Commercial Spot: Track Sold Separately / Animation in the Third Dimension / Pandora's Paintbox / RoboCop Redux / Quick Cuts: That Other T-rex / Profile: Pete Romano / Video Beat: Making Movie Magic / Laserdisc Revolution: From the Disney Archives",
+        "year": 1993,
+        "coverUrl": "issues/56/images/cover.jpg",
+        "description": "Featuring articles on Quick Cuts: Digital Soul Searching / Quick Cuts: Feline Fabrication / Commercial Spot: Track Sold Separately / Animation in the Third Dimension / Pandora's Paintbox / RoboCop Redux / Quick Cuts: That Other T-rex / Profile: Pete Romano / Video Beat: Making Movie Magic / Laserdisc Revolution: From the Disney Archives.",
+        "articles": [
+            {
+                "name": "Quick Cuts: Digital Soul Searching",
+                "readingUrl": "issues/56/1.ReadingView.html",
+                "archiveUrl": "issues/56/1.ArchivalView.html"
+            },
+            {
+                "name": "Quick Cuts: Feline Fabrication",
+                "readingUrl": "issues/56/2.ReadingView.html",
+                "archiveUrl": "issues/56/2.ArchivalView.html"
+            },
+            {
+                "name": "Commercial Spot: Track Sold Separately",
+                "readingUrl": "issues/56/3.ReadingView.html",
+                "archiveUrl": "issues/56/3.ArchivalView.html"
+            },
+            {
+                "name": "Animation in the Third Dimension",
+                "readingUrl": "issues/56/4.ReadingView.html",
+                "archiveUrl": "issues/56/4.ArchivalView.html"
+            },
+            {
+                "name": "Pandora's Paintbox",
+                "readingUrl": "issues/56/5.ReadingView.html",
+                "archiveUrl": "issues/56/5.ArchivalView.html"
+            },
+            {
+                "name": "RoboCop Redux",
+                "readingUrl": "issues/56/6.ReadingView.html",
+                "archiveUrl": "issues/56/6.ArchivalView.html"
+            },
+            {
+                "name": "Quick Cuts: That Other T-rex",
+                "readingUrl": "issues/56/7.ReadingView.html",
+                "archiveUrl": "issues/56/7.ArchivalView.html"
+            },
+            {
+                "name": "Profile: Pete Romano",
+                "readingUrl": "issues/56/8.ReadingView.html",
+                "archiveUrl": "issues/56/8.ArchivalView.html"
+            },
+            {
+                "name": "Video Beat: Making Movie Magic",
+                "readingUrl": "issues/56/9.ReadingView.html",
+                "archiveUrl": "issues/56/9.ArchivalView.html"
+            },
+            {
+                "name": "Laserdisc Revolution: From the Disney Archives",
+                "readingUrl": "issues/56/10.ReadingView.html",
+                "archiveUrl": "issues/56/10.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 58,
+        "title": "Quick Cuts: Crime And Banishment / Quick Cuts: Visionary Visuals / Quick Cuts: Making The Crow Fly / Video Beat: Midair Morphing / The Making Of A Rockbuster / The Rise And Fall Of Norville Barnes / Video Beat: Viper Sheds Its Skin / Quick Cuts: A Lady In Disguise / Commercial Spot: Kong Reenergized / Profile: Kevin Yagher",
+        "year": 1994,
+        "coverUrl": "issues/58/images/cover.jpg",
+        "description": "Featuring articles on Quick Cuts: Crime And Banishment / Quick Cuts: Visionary Visuals / Quick Cuts: Making The Crow Fly / Video Beat: Midair Morphing / The Making Of A Rockbuster / The Rise And Fall Of Norville Barnes / Video Beat: Viper Sheds Its Skin / Quick Cuts: A Lady In Disguise / Commercial Spot: Kong Reenergized / Profile: Kevin Yagher.",
+        "articles": [
+            {
+                "name": "Quick Cuts: Crime And Banishment",
+                "readingUrl": "issues/58/1.ReadingView.html",
+                "archiveUrl": "issues/58/1.ArchivalView.html"
+            },
+            {
+                "name": "Quick Cuts: Visionary Visuals",
+                "readingUrl": "issues/58/2.ReadingView.html",
+                "archiveUrl": "issues/58/2.ArchivalView.html"
+            },
+            {
+                "name": "Quick Cuts: Making The Crow Fly",
+                "readingUrl": "issues/58/3.ReadingView.html",
+                "archiveUrl": "issues/58/3.ArchivalView.html"
+            },
+            {
+                "name": "Video Beat: Midair Morphing",
+                "readingUrl": "issues/58/4.ReadingView.html",
+                "archiveUrl": "issues/58/4.ArchivalView.html"
+            },
+            {
+                "name": "The Making Of A Rockbuster",
+                "readingUrl": "issues/58/5.ReadingView.html",
+                "archiveUrl": "issues/58/5.ArchivalView.html"
+            },
+            {
+                "name": "The Rise And Fall Of Norville Barnes",
+                "readingUrl": "issues/58/6.ReadingView.html",
+                "archiveUrl": "issues/58/6.ArchivalView.html"
+            },
+            {
+                "name": "Video Beat: Viper Sheds Its Skin",
+                "readingUrl": "issues/58/7.ReadingView.html",
+                "archiveUrl": "issues/58/7.ArchivalView.html"
+            },
+            {
+                "name": "Quick Cuts: A Lady In Disguise",
+                "readingUrl": "issues/58/8.ReadingView.html",
+                "archiveUrl": "issues/58/8.ArchivalView.html"
+            },
+            {
+                "name": "Commercial Spot: Kong Reenergized",
+                "readingUrl": "issues/58/9.ReadingView.html",
+                "archiveUrl": "issues/58/9.ArchivalView.html"
+            },
+            {
+                "name": "Profile: Kevin Yagher",
+                "readingUrl": "issues/58/10.ReadingView.html",
+                "archiveUrl": "issues/58/10.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 60,
+        "title": "Video Beat: Piloting To Earth 2 / Quick Cuts: Time Passages / Commercial Spot: Cola Bears / Quick Cuts: Shadow World / Commercial Spot: Light and Liberty / From Zero to Hero / Haunting Creation / Making Gump Happen / Video Beat: Attack of The 80-Foot Stones / Quick Cuts: The Return of The Vampire / Video Beat: Casting Another Spell / Commercial Spot: Byte-Size Cookies",
+        "year": 1994,
+        "coverUrl": "issues/60/images/cover.jpg",
+        "description": "Featuring articles on Video Beat: Piloting To Earth 2 / Quick Cuts: Time Passages / Commercial Spot: Cola Bears / Quick Cuts: Shadow World / Commercial Spot: Light and Liberty / From Zero to Hero / Haunting Creation / Making Gump Happen / Video Beat: Attack of The 80-Foot Stones / Quick Cuts: The Return of The Vampire / Video Beat: Casting Another Spell / Commercial Spot: Byte-Size Cookies.",
+        "articles": [
+            {
+                "name": "Video Beat: Piloting To Earth 2",
+                "readingUrl": "issues/60/1.ReadingView.html",
+                "archiveUrl": "issues/60/1.ArchivalView.html"
+            },
+            {
+                "name": "Quick Cuts: Time Passages",
+                "readingUrl": "issues/60/2.ReadingView.html",
+                "archiveUrl": "issues/60/2.ArchivalView.html"
+            },
+            {
+                "name": "Commercial Spot: Cola Bears",
+                "readingUrl": "issues/60/3.ReadingView.html",
+                "archiveUrl": "issues/60/3.ArchivalView.html"
+            },
+            {
+                "name": "Quick Cuts: Shadow World",
+                "readingUrl": "issues/60/4.ReadingView.html",
+                "archiveUrl": "issues/60/4.ArchivalView.html"
+            },
+            {
+                "name": "Commercial Spot: Light and Liberty",
+                "readingUrl": "issues/60/5.ReadingView.html",
+                "archiveUrl": "issues/60/5.ArchivalView.html"
+            },
+            {
+                "name": "From Zero to Hero",
+                "readingUrl": "issues/60/6.ReadingView.html",
+                "archiveUrl": "issues/60/6.ArchivalView.html"
+            },
+            {
+                "name": "Haunting Creation",
+                "readingUrl": "issues/60/7.ReadingView.html",
+                "archiveUrl": "issues/60/7.ArchivalView.html"
+            },
+            {
+                "name": "Making Gump Happen",
+                "readingUrl": "issues/60/8.ReadingView.html",
+                "archiveUrl": "issues/60/8.ArchivalView.html"
+            },
+            {
+                "name": "Video Beat: Attack of The 80-Foot Stones",
+                "readingUrl": "issues/60/9.ReadingView.html",
+                "archiveUrl": "issues/60/9.ArchivalView.html"
+            },
+            {
+                "name": "Quick Cuts: The Return of The Vampire",
+                "readingUrl": "issues/60/10.ReadingView.html",
+                "archiveUrl": "issues/60/10.ArchivalView.html"
+            },
+            {
+                "name": "Video Beat: Casting Another Spell",
+                "readingUrl": "issues/60/11.ReadingView.html",
+                "archiveUrl": "issues/60/11.ArchivalView.html"
+            },
+            {
+                "name": "Commercial Spot: Byte-Size Cookies",
+                "readingUrl": "issues/60/12.ReadingView.html",
+                "archiveUrl": "issues/60/12.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 61,
+        "title": "Quick Cuts: A New Twist on Tornadoes / Quick Cuts: Clause and Effects / Special Venues: Inside The Luxor Pyramid / Quick Cuts: Santa's Helpers / Immortal Images / Kirk Out / Through The Stargate / Quick Cuts: Animal House / Quick Cuts: Wood Works / Effects Scene: From Tatooine To Endor",
+        "year": 1995,
+        "coverUrl": "issues/61/images/cover.jpg",
+        "description": "Featuring articles on Quick Cuts: A New Twist on Tornadoes / Quick Cuts: Clause and Effects / Special Venues: Inside The Luxor Pyramid / Quick Cuts: Santa's Helpers / Immortal Images / Kirk Out / Through The Stargate / Quick Cuts: Animal House / Quick Cuts: Wood Works / Effects Scene: From Tatooine To Endor.",
+        "articles": [
+            {
+                "name": "Quick Cuts: A New Twist on Tornadoes",
+                "readingUrl": "issues/61/1.ReadingView.html",
+                "archiveUrl": "issues/61/1.ArchivalView.html"
+            },
+            {
+                "name": "Quick Cuts: Clause and Effects",
+                "readingUrl": "issues/61/2.ReadingView.html",
+                "archiveUrl": "issues/61/2.ArchivalView.html"
+            },
+            {
+                "name": "Special Venues: Inside The Luxor Pyramid",
+                "readingUrl": "issues/61/3.ReadingView.html",
+                "archiveUrl": "issues/61/3.ArchivalView.html"
+            },
+            {
+                "name": "Quick Cuts: Santa's Helpers",
+                "readingUrl": "issues/61/4.ReadingView.html",
+                "archiveUrl": "issues/61/4.ArchivalView.html"
+            },
+            {
+                "name": "Immortal Images",
+                "readingUrl": "issues/61/5.ReadingView.html",
+                "archiveUrl": "issues/61/5.ArchivalView.html"
+            },
+            {
+                "name": "Kirk Out",
+                "readingUrl": "issues/61/6.ReadingView.html",
+                "archiveUrl": "issues/61/6.ArchivalView.html"
+            },
+            {
+                "name": "Through The Stargate",
+                "readingUrl": "issues/61/7.ReadingView.html",
+                "archiveUrl": "issues/61/7.ArchivalView.html"
+            },
+            {
+                "name": "Quick Cuts: Animal House",
+                "readingUrl": "issues/61/8.ReadingView.html",
+                "archiveUrl": "issues/61/8.ArchivalView.html"
+            },
+            {
+                "name": "Quick Cuts: Wood Works",
+                "readingUrl": "issues/61/9.ReadingView.html",
+                "archiveUrl": "issues/61/9.ArchivalView.html"
+            },
+            {
+                "name": "Effects Scene: From Tatooine To Endor",
+                "readingUrl": "issues/61/10.ReadingView.html",
+                "archiveUrl": "issues/61/10.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 62,
+        "title": "Quick Cuts: Sub Plots / Quick Cuts: Cinematic Cyberspace / Quick Cuts: Thirty Seconds Over Zaire / Profile: Jeff Matakovich / Gorilla Warfare / Dredd World / Dick Smith - 50 Years In Makeup / Video Beat: Cannom Creations",
+        "year": 1995,
+        "coverUrl": "issues/62/images/cover.jpg",
+        "description": "Featuring articles on Quick Cuts: Sub Plots / Quick Cuts: Cinematic Cyberspace / Quick Cuts: Thirty Seconds Over Zaire / Profile: Jeff Matakovich / Gorilla Warfare / Dredd World / Dick Smith - 50 Years In Makeup / Video Beat: Cannom Creations.",
+        "articles": [
+            {
+                "name": "Quick Cuts: Sub Plots",
+                "readingUrl": "issues/62/1.ReadingView.html",
+                "archiveUrl": "issues/62/1.ArchivalView.html"
+            },
+            {
+                "name": "Quick Cuts: Cinematic Cyberspace",
+                "readingUrl": "issues/62/2.ReadingView.html",
+                "archiveUrl": "issues/62/2.ArchivalView.html"
+            },
+            {
+                "name": "Quick Cuts: Thirty Seconds Over Zaire",
+                "readingUrl": "issues/62/3.ReadingView.html",
+                "archiveUrl": "issues/62/3.ArchivalView.html"
+            },
+            {
+                "name": "Profile: Jeff Matakovich",
+                "readingUrl": "issues/62/4.ReadingView.html",
+                "archiveUrl": "issues/62/4.ArchivalView.html"
+            },
+            {
+                "name": "Gorilla Warfare",
+                "readingUrl": "issues/62/5.ReadingView.html",
+                "archiveUrl": "issues/62/5.ArchivalView.html"
+            },
+            {
+                "name": "Dredd World",
+                "readingUrl": "issues/62/6.ReadingView.html",
+                "archiveUrl": "issues/62/6.ArchivalView.html"
+            },
+            {
+                "name": "Dick Smith - 50 Years In Makeup",
+                "readingUrl": "issues/62/7.ReadingView.html",
+                "archiveUrl": "issues/62/7.ArchivalView.html"
+            },
+            {
+                "name": "Video Beat: Cannom Creations",
+                "readingUrl": "issues/62/8.ReadingView.html",
+                "archiveUrl": "issues/62/8.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 63,
+        "title": "Quick Cuts: The Ghost And Mr. Muren / Special Venues: Mgm's Grand EFX / Quick Cuts: Cowboys and Indians / Commercial Spot: Bear Necessities / Quick Cuts: Am Endangering Species / Quick Cuts: Capturing an Alien Species / Quick Cuts: Bonnie and Clyde / Launching Apollo 13 / Forever and a Knight / Effects Scene: The Last Hurrah / Commercial Spot: This Frog's For You / Commercial Spot: Batteries Included / Video Beat: Soldiers of Fortune",
+        "year": 1995,
+        "coverUrl": "issues/63/images/cover.jpg",
+        "description": "Featuring articles on Quick Cuts: The Ghost And Mr. Muren / Special Venues: Mgm's Grand EFX / Quick Cuts: Cowboys and Indians / Commercial Spot: Bear Necessities / Quick Cuts: Am Endangering Species / Quick Cuts: Capturing an Alien Species / Quick Cuts: Bonnie and Clyde / Launching Apollo 13 / Forever and a Knight / Effects Scene: The Last Hurrah / Commercial Spot: This Frog's For You / Commercial Spot: Batteries Included / Video Beat: Soldiers of Fortune.",
+        "articles": [
+            {
+                "name": "Quick Cuts: The Ghost And Mr. Muren",
+                "readingUrl": "issues/63/1.ReadingView.html",
+                "archiveUrl": "issues/63/1.ArchivalView.html"
+            },
+            {
+                "name": "Special Venues: Mgm's Grand EFX",
+                "readingUrl": "issues/63/2.ReadingView.html",
+                "archiveUrl": "issues/63/2.ArchivalView.html"
+            },
+            {
+                "name": "Quick Cuts: Cowboys and Indians",
+                "readingUrl": "issues/63/3.ReadingView.html",
+                "archiveUrl": "issues/63/3.ArchivalView.html"
+            },
+            {
+                "name": "Commercial Spot: Bear Necessities",
+                "readingUrl": "issues/63/4.ReadingView.html",
+                "archiveUrl": "issues/63/4.ArchivalView.html"
+            },
+            {
+                "name": "Quick Cuts: Am Endangering Species",
+                "readingUrl": "issues/63/5.ReadingView.html",
+                "archiveUrl": "issues/63/5.ArchivalView.html"
+            },
+            {
+                "name": "Quick Cuts: Capturing an Alien Species",
+                "readingUrl": "issues/63/6.ReadingView.html",
+                "archiveUrl": "issues/63/6.ArchivalView.html"
+            },
+            {
+                "name": "Quick Cuts: Bonnie and Clyde",
+                "readingUrl": "issues/63/7.ReadingView.html",
+                "archiveUrl": "issues/63/7.ArchivalView.html"
+            },
+            {
+                "name": "Launching Apollo 13",
+                "readingUrl": "issues/63/8.ReadingView.html",
+                "archiveUrl": "issues/63/8.ArchivalView.html"
+            },
+            {
+                "name": "Forever and a Knight",
+                "readingUrl": "issues/63/9.ReadingView.html",
+                "archiveUrl": "issues/63/9.ArchivalView.html"
+            },
+            {
+                "name": "Effects Scene: The Last Hurrah",
+                "readingUrl": "issues/63/10.ReadingView.html",
+                "archiveUrl": "issues/63/10.ArchivalView.html"
+            },
+            {
+                "name": "Commercial Spot: This Frog's For You",
+                "readingUrl": "issues/63/11.ReadingView.html",
+                "archiveUrl": "issues/63/11.ArchivalView.html"
+            },
+            {
+                "name": "Commercial Spot: Batteries Included",
+                "readingUrl": "issues/63/12.ReadingView.html",
+                "archiveUrl": "issues/63/12.ArchivalView.html"
+            },
+            {
+                "name": "Video Beat: Soldiers of Fortune",
+                "readingUrl": "issues/63/13.ReadingView.html",
+                "archiveUrl": "issues/63/13.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 64,
+        "title": "Poltergeist / Firefox / Firefox / Firefox / Firefox / Firefox / Firefox / Firefox / Firefox / Firefox / Firefox",
+        "year": 1995,
+        "coverUrl": "issues/64/images/cover.jpg",
+        "description": "Featuring articles on Poltergeist / Firefox / Firefox / Firefox / Firefox / Firefox / Firefox / Firefox / Firefox / Firefox / Firefox.",
+        "articles": [
+            {
+                "name": "Poltergeist",
+                "readingUrl": "issues/64/1.ReadingView.html",
+                "archiveUrl": "issues/64/1.ArchivalView.html"
+            },
+            {
+                "name": "Firefox",
+                "readingUrl": "issues/64/11.ReadingView.html",
+                "archiveUrl": "issues/64/2.ArchivalView.html"
+            },
+            {
+                "name": "Firefox",
+                "readingUrl": "issues/64/11.ReadingView.html",
+                "archiveUrl": "issues/64/3.ArchivalView.html"
+            },
+            {
+                "name": "Firefox",
+                "readingUrl": "issues/64/11.ReadingView.html",
+                "archiveUrl": "issues/64/4.ArchivalView.html"
+            },
+            {
+                "name": "Firefox",
+                "readingUrl": "issues/64/11.ReadingView.html",
+                "archiveUrl": "issues/64/5.ArchivalView.html"
+            },
+            {
+                "name": "Firefox",
+                "readingUrl": "issues/64/11.ReadingView.html",
+                "archiveUrl": "issues/64/6.ArchivalView.html"
+            },
+            {
+                "name": "Firefox",
+                "readingUrl": "issues/64/11.ReadingView.html",
+                "archiveUrl": "issues/64/7.ArchivalView.html"
+            },
+            {
+                "name": "Firefox",
+                "readingUrl": "issues/64/11.ReadingView.html",
+                "archiveUrl": "issues/64/8.ArchivalView.html"
+            },
+            {
+                "name": "Firefox",
+                "readingUrl": "issues/64/11.ReadingView.html",
+                "archiveUrl": "issues/64/9.ArchivalView.html"
+            },
+            {
+                "name": "Firefox",
+                "readingUrl": "issues/64/11.ReadingView.html",
+                "archiveUrl": "issues/64/10.ArchivalView.html"
+            },
+            {
+                "name": "Firefox",
+                "readingUrl": "issues/64/11.ReadingView.html",
+                "archiveUrl": "issues/64/11.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 78,
+        "title": "Return of the Jedi / Phantom Visions / Heroes Journey / Populating Planets",
+        "year": 1999,
+        "coverUrl": "issues/78/images/cover.jpg",
+        "description": "Featuring articles on Return of the Jedi / Phantom Visions / Heroes Journey / Populating Planets.",
+        "articles": [
+            {
+                "name": "Return of the Jedi",
+                "readingUrl": "issues/78/1.ReadingView.html",
+                "archiveUrl": "issues/78/1.ArchivalView.html"
+            },
+            {
+                "name": "Phantom Visions",
+                "readingUrl": "issues/78/2.ReadingView.html",
+                "archiveUrl": "issues/78/2.ArchivalView.html"
+            },
+            {
+                "name": "Heroes Journey",
+                "readingUrl": "issues/78/3.ReadingView.html",
+                "archiveUrl": "issues/78/3.ArchivalView.html"
+            },
+            {
+                "name": "Populating Planets",
+                "readingUrl": "issues/78/4.ReadingView.html",
+                "archiveUrl": "issues/78/4.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 90,
+        "title": "Spider-Man / Star Wars Episode II",
+        "year": 2002,
+        "coverUrl": "issues/90/images/cover.jpg",
+        "description": "Featuring articles on Spider-Man / Star Wars Episode II.",
+        "articles": [
+            {
+                "name": "Spider-Man",
+                "readingUrl": "issues/90/1.ReadingView.html",
+                "archiveUrl": "issues/90/1.ArchivalView.html"
+            },
+            {
+                "name": "Star Wars Episode II",
+                "readingUrl": "issues/90/2.ReadingView.html",
+                "archiveUrl": "issues/90/2.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 102,
+        "title": "Sin City / Constantine / Q&A: George Lucas / Star Wars Episode III: Revenge of the Sith / The Hitchhiker\u2019s Guide to the Galaxy",
+        "year": 2005,
+        "coverUrl": "issues/102/images/cover.jpg",
+        "description": "Featuring articles on Sin City / Constantine / Q&A: George Lucas / Star Wars Episode III: Revenge of the Sith / The Hitchhiker\u2019s Guide to the Galaxy.",
+        "articles": [
+            {
+                "name": "Sin City",
+                "readingUrl": "issues/102/1.ReadingView.html",
+                "archiveUrl": "issues/102/1.ArchivalView.html"
+            },
+            {
+                "name": "Constantine",
+                "readingUrl": "issues/102/2.ReadingView.html",
+                "archiveUrl": "issues/102/2.ArchivalView.html"
+            },
+            {
+                "name": "Q&A: George Lucas",
+                "readingUrl": "issues/102/3.ReadingView.html",
+                "archiveUrl": "issues/102/3.ArchivalView.html"
+            },
+            {
+                "name": "Star Wars Episode III: Revenge of the Sith",
+                "readingUrl": "issues/102/4.ReadingView.html",
+                "archiveUrl": "issues/102/4.ArchivalView.html"
+            },
+            {
+                "name": "The Hitchhiker\u2019s Guide to the Galaxy",
+                "readingUrl": "issues/102/5.ReadingView.html",
+                "archiveUrl": "issues/102/5.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 117,
+        "title": "Changeling / The Spirit / Coraline / Watchmen / Inkheart",
+        "year": 2009,
+        "coverUrl": "issues/117/images/cover.jpg",
+        "description": "Featuring articles on Changeling / The Spirit / Coraline / Watchmen / Inkheart.",
+        "articles": [
+            {
+                "name": "Changeling",
+                "readingUrl": "issues/117/1.ReadingView.html",
+                "archiveUrl": "issues/117/1.ArchivalView.html"
+            },
+            {
+                "name": "The Spirit",
+                "readingUrl": "issues/117/2.ReadingView.html",
+                "archiveUrl": "issues/117/2.ArchivalView.html"
+            },
+            {
+                "name": "Coraline",
+                "readingUrl": "issues/117/3.ReadingView.html",
+                "archiveUrl": "issues/117/3.ArchivalView.html"
+            },
+            {
+                "name": "Watchmen",
+                "readingUrl": "issues/117/4.ReadingView.html",
+                "archiveUrl": "issues/117/4.ArchivalView.html"
+            },
+            {
+                "name": "Inkheart",
+                "readingUrl": "issues/117/5.ReadingView.html",
+                "archiveUrl": "issues/117/5.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 121,
+        "title": "Kevin Mack on Percy Jackson / The Wolfman / The Tippett Touch / The Imaginarium of Doctor Parnassus",
+        "year": 2010,
+        "coverUrl": "issues/121/images/cover.jpg",
+        "description": "Featuring articles on Kevin Mack on Percy Jackson / The Wolfman / The Tippett Touch / The Imaginarium of Doctor Parnassus.",
+        "articles": [
+            {
+                "name": "Kevin Mack on Percy Jackson",
+                "readingUrl": "issues/121/1.ReadingView.html",
+                "archiveUrl": "issues/121/1.ArchivalView.html"
+            },
+            {
+                "name": "The Wolfman",
+                "readingUrl": "issues/121/2.ReadingView.html",
+                "archiveUrl": "issues/121/2.ArchivalView.html"
+            },
+            {
+                "name": "The Tippett Touch",
+                "readingUrl": "issues/121/3.ReadingView.html",
+                "archiveUrl": "issues/121/3.ArchivalView.html"
+            },
+            {
+                "name": "The Imaginarium of Doctor Parnassus",
+                "readingUrl": "issues/121/4.ReadingView.html",
+                "archiveUrl": "issues/121/4.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 122,
+        "title": "Splice / Iron Man 2 / Alice in Wonderland / Clash of the Titans",
+        "year": 2010,
+        "coverUrl": "issues/122/images/cover.jpg",
+        "description": "Featuring articles on Splice / Iron Man 2 / Alice in Wonderland / Clash of the Titans.",
+        "articles": [
+            {
+                "name": "Splice",
+                "readingUrl": "issues/122/1.ReadingView.html",
+                "archiveUrl": "issues/122/1.ArchivalView.html"
+            },
+            {
+                "name": "Iron Man 2",
+                "readingUrl": "issues/122/2.ReadingView.html",
+                "archiveUrl": "issues/122/2.ArchivalView.html"
+            },
+            {
+                "name": "Alice in Wonderland",
+                "readingUrl": "issues/122/3.ReadingView.html",
+                "archiveUrl": "issues/122/3.ArchivalView.html"
+            },
+            {
+                "name": "Clash of the Titans",
+                "readingUrl": "issues/122/4.ReadingView.html",
+                "archiveUrl": "issues/122/4.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 123,
+        "title": "Inception / The A-Team / The Last Airbender",
+        "year": 2010,
+        "coverUrl": "issues/123/images/cover.jpg",
+        "description": "Featuring articles on Inception / The A-Team / The Last Airbender.",
+        "articles": [
+            {
+                "name": "Inception",
+                "readingUrl": "issues/123/2.ReadingView.html",
+                "archiveUrl": "issues/123/2.ArchivalView.html"
+            },
+            {
+                "name": "The A-Team",
+                "readingUrl": "issues/123/3.ReadingView.html",
+                "archiveUrl": "issues/123/3.ArchivalView.html"
+            },
+            {
+                "name": "The Last Airbender",
+                "readingUrl": "issues/123/4.ReadingView.html",
+                "archiveUrl": "issues/123/4.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 124,
+        "title": "Hereafter / Tron: Legacy / The Voyage of the Dawn Treader / Harry Potter and the Deathly Hallows",
+        "year": 2011,
+        "coverUrl": "issues/124/images/cover.jpg",
+        "description": "Featuring articles on Hereafter / Tron: Legacy / The Voyage of the Dawn Treader / Harry Potter and the Deathly Hallows.",
+        "articles": [
+            {
+                "name": "Hereafter",
+                "readingUrl": "issues/124/1.ReadingView.html",
+                "archiveUrl": "issues/124/1.ArchivalView.html"
+            },
+            {
+                "name": "Tron: Legacy",
+                "readingUrl": "issues/124/2.ReadingView.html",
+                "archiveUrl": "issues/124/2.ArchivalView.html"
+            },
+            {
+                "name": "The Voyage of the Dawn Treader",
+                "readingUrl": "issues/124/3.ReadingView.html",
+                "archiveUrl": "issues/124/3.ArchivalView.html"
+            },
+            {
+                "name": "Harry Potter and the Deathly Hallows",
+                "readingUrl": "issues/124/4.ReadingView.html",
+                "archiveUrl": "issues/124/4.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 125,
+        "title": "Black Swan / Sucker Punch / Rango / Battle: Los Angeles",
+        "year": 2011,
+        "coverUrl": "issues/125/images/cover.jpg",
+        "description": "Featuring articles on Black Swan / Sucker Punch / Rango / Battle: Los Angeles.",
+        "articles": [
+            {
+                "name": "Black Swan",
+                "readingUrl": "issues/125/1.ReadingView.html",
+                "archiveUrl": "issues/125/1.ArchivalView.html"
+            },
+            {
+                "name": "Sucker Punch",
+                "readingUrl": "issues/125/2.ReadingView.html",
+                "archiveUrl": "issues/125/2.ArchivalView.html"
+            },
+            {
+                "name": "Rango",
+                "readingUrl": "issues/125/3.ReadingView.html",
+                "archiveUrl": "issues/125/3.ArchivalView.html"
+            },
+            {
+                "name": "Battle: Los Angeles",
+                "readingUrl": "issues/125/4.ReadingView.html",
+                "archiveUrl": "issues/125/4.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 126,
+        "title": "Thor / Source Code / Priest / X-Men: First Class",
+        "year": 2011,
+        "coverUrl": "issues/126/images/Cinefex-126-cover-img01.jpg",
+        "description": "Featuring articles on Thor / Source Code / Priest / X-Men: First Class.",
+        "articles": [
+            {
+                "name": "Thor",
+                "readingUrl": "issues/126/1.ReadingView.html",
+                "archiveUrl": "issues/126/1.ArchivalView.html"
+            },
+            {
+                "name": "Source Code",
+                "readingUrl": "issues/126/2.ReadingView.html",
+                "archiveUrl": "issues/126/2.ArchivalView.html"
+            },
+            {
+                "name": "Priest",
+                "readingUrl": "issues/126/3.ReadingView.html",
+                "archiveUrl": "issues/126/3.ArchivalView.html"
+            },
+            {
+                "name": "X-Men: First Class",
+                "readingUrl": "issues/126/4.ReadingView.html",
+                "archiveUrl": "issues/126/4.ArchivalView.html"
+            }
+        ]
+    },
+    {
+        "issue": 127,
+        "title": "Cowboys and Aliens / Anonymous / Captain America / Harry Potter VII: Part 2",
+        "year": 2011,
+        "coverUrl": "issues/127/images/iPad_Cover_127_2.6x.jpg",
+        "description": "Featuring articles on Cowboys and Aliens / Anonymous / Captain America / Harry Potter VII: Part 2.",
+        "articles": [
+            {
+                "name": "Cowboys and Aliens",
+                "readingUrl": "issues/127/readingView1.html",
+                "archiveUrl": "issues/127/manuscript1.html"
+            },
+            {
+                "name": "Anonymous",
+                "readingUrl": "issues/127/readingView2.html",
+                "archiveUrl": "issues/127/manuscript2.html"
+            },
+            {
+                "name": "Captain America",
+                "readingUrl": "issues/127/readingView3.html",
+                "archiveUrl": "issues/127/manuscript3.html"
+            },
+            {
+                "name": "Harry Potter VII: Part 2",
+                "readingUrl": "issues/127/readingView4.html",
+                "archiveUrl": "issues/127/manuscript4.html"
+            }
+        ]
+    },
+    {
+        "issue": 142,
+        "title": "Mad Max: Fury Road / Avengers: Age of Ultron / Jurassic World / San Andreas",
+        "year": 2015,
+        "coverUrl": "issues/142/images/iPad_Cover_142_Avengers_2x.jpg",
+        "description": "Featuring articles on Mad Max: Fury Road / Avengers: Age of Ultron / Jurassic World / San Andreas.",
+        "articles": [
+            {
+                "name": "Mad Max: Fury Road",
+                "readingUrl": "issues/142/readingView1.html",
+                "archiveUrl": "issues/142/manuscript1.html"
+            },
+            {
+                "name": "Avengers: Age of Ultron",
+                "readingUrl": "issues/142/readingView2.html",
+                "archiveUrl": "issues/142/manuscript2.html"
+            },
+            {
+                "name": "Jurassic World",
+                "readingUrl": "issues/142/readingView3.html",
+                "archiveUrl": "issues/142/manuscript3.html"
+            },
+            {
+                "name": "San Andreas",
+                "readingUrl": "issues/142/readingView4.html",
+                "archiveUrl": "issues/142/manuscript4.html"
+            }
+        ]
+    },
+    {
+        "issue": 148,
+        "title": "Independence Day: Resurgence / Warcraft / Star Trek Beyond / The Legend of Tarzan",
+        "year": 2016,
+        "coverUrl": "issues/148/images/iPad_Cover_148_2x.jpg",
+        "description": "Featuring articles on Independence Day: Resurgence / Warcraft / Star Trek Beyond / The Legend of Tarzan.",
+        "articles": [
+            {
+                "name": "Independence Day: Resurgence",
+                "readingUrl": "issues/148/readingView1.html",
+                "archiveUrl": "issues/148/manuscript1.html"
+            },
+            {
+                "name": "Warcraft",
+                "readingUrl": "issues/148/readingView2.html",
+                "archiveUrl": "issues/148/manuscript2.html"
+            },
+            {
+                "name": "Star Trek Beyond",
+                "readingUrl": "issues/148/readingView3.html",
+                "archiveUrl": "issues/148/manuscript3.html"
+            },
+            {
+                "name": "The Legend of Tarzan",
+                "readingUrl": "issues/148/readingView4.html",
+                "archiveUrl": "issues/148/manuscript4.html"
+            }
+        ]
+    },
+    {
+        "issue": 160,
+        "title": "Ant-Man and the Wasp / Deadpool 2 / Solo: A Star Wars Story / Jurassic World: Fallen Kingdom",
+        "year": 2018,
+        "coverUrl": "issues/160/images/iPad_Cover_160_2x.jpg",
+        "description": "Featuring articles on Ant-Man and the Wasp / Deadpool 2 / Solo: A Star Wars Story / Jurassic World: Fallen Kingdom.",
+        "articles": [
+            {
+                "name": "Ant-Man and the Wasp",
+                "readingUrl": "issues/160/readingView1.html",
+                "archiveUrl": "issues/160/manuscript1.html"
+            },
+            {
+                "name": "Deadpool 2",
+                "readingUrl": "issues/160/readingView2.html",
+                "archiveUrl": "issues/160/manuscript2.html"
+            },
+            {
+                "name": "Solo: A Star Wars Story",
+                "readingUrl": "issues/160/readingView3.html",
+                "archiveUrl": "issues/160/manuscript3.html"
+            },
+            {
+                "name": "Jurassic World: Fallen Kingdom",
+                "readingUrl": "issues/160/readingView4.html",
+                "archiveUrl": "issues/160/manuscript4.html"
+            }
+        ]
+    },
+    {
+        "issue": 161,
+        "title": "Alpha / The Meg / First Man / A.X.L. / Venom",
+        "year": 2018,
+        "coverUrl": "issues/161/images/iPad_Cover_161_2x.jpg",
+        "description": "Featuring articles on Alpha / The Meg / First Man / A.X.L. / Venom.",
+        "articles": [
+            {
+                "name": "Alpha",
+                "readingUrl": "issues/161/readingView1.html",
+                "archiveUrl": "issues/161/manuscript1.html"
+            },
+            {
+                "name": "The Meg",
+                "readingUrl": "issues/161/readingView2.html",
+                "archiveUrl": "issues/161/manuscript2.html"
+            },
+            {
+                "name": "First Man",
+                "readingUrl": "issues/161/readingView3.html",
+                "archiveUrl": "issues/161/manuscript3.html"
+            },
+            {
+                "name": "A.X.L.",
+                "readingUrl": "issues/161/readingView4.html",
+                "archiveUrl": "issues/161/manuscript4.html"
+            },
+            {
+                "name": "Venom",
+                "readingUrl": "issues/161/readingView5.html",
+                "archiveUrl": "issues/161/manuscript5.html"
+            }
+        ]
+    },
+    {
+        "issue": 164,
+        "title": "Hellboy / Captain Marvel / Dumbo / Nature of the Beast",
+        "year": 2019,
+        "coverUrl": "issues/164/images/iPad_Cover_164_2x.jpg",
+        "description": "Featuring articles on Hellboy / Captain Marvel / Dumbo / Nature of the Beast.",
+        "articles": [
+            {
+                "name": "Hellboy",
+                "readingUrl": "issues/164/readingView1.html",
+                "archiveUrl": "issues/164/manuscript1.html"
+            },
+            {
+                "name": "Captain Marvel",
+                "readingUrl": "issues/164/readingView2.html",
+                "archiveUrl": "issues/164/manuscript2.html"
+            },
+            {
+                "name": "Dumbo",
+                "readingUrl": "issues/164/readingView3.html",
+                "archiveUrl": "issues/164/manuscript3.html"
+            },
+            {
+                "name": "Nature of the Beast",
+                "readingUrl": "issues/164/readingView4.html",
+                "archiveUrl": "issues/164/manuscript4.html"
+            }
+        ]
+    },
+    {
+        "issue": 168,
+        "title": "Midway / Ford v Ferrari / Terminator: Dark Fate / The Irishman / Digital Domain",
+        "year": 2019,
+        "coverUrl": "issues/168/images/iPad_Cover_168_2x.jpg",
+        "description": "Featuring articles on Midway / Ford v Ferrari / Terminator: Dark Fate / The Irishman / Digital Domain.",
+        "articles": [
+            {
+                "name": "Midway",
+                "readingUrl": "issues/168/readingView1.html",
+                "archiveUrl": "issues/168/manuscript1.html"
+            },
+            {
+                "name": "Ford v Ferrari",
+                "readingUrl": "issues/168/readingView2.html",
+                "archiveUrl": "issues/168/manuscript2.html"
+            },
+            {
+                "name": "Terminator: Dark Fate",
+                "readingUrl": "issues/168/readingView3.html",
+                "archiveUrl": "issues/168/manuscript3.html"
+            },
+            {
+                "name": "The Irishman",
+                "readingUrl": "issues/168/readingView4.html",
+                "archiveUrl": "issues/168/manuscript4.html"
+            },
+            {
+                "name": "Digital Domain",
+                "readingUrl": "issues/168/readingView5.html",
+                "archiveUrl": "issues/168/manuscript5.html"
+            }
+        ]
+    },
+    {
+        "issue": 169,
+        "title": "Introduction / The Illusionists / James Cameron / George Lucas / Christopher Nolan / Robert Zemeckis / Star Wars: The Rise of Skywalker / The Mandalorian",
+        "year": 2020,
+        "coverUrl": "issues/169/images/iPad_Cover_169_2x.jpg",
+        "description": "Featuring articles on Introduction / The Illusionists / James Cameron / George Lucas / Christopher Nolan / Robert Zemeckis / Star Wars: The Rise of Skywalker / The Mandalorian.",
+        "articles": [
+            {
+                "name": "Introduction",
+                "readingUrl": "issues/169/readingView1.html",
+                "archiveUrl": "issues/169/manuscript1.html"
+            },
+            {
+                "name": "The Illusionists",
+                "readingUrl": "issues/169/readingView2.html",
+                "archiveUrl": "issues/169/manuscript2.html"
+            },
+            {
+                "name": "James Cameron",
+                "readingUrl": "issues/169/readingView3.html",
+                "archiveUrl": "issues/169/manuscript3.html"
+            },
+            {
+                "name": "George Lucas",
+                "readingUrl": "issues/169/readingView4.html",
+                "archiveUrl": "issues/169/manuscript4.html"
+            },
+            {
+                "name": "Christopher Nolan",
+                "readingUrl": "issues/169/readingView5.html",
+                "archiveUrl": "issues/169/manuscript5.html"
+            },
+            {
+                "name": "Robert Zemeckis",
+                "readingUrl": "issues/169/readingView6.html",
+                "archiveUrl": "issues/169/manuscript6.html"
+            },
+            {
+                "name": "Star Wars: The Rise of Skywalker",
+                "readingUrl": "issues/169/readingView7.html",
+                "archiveUrl": "issues/169/manuscript7.html"
+            },
+            {
+                "name": "The Mandalorian",
+                "readingUrl": "issues/169/readingView8.html",
+                "archiveUrl": "issues/169/manuscript8.html"
+            }
+        ]
+    }
+]

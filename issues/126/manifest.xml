@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<issue name="">
+	<issueNumber value="126"/>
+    <publicationDate value="July 2011"/>
+    <thumbnails value="Thumbs.archive"/>
+    <cover value="cover.html"/>
+    <masthead value="masthead.html"/>
+    <ads value="ads.html"/>
+    <tail value="tail.html"/>
+    <articles>
+        <article name="Thor" value="1.ArchivalView.html"/>
+        <article name="Source Code" value="2.ArchivalView.html"/>
+        <article name="Priest" value="3.ArchivalView.html"/>
+        <article name="X-Men: First Class" value="4.ArchivalView.html"/>
+    </articles>
+    <readingViews>
+        <readingView name="Thor" value="1.ReadingView.html"/>
+        <readingView name="Source Code" value="2.ReadingView.html"/>
+        <readingView name="Priest" value="3.ReadingView.html"/>
+        <readingView name="X-Men: First Class" value="4.ReadingView.html"/>
+    </readingViews>
+</issue> 
