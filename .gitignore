@@ -26,8 +26,6 @@
 *.mpeg
 *.mp2
 *.mp3
-.DS_Store
 .ds_store
-*.DS_Store
 *.code-workspace
 issues/
