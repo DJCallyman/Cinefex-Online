@@ -22,6 +22,14 @@ def find_cover_image(html_content):
         
     return None
 
+def fix_xml_ampersands(xml_content):
+    """
+    Fix unescaped ampersands in XML content.
+    Replaces & with &amp; but avoids double-escaping existing entities.
+    """
+    # Replace & that is not already part of an entity (like &amp; &lt; &gt; &quot; &apos; or numeric &#123;)
+    return re.sub(r'&(?!(?:amp|lt|gt|quot|apos|#\d+|#x[0-9a-fA-F]+);)', '&amp;', xml_content)
+
 def create_issues_json():
     """
     Parses manifest.xml and cover.html files from issue folders (1-169) 
@@ -44,8 +52,11 @@ def create_issues_json():
 
         try:
             # --- Parse manifest.xml ---
-            tree = ET.parse(manifest_path)
-            root = tree.getroot()
+            # Read and fix any unescaped ampersands before parsing
+            with open(manifest_path, 'r', encoding='utf-8', errors='ignore') as f:
+                xml_content = f.read()
+            xml_content = fix_xml_ampersands(xml_content)
+            root = ET.fromstring(xml_content)
 
             issue_number = root.find('issueNumber').get('value')
             publication_date = root.find('publicationDate').get('value')
