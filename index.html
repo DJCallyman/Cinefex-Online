@@ -373,19 +373,12 @@
                             font-family: "BenguiatStd-BookItalic", Georgia, serif !important;
                         }
                         
-                        /* Float clearing fixes */
+                        /* Page display - no clearing to allow content to flow alongside images */
                         page {
                             display: block !important;
-                            clear: both !important;
                         }
                         
-                        page::after {
-                            content: "" !important;
-                            display: block !important;
-                            clear: both !important;
-                            height: 0 !important;
-                        }
-                        
+                        /* Only clear floats at footer and end of body */
                         .footer {
                             clear: both !important;
                             margin-top: 2em !important;
