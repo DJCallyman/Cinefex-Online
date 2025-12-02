@@ -131,9 +131,10 @@
                         const coverElement = document.createElement('div');
                         coverElement.className = 'magazine-cover cursor-pointer group';
                         
-                        const aspectRatioClass = magazine.issue < 127 ? 'aspect-[9/8]' : '';
-                        const fallbackLogic = `this.onerror=null; this.src='https://placehold.co/450x400/111827/ffffff?text=Image+Not+Found'`;
-                        coverElement.innerHTML = `<img src="${magazine.coverUrl}" alt="Cover of Cinefex Issue ${magazine.issue}" class="w-full rounded-lg shadow-lg ${aspectRatioClass} object-cover" onerror="${fallbackLogic}"><div class="mt-3 text-center"><h3 class="font-semibold text-white">Issue ${magazine.issue}</h3><p class="text-sm text-gray-400 group-hover:text-white transition-colors">${magazine.year}</p></div>`;
+                        // Use standardized cover images from covers folder
+                        const coverPath = `covers/${magazine.issue}/cover512.jpg`;
+                        const fallbackLogic = `this.onerror=null; this.src='https://placehold.co/450x400/111827/ffffff?text=Issue+${magazine.issue}'`;
+                        coverElement.innerHTML = `<img src="${coverPath}" alt="Cover of Cinefex Issue ${magazine.issue}" class="w-full rounded-lg shadow-lg object-cover" onerror="${fallbackLogic}"><div class="mt-3 text-center"><h3 class="font-semibold text-white">Issue ${magazine.issue}</h3><p class="text-sm text-gray-400 group-hover:text-white transition-colors">${magazine.year}</p></div>`;
                         coverElement.addEventListener('click', () => openModal(magazine));
                         bucketGrid.appendChild(coverElement);
                     });
@@ -154,10 +155,12 @@
             }
             
             function openModal(magazine) {
-                const fallbackLogic = `this.onerror=null; this.src='https://placehold.co/450x400/111827/ffffff?text=Image+Not+Found'`;
+                // Use standardized cover images from covers folder
+                const coverPath = `covers/${magazine.issue}/cover512.jpg`;
+                const fallbackLogic = `this.onerror=null; this.src='https://placehold.co/450x400/111827/ffffff?text=Issue+${magazine.issue}'`;
                 modalContent.innerHTML = `
                     <div class="w-full md:w-1/2 p-0">
-                        <img src="${magazine.coverUrl}" alt="Cover of Cinefex Issue ${magazine.issue}" class="w-full h-full object-cover" onerror="${fallbackLogic}">
+                        <img src="${coverPath}" alt="Cover of Cinefex Issue ${magazine.issue}" class="w-full h-full object-cover" onerror="${fallbackLogic}">
                     </div>
                     <div id="modal-dynamic-content" class="w-full md:w-2/2 p-6 sm:p-8 flex flex-col"></div>
                     <button id="modal-close" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10">
@@ -306,10 +309,8 @@
             }
 
             /**
-             * Injects styles into old format (≤126) reading view to fix float containment.
-             * The .img-group elements are floated right with negative margins, which can
-             * cause images to extend beyond the text content when the text is shorter.
-             * This fix ensures proper clearing without cropping the extended images.
+             * Injects styles into old format (≤126) reading view.
+             * Fixes float containment and uses Benguiat font from central fonts folder.
              */
             function injectOldReadingViewStyles(iframe) {
                 try {
@@ -318,15 +319,66 @@
 
                     const style = doc.createElement('style');
                     style.textContent = `
-                        /* Fix for OLD format reading view - clear floats without cropping */
+                        /* Benguiat font definitions from central fonts folder */
+                        @font-face {
+                            font-family: "BenguiatStd-Book";
+                            src: url("/fonts/BenguiatStd-Book.otf") format("opentype");
+                            font-style: normal;
+                        }
+                        @font-face {
+                            font-family: "BenguiatStd-BookItalic";
+                            src: url("/fonts/BenguiatStd-BookItalic.otf") format("opentype");
+                            font-style: italic;
+                        }
+                        @font-face {
+                            font-family: "BenguiatStd-Medium";
+                            src: url("/fonts/BenguiatStd-Medium.otf") format("opentype");
+                            font-style: normal;
+                        }
+                        @font-face {
+                            font-family: "BenguiatStd-MediumItalic";
+                            src: url("/fonts/BenguiatStd-MediumItalic.otf") format("opentype");
+                            font-style: italic;
+                        }
+                        @font-face {
+                            font-family: "BenguiatStd-Bold";
+                            src: url("/fonts/BenguiatStd-Bold.otf") format("opentype");
+                            font-style: normal;
+                            font-weight: bold;
+                        }
                         
-                        /* Each page clears previous floats */
+                        /* Override CaeciliaLTStd with Benguiat */
+                        body {
+                            font-family: "BenguiatStd-Book", Georgia, serif !important;
+                        }
+                        
+                        em, i {
+                            font-family: "BenguiatStd-BookItalic", Georgia, serif !important;
+                            font-style: italic !important;
+                        }
+                        
+                        /* Strong/bold - use Medium weight to match iPad app */
+                        strong, b {
+                            font-family: "BenguiatStd-Medium", Georgia, serif !important;
+                            font-weight: normal !important;
+                        }
+                        
+                        /* Article title - use Medium weight */
+                        articleTitle {
+                            font-family: "BenguiatStd-Medium", Georgia, serif !important;
+                            font-weight: normal !important;
+                        }
+                        
+                        .dropCap span {
+                            font-family: "BenguiatStd-BookItalic", Georgia, serif !important;
+                        }
+                        
+                        /* Float clearing fixes */
                         page {
                             display: block !important;
                             clear: both !important;
                         }
                         
-                        /* Add clearfix after page content using float containment */
                         page::after {
                             content: "" !important;
                             display: block !important;
@@ -334,13 +386,11 @@
                             height: 0 !important;
                         }
                         
-                        /* Footer should clear floats */
                         .footer {
                             clear: both !important;
                             margin-top: 2em !important;
                         }
                         
-                        /* Ensure body ends cleanly */
                         body::after {
                             content: "" !important;
                             display: block !important;
@@ -355,38 +405,130 @@
 
             /**
              * Injects styles into new format (≥127) reading view to improve typography.
-             * Preserves original fonts while improving layout for web display.
+             * Uses centralized fonts and improves layout for web display.
              */
             function injectNewReadingViewStyles(iframe) {
                 try {
                     const doc = iframe.contentDocument || iframe.contentWindow.document;
                     if (!doc) return;
+
+                    // Remove existing stylesheets that have broken font paths
+                    const existingStyles = doc.querySelectorAll('link[rel="stylesheet"]');
+                    existingStyles.forEach(link => {
+                        if (link.href.includes('Cinefex.css')) {
+                            link.remove();
+                        }
+                    });
             
                     // Create optimized stylesheet for NEWER issues (127+)
+                    // Insert at START of head to ensure our @font-face rules take precedence
                     const style = doc.createElement('style');
                     style.textContent = `
-                        /* Layout reset that preserves original typography */
+                        /* Central font definitions - using absolute paths to /fonts/ */
+                        @font-face {
+                            font-family: "BenguiatStd-Book";
+                            src: url("/fonts/BenguiatStd-Book.otf") format("opentype");
+                            font-style: normal;
+                        }
+                        @font-face {
+                            font-family: "BenguiatStd-BookItalic";
+                            src: url("/fonts/BenguiatStd-BookItalic.otf") format("opentype");
+                            font-style: italic;
+                        }
+                        @font-face {
+                            font-family: "BenguiatStd-Medium";
+                            src: url("/fonts/BenguiatStd-Medium.otf") format("opentype");
+                            font-style: normal;
+                        }
+                        @font-face {
+                            font-family: "BenguiatStd-MediumItalic";
+                            src: url("/fonts/BenguiatStd-MediumItalic.otf") format("opentype");
+                            font-style: italic;
+                        }
+                        @font-face {
+                            font-family: "BenguiatStd-Bold";
+                            src: url("/fonts/BenguiatStd-Bold.otf") format("opentype");
+                            font-style: normal;
+                            font-weight: bold;
+                        }
+                        @font-face {
+                            font-family: "GillSansStd";
+                            src: url("/fonts/GillSansStd.otf") format("opentype");
+                            font-style: normal;
+                        }
+                        @font-face {
+                            font-family: "GillSansStd-Italic";
+                            src: url("/fonts/GillSansStd-Italic.otf") format("opentype");
+                            font-style: italic;
+                        }
+                        @font-face {
+                            font-family: "GillSans-Bold";
+                            src: url("/fonts/GillSans Bold.tt") format("truetype");
+                            font-weight: bold;
+                        }
+                        @font-face {
+                            font-family: "FuturaStd-ExtraBold";
+                            src: url("/fonts/FuturaStd-ExtraBold.otf") format("opentype");
+                            font-weight: bold;
+                        }
+                        @font-face {
+                            font-family: "DucDeBerryLTStd";
+                            src: url("/fonts/DucDeBerryLTStd.otf") format("opentype");
+                            font-style: normal;
+                        }
+
+                        /* Layout improvements */
                         html, body {
                             margin: 0 !important;
                             padding: 0 !important;
                             box-sizing: border-box !important;
                         }
+                        
                         body {
                             background-color: #f8f9fa !important;
                             color: #1e293b !important;
                             padding: 2rem 4rem !important;
-                            line-height: 1.7 !important;
                             max-width: 1024px !important;
                             margin-left: auto !important;
                             margin-right: auto !important;
-                            /* Preserve original font-family from Cinefex.css */
+                        }
+                        
+                        /* Manuscript/reading view styling - matches original iPad app */
+                        .manuscript, .manuscript01 {
+                            font-family: "BenguiatStd-Book", Georgia, serif !important;
+                            font-size: 16px !important;
+                            line-height: 30px !important;
+                            text-align: justify !important;
+                            padding: 20px !important;
+                            height: auto !important;
+                            width: auto !important;
                         }
                         
                         /* Target text container (div.page) */
                         .page {
-                            font-size: 1.1rem !important;
+                            font-family: "BenguiatStd-Book", Georgia, serif !important;
+                            font-size: 16px !important;
+                            line-height: 30px !important;
                             text-align: justify !important;
                             margin-bottom: 1.5em !important;
+                            height: auto !important;
+                            width: auto !important;
+                        }
+                        
+                        /* Italic text */
+                        em, i {
+                            font-family: "BenguiatStd-BookItalic", Georgia, serif !important;
+                            font-style: italic !important;
+                        }
+                        
+                        /* Drop caps */
+                        .dropCap span {
+                            font-family: "BenguiatStd-BookItalic", Georgia, serif !important;
+                        }
+                        
+                        /* Captions use GillSans */
+                        .caption, .sideBar, .sideBarBottom {
+                            font-family: "GillSansStd-Italic", "Gill Sans", sans-serif !important;
                         }
                         
                         /* Preserve image containers */
@@ -409,7 +551,13 @@
                             break-inside: avoid !important;
                         }
                     `;
-                    doc.head.appendChild(style);
+                    
+                    // Insert at the START of head so our @font-face rules are processed first
+                    if (doc.head.firstChild) {
+                        doc.head.insertBefore(style, doc.head.firstChild);
+                    } else {
+                        doc.head.appendChild(style);
+                    }
             
                     // Title injection with fallback: dc:Title → Film → Creator
                     const titleText = extractTitle(doc);
