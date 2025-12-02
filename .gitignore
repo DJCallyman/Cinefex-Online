@@ -12,6 +12,7 @@
 *.heic
 *.heif
 *.archive
+*.archive.1
 *.mp4
 *.m4v
 *.mov
@@ -26,4 +27,7 @@
 *.mp2
 *.mp3
 .DS_Store
+.ds_store
 *.DS_Store
+*.code-workspace
+issues/

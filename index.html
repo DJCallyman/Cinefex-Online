@@ -229,7 +229,7 @@
                 document.body.style.overflow = 'hidden';
 
                 // If the issue is 127+ and it's a reading view, inject styles on load.
-                if (issueNumber >= 127 && url.includes('ReadingView')) {
+                if (issueNumber >= 127 && url.toLowerCase().includes('readingview')) {
                     viewerIframe.onload = () => injectStyles(viewerIframe);
                 } else {
                     viewerIframe.onload = null; // Clear any previous onload handler
@@ -240,67 +240,81 @@
                 try {
                     const doc = iframe.contentDocument || iframe.contentWindow.document;
                     if (!doc) return;
-
-                    // Create a more aggressive "rescue" stylesheet for Quirks Mode
+            
+                    // Create optimized stylesheet for NEWER issues (127+)
                     const style = doc.createElement('style');
                     style.textContent = `
-                        /* Aggressive Reset and Base Styles */
+                        /* Aggressive reset that doesn't break image containers */
                         html, body {
                             margin: 0 !important;
                             padding: 0 !important;
                             box-sizing: border-box !important;
                         }
-                        body { 
-                            background-color: #f8f9fa !important; 
+                        body {
+                            background-color: #f8f9fa !important;
                             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
-                            color: #212529 !important;
+                            color: #1e293b !important;
                             padding: 2rem 4rem !important;
                             line-height: 1.7 !important;
-                            max-width: 800px;
+                            max-width: 1024px !important; /* Matches Cinefex.css page width */
                             margin-left: auto !important;
                             margin-right: auto !important;
                         }
-                        /* Force non-standard <page> tags to behave like blocks */
-                        page {
-                            display: block !important;
-                            margin-bottom: 1.5em !important; 
-                        }
-                        /* Style the inner .page divs */
-                        .page { 
+                        
+                        /* CRITICAL: Target ACTUAL text container (div.page) */
+                        .page {
                             font-size: 1.1rem !important;
                             text-align: justify !important;
+                            margin-bottom: 1.5em !important; /* Replaces old page margin */
                         }
-                        /* Hide empty image containers and other layout divs */
-                        .img-all, [style*="background"] {
+                        
+                        /* Preserve image containers while hiding other background artifacts */
+                        .img-all {
+                            height: 660px !important; /* Critical - from Cinefex.css */
+                            display: block !important;
+                            background-size: contain !important;
+                            background-position: center !important;
+                        }
+                        
+                        /* ONLY hide non-image background elements */
+                        div:not(.img-all)[style*="background"] {
                             display: none !important;
+                        }
+                        
+                        /* Remove legacy styling that breaks new structure */
+                        page {
+                            display: block !important;
+                            break-inside: avoid !important;
                         }
                     `;
                     doc.head.appendChild(style);
-
-                    // Extract title from meta and create an <h1>
+            
+                    // Title injection (confirmed safe - dc:Title exists in new issues)
                     const titleMeta = doc.querySelector('meta[name="dc:Title"]');
                     if (titleMeta && doc.body) {
                         const titleText = titleMeta.getAttribute('content');
-                        // Remove if an h1 already exists from a previous load
-                        const oldH1 = doc.querySelector('h1.injected-title');
-                        if(oldH1) oldH1.remove();
-
+                        const existingH1 = doc.querySelector('h1.injected-title');
+                        if (existingH1) existingH1.remove();
+                        
                         const h1 = doc.createElement('h1');
                         h1.className = 'injected-title';
                         h1.textContent = titleText;
-                        h1.style.fontSize = '2.5rem';
-                        h1.style.fontWeight = 'bold';
-                        h1.style.marginBottom = '1rem';
-                        h1.style.borderBottom = '1px solid #d1d5db';
-                        h1.style.paddingBottom = '0.5rem';
-                        h1.style.textAlign = 'left';
+                        h1.style.cssText = `
+                            font-size: 2.5rem;
+                            font-weight: bold;
+                            margin: 1.5rem 0;
+                            border-bottom: 1px solid #d1d5db;
+                            padding-bottom: 0.5rem;
+                            text-align: left;
+                            font-family: 'BenguiatStd-Book', serif !important;
+                        `;
                         doc.body.insertBefore(h1, doc.body.firstChild);
                     }
                 } catch (e) {
                     console.error("Failed to inject styles into iframe:", e);
                 }
             }
-
+            
             function closeViewer() {
                 viewer.classList.add('hidden');
                 viewerIframe.src = '';
