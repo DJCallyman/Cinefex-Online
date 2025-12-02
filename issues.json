@@ -68,28 +68,28 @@
     },
     {
         "issue": 5,
-        "title": "Clash of the Titans / Caveman / Caveman / Caveman",
+        "title": "Clash of the Titans / Ray Harryhausen / Roy Arbogast / Caveman",
         "year": 1981,
         "coverUrl": "issues/5/images/Cinefex-5-p1-img01.jpg",
-        "description": "Featuring articles on Clash of the Titans / Caveman / Caveman / Caveman.",
+        "description": "Featuring articles on Clash of the Titans, Ray Harryhausen, Roy Arbogast, and Caveman.",
         "articles": [
             {
-                "name": "Clash of the Titans",
+                "name": "Ray Harryhausen - Acting without the Lumps",
                 "readingUrl": "issues/5/1.ReadingView.html",
                 "archiveUrl": "issues/5/1.ArchivalView.html"
             },
             {
-                "name": "Caveman",
-                "readingUrl": "issues/5/4.ReadingView.html",
+                "name": "Clash of the (Foot-Tall) Titans",
+                "readingUrl": "issues/5/2.ReadingView.html",
                 "archiveUrl": "issues/5/2.ArchivalView.html"
             },
             {
-                "name": "Caveman",
-                "readingUrl": "issues/5/4.ReadingView.html",
+                "name": "Roy Arbogast",
+                "readingUrl": "issues/5/3.ReadingView.html",
                 "archiveUrl": "issues/5/3.ArchivalView.html"
             },
             {
-                "name": "Caveman",
+                "name": "Caveman: The Real Stars",
                 "readingUrl": "issues/5/4.ReadingView.html",
                 "archiveUrl": "issues/5/4.ArchivalView.html"
             }
@@ -1558,63 +1558,63 @@
     },
     {
         "issue": 64,
-        "title": "Poltergeist / Firefox / Firefox / Firefox / Firefox / Firefox / Firefox / Firefox / Firefox / Firefox / Firefox",
+        "title": "Stealth Effects / Seeking Silicone Solutions / Training Film / From The Mouth Of Babe / The Lights Of Las Vegas / Making Wishes Come True / Getting Away With Murder / The Game Board Jungle / Toys will be Toys / On the Waterfront / Pachyderms and Parachutes",
         "year": 1995,
         "coverUrl": "issues/64/images/cover.jpg",
-        "description": "Featuring articles on Poltergeist / Firefox / Firefox / Firefox / Firefox / Firefox / Firefox / Firefox / Firefox / Firefox / Firefox.",
+        "description": "Featuring articles on various films and special effects topics.",
         "articles": [
             {
-                "name": "Poltergeist",
+                "name": "Stealth Effects",
                 "readingUrl": "issues/64/1.ReadingView.html",
                 "archiveUrl": "issues/64/1.ArchivalView.html"
             },
             {
-                "name": "Firefox",
-                "readingUrl": "issues/64/11.ReadingView.html",
+                "name": "Seeking Silicone Solutions",
+                "readingUrl": "issues/64/2.ReadingView.html",
                 "archiveUrl": "issues/64/2.ArchivalView.html"
             },
             {
-                "name": "Firefox",
-                "readingUrl": "issues/64/11.ReadingView.html",
+                "name": "Training Film",
+                "readingUrl": "issues/64/3.ReadingView.html",
                 "archiveUrl": "issues/64/3.ArchivalView.html"
             },
             {
-                "name": "Firefox",
-                "readingUrl": "issues/64/11.ReadingView.html",
+                "name": "From The Mouth Of Babe",
+                "readingUrl": "issues/64/4.ReadingView.html",
                 "archiveUrl": "issues/64/4.ArchivalView.html"
             },
             {
-                "name": "Firefox",
-                "readingUrl": "issues/64/11.ReadingView.html",
+                "name": "The Lights Of Las Vegas",
+                "readingUrl": "issues/64/5.ReadingView.html",
                 "archiveUrl": "issues/64/5.ArchivalView.html"
             },
             {
-                "name": "Firefox",
-                "readingUrl": "issues/64/11.ReadingView.html",
+                "name": "Making Wishes Come True",
+                "readingUrl": "issues/64/6.ReadingView.html",
                 "archiveUrl": "issues/64/6.ArchivalView.html"
             },
             {
-                "name": "Firefox",
-                "readingUrl": "issues/64/11.ReadingView.html",
+                "name": "Getting Away With Murder",
+                "readingUrl": "issues/64/7.ReadingView.html",
                 "archiveUrl": "issues/64/7.ArchivalView.html"
             },
             {
-                "name": "Firefox",
-                "readingUrl": "issues/64/11.ReadingView.html",
+                "name": "The Game Board Jungle",
+                "readingUrl": "issues/64/8.ReadingView.html",
                 "archiveUrl": "issues/64/8.ArchivalView.html"
             },
             {
-                "name": "Firefox",
-                "readingUrl": "issues/64/11.ReadingView.html",
+                "name": "Toys will be Toys",
+                "readingUrl": "issues/64/9.ReadingView.html",
                 "archiveUrl": "issues/64/9.ArchivalView.html"
             },
             {
-                "name": "Firefox",
-                "readingUrl": "issues/64/11.ReadingView.html",
+                "name": "On the Waterfront",
+                "readingUrl": "issues/64/10.ReadingView.html",
                 "archiveUrl": "issues/64/10.ArchivalView.html"
             },
             {
-                "name": "Firefox",
+                "name": "Pachyderms and Parachutes",
                 "readingUrl": "issues/64/11.ReadingView.html",
                 "archiveUrl": "issues/64/11.ArchivalView.html"
             }

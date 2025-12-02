@@ -228,15 +228,136 @@
                 viewer.classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
 
-                // If the issue is 127+ and it's a reading view, inject styles on load.
-                if (issueNumber >= 127 && url.toLowerCase().includes('readingview')) {
-                    viewerIframe.onload = () => injectStyles(viewerIframe);
-                } else {
-                    viewerIframe.onload = null; // Clear any previous onload handler
-                }
+                // Detect view type from URL
+                const urlLower = url.toLowerCase();
+                const isReadingView = urlLower.includes('readingview');
+                const isArchivalView = urlLower.includes('archivalview') || urlLower.includes('manuscript');
+                const isOldFormat = issueNumber <= 126;
+                const isNewFormat = issueNumber >= 127;
+
+                // Route to appropriate injection function based on format and view type
+                viewerIframe.onload = () => {
+                    if (isNewFormat && isReadingView) {
+                        injectNewReadingViewStyles(viewerIframe);
+                    } else if (isOldFormat && isArchivalView) {
+                        injectOldArchivalViewStyles(viewerIframe);
+                    } else if (isOldFormat && isReadingView) {
+                        injectOldReadingViewStyles(viewerIframe);
+                    }
+                    // New format archival/manuscript view works well as-is, no injection needed
+                };
             }
             
-            function injectStyles(iframe) {
+            /**
+             * Injects styles into old format (≤126) archival view to fix cropping issues.
+             * The old format used 864px width + 80px left margin designed for iPad app.
+             * This fix removes the margin and allows natural scrolling through pages.
+             */
+            function injectOldArchivalViewStyles(iframe) {
+                try {
+                    const doc = iframe.contentDocument || iframe.contentWindow.document;
+                    if (!doc) return;
+
+                    const style = doc.createElement('style');
+                    style.textContent = `
+                        /* Fix for OLD format archival view - remove margin and enable scrolling */
+                        html {
+                            margin: 0 !important;
+                            padding: 0 !important;
+                            background: #1a1a2e !important;
+                            overflow: auto !important;
+                        }
+                        
+                        body {
+                            margin: 0 !important;
+                            padding: 20px !important;
+                            background: #1a1a2e !important;
+                        }
+                        
+                        /* Style page wrapper elements - stack vertically */
+                        page {
+                            display: block !important;
+                            margin: 0 auto 20px auto !important;
+                            width: 864px !important;
+                        }
+                        
+                        /* Override the float and ensure pages display as blocks */
+                        .page {
+                            float: none !important;
+                            display: block !important;
+                            margin: 0 auto !important;
+                            box-shadow: 0 4px 30px rgba(0,0,0,0.6) !important;
+                            border-radius: 4px !important;
+                            /* Ensure background-size works correctly */
+                            background-size: 864px 768px !important;
+                        }
+                        
+                        /* Fix image sizing - original CSS sets 100% which causes issues */
+                        img {
+                            width: auto !important;
+                            height: auto !important;
+                            max-width: 100% !important;
+                        }
+                    `;
+                    doc.head.appendChild(style);
+                } catch (e) {
+                    console.error("Failed to inject old archival styles into iframe:", e);
+                }
+            }
+
+            /**
+             * Injects styles into old format (≤126) reading view to fix float containment.
+             * The .img-group elements are floated right with negative margins, which can
+             * cause images to extend beyond the text content when the text is shorter.
+             * This fix ensures proper clearing without cropping the extended images.
+             */
+            function injectOldReadingViewStyles(iframe) {
+                try {
+                    const doc = iframe.contentDocument || iframe.contentWindow.document;
+                    if (!doc) return;
+
+                    const style = doc.createElement('style');
+                    style.textContent = `
+                        /* Fix for OLD format reading view - clear floats without cropping */
+                        
+                        /* Each page clears previous floats */
+                        page {
+                            display: block !important;
+                            clear: both !important;
+                        }
+                        
+                        /* Add clearfix after page content using float containment */
+                        page::after {
+                            content: "" !important;
+                            display: block !important;
+                            clear: both !important;
+                            height: 0 !important;
+                        }
+                        
+                        /* Footer should clear floats */
+                        .footer {
+                            clear: both !important;
+                            margin-top: 2em !important;
+                        }
+                        
+                        /* Ensure body ends cleanly */
+                        body::after {
+                            content: "" !important;
+                            display: block !important;
+                            clear: both !important;
+                        }
+                    `;
+                    doc.head.appendChild(style);
+                } catch (e) {
+                    console.error("Failed to inject old reading styles into iframe:", e);
+                }
+            }
+
+            /**
+             * Injects styles into new format (≥127) reading view to improve typography.
+             * Preserves original fonts while improving layout for web display.
+             */
+            function injectNewReadingViewStyles(iframe) {
                 try {
                     const doc = iframe.contentDocument || iframe.contentWindow.document;
                     if (!doc) return;
@@ -244,7 +365,7 @@
                     // Create optimized stylesheet for NEWER issues (127+)
                     const style = doc.createElement('style');
                     style.textContent = `
-                        /* Aggressive reset that doesn't break image containers */
+                        /* Layout reset that preserves original typography */
                         html, body {
                             margin: 0 !important;
                             padding: 0 !important;
@@ -252,36 +373,37 @@
                         }
                         body {
                             background-color: #f8f9fa !important;
-                            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
                             color: #1e293b !important;
                             padding: 2rem 4rem !important;
                             line-height: 1.7 !important;
-                            max-width: 1024px !important; /* Matches Cinefex.css page width */
+                            max-width: 1024px !important;
                             margin-left: auto !important;
                             margin-right: auto !important;
+                            /* Preserve original font-family from Cinefex.css */
                         }
                         
-                        /* CRITICAL: Target ACTUAL text container (div.page) */
+                        /* Target text container (div.page) */
                         .page {
                             font-size: 1.1rem !important;
                             text-align: justify !important;
-                            margin-bottom: 1.5em !important; /* Replaces old page margin */
+                            margin-bottom: 1.5em !important;
                         }
                         
-                        /* Preserve image containers while hiding other background artifacts */
+                        /* Preserve image containers */
                         .img-all {
-                            height: 660px !important; /* Critical - from Cinefex.css */
+                            height: 660px !important;
                             display: block !important;
                             background-size: contain !important;
                             background-position: center !important;
+                            background-repeat: no-repeat !important;
                         }
                         
-                        /* ONLY hide non-image background elements */
+                        /* Hide non-image background artifacts */
                         div:not(.img-all)[style*="background"] {
                             display: none !important;
                         }
                         
-                        /* Remove legacy styling that breaks new structure */
+                        /* Page element display */
                         page {
                             display: block !important;
                             break-inside: avoid !important;
@@ -289,10 +411,9 @@
                     `;
                     doc.head.appendChild(style);
             
-                    // Title injection (confirmed safe - dc:Title exists in new issues)
-                    const titleMeta = doc.querySelector('meta[name="dc:Title"]');
-                    if (titleMeta && doc.body) {
-                        const titleText = titleMeta.getAttribute('content');
+                    // Title injection with fallback: dc:Title → Film → Creator
+                    const titleText = extractTitle(doc);
+                    if (titleText && doc.body) {
                         const existingH1 = doc.querySelector('h1.injected-title');
                         if (existingH1) existingH1.remove();
                         
@@ -306,13 +427,29 @@
                             border-bottom: 1px solid #d1d5db;
                             padding-bottom: 0.5rem;
                             text-align: left;
-                            font-family: 'BenguiatStd-Book', serif !important;
                         `;
                         doc.body.insertBefore(h1, doc.body.firstChild);
                     }
                 } catch (e) {
-                    console.error("Failed to inject styles into iframe:", e);
+                    console.error("Failed to inject new reading styles into iframe:", e);
                 }
+            }
+
+            /**
+             * Extracts article title from meta tags with fallback chain.
+             * Issue 127 uses Film meta, 142+ uses dc:Title
+             */
+            function extractTitle(doc) {
+                const dcTitle = doc.querySelector('meta[name="dc:Title"]');
+                if (dcTitle) return dcTitle.getAttribute('content');
+                
+                const filmMeta = doc.querySelector('meta[name="Film"]');
+                if (filmMeta) return filmMeta.getAttribute('content');
+                
+                const creatorMeta = doc.querySelector('meta[name="Creator"]');
+                if (creatorMeta) return `Article by ${creatorMeta.getAttribute('content')}`;
+                
+                return null;
             }
             
             function closeViewer() {
