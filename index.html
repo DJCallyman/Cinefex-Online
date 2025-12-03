@@ -5,13 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cinefex Archives</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: "BenguiatStd-Book";
+            src: url("fonts/BenguiatStd-Book.otf") format("opentype");
+            font-style: normal;
+        }
+        @font-face {
+            font-family: "BenguiatStd-BookItalic";
+            src: url("fonts/BenguiatStd-BookItalic.otf") format("opentype");
+            font-style: italic;
+        }
+        @font-face {
+            font-family: "BenguiatStd-Medium";
+            src: url("fonts/BenguiatStd-Medium.otf") format("opentype");
+            font-style: normal;
+        }
+        @font-face {
+            font-family: "BenguiatStd-Bold";
+            src: url("fonts/BenguiatStd-Bold.otf") format("opentype");
+            font-style: normal;
+            font-weight: bold;
+        }
         html {
             scroll-behavior: smooth;
         }
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'BenguiatStd-Book', serif;
             background-color: #111827; /* Dark blue-gray background */
         }
         .magazine-cover {
@@ -183,7 +203,6 @@
                     <div class="flex-grow overflow-y-auto">
                         <span class="text-sm font-semibold text-cyan-400">CINEFEX #${magazine.issue}</span>
                         <h2 class="text-2xl sm:text-3xl font-bold mt-2 mb-4">${magazine.title}</h2>
-                        <p class="text-gray-300 leading-relaxed mb-6">${magazine.description}</p>
                         <h3 class="font-bold text-lg mb-3 text-gray-200">Articles</h3>
                         <div class="space-y-3">${articlesHtml}</div>
                     </div>
