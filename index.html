@@ -195,8 +195,8 @@
 
             function displayArticleList(magazine) {
                 const dynamicContent = document.getElementById('modal-dynamic-content');
-                let articlesHtml = magazine.articles.map(article => 
-                    `<button class="article-btn w-full text-left px-4 py-3 bg-gray-700 hover:bg-gray-600 rounded-md font-semibold transition-colors text-white" data-article='${JSON.stringify(article)}' data-issue-number='${magazine.issue}'>${article.name}</button>`
+                let articlesHtml = magazine.articles.map((article, index) => 
+                    `<button class="article-btn w-full text-left px-4 py-3 bg-gray-700 hover:bg-gray-600 rounded-md font-semibold transition-colors text-white" data-article-index='${index}' data-issue-number='${magazine.issue}'>${article.name}</button>`
                 ).join('');
 
                 dynamicContent.innerHTML = `
@@ -210,8 +210,9 @@
 
                 dynamicContent.querySelectorAll('.article-btn').forEach(btn => {
                     btn.addEventListener('click', () => {
-                        const articleData = JSON.parse(btn.dataset.article);
+                        const articleIndex = parseInt(btn.dataset.articleIndex);
                         const issueNumber = parseInt(btn.dataset.issueNumber);
+                        const articleData = magazine.articles[articleIndex];
                         displayViewOptions({ ...magazine, issue: issueNumber }, articleData);
                     });
                 });
