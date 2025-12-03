@@ -219,6 +219,9 @@
 
             function displayViewOptions(magazine, article) {
                 const dynamicContent = document.getElementById('modal-dynamic-content');
+                const articleTitleHtml = article.articleTitle 
+                    ? `<p class="text-lg text-gray-300 mt-1 mb-4">${article.articleTitle}</p>` 
+                    : '';
                 dynamicContent.innerHTML = `
                     <div class="flex-grow">
                         <button id="back-to-articles" class="text-sm text-cyan-400 hover:text-cyan-300 mb-4 flex items-center">
@@ -226,7 +229,8 @@
                             Back to Article List
                         </button>
                         <span class="text-sm font-semibold text-cyan-400">CINEFEX #${magazine.issue}</span>
-                        <h2 class="text-2xl sm:text-3xl font-bold mt-2 mb-4">${article.name}</h2>
+                        <h2 class="text-2xl sm:text-3xl font-bold mt-2">${article.name}</h2>
+                        ${articleTitleHtml}
                         <p class="text-gray-300 leading-relaxed mb-6">Select a format to view the article.</p>
                     </div>
                     <div class="mt-auto flex flex-col sm:flex-row gap-4">
