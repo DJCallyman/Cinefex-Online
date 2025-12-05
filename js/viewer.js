@@ -151,13 +151,18 @@ function injectOldArchivalViewStyles(iframe) {
                 margin: 0 !important;
                 padding: 20px !important;
                 background: #1a1a2e !important;
+                /* Use flexbox to maintain DOM order */
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
             }
             
-            /* Style page wrapper elements - stack vertically */
+            /* Style page wrapper elements - stack vertically in order */
             page {
                 display: block !important;
                 margin: 0 auto 20px auto !important;
                 width: 864px !important;
+                float: none !important;
             }
             
             /* Override the float and ensure pages display as blocks */
@@ -168,6 +173,13 @@ function injectOldArchivalViewStyles(iframe) {
                 box-shadow: 0 4px 30px rgba(0,0,0,0.6) !important;
                 border-radius: 4px !important;
                 background-size: 864px 768px !important;
+                position: relative !important;
+            }
+            
+            /* Fix inner divs that may have floats causing reordering */
+            .page > div {
+                float: none !important;
+                display: block !important;
             }
             
             /* Fix image sizing */
