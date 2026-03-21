@@ -29,3 +29,10 @@
 .ds_store
 *.code-workspace
 issues/
+
+# Build artifacts
+node_modules/
+dist/
+
+# Auth credentials
+cinefex.htpasswd
