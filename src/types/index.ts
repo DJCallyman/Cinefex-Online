@@ -1,0 +1,28 @@
+export interface Article {
+    name: string;
+    readingUrl: string;
+    archiveUrl: string;
+    articleTitle?: string;
+}
+
+export interface Magazine {
+    issue: number;
+    title: string;
+    year: number;
+    articles: Article[];
+}
+
+export type ViewMode = 'read' | 'archive';
+
+export interface YearBucket {
+    key: string;
+    startYear: number;
+    endYear: number;
+    magazines: Magazine[];
+}
+
+export interface SearchResult {
+    magazines: Magazine[];
+    query: string;
+    isEmpty: boolean;
+}
