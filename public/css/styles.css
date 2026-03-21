@@ -1,0 +1,128 @@
+/* Cinefex Archives - Main Stylesheet */
+
+/* ==========================================================================
+   Font Definitions (centralized)
+   ========================================================================== */
+@import url("fonts.css");
+
+/* ==========================================================================
+   Base Styles
+   ========================================================================== */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'BenguiatStd-Book', serif;
+    background-color: #111827;
+}
+
+/* ==========================================================================
+   Magazine Cover Grid
+   ========================================================================== */
+.magazine-cover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.magazine-cover:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 6px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================================================
+   Modal & Viewer Transitions
+   ========================================================================== */
+.modal-overlay,
+#viewer {
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* ==========================================================================
+   Loading Spinner
+   ========================================================================== */
+.loading-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+.loading-spinner::after {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 48px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #22d3ee;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ==========================================================================
+   Accessibility - Focus Styles
+   ========================================================================== */
+:focus-visible {
+    outline: 2px solid #22d3ee;
+    outline-offset: 2px;
+}
+
+/* Skip link for screen readers */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #22d3ee;
+    color: #111827;
+    padding: 8px 16px;
+    z-index: 100;
+    font-weight: bold;
+    transition: top 0.3s;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* ==========================================================================
+   Scroll to Top Button
+   ========================================================================== */
+#scroll-top.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+@media print {
+    header,
+    #bucket-nav,
+    #scroll-top,
+    #modal,
+    #viewer,
+    .search-container {
+        display: none !important;
+    }
+
+    .magazine-cover {
+        break-inside: avoid;
+        transform: none !important;
+        box-shadow: none !important;
+    }
+
+    body {
+        background: white !important;
+        color: black !important;
+    }
+}

@@ -36,3 +36,6 @@ dist/
 
 # Auth credentials
 cinefex.htpasswd
+
+# Ignore OpenCode files
+.opencode

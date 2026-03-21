@@ -8,7 +8,7 @@ export default defineConfig({
         react(),
         VitePWA({
             registerType: 'autoUpdate',
-            includeAssets: ['favicon.ico', 'covers/**/*', 'fonts/**/*', 'issues_full.json'],
+            includeAssets: ['favicon.ico', 'covers/**/*', 'fonts/**/*', 'css/**/*', 'issues_full.json'],
             workbox: {
                 globPatterns: ['**/*.{js,css,html,ico,png,jpg,otf,woff,woff2,json}'],
                 runtimeCaching: [
