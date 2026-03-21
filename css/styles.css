@@ -1,32 +1,9 @@
 /* Cinefex Archives - Main Stylesheet */
 
 /* ==========================================================================
-   Font Definitions
+   Font Definitions (centralized)
    ========================================================================== */
-@font-face {
-    font-family: "BenguiatStd-Book";
-    src: url("../fonts/BenguiatStd-Book.otf") format("opentype");
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "BenguiatStd-BookItalic";
-    src: url("../fonts/BenguiatStd-BookItalic.otf") format("opentype");
-    font-style: italic;
-}
-
-@font-face {
-    font-family: "BenguiatStd-Medium";
-    src: url("../fonts/BenguiatStd-Medium.otf") format("opentype");
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "BenguiatStd-Bold";
-    src: url("../fonts/BenguiatStd-Bold.otf") format("opentype");
-    font-style: normal;
-    font-weight: bold;
-}
+@import url("fonts.css");
 
 /* ==========================================================================
    Base Styles
@@ -115,4 +92,37 @@ body {
 
 .skip-link:focus {
     top: 0;
+}
+
+/* ==========================================================================
+   Scroll to Top Button
+   ========================================================================== */
+#scroll-top.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+@media print {
+    header,
+    #bucket-nav,
+    #scroll-top,
+    #modal,
+    #viewer,
+    .search-container {
+        display: none !important;
+    }
+
+    .magazine-cover {
+        break-inside: avoid;
+        transform: none !important;
+        box-shadow: none !important;
+    }
+
+    body {
+        background: white !important;
+        color: black !important;
+    }
 }

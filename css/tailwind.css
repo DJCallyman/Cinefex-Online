@@ -1,0 +1,6 @@
+/* Tailwind CSS v4 - Entry Point */
+@import "tailwindcss";
+
+/* Source paths for class detection */
+@source "../js/**/*.js";
+@source "../index.html";

@@ -2,7 +2,9 @@ import xml.etree.ElementTree as ET
 import json
 import os
 import re
+import sys
 from html.parser import HTMLParser
+from typing import Optional
 
 
 class MetadataExtractor(HTMLParser):
@@ -39,7 +41,7 @@ class MetadataExtractor(HTMLParser):
         if self.in_article_title:
             self.article_title_text = (self.article_title_text or '') + data.strip() + ' '
     
-    def get_title(self):
+    def get_title(self) -> Optional[str]:
         """Return the best available title, preferring meta title"""
         if self.meta_title:
             return self.meta_title.strip()
@@ -48,14 +50,14 @@ class MetadataExtractor(HTMLParser):
             return ' '.join(self.article_title_text.split())
         return None
     
-    def get_film(self):
+    def get_film(self) -> Optional[str]:
         """Return the Film metadata (movie/subject name shown in iPad app)"""
         if self.meta_film:
             return self.meta_film.strip()
         return None
 
 
-def extract_metadata_from_html(file_path):
+def extract_metadata_from_html(file_path: str) -> dict[str, Optional[str]]:
     """Extract metadata (Film, Title, articleTitle) from an HTML file."""
     try:
         with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
@@ -68,29 +70,11 @@ def extract_metadata_from_html(file_path):
             'title': parser.get_title()
         }
     except Exception as e:
+        print(f"Warning: Failed to extract metadata from {file_path}: {e}", file=sys.stderr)
         return {'film': None, 'title': None}
 
 
-def find_cover_image(html_content):
-    """
-    Parses HTML content to find the first image source,
-    checking for both <img> tags and background: url() styles.
-    """
-    # First, try to find an <img> tag's src attribute.
-    img_match = re.search(r'<img[^>]+src="([^"]+)"', html_content, re.IGNORECASE)
-    if img_match:
-        return img_match.group(1)
-    
-    # If no <img> tag, try to find a background url.
-    # This regex looks for url(...) and captures the content inside.
-    bg_match = re.search(r'url\(([^)]+)\)', html_content, re.IGNORECASE)
-    if bg_match:
-        # The result might have quotes (e.g., url('...')) which we strip.
-        return bg_match.group(1).strip("'\"")
-        
-    return None
-
-def fix_xml_ampersands(xml_content):
+def fix_xml_ampersands(xml_content: str) -> str:
     """
     Fix unescaped ampersands in XML content.
     Replaces & with &amp; but avoids double-escaping existing entities.
@@ -98,7 +82,7 @@ def fix_xml_ampersands(xml_content):
     # Replace & that is not already part of an entity (like &amp; &lt; &gt; &quot; &apos; or numeric &#123;)
     return re.sub(r'&(?!(?:amp|lt|gt|quot|apos|#\d+|#x[0-9a-fA-F]+);)', '&amp;', xml_content)
 
-def create_issues_json():
+def create_issues_json() -> None:
     """
     Parses manifest.xml and cover.html files from issue folders (1-169) 
     and creates a single issues.json file.
@@ -112,7 +96,6 @@ def create_issues_json():
     for i in range(1, 170):
         issue_dir = os.path.join(issues_base_dir, str(i))
         manifest_path = os.path.join(issue_dir, 'manifest.xml')
-        cover_html_path = os.path.join(issue_dir, 'cover.html')
 
         if not os.path.exists(manifest_path):
             print(f"Warning: manifest.xml not found for issue {i}. Skipping.")
@@ -180,29 +163,10 @@ def create_issues_json():
 
             issue_title = " / ".join(article_names)
 
-            # --- Parse cover.html to find cover image ---
-            cover_image_filename = None
-            if os.path.exists(cover_html_path):
-                with open(cover_html_path, 'r', encoding='utf-8', errors='ignore') as f:
-                    html_content = f.read()
-                    cover_image_filename = find_cover_image(html_content)
-            
-            if cover_image_filename:
-                # The path in cover.html might be relative, e.g., 'images/cover.jpg'
-                # We construct the full path from the web app's perspective.
-                cover_url = f"issues/{i}/{cover_image_filename}"
-            else:
-                # Fallback if cover.html doesn't exist or has no image
-                print(f"Warning: Could not find cover image in cover.html for issue {i}. Using default.")
-                cover_url = f"issues/{i}/images/Cinefex-{i}-p1-img01.jpg"
-
-
             issue_data = {
                 "issue": int(issue_number),
                 "title": issue_title,
                 "year": year,
-                "coverUrl": cover_url,
-                "description": f"Featuring articles on {issue_title}.",
                 "articles": articles_data
             }
             all_issues_data.append(issue_data)

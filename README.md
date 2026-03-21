@@ -13,80 +13,139 @@ Cinefex-Online is a full-stack archive browser designed to make the extensive Ci
   - **Original Layout**: Archival view showing the magazine's original design
 - **Issue Browser**: Browse by issue number with article listings
 - **Article Metadata**: Display both film/subject names and full article titles
+- **Search**: Filter by film name, issue number, year, or article title
+- **Deep Linking**: Share links to specific issues via URL hash routing
 - **Responsive Design**: Works on desktop and tablet devices
+- **Keyboard Accessible**: Full keyboard navigation with ARIA support
+- **Offline Support**: Service worker caches previously viewed content
 - **Password Protection**: HTTP Basic Authentication via `.htpasswd`
+
+## Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) 18+ and npm
+- Python 3.8+ (for metadata generation)
+
+### Installation
+
+```bash
+npm install
+```
+
+### Development
+
+```bash
+npm run dev
+```
+
+Opens a local dev server with hot reloading.
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+Outputs optimized files to `dist/`. The build:
+- Compiles Tailwind CSS at build time (no CDN dependency)
+- Bundles and minifies all JavaScript modules
+- Tree-shakes unused code
+- Hashes asset filenames for cache-busting
+
+### Linting
+
+```bash
+npm run lint          # ESLint
+npm run format        # Prettier
+```
 
 ## Directory Structure
 
 ```
 Cinefex-Online/
-├── create_json.py          # Python script to generate metadata JSON from HTML/XML
-├── check_article_names.py  # Utility to validate article naming
 ├── index.html              # Main web interface
-├── issues.json             # Metadata for issues 1-126 (primary dataset)
+├── sw.js                   # Service worker for offline support
+├── vite.config.js          # Vite build configuration
+├── postcss.config.js       # PostCSS + Tailwind CSS pipeline
+├── eslint.config.js        # ESLint flat config
+├── .prettierrc             # Prettier formatting rules
+├── .htaccess               # Apache security headers & caching
+├── package.json            # npm scripts and dependencies
+├── create_json.py          # Python script to generate metadata JSON
+├── check_article_names.py  # Utility to validate article naming
 ├── issues_full.json        # Metadata for all 169+ issues
-├── cinefex.htpasswd        # Password file for HTTP Basic Auth
-├── covers/                 # Magazine cover images and styling
-├── issues/                 # Individual issue directories
-│   ├── 1/                  # Issue 1
-│   │   ├── 1.ReadingView.html
-│   │   ├── 1.ArchivalView.html
-│   │   ├── 2.ReadingView.html
-│   │   └── 2.ArchivalView.html
-│   ├── 2/, 3/, ...         # More issues
-│   └── 169/
-├── fonts/                  # Custom fonts (Benguiat, Gill Sans)
-└── js/                     # JavaScript utilities
+├── issues.json             # Legacy: metadata for issues 1-126
+├── css/
+│   ├── tailwind.css        # Tailwind CSS v4 entry point
+│   ├── styles.css          # Custom styles (animations, focus, print)
+│   └── fonts.css           # Centralized @font-face declarations
+├── js/
+│   ├── app.js              # Application entry point
+│   ├── archive.js          # Data loading and grid rendering
+│   ├── modal.js            # Issue detail modal and article selection
+│   ├── viewer.js           # Article iframe viewer with style injection
+│   ├── search.js           # Search/filter functionality
+│   ├── router.js           # Hash-based URL routing
+│   ├── config.js           # Centralized configuration constants
+│   └── types.js            # JSDoc type definitions
+├── covers/                 # Magazine cover images (one per issue)
+├── issues/                 # Individual issue directories (gitignored)
+│   └── {N}/
+│       ├── {N}.ReadingView.html
+│       ├── {N}.ArchivalView.html
+│       └── manifest.xml
+├── fonts/                  # Custom fonts (Benguiat, Gill Sans, etc.)
+└── dist/                   # Build output (gitignored)
 ```
 
 ## Technical Architecture
 
-### Backend (Python)
+### Frontend
 
-**`create_json.py`** - Core metadata extraction tool:
-- Parses `manifest.xml` files from each issue directory
-- Extracts metadata from HTML article files using `HTMLParser`:
-  - `<meta name="Film">` - Movie/subject name
-  - `<meta name="Title">` - Article title
-- Matches articles by filename number (not manifest names)
-- Generates two JSON outputs:
-  - `issues.json` - Issues 1-126 (main public dataset)
-  - `issues_full.json` - All 169+ issues
+- **Vanilla ES Modules** — no framework, 7 purpose-built modules
+- **Tailwind CSS v4** — compiled at build time via PostCSS
+- **Vite** — dev server, ES module bundler, and production builder
 
-**`check_article_names.py`** - Validation utility:
-- Verifies article naming consistency across manifest and HTML files
-- Helps identify metadata discrepancies
+### Data Pipeline
 
-### Frontend (HTML/CSS/JavaScript)
+```
+manifest.xml + HTML meta tags → create_json.py → issues_full.json → Frontend
+```
 
-**`index.html`** - Single-page application interface:
-- **Modal System**: Displays issues list, article list, and view options
-- **Dual Viewers**: Separate iframe loaders for reading and archival views
-- **Dynamic Styling Injection**: Applies responsive fixes to old/new format articles:
-  - `injectOldReadingViewStyles()` - Fixes reading view layout issues
-  - `injectOldArchivalViewStyles()` - Handles archival view cropping
-  - `injectNewReadingViewStyles()` - Modern format support
-- **Event Handlers**: Article selection, view mode switching, navigation
-- **Tailwind CSS**: Modern responsive styling
+### Style Injection
+
+The viewer module detects article format/view type and injects appropriate CSS into the iframe:
+
+| Format | View | Injection Function |
+|--------|------|-------------------|
+| Old (≤126) | Archival | `injectOldArchivalViewStyles()` |
+| Old (≤126) | Reading | `injectOldReadingViewStyles()` |
+| New (≥127) | Reading | `injectNewReadingViewStyles()` |
+| New (≥127) | Archival | None needed |
+
+### URL Routing
+
+Hash-based deep linking:
+- `#issue/42` — Opens issue 42 modal
+- `#issue/42/article/1/read` — Opens article 1 in reading view
+- `#issue/42/article/1/archive` — Opens article 1 in archival view
 
 ### JSON Data Structure
 
-Each article object contains:
-```json
-{
-  "name": "Film/Subject Name",
-  "articleTitle": "Full Article Title",
-  "readingUrl": "issues/1/1.ReadingView.html",
-  "archiveUrl": "issues/1/1.ArchivalView.html"
-}
-```
-
-Issue wrapper structure:
 ```json
 {
   "issue": 1,
-  "title": "Issue Title",
-  "articles": [...]
+  "title": "Star Trek – The Motion Picture / Alien",
+  "year": 1980,
+  "articles": [
+    {
+      "name": "Star Trek – The Motion Picture",
+      "articleTitle": "Into the V'ger Maw with Douglas Trumbull",
+      "readingUrl": "issues/1/1.ReadingView.html",
+      "archiveUrl": "issues/1/1.ArchivalView.html"
+    }
+  ]
 }
 ```
 
@@ -97,50 +156,40 @@ Issue wrapper structure:
 1. **Place Files**: Add issue directories under `issues/` with HTML files named `N.ReadingView.html` and `N.ArchivalView.html`
 2. **Add Metadata**: Include `<meta name="Film">` and `<meta name="Title">` tags in HTML files
 3. **Create Manifest**: Add `manifest.xml` file listing article information
-4. **Generate JSON**: Run `python create_json.py` to update `issues.json`
+4. **Generate JSON**: Run `python create_json.py` to update `issues_full.json`
 5. **Verify**: Run `python check_article_names.py` to validate consistency
 
 ### Deployment
 
-1. **HTTP Server**: Serve the project directory via a web server (Apache, Nginx, etc.)
-2. **Authentication**: Configure `.htpasswd` with HTTP Basic Auth credentials
-3. **HTTPS**: Recommended for production deployment
-4. **Static Files**: All content is static - no backend server required beyond serving files
-
-## Key Technical Decisions
-
-- **Index-based Article Selection**: Articles are retrieved by index position rather than serialized JSON to avoid issues with special characters (em-dashes) in film names
-- **Dual JSON Outputs**: Maintains both `issues.json` (1-126) and `issues_full.json` (all issues) for flexibility
-- **Metadata Extraction**: Prioritizes HTML meta tags over manifest.xml for accuracy (matches iPad app behavior)
-- **Dynamic Styling**: Applies format-specific CSS fixes to handle legacy layout issues without modifying original files
+1. Build: `npm run build`
+2. Deploy `dist/` directory along with `issues/`, `covers/`, and `fonts/` to your web server
+3. Configure `.htpasswd` path in `.htaccess` (update `AuthUserFile`)
+4. Ensure HTTPS for production (uncomment HSTS header in `.htaccess`)
 
 ## Browser Compatibility
 
 - Chrome/Chromium (recommended)
-- Firefox
-- Safari
+- Firefox 103+
+- Safari 15+
 - Edge
 - Mobile browsers (iOS Safari, Chrome Mobile)
 
 ## Security
 
 - HTTP Basic Authentication via `.htpasswd`
-- Static file serving (no dynamic code execution)
-- Content Security Policy recommendations for production
+- Content Security Policy (CSP) headers
+- X-Frame-Options protection
+- Credentials excluded from Git tracking
+- No inline event handlers (CSP-compliant)
 
 ## Future Enhancements
 
-- Search functionality across article titles
-- Issue year/date filtering
 - Bookmark/favorites system
 - PDF export support
 - Full-text search implementation
-- API endpoint for external integrations
+- Image optimization (WebP conversion, responsive srcset)
+- Dark/light mode toggle
 
 ## License
 
-Refer to individual issue copyrights - Cinefex magazine content is proprietary.
-
-## Contact & Support
-
-For issues or questions about this archive interface, please refer to the project repository.
+Refer to individual issue copyrights — Cinefex magazine content is proprietary.

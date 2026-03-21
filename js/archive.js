@@ -1,32 +1,41 @@
 /**
  * Cinefex Archive - Main Application Module
  * Handles data loading, magazine grid rendering, and navigation
+ * @module archive
  */
 
+/** @typedef {import('./types.js').Magazine} Magazine */
+/** @typedef {import('./types.js').Article} Article */
+
 import { openModal } from './modal.js';
+import { FORMAT_THRESHOLD, DATA_URL, COVER_PATH_PATTERN, COVER_FALLBACK_PATTERN } from './config.js';
 
-// DOM Elements
-const grid = document.getElementById('magazine-grid');
-const navContainer = document.querySelector('#bucket-nav div');
-const loadingIndicator = document.getElementById('loading-indicator');
+// DOM Elements (initialized lazily via initializeArchive)
+let grid;
+let navContainer;
+let loadingIndicator;
 
-// Configuration
-const FORMAT_THRESHOLD = 126; // Issues ≤126 are old format, ≥127 are new format
+/** @type {Magazine[]} All loaded magazine data */
+let allMagazines = [];
 
 /**
  * Fetches issue data from JSON file and initializes the application.
  */
 export async function initializeArchive() {
+    grid = document.getElementById('magazine-grid');
+    navContainer = document.querySelector('#bucket-nav div');
+    loadingIndicator = document.getElementById('loading-indicator');
+
     try {
-        const response = await fetch('issues.json');
+        const response = await fetch(DATA_URL);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const allMagazines = await response.json();
+        allMagazines = await response.json();
         loadingIndicator.style.display = 'none';
         renderMagazines(allMagazines);
     } catch (error) {
-        loadingIndicator.textContent = 'Failed to load archive data. Please make sure issues.json is in the correct directory.';
+        loadingIndicator.textContent = 'Failed to load archive data. Please try refreshing the page.';
         console.error("Error loading archive data:", error);
     }
 }
@@ -36,7 +45,7 @@ export async function initializeArchive() {
  * @param {Array} magazines - Array of magazine objects
  */
 function renderMagazines(magazines) {
-    grid.innerHTML = '';
+    grid.replaceChildren();
     const buckets = magazines.reduce((acc, magazine) => {
         let bucketKey;
         if (magazine.year <= 1985) bucketKey = '1980-1985';
@@ -86,15 +95,18 @@ function renderMagazines(magazines) {
 function createCoverElement(magazine) {
     const coverElement = document.createElement('div');
     coverElement.className = 'magazine-cover cursor-pointer group';
+    coverElement.setAttribute('tabindex', '0');
+    coverElement.setAttribute('role', 'button');
+    coverElement.setAttribute('aria-label', `View Issue ${magazine.issue} (${magazine.year})`);
     
-    const coverPath = `covers/${magazine.issue}/cover512.jpg`;
-    const fallbackPath = `https://placehold.co/450x400/111827/ffffff?text=Issue+${magazine.issue}`;
+    const coverPath = COVER_PATH_PATTERN(magazine.issue);
+    const fallbackPath = COVER_FALLBACK_PATTERN(magazine.issue);
     
     const img = document.createElement('img');
     img.src = coverPath;
     img.alt = `Cover of Cinefex Issue ${magazine.issue}`;
     img.className = 'w-full rounded-lg shadow-lg object-cover';
-    img.loading = 'lazy'; // Lazy loading for performance
+    img.loading = 'lazy';
     img.addEventListener('error', function() {
         this.src = fallbackPath;
     }, { once: true });
@@ -103,12 +115,18 @@ function createCoverElement(magazine) {
     infoDiv.className = 'mt-3 text-center';
     infoDiv.innerHTML = `
         <h3 class="font-semibold text-white">Issue ${magazine.issue}</h3>
-        <p class="text-sm text-gray-400 group-hover:text-white transition-colors">${magazine.year}</p>
+        <p class="text-sm text-gray-300 group-hover:text-white transition-colors">${magazine.year}</p>
     `;
     
     coverElement.appendChild(img);
     coverElement.appendChild(infoDiv);
     coverElement.addEventListener('click', () => openModal(magazine));
+    coverElement.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openModal(magazine);
+        }
+    });
     
     return coverElement;
 }
@@ -124,8 +142,9 @@ function renderNavigation(bucketKeys) {
         link.href = `#bucket-${key}`;
         link.textContent = key;
         link.className = 'px-3 py-1 bg-gray-700 text-gray-300 rounded-full text-sm font-semibold hover:bg-cyan-500 hover:text-white transition-colors';
+        link.setAttribute('aria-label', `Browse issues from ${key.replace('-', ' to ')}`);
         navContainer.appendChild(link);
     });
 }
 
-export { FORMAT_THRESHOLD };
+export { FORMAT_THRESHOLD, allMagazines, renderMagazines };

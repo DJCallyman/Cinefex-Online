@@ -1,34 +1,51 @@
 /**
  * Cinefex Archive - Modal Module
  * Handles issue detail modals and article selection
+ * @module modal
  */
 
-import { openViewer } from './viewer.js';
+/** @typedef {import('./types.js').Magazine} Magazine */
+/** @typedef {import('./types.js').Article} Article */
 
-// DOM Elements
-const modal = document.getElementById('modal');
-const modalOverlay = document.getElementById('modal-overlay');
-const modalContent = document.getElementById('modal-content');
+import { openViewer } from './viewer.js';
+import { COVER_PATH_PATTERN, COVER_FALLBACK_PATTERN } from './config.js';
+
+// DOM Elements (initialized via initModal)
+let modal;
+let modalOverlay;
+let modalContent;
 
 // Track element that opened modal for focus restoration
 let previouslyFocusedElement = null;
 
 /**
+ * Initializes modal DOM references and overlay click handler.
+ * Must be called after DOMContentLoaded.
+ */
+export function initModal() {
+    modal = document.getElementById('modal');
+    modalOverlay = document.getElementById('modal-overlay');
+    modalContent = document.getElementById('modal-content');
+
+    modalOverlay.addEventListener('click', closeModal);
+}
+
+/**
  * Opens the issue detail modal
- * @param {Object} magazine - Magazine data object
+ * @param {Magazine} magazine - Magazine data object
  */
 export function openModal(magazine) {
     // Store currently focused element for restoration
     previouslyFocusedElement = document.activeElement;
     
-    const coverPath = `covers/${magazine.issue}/cover512.jpg`;
-    const fallbackPath = `https://placehold.co/450x400/111827/ffffff?text=Issue+${magazine.issue}`;
+    const coverPath = COVER_PATH_PATTERN(magazine.issue);
+    const fallbackPath = COVER_FALLBACK_PATTERN(magazine.issue);
     
     modalContent.innerHTML = `
         <div class="w-full md:w-1/2 p-0">
             <img id="modal-cover-img" src="${coverPath}" alt="Cover of Cinefex Issue ${magazine.issue}" class="w-full h-full object-cover">
         </div>
-        <div id="modal-dynamic-content" class="w-full md:w-2/2 p-6 sm:p-8 flex flex-col"></div>
+        <div id="modal-dynamic-content" class="w-full md:w-1/2 p-6 sm:p-8 flex flex-col"></div>
         <button id="modal-close" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10" aria-label="Close modal">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
@@ -156,7 +173,6 @@ function trapFocus(e) {
     }
 }
 
-// Set up overlay click handler
-modalOverlay.addEventListener('click', closeModal);
+// Set up overlay click handler moved to initModal()
 
 export { displayArticleList };

@@ -1,18 +1,89 @@
 /**
  * Cinefex Archive - Viewer Module
  * Handles article viewing in iframe with style injection
+ * @module viewer
  */
 
 import { closeModal } from './modal.js';
-import { FORMAT_THRESHOLD } from './archive.js';
+import { FORMAT_THRESHOLD } from './config.js';
 
-// DOM Elements
-const viewer = document.getElementById('viewer');
-const viewerIframe = document.getElementById('viewer-iframe');
-const viewerCloseBtn = document.getElementById('viewer-close');
+// DOM Elements (initialized via initViewer)
+let viewer;
+let viewerIframe;
+let viewerCloseBtn;
 
 // Track element that opened viewer for focus restoration
 let previouslyFocusedElement = null;
+
+/**
+ * Centralized font-face declarations for iframe injection.
+ * Uses absolute paths so they resolve correctly from any iframe origin.
+ */
+const FONT_FACE_CSS = `
+    @font-face {
+        font-family: "BenguiatStd-Book";
+        src: url("/fonts/BenguiatStd-Book.otf") format("opentype");
+        font-style: normal;
+    }
+    @font-face {
+        font-family: "BenguiatStd-BookItalic";
+        src: url("/fonts/BenguiatStd-BookItalic.otf") format("opentype");
+        font-style: italic;
+    }
+    @font-face {
+        font-family: "BenguiatStd-Medium";
+        src: url("/fonts/BenguiatStd-Medium.otf") format("opentype");
+        font-style: normal;
+    }
+    @font-face {
+        font-family: "BenguiatStd-MediumItalic";
+        src: url("/fonts/BenguiatStd-MediumItalic.otf") format("opentype");
+        font-style: italic;
+    }
+    @font-face {
+        font-family: "BenguiatStd-Bold";
+        src: url("/fonts/BenguiatStd-Bold.otf") format("opentype");
+        font-style: normal;
+        font-weight: bold;
+    }
+    @font-face {
+        font-family: "GillSansStd";
+        src: url("/fonts/GillSansStd.otf") format("opentype");
+        font-style: normal;
+    }
+    @font-face {
+        font-family: "GillSansStd-Italic";
+        src: url("/fonts/GillSansStd-Italic.otf") format("opentype");
+        font-style: italic;
+    }
+    @font-face {
+        font-family: "GillSans-Bold";
+        src: url("/fonts/GillSans Bold.tt") format("truetype");
+        font-weight: bold;
+    }
+    @font-face {
+        font-family: "FuturaStd-ExtraBold";
+        src: url("/fonts/FuturaStd-ExtraBold.otf") format("opentype");
+        font-weight: bold;
+    }
+    @font-face {
+        font-family: "DucDeBerryLTStd";
+        src: url("/fonts/DucDeBerryLTStd.otf") format("opentype");
+        font-style: normal;
+    }
+`;
+
+/**
+ * Initializes viewer DOM references and close button handler.
+ * Must be called after DOMContentLoaded.
+ */
+export function initViewer() {
+    viewer = document.getElementById('viewer');
+    viewerIframe = document.getElementById('viewer-iframe');
+    viewerCloseBtn = document.getElementById('viewer-close');
+
+    viewerCloseBtn.addEventListener('click', closeViewer);
+}
 
 /**
  * Opens the article viewer with loading indicator
@@ -99,10 +170,18 @@ function showLoadError() {
     if (!errorMsg) {
         errorMsg = document.createElement('div');
         errorMsg.className = 'load-error absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white';
-        errorMsg.innerHTML = `
-            <p class="text-xl mb-4">Failed to load article</p>
-            <button onclick="window.cinefexViewer.closeViewer()" class="px-4 py-2 bg-cyan-600 rounded hover:bg-cyan-500">Close</button>
-        `;
+        
+        const message = document.createElement('p');
+        message.className = 'text-xl mb-4';
+        message.textContent = 'Failed to load article';
+        
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'px-4 py-2 bg-cyan-600 rounded hover:bg-cyan-500';
+        closeBtn.textContent = 'Close';
+        closeBtn.addEventListener('click', closeViewer);
+        
+        errorMsg.appendChild(message);
+        errorMsg.appendChild(closeBtn);
         viewer.appendChild(errorMsg);
     }
     errorMsg.style.display = 'block';
@@ -206,33 +285,8 @@ function injectOldReadingViewStyles(iframe) {
 
         const style = doc.createElement('style');
         style.textContent = `
-            /* Benguiat font definitions from central fonts folder */
-            @font-face {
-                font-family: "BenguiatStd-Book";
-                src: url("/fonts/BenguiatStd-Book.otf") format("opentype");
-                font-style: normal;
-            }
-            @font-face {
-                font-family: "BenguiatStd-BookItalic";
-                src: url("/fonts/BenguiatStd-BookItalic.otf") format("opentype");
-                font-style: italic;
-            }
-            @font-face {
-                font-family: "BenguiatStd-Medium";
-                src: url("/fonts/BenguiatStd-Medium.otf") format("opentype");
-                font-style: normal;
-            }
-            @font-face {
-                font-family: "BenguiatStd-MediumItalic";
-                src: url("/fonts/BenguiatStd-MediumItalic.otf") format("opentype");
-                font-style: italic;
-            }
-            @font-face {
-                font-family: "BenguiatStd-Bold";
-                src: url("/fonts/BenguiatStd-Bold.otf") format("opentype");
-                font-style: normal;
-                font-weight: bold;
-            }
+            /* Centralized font definitions */
+            ${FONT_FACE_CSS}
             
             /* Override CaeciliaLTStd with Benguiat */
             body {
@@ -303,58 +357,8 @@ function injectNewReadingViewStyles(iframe) {
         // Create optimized stylesheet for NEWER issues (127+)
         const style = doc.createElement('style');
         style.textContent = `
-            /* Central font definitions - using absolute paths to /fonts/ */
-            @font-face {
-                font-family: "BenguiatStd-Book";
-                src: url("/fonts/BenguiatStd-Book.otf") format("opentype");
-                font-style: normal;
-            }
-            @font-face {
-                font-family: "BenguiatStd-BookItalic";
-                src: url("/fonts/BenguiatStd-BookItalic.otf") format("opentype");
-                font-style: italic;
-            }
-            @font-face {
-                font-family: "BenguiatStd-Medium";
-                src: url("/fonts/BenguiatStd-Medium.otf") format("opentype");
-                font-style: normal;
-            }
-            @font-face {
-                font-family: "BenguiatStd-MediumItalic";
-                src: url("/fonts/BenguiatStd-MediumItalic.otf") format("opentype");
-                font-style: italic;
-            }
-            @font-face {
-                font-family: "BenguiatStd-Bold";
-                src: url("/fonts/BenguiatStd-Bold.otf") format("opentype");
-                font-style: normal;
-                font-weight: bold;
-            }
-            @font-face {
-                font-family: "GillSansStd";
-                src: url("/fonts/GillSansStd.otf") format("opentype");
-                font-style: normal;
-            }
-            @font-face {
-                font-family: "GillSansStd-Italic";
-                src: url("/fonts/GillSansStd-Italic.otf") format("opentype");
-                font-style: italic;
-            }
-            @font-face {
-                font-family: "GillSans-Bold";
-                src: url("/fonts/GillSans Bold.tt") format("truetype");
-                font-weight: bold;
-            }
-            @font-face {
-                font-family: "FuturaStd-ExtraBold";
-                src: url("/fonts/FuturaStd-ExtraBold.otf") format("opentype");
-                font-weight: bold;
-            }
-            @font-face {
-                font-family: "DucDeBerryLTStd";
-                src: url("/fonts/DucDeBerryLTStd.otf") format("opentype");
-                font-style: normal;
-            }
+            /* Centralized font definitions */
+            ${FONT_FACE_CSS}
 
             /* Layout improvements */
             html, body {
@@ -480,8 +484,4 @@ function extractTitle(doc) {
     return null;
 }
 
-// Set up close button handler
-viewerCloseBtn.addEventListener('click', closeViewer);
-
-// Expose closeViewer globally for error button
-window.cinefexViewer = { closeViewer };
+// Close button handler and global exposure moved to initViewer()
