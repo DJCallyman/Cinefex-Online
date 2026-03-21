@@ -1,34 +1,19 @@
-import js from "@eslint/js";
+import js from '@eslint/js';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
-export default [
-    js.configs.recommended,
+export default tseslint.config(
+    { ignores: ['dist', 'node_modules', 'coverage'] },
     {
+        extends: [js.configs.recommended, ...tseslint.configs.recommended],
+        files: ['**/*.{ts,tsx}'],
         languageOptions: {
-            ecmaVersion: 2022,
-            sourceType: "module",
-            globals: {
-                document: "readonly",
-                window: "readonly",
-                console: "readonly",
-                setTimeout: "readonly",
-                clearTimeout: "readonly",
-                fetch: "readonly",
-                HTMLElement: "readonly",
-                navigator: "readonly",
-                history: "readonly",
-                self: "readonly",
-                caches: "readonly",
-                URL: "readonly",
-                Response: "readonly",
-                Promise: "readonly",
-            },
+            ecmaVersion: 2020,
+            globals: globals.browser,
         },
         rules: {
-            "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
-            "no-console": ["warn", { allow: ["error", "warn"] }],
-            eqeqeq: ["error", "always"],
-            "prefer-const": "error",
-            "no-var": "error",
+            'react/jsx-no-target-blank': 'off',
+            'react/prop-types': 'off',
         },
     },
-];
+);

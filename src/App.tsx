@@ -1,0 +1,38 @@
+import { Routes, Route } from 'react-router-dom';
+import { Header, SkipLink, ScrollToTop } from './components/layout';
+import { ArchiveGrid } from './components/archive';
+import { IssueModal } from './components/modal';
+import { ArticleViewer } from './components/viewer';
+import { useArchive } from './hooks';
+import { useEffect } from 'react';
+
+function AppContent() {
+    const { magazines, isLoading } = useArchive();
+
+    useEffect(() => {
+        if ('serviceWorker' in navigator && !isLoading && magazines.length > 0) {
+            navigator.serviceWorker.register('/sw.js').catch((err) => {
+                console.warn('Service worker registration failed:', err);
+            });
+        }
+    }, [isLoading, magazines.length]);
+
+    return (
+        <>
+            <SkipLink />
+            <Header />
+            <main id="magazine-grid" role="main">
+                <Routes>
+                    <Route path="/" element={<ArchiveGrid />} />
+                    <Route path="/issue/:issueId" element={<IssueModal />} />
+                    <Route path="/issue/:issueId/article/:articleIndex/:viewMode" element={<ArticleViewer />} />
+                </Routes>
+            </main>
+            <ScrollToTop />
+        </>
+    );
+}
+
+export function App() {
+    return <AppContent />;
+}

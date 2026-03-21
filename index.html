@@ -1,78 +1,25 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#111827">
-    <meta name="description" content="Browse the complete archive of Cinefex magazine, the journal of cinematic illusions, featuring articles on visual effects from 1980 to present.">
-    <meta property="og:title" content="Cinefex Archives">
-    <meta property="og:description" content="Browse the complete archive of Cinefex magazine — the journal of cinematic illusions.">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="covers/1/cover512.jpg">
-    <link rel="icon" type="image/jpeg" href="covers/1/cover512.jpg">
-    <title>Cinefex Archives</title>
-    <link rel="stylesheet" href="css/tailwind.css">
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body class="text-white">
-
-    <!-- Skip Navigation Link for Accessibility -->
-    <a href="#magazine-grid" class="skip-link">Skip to content</a>
-
-    <!-- Header -->
-    <header class="py-6 px-4 sm:px-6 lg:px-8 bg-gray-900/80 backdrop-blur-sm sticky top-0 z-20">
-        <div class="max-w-7xl mx-auto text-center">
-            <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-white">Cinefex Archives</h1>
-            <p class="mt-2 text-lg text-gray-300">A tribute to the journal of cinematic illusions.</p>
-            <!-- Navigation for buckets -->
-            <nav id="bucket-nav" class="mt-6" aria-label="Browse by year">
-                <div class="flex flex-wrap justify-center gap-2">
-                    <!-- Navigation links will be dynamically inserted here -->
-                </div>
-            </nav>
-            <!-- Search -->
-            <div class="mt-4 max-w-md mx-auto relative">
-                <input id="search-input" type="search" placeholder="Search by film, issue number, or year..." class="w-full px-4 py-2 pl-10 bg-gray-800 border border-gray-600 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors" aria-label="Search the archive">
-                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                <button id="search-clear" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white hidden" aria-label="Clear search">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Magazine Grid -->
-    <main id="magazine-grid" class="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto" role="main">
-        <!-- Loading indicator -->
-        <p id="loading-indicator" class="text-center col-span-full text-gray-300" aria-live="polite" role="status">Loading archive...</p>
-        <noscript>
-            <p class="text-center text-gray-300 mt-8">JavaScript is required to browse the Cinefex Archives. Please enable JavaScript in your browser settings.</p>
-        </noscript>
-    </main>
-
-    <!-- Details Modal -->
-    <div id="modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
-        <div id="modal-overlay" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
-        <div id="modal-content" class="relative bg-gray-800 rounded-lg shadow-xl w-full max-w-5xl max-h-[90vh] flex flex-col md:flex-row overflow-hidden">
-            <!-- Modal content will be dynamically inserted here -->
-        </div>
-    </div>
-
-    <!-- Iframe Viewer -->
-    <div id="viewer" class="fixed inset-0 z-[60] bg-gray-900 hidden" role="dialog" aria-modal="true" aria-label="Article viewer" aria-hidden="true">
-        <iframe id="viewer-iframe" class="w-full h-full border-0" allowfullscreen title="Article content"></iframe>
-        <button id="viewer-close" class="absolute top-4 right-4 text-gray-300 hover:text-white bg-black/50 rounded-full p-2 transition-colors" aria-label="Close viewer">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-        </button>
-    </div>
-
-    <!-- Scroll to Top Button -->
-    <button id="scroll-top" class="fixed bottom-6 right-6 z-40 bg-cyan-600 hover:bg-cyan-500 text-white rounded-full p-3 shadow-lg transition-all opacity-0 pointer-events-none" aria-label="Scroll to top">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
-    </button>
-
-    <!-- Load modular JavaScript -->
-    <script type="module" src="js/app.js"></script>
-
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/jpeg" href="/covers/1/cover512.jpg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#111827" />
+        <meta
+            name="description"
+            content="Browse the complete archive of Cinefex magazine, the journal of cinematic illusions, featuring articles on visual effects from 1980 to present."
+        />
+        <meta property="og:title" content="Cinefex Archives" />
+        <meta
+            property="og:description"
+            content="Browse the complete archive of Cinefex magazine — the journal of cinematic illusions."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/covers/1/cover512.jpg" />
+        <title>Cinefex Archives</title>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="module" src="/src/main.tsx"></script>
+    </body>
 </html>

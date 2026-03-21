@@ -170,7 +170,7 @@ def create_issues_json() -> None:
                 "articles": articles_data
             }
             all_issues_data.append(issue_data)
-            print(f"Successfully processed issue {i}. Cover: {cover_image_filename or 'Not Found'}")
+            print(f"Successfully processed issue {i}")
 
         except Exception as e:
             print(f"Error processing manifest for issue {i}: {e}")

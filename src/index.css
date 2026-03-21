@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'BenguiatStd-Book';
+    src: url('/fonts/BenguiatStd-Book.otf') format('opentype');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BenguiatStd-BookItalic';
+    src: url('/fonts/BenguiatStd-BookItalic.otf') format('opentype');
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'BenguiatStd-Medium';
+    src: url('/fonts/BenguiatStd-Medium.otf') format('opentype');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BenguiatStd-MediumItalic';
+    src: url('/fonts/BenguiatStd-MediumItalic.otf') format('opentype');
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'BenguiatStd-Bold';
+    src: url('/fonts/BenguiatStd-Bold.otf') format('opentype');
+    font-style: normal;
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'BenguiatStd-BoldItalic';
+    src: url('/fonts/BenguiatStd-BoldItalic.otf') format('opentype');
+    font-style: italic;
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'GillSansStd';
+    src: url('/fonts/GillSansStd.otf') format('opentype');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'GillSansStd-Italic';
+    src: url('/fonts/GillSansStd-Italic.otf') format('opentype');
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'GillSans-Bold';
+    src: url('/fonts/GillSans%20Bold.tt') format('truetype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'FuturaStd-ExtraBold';
+    src: url('/fonts/FuturaStd-ExtraBold.otf') format('opentype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'DucDeBerryLTStd';
+    src: url('/fonts/DucDeBerryLTStd.otf') format('opentype');
+    font-style: normal;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'BenguiatStd-Book', serif;
+    background-color: #111827;
+}
+
+.magazine-cover {
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.magazine-cover:hover {
+    transform: scale(1.05);
+    box-shadow:
+        0 10px 20px rgba(0, 0, 0, 0.5),
+        0 6px 6px rgba(0, 0, 0, 0.3);
+}
+
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #0e7490;
+    color: white;
+    padding: 8px 16px;
+    z-index: 100;
+    transition: top 0.2s;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+#scroll-top.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+@media print {
+    header,
+    nav,
+    .skip-link,
+    #scroll-top {
+        display: none !important;
+    }
+
+    body {
+        background: white !important;
+        color: black !important;
+    }
+}
+
+:focus-visible {
+    outline: 2px solid #22d3ee;
+    outline-offset: 2px;
+}
