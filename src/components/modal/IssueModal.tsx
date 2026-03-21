@@ -77,16 +77,18 @@ export function IssueModal() {
 
     return (
         <div
+            id="modal"
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
             onClick={handleOverlayClick}
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-title"
         >
-            <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" />
+            <div id="modal-overlay" className="modal-overlay absolute inset-0 bg-black/80 backdrop-blur-sm" />
             <div
+                id="modal-content"
                 ref={modalRef}
-                className="relative bg-gray-800 rounded-lg shadow-xl w-full max-w-5xl max-h-[90vh] flex flex-col md:flex-row overflow-hidden"
+                className="modal-content relative bg-gray-800 rounded-lg shadow-xl w-full max-w-5xl max-h-[90vh] flex flex-col md:flex-row overflow-hidden"
             >
                 <button
                     onClick={handleClose}

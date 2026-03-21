@@ -68,9 +68,15 @@ export function ArticleViewer() {
     }
 
     return (
-        <div className="fixed inset-0 z-[60] bg-gray-900" role="dialog" aria-modal="true" aria-label="Article viewer">
+        <div
+            id="viewer"
+            className="fixed inset-0 z-[60] bg-gray-900"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Article viewer"
+        >
             {isLoading && (
-                <div className="loading-spinner absolute inset-0 flex items-center justify-center">
+                <div className="loading-spinner visible absolute inset-0 flex items-center justify-center">
                     <div className="w-12 h-12 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin" />
                 </div>
             )}

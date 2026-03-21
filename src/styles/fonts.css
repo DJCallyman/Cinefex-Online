@@ -1,0 +1,72 @@
+/* ==========================================================================
+   Cinefex Archives - Centralized Font Definitions
+   Used by both the main app (via CSS import) and iframe style injection.
+   ========================================================================== */
+
+@font-face {
+    font-family: 'BenguiatStd-Book';
+    src: url('/fonts/BenguiatStd-Book.otf') format('opentype');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BenguiatStd-BookItalic';
+    src: url('/fonts/BenguiatStd-BookItalic.otf') format('opentype');
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'BenguiatStd-Medium';
+    src: url('/fonts/BenguiatStd-Medium.otf') format('opentype');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BenguiatStd-MediumItalic';
+    src: url('/fonts/BenguiatStd-MediumItalic.otf') format('opentype');
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'BenguiatStd-Bold';
+    src: url('/fonts/BenguiatStd-Bold.otf') format('opentype');
+    font-style: normal;
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'BenguiatStd-BoldItalic';
+    src: url('/fonts/BenguiatStd-BoldItalic.otf') format('opentype');
+    font-style: italic;
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'GillSansStd';
+    src: url('/fonts/GillSansStd.otf') format('opentype');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'GillSansStd-Italic';
+    src: url('/fonts/GillSansStd-Italic.otf') format('opentype');
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'GillSans-Bold';
+    src: url('/fonts/GillSans%20Bold.tt') format('truetype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'FuturaStd-ExtraBold';
+    src: url('/fonts/FuturaStd-ExtraBold.otf') format('opentype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'DucDeBerryLTStd';
+    src: url('/fonts/DucDeBerryLTStd.otf') format('opentype');
+    font-style: normal;
+}

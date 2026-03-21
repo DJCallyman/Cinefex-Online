@@ -21,7 +21,7 @@ function AppContent() {
         <>
             <SkipLink />
             <Header />
-            <main id="magazine-grid" role="main">
+            <main id="magazine-grid" className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto" role="main">
                 <Routes>
                     <Route path="/" element={<ArchiveGrid />} />
                     <Route path="/issue/:issueId" element={<IssueModal />} />
