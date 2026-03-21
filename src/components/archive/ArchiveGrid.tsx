@@ -1,24 +1,8 @@
-import { useState, useEffect } from 'react';
-import { Magazine } from '../../types';
-import { useArchive } from '../../hooks';
-import { YearBucket } from './YearBucket';
+import { useArchiveContext } from '../../context/ArchiveContext';
+import { MagazineCover } from './MagazineCover';
 
 export function ArchiveGrid() {
-    const { isLoading, error, buckets, search } = useArchive();
-    const [filteredMagazines, setFilteredMagazines] = useState<Magazine[] | null>(null);
-    const [query, setQuery] = useState('');
-
-    useEffect(() => {
-        const params = new URLSearchParams(window.location.search);
-        const q = params.get('q') ?? '';
-        if (q) {
-            setQuery(q);
-            setFilteredMagazines(search(q));
-        } else {
-            setFilteredMagazines(null);
-            setQuery('');
-        }
-    }, [search]);
+    const { isLoading, error, buckets, filteredMagazines, searchQuery } = useArchiveContext();
 
     if (isLoading) {
         return (
@@ -44,7 +28,7 @@ export function ArchiveGrid() {
                     <div className="col-span-full text-center py-16">
                         <p className="text-2xl text-gray-300 mb-2">No results found</p>
                         <p className="text-gray-400">
-                            No issues matching "<strong className="text-white">{query}</strong>" were found.
+                            No issues matching "<strong className="text-white">{searchQuery}</strong>" were found.
                         </p>
                     </div>
                 </div>
@@ -53,18 +37,11 @@ export function ArchiveGrid() {
 
         return (
             <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto" id="magazine-grid">
-                {filteredMagazines.map((magazine) => (
-                    <YearBucket
-                        key={`search-${magazine.issue}`}
-                        bucket={{
-                            key: `search-${magazine.issue}`,
-                            startYear: magazine.year,
-                            endYear: magazine.year,
-                            magazines: [magazine],
-                        }}
-                        isSearchResult
-                    />
-                ))}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+                    {filteredMagazines.map((magazine) => (
+                        <MagazineCover key={magazine.issue} magazine={magazine} />
+                    ))}
+                </div>
             </div>
         );
     }
@@ -72,8 +49,27 @@ export function ArchiveGrid() {
     return (
         <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto" id="magazine-grid">
             {buckets.map((bucket) => (
-                <YearBucket key={bucket.key} bucket={bucket} />
+                <YearBucketWrapper key={bucket.key} bucket={bucket} />
             ))}
         </div>
+    );
+}
+
+import { YearBucket as YearBucketType } from '../../types';
+
+interface YearBucketWrapperProps {
+    bucket: YearBucketType;
+}
+
+function YearBucketWrapper({ bucket }: YearBucketWrapperProps) {
+    return (
+        <section id={`bucket-${bucket.key}`} className="pt-24 -mt-24 mb-12">
+            <h2 className="text-3xl font-bold mt-12 mb-6 text-cyan-400 border-b border-gray-700 pb-2">{bucket.key}</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+                {bucket.magazines.map((magazine) => (
+                    <MagazineCover key={magazine.issue} magazine={magazine} />
+                ))}
+            </div>
+        </section>
     );
 }

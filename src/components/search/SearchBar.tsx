@@ -1,51 +1,39 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
+import { useArchiveContext } from '../../context/ArchiveContext';
 
 export function SearchBar() {
-    const [query, setQuery] = useState(() => {
-        const params = new URLSearchParams(window.location.search);
-        return params.get('q') ?? '';
-    });
+    const { searchQuery, setSearchQuery } = useArchiveContext();
+    const [inputValue, setInputValue] = useState(searchQuery);
     const [showClear, setShowClear] = useState(false);
-    const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     useEffect(() => {
-        const params = new URLSearchParams(window.location.search);
-        const urlQuery = params.get('q') ?? '';
-        if (urlQuery !== query) {
-            setQuery(urlQuery);
-            setShowClear(!!urlQuery);
-        }
-    }, [window.location.search]);
+        setInputValue(searchQuery);
+        setShowClear(!!searchQuery);
+    }, [searchQuery]);
 
-    const handleInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        setQuery(value);
-        setShowClear(!!value);
+    const handleInput = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            const value = e.target.value;
+            setInputValue(value);
+            setShowClear(!!value);
 
-        if (debounceTimerRef.current) {
-            clearTimeout(debounceTimerRef.current);
-        }
-
-        debounceTimerRef.current = setTimeout(() => {
-            if (value.trim()) {
-                const url = new URL(window.location.href);
-                url.searchParams.set('q', value);
-                window.history.replaceState(null, '', url.pathname + url.search);
-            } else {
-                const url = new URL(window.location.href);
-                url.searchParams.delete('q');
-                window.history.replaceState(null, '', url.pathname + url.search);
+            if (debounceRef.current) {
+                clearTimeout(debounceRef.current);
             }
-        }, 300);
-    }, []);
+
+            debounceRef.current = setTimeout(() => {
+                setSearchQuery(value);
+            }, 300);
+        },
+        [setSearchQuery],
+    );
 
     const handleClear = useCallback(() => {
-        setQuery('');
+        setInputValue('');
         setShowClear(false);
-        const url = new URL(window.location.href);
-        url.searchParams.delete('q');
-        window.history.replaceState(null, '', url.pathname + url.search);
-    }, []);
+        setSearchQuery('');
+    }, [setSearchQuery]);
 
     const handleKeyDown = useCallback(
         (e: React.KeyboardEvent) => {
@@ -59,8 +47,8 @@ export function SearchBar() {
 
     useEffect(() => {
         return () => {
-            if (debounceTimerRef.current) {
-                clearTimeout(debounceTimerRef.current);
+            if (debounceRef.current) {
+                clearTimeout(debounceRef.current);
             }
         };
     }, []);
@@ -70,7 +58,7 @@ export function SearchBar() {
             <input
                 id="search-input"
                 type="search"
-                value={query}
+                value={inputValue}
                 onChange={handleInput}
                 onKeyDown={handleKeyDown}
                 placeholder="Search by film, issue number, or year..."

@@ -1,9 +1,9 @@
 import { SearchBar } from '../search/SearchBar';
 import { BucketNav } from './BucketNav';
-import { useArchive } from '../../hooks';
+import { useArchiveContext } from '../../context/ArchiveContext';
 
 export function Header() {
-    const { buckets } = useArchive();
+    const { buckets } = useArchiveContext();
 
     return (
         <header className="py-6 px-4 sm:px-6 lg:px-8 bg-gray-900/80 backdrop-blur-sm sticky top-0 z-20">

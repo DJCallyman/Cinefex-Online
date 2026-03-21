@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useArchive } from '../../hooks';
+import { useArchiveContext } from '../../context/ArchiveContext';
 import { injectStyles } from '../../services/styleInjection';
 
 export function ArticleViewer() {
@@ -11,7 +11,7 @@ export function ArticleViewer() {
     const articleIndex = parseInt(params.articleIndex ?? '', 10);
     const viewMode = params.viewMode as 'read' | 'archive';
 
-    const { getMagazineByIssue } = useArchive();
+    const { getMagazineByIssue } = useArchiveContext();
     const magazine = getMagazineByIssue(issueNumber);
     const article = magazine?.articles[articleIndex];
 

@@ -3,11 +3,11 @@ import { Header, SkipLink, ScrollToTop } from './components/layout';
 import { ArchiveGrid } from './components/archive';
 import { IssueModal } from './components/modal';
 import { ArticleViewer } from './components/viewer';
-import { useArchive } from './hooks';
+import { useArchiveContext } from './context/ArchiveContext';
 import { useEffect } from 'react';
 
 function AppContent() {
-    const { magazines, isLoading } = useArchive();
+    const { magazines, isLoading } = useArchiveContext();
 
     useEffect(() => {
         if ('serviceWorker' in navigator && !isLoading && magazines.length > 0) {

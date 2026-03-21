@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useArchive, useFocusTrap } from '../../hooks';
+import { useFocusTrap } from '../../hooks';
+import { useArchiveContext } from '../../context/ArchiveContext';
 import { COVER_PATH, COVER_FALLBACK } from '../../config';
 import { ArticleList } from './ArticleList';
 import { ViewOptions } from './ViewOptions';
@@ -11,7 +12,7 @@ export function IssueModal() {
     const params = useParams();
     const issueNumber = parseInt(params.issueId ?? '', 10);
 
-    const { getMagazineByIssue } = useArchive();
+    const { getMagazineByIssue } = useArchiveContext();
     const magazine = getMagazineByIssue(issueNumber);
 
     const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
