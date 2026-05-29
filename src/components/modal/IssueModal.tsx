@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 import { useFocusTrap } from '../../hooks';
 import { useArchiveContext } from '../../context/ArchiveContext';
 import { COVER_PATH, COVER_FALLBACK } from '../../config';
@@ -7,12 +6,12 @@ import { ArticleList } from './ArticleList';
 import { ViewOptions } from './ViewOptions';
 import { Article } from '../../types';
 
-export function IssueModal() {
-    const navigate = useNavigate();
-    const params = useParams();
-    const issueNumber = parseInt(params.issueId ?? '', 10);
+interface IssueModalProps {
+    issueNumber: number;
+}
 
-    const { getMagazineByIssue } = useArchiveContext();
+export function IssueModal({ issueNumber }: IssueModalProps) {
+    const { getMagazineByIssue, setSelectedIssue } = useArchiveContext();
     const magazine = getMagazineByIssue(issueNumber);
 
     const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
@@ -22,7 +21,7 @@ export function IssueModal() {
     const modalRef = useFocusTrap(!!magazine);
 
     const handleClose = () => {
-        navigate('/');
+        setSelectedIssue(null);
     };
 
     const handleOverlayClick = (e: React.MouseEvent) => {

@@ -7,7 +7,7 @@ import { useArchiveContext } from './context/ArchiveContext';
 import { useEffect } from 'react';
 
 function AppContent() {
-    const { magazines, isLoading } = useArchiveContext();
+    const { magazines, isLoading, selectedIssue } = useArchiveContext();
 
     useEffect(() => {
         if ('serviceWorker' in navigator && !isLoading && magazines.length > 0) {
@@ -24,10 +24,10 @@ function AppContent() {
             <main id="magazine-grid" className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto" role="main">
                 <Routes>
                     <Route path="/" element={<ArchiveGrid />} />
-                    <Route path="/issue/:issueId" element={<IssueModal />} />
-                    <Route path="/issue/:issueId/article/:articleIndex/:viewMode" element={<ArticleViewer />} />
+                    <Route path="/article/:articleIndex/:viewMode" element={<ArticleViewer />} />
                 </Routes>
             </main>
+            {selectedIssue !== null && <IssueModal issueNumber={selectedIssue} />}
             <ScrollToTop />
         </>
     );

@@ -1,17 +1,18 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useArchiveContext } from '../../context/ArchiveContext';
 import { injectStyles } from '../../services/styleInjection';
 
 export function ArticleViewer() {
     const navigate = useNavigate();
     const params = useParams();
+    const [searchParams] = useSearchParams();
 
-    const issueNumber = parseInt(params.issueId ?? '', 10);
+    const issueNumber = parseInt(searchParams.get('issue') ?? '', 10);
     const articleIndex = parseInt(params.articleIndex ?? '', 10);
     const viewMode = params.viewMode as 'read' | 'archive';
 
-    const { getMagazineByIssue } = useArchiveContext();
+    const { getMagazineByIssue, setSelectedIssue } = useArchiveContext();
     const magazine = getMagazineByIssue(issueNumber);
     const article = magazine?.articles[articleIndex];
 
@@ -22,9 +23,10 @@ export function ArticleViewer() {
     const isReadingView = viewMode === 'read';
     const url = isReadingView ? article?.readingUrl : article?.archiveUrl;
 
-    const handleClose = useCallback(() => {
-        navigate(`/issue/${issueNumber}`);
-    }, [navigate, issueNumber]);
+    const handleClose = () => {
+        setSelectedIssue(issueNumber);
+        navigate('/');
+    };
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {

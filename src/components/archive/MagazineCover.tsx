@@ -1,19 +1,19 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Magazine } from '../../types';
 import { COVER_PATH, COVER_FALLBACK } from '../../config';
+import { useArchiveContext } from '../../context/ArchiveContext';
 
 interface MagazineCoverProps {
     magazine: Magazine;
 }
 
 export function MagazineCover({ magazine }: MagazineCoverProps) {
-    const navigate = useNavigate();
+    const { setSelectedIssue } = useArchiveContext();
     const [imgSrc, setImgSrc] = useState(COVER_PATH(magazine.issue));
     const [imgError, setImgError] = useState(false);
 
     const handleClick = () => {
-        navigate(`/issue/${magazine.issue}`);
+        setSelectedIssue(magazine.issue);
     };
 
     const handleKeyDown = (e: React.KeyboardEvent) => {

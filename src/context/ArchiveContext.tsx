@@ -10,6 +10,8 @@ interface ArchiveContextValue {
     setSearchQuery: (query: string) => void;
     filteredMagazines: Magazine[] | null;
     getMagazineByIssue: (issue: number) => Magazine | undefined;
+    selectedIssue: number | null;
+    setSelectedIssue: (issue: number | null) => void;
 }
 
 const ArchiveContext = createContext<ArchiveContextValue | null>(null);
@@ -48,6 +50,7 @@ export function ArchiveProvider({ children }: { children: ReactNode }) {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState('');
+    const [selectedIssue, setSelectedIssue] = useState<number | null>(null);
 
     useEffect(() => {
         async function fetchData() {
@@ -103,8 +106,10 @@ export function ArchiveProvider({ children }: { children: ReactNode }) {
             setSearchQuery,
             filteredMagazines,
             getMagazineByIssue,
+            selectedIssue,
+            setSelectedIssue,
         }),
-        [magazines, buckets, isLoading, error, searchQuery, filteredMagazines, getMagazineByIssue],
+        [magazines, buckets, isLoading, error, searchQuery, filteredMagazines, getMagazineByIssue, selectedIssue],
     );
 
     return <ArchiveContext.Provider value={value}>{children}</ArchiveContext.Provider>;
