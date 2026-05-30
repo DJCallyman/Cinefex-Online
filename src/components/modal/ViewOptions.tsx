@@ -5,14 +5,13 @@ import { useArchiveContext } from '../../context/ArchiveContext';
 interface ViewOptionsProps {
     magazine: Magazine;
     article: Article;
+    articleIndex: number;
     onBack: () => void;
 }
 
-export function ViewOptions({ magazine, article, onBack }: ViewOptionsProps) {
+export function ViewOptions({ magazine, article, articleIndex, onBack }: ViewOptionsProps) {
     const navigate = useNavigate();
     const { setSelectedIssue } = useArchiveContext();
-
-    const articleIndex = magazine.articles.findIndex((a) => a === article);
 
     const handleReadOnline = () => {
         setSelectedIssue(null);

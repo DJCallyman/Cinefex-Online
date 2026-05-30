@@ -3,22 +3,18 @@ import { Header, SkipLink, ScrollToTop } from './components/layout';
 import { ArchiveGrid } from './components/archive';
 import { IssueModal } from './components/modal';
 import { ArticleViewer } from './components/viewer';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { useArchiveContext } from './context/ArchiveContext';
-import { useEffect } from 'react';
 
 function AppContent() {
-    const { magazines, isLoading, selectedIssue } = useArchiveContext();
+    const { selectedIssue, setSelectedIssue } = useArchiveContext();
 
-    useEffect(() => {
-        if ('serviceWorker' in navigator && !isLoading && magazines.length > 0) {
-            navigator.serviceWorker.register('/sw.js').catch((err) => {
-                console.warn('Service worker registration failed:', err);
-            });
-        }
-    }, [isLoading, magazines.length]);
+    const handleErrorReset = () => {
+        setSelectedIssue(null);
+    };
 
     return (
-        <>
+        <ErrorBoundary onReset={handleErrorReset}>
             <SkipLink />
             <Header />
             <main id="magazine-grid" className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto" role="main">
@@ -29,7 +25,7 @@ function AppContent() {
             </main>
             {selectedIssue !== null && <IssueModal issueNumber={selectedIssue} />}
             <ScrollToTop />
-        </>
+        </ErrorBoundary>
     );
 }
 

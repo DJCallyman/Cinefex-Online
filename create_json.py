@@ -119,6 +119,10 @@ def create_issues_json() -> None:
             # Get all archival articles from manifest
             archival_articles = root.findall('.//article')
 
+            # Build lookup dicts from manifest sections (used for reading views + image galleries)
+            reading_views = {view.get('name'): view.get('value') for view in root.findall('.//readingView')}
+            image_galleries = {g.get('name'): g.get('value') for g in root.findall('.//imageGallery')}
+
             for article in archival_articles:
                 manifest_name = article.get('name')  # Name from manifest (may be incorrect)
                 archive_url = article.get('value')
@@ -131,7 +135,6 @@ def create_issues_json() -> None:
                     reading_url = f"{article_num}.ReadingView.html"
                 else:
                     # Fallback: try to find reading view by manifest name (old behavior)
-                    reading_views = {view.get('name'): view.get('value') for view in root.findall('.//readingView')}
                     reading_url = reading_views.get(manifest_name)
                 
                 if reading_url:
@@ -153,6 +156,20 @@ def create_issues_json() -> None:
                         "readingUrl": f"issues/{i}/{reading_url}",
                         "archiveUrl": f"issues/{i}/{archive_url}"
                     }
+                    
+                    # Image gallery lookup (for 127+ combined Original Layout views)
+                    # Try exact match first, then case-insensitive fallback to handle known capitalization mismatches
+                    # (e.g. "The Finest hours" vs "The Finest Hours", "The 5th wave" vs "The 5th Wave")
+                    gallery_url = image_galleries.get(manifest_name)
+                    if not gallery_url and manifest_name:
+                        manifest_lower = manifest_name.lower()
+                        for gname, gval in image_galleries.items():
+                            if gname and gname.lower() == manifest_lower:
+                                gallery_url = gval
+                                break
+                    
+                    if gallery_url:
+                        article_data["imageGalleryUrl"] = f"issues/{i}/{gallery_url}"
                     
                     # Add articleTitle only if it's different from the name
                     if article_title and article_title.lower() != article_name.lower():

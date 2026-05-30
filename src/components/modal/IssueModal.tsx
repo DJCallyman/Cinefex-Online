@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useFocusTrap } from '../../hooks';
 import { useArchiveContext } from '../../context/ArchiveContext';
 import { COVER_PATH, COVER_FALLBACK } from '../../config';
@@ -15,14 +15,15 @@ export function IssueModal({ issueNumber }: IssueModalProps) {
     const magazine = getMagazineByIssue(issueNumber);
 
     const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
+    const [selectedArticleIndex, setSelectedArticleIndex] = useState<number | null>(null);
     const [imgSrc, setImgSrc] = useState(COVER_PATH(issueNumber));
     const [imgError, setImgError] = useState(false);
 
     const modalRef = useFocusTrap(!!magazine);
 
-    const handleClose = () => {
+    const handleClose = useCallback(() => {
         setSelectedIssue(null);
-    };
+    }, [setSelectedIssue]);
 
     const handleOverlayClick = (e: React.MouseEvent) => {
         if (e.target === e.currentTarget) {
@@ -30,12 +31,14 @@ export function IssueModal({ issueNumber }: IssueModalProps) {
         }
     };
 
-    const handleSelectArticle = (article: Article) => {
+    const handleSelectArticle = (article: Article, index: number) => {
         setSelectedArticle(article);
+        setSelectedArticleIndex(index);
     };
 
     const handleBackToArticles = () => {
         setSelectedArticle(null);
+        setSelectedArticleIndex(null);
     };
 
     useEffect(() => {
@@ -52,7 +55,7 @@ export function IssueModal({ issueNumber }: IssueModalProps) {
             document.removeEventListener('keydown', handleKeyDown);
             document.body.style.overflow = '';
         };
-    }, []);
+    }, [handleClose]);
 
     if (!magazine) {
         return (
@@ -110,8 +113,13 @@ export function IssueModal({ issueNumber }: IssueModalProps) {
                 </div>
 
                 <div id="modal-dynamic-content" className="w-full md:w-1/2 p-6 sm:p-8 flex flex-col">
-                    {selectedArticle ? (
-                        <ViewOptions magazine={magazine} article={selectedArticle} onBack={handleBackToArticles} />
+                    {selectedArticle && selectedArticleIndex !== null ? (
+                        <ViewOptions
+                            magazine={magazine}
+                            article={selectedArticle}
+                            articleIndex={selectedArticleIndex}
+                            onBack={handleBackToArticles}
+                        />
                     ) : (
                         <ArticleList magazine={magazine} onSelectArticle={handleSelectArticle} />
                     )}

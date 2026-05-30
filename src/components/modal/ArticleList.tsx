@@ -2,7 +2,7 @@ import { Magazine, Article } from '../../types';
 
 interface ArticleListProps {
     magazine: Magazine;
-    onSelectArticle: (article: Article) => void;
+    onSelectArticle: (article: Article, index: number) => void;
 }
 
 export function ArticleList({ magazine, onSelectArticle }: ArticleListProps) {
@@ -18,7 +18,7 @@ export function ArticleList({ magazine, onSelectArticle }: ArticleListProps) {
                     <button
                         key={index}
                         className="article-btn w-full text-left px-4 py-3 bg-gray-700 hover:bg-gray-600 rounded-md font-semibold transition-colors text-white"
-                        onClick={() => onSelectArticle(article)}
+                        onClick={() => onSelectArticle(article, index)}
                     >
                         {article.name}
                     </button>

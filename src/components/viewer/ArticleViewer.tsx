@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useArchiveContext } from '../../context/ArchiveContext';
-import { injectStyles } from '../../services/styleInjection';
+import { injectStyles, appendImageGalleryToArchival } from '../../services/styleInjection';
 
 export function ArticleViewer() {
     const navigate = useNavigate();
@@ -17,16 +17,58 @@ export function ArticleViewer() {
     const article = magazine?.articles[articleIndex];
 
     const iframeRef = useRef<HTMLIFrameElement>(null);
+    const closeButtonRef = useRef<HTMLButtonElement>(null);
+    const previousFocusRef = useRef<HTMLElement | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
 
     const isReadingView = viewMode === 'read';
     const url = isReadingView ? article?.readingUrl : article?.archiveUrl;
 
-    const handleClose = () => {
+    const handleClose = useCallback(() => {
         setSelectedIssue(issueNumber);
         navigate('/');
-    };
+    }, [setSelectedIssue, issueNumber, navigate]);
+
+    // Focus management: move focus into viewer on open, restore on close
+    useEffect(() => {
+        previousFocusRef.current = document.activeElement as HTMLElement | null;
+
+        const rafId = requestAnimationFrame(() => {
+            closeButtonRef.current?.focus();
+        });
+
+        return () => {
+            cancelAnimationFrame(rafId);
+
+            const prev = previousFocusRef.current;
+            if (prev && typeof prev.focus === 'function') {
+                setTimeout(() => {
+                    try {
+                        prev.focus();
+                    } catch {
+                        // Element may have been removed from DOM; ignore
+                    }
+                }, 0);
+            } else {
+                // Direct URL access or no previous focusable element — fallback
+                const fallback =
+                    document.getElementById('search-input') ||
+                    document.querySelector<HTMLElement>('.magazine-cover') ||
+                    document.body;
+                if (fallback && typeof fallback.focus === 'function') {
+                    setTimeout(() => {
+                        try {
+                            fallback.focus();
+                        } catch {
+                            // ignore
+                        }
+                    }, 0);
+                }
+            }
+            previousFocusRef.current = null;
+        };
+    }, []);
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -48,6 +90,25 @@ export function ArticleViewer() {
         setIsLoading(false);
         if (iframeRef.current) {
             injectStyles(iframeRef.current, issueNumber, isReadingView);
+
+            // Path A (plan): For 127+ Original Layout ("archive"), if we have an imageGalleryUrl,
+            // append the gallery photo spreads to the manuscript content after initial styling.
+            // This makes "Original Layout" show the full combined magazine experience.
+            // Debug logging is gated inside appendImageGalleryToArchival (plan default A).
+            if (!isReadingView && issueNumber > 126) {
+                const galleryUrl = article?.imageGalleryUrl;
+                if (galleryUrl) {
+                    // Small delay ensures the base archival styles from injectStyles have applied
+                    // before we append more nodes and re-enhance.
+                    setTimeout(() => {
+                        if (iframeRef.current) {
+                            appendImageGalleryToArchival(iframeRef.current, galleryUrl);
+                        }
+                    }, 0);
+                }
+                // If no galleryUrl (missing in data or the 5 known missing galleries), we silently
+                // degrade to manuscript-only per plan default C. Debug mode will still note it if active.
+            }
         }
     };
 
@@ -105,6 +166,7 @@ export function ArticleViewer() {
             />
 
             <button
+                ref={closeButtonRef}
                 onClick={handleClose}
                 className="absolute top-4 right-4 text-gray-300 hover:text-white bg-black/50 rounded-full p-2 transition-colors"
                 aria-label="Close viewer"

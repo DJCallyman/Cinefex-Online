@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { useArchiveContext } from '../../context/ArchiveContext';
+import { CONFIG } from '../../config';
 
 export function SearchBar() {
     const { searchQuery, setSearchQuery } = useArchiveContext();
@@ -24,7 +25,7 @@ export function SearchBar() {
 
             debounceRef.current = setTimeout(() => {
                 setSearchQuery(value);
-            }, 300);
+            }, CONFIG.DEBOUNCE_MS);
         },
         [setSearchQuery],
     );

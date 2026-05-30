@@ -54,6 +54,58 @@ const FONT_FACE_CSS = `
     }
 `;
 
+/**
+ * Debug gate for archival view instrumentation (127+ combined layout work).
+ * Activated by either:
+ *   ?debug=archival in the URL, or
+ *   localStorage.cinefexDebugArchival = '1'
+ * Per plan defaults (A).
+ */
+function isArchivalDebugEnabled(): boolean {
+    if (typeof window === 'undefined') return false;
+    if (window.location.search.includes('debug=archival')) return true;
+    try {
+        return window.localStorage.getItem('cinefexDebugArchival') === '1';
+    } catch {
+        return false;
+    }
+}
+
+function debugLog(...args: unknown[]): void {
+    if (isArchivalDebugEnabled()) {
+        console.log('[CinefexArchival]', ...args);
+    }
+}
+
+/**
+ * Remove or repair malformed SGML comment tags that appear in some 127+ source files:
+ *   <!br style="clear:both"/>
+ *   <!img ... />
+ * The browser treats <! as the start of a comment, which can break the DOM.
+ * We convert <!br ...> to a real <br style="clear:both"> and remove <!img ...> entirely.
+ */
+function sanitizeMalformedComments(doc: Document): void {
+    const walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_COMMENT);
+    const nodesToProcess: Comment[] = [];
+    let node: Node | null;
+    while ((node = walker.nextNode())) {
+        nodesToProcess.push(node as Comment);
+    }
+
+    for (const comment of nodesToProcess) {
+        const text = comment.textContent || '';
+        if (/^br\s/i.test(text)) {
+            // Replace with a real clearing <br>
+            const br = doc.createElement('br');
+            br.style.cssText = 'clear:both;';
+            comment.parentNode?.replaceChild(br, comment);
+        } else if (/^img\s/i.test(text)) {
+            // Remove entirely (these are commented-out image buttons in galleries)
+            comment.parentNode?.removeChild(comment);
+        }
+    }
+}
+
 export function injectStyles(iframe: HTMLIFrameElement, issueNumber: number, isReadingView: boolean): void {
     const doc = iframe.contentDocument;
     if (!doc) return;
@@ -63,6 +115,8 @@ export function injectStyles(iframe: HTMLIFrameElement, issueNumber: number, isR
 
     if (isNewFormat && isReadingView) {
         injectNewReadingViewStyles(doc);
+    } else if (isNewFormat && !isReadingView) {
+        injectNewArchivalViewStyles(doc);
     } else if (isOldFormat && !isReadingView) {
         injectOldArchivalViewStyles(doc);
     } else if (isOldFormat && isReadingView) {
@@ -71,12 +125,9 @@ export function injectStyles(iframe: HTMLIFrameElement, issueNumber: number, isR
 }
 
 function injectNewReadingViewStyles(doc: Document): void {
-    const existingStyles = doc.querySelectorAll('link[rel="stylesheet"]');
-    existingStyles.forEach((link) => {
-        if (link.getAttribute('href')?.includes('Cinefex.css')) {
-            link.remove();
-        }
-    });
+    // Do NOT remove the original Cinefex.css for new-format reading views.
+    // These files are hybrid (full-bleed image pages + later reflow text) and depend on it.
+    // We only provide minimal fixes for fonts, centering, and basic readability.
 
     const style = doc.createElement('style');
     style.textContent = `
@@ -91,30 +142,18 @@ function injectNewReadingViewStyles(doc: Document): void {
         body {
             background-color: #f8f9fa !important;
             color: #1e293b !important;
-            padding: 2rem 4rem !important;
+            padding: 1rem 1.5rem !important;
             max-width: 1024px !important;
             margin-left: auto !important;
             margin-right: auto !important;
         }
 
-        .manuscript, .manuscript01 {
-            font-family: "BenguiatStd-Book", Georgia, serif !important;
-            font-size: 16px !important;
-            line-height: 30px !important;
-            text-align: justify !important;
-            padding: 20px !important;
-            height: auto !important;
-            width: auto !important;
-        }
-
         .page {
             font-family: "BenguiatStd-Book", Georgia, serif !important;
             font-size: 16px !important;
-            line-height: 30px !important;
-            text-align: justify !important;
-            margin-bottom: 1.5em !important;
-            height: auto !important;
-            width: auto !important;
+            line-height: 28px !important;
+            text-align: left !important;
+            margin-bottom: 1.25em !important;
         }
 
         em, i {
@@ -122,29 +161,27 @@ function injectNewReadingViewStyles(doc: Document): void {
             font-style: italic !important;
         }
 
-        .dropCap span {
-            font-family: "BenguiatStd-BookItalic", Georgia, serif !important;
-        }
-
-        .caption, .sideBar, .sideBarBottom {
-            font-family: "GillSansStd-Italic", "Gill Sans", sans-serif !important;
-        }
-
-        .img-all {
-            height: 660px !important;
-            display: block !important;
-            background-size: contain !important;
-            background-position: center !important;
-            background-repeat: no-repeat !important;
-        }
-
-        div:not(.img-all)[style*="background"] {
-            display: none !important;
+        strong, b {
+            font-family: "BenguiatStd-Medium", Georgia, serif !important;
+            font-weight: normal !important;
         }
 
         page {
             display: block !important;
             break-inside: avoid !important;
+        }
+
+        img {
+            max-width: 100% !important;
+            height: auto !important;
+        }
+
+        .img-all {
+            min-height: 660px;
+            background-color: #111827;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
         }
     `;
 
@@ -155,6 +192,213 @@ function injectNewReadingViewStyles(doc: Document): void {
     }
 
     injectTitle(doc);
+
+    // Populate full-bleed magazine page images for empty .img-all containers
+    // (these were dynamically supplied by the original iPad app)
+    populateNewReadingViewImages(doc);
+}
+
+/**
+ * For new-format reading views (127+), the article-opening title pages are
+ * empty placeholders: <page page-num="88"><div class="page img-all"></div></page>.
+ * The original iPad app supplied the full-bleed magazine page image at runtime.
+ *
+ * The corresponding manuscript ("Original Layout") file is the authoritative
+ * source for title images. The imageGallery file contains inline figures
+ * (screenshots, photos) that should appear within the text.
+ *
+ * Both files live in the same issue folder, so relative "images/..." paths
+ * resolve identically.
+ */
+function populateNewReadingViewImages(doc: Document): void {
+  // Collect empty .img-all containers keyed by their page-num.
+  const titleTargets: { pageNum: string; container: HTMLElement }[] = [];
+
+  doc.querySelectorAll('page').forEach((pageEl) => {
+    const imgAll = pageEl.querySelector('.img-all') as HTMLElement | null;
+    if (!imgAll) return;
+    if (imgAll.querySelector('img') || imgAll.dataset.populatedImage) return;
+
+    const pageNum = pageEl.getAttribute('page-num');
+    if (!pageNum) return;
+
+    titleTargets.push({ pageNum, container: imgAll });
+  });
+
+  if (titleTargets.length === 0) return;
+
+  // Derive the manuscript and imageGallery URLs from this reading view's URL.
+  // e.g. issues/167/readingView4.html -> manuscript4.html + imageGallery4.html
+  const readingUrl = doc.URL || doc.location?.href || '';
+  const manuscriptUrl = readingUrl.replace(/readingView(\d+)\.html/i, 'manuscript$1.html');
+  const imageGalleryUrl = readingUrl.replace(/readingView(\d+)\.html/i, 'imageGallery$1.html');
+
+  if (manuscriptUrl === readingUrl) return;
+
+  // Fetch manuscript for title images.
+  fetch(manuscriptUrl)
+    .then((res) => (res.ok ? res.text() : Promise.reject(new Error(`HTTP ${res.status}`))))
+    .then((html) => {
+      const manuscriptDoc = new DOMParser().parseFromString(html, 'text/html');
+
+      const pageImageMap = new Map<string, string>();
+      manuscriptDoc.querySelectorAll('page').forEach((pageEl) => {
+        const pageNum = pageEl.getAttribute('page-num');
+        if (!pageNum || pageImageMap.has(pageNum)) return;
+        const img = pageEl.querySelector('img[src]');
+        const src = img?.getAttribute('src');
+        if (src) pageImageMap.set(pageNum, src);
+      });
+
+      for (const { pageNum, container } of titleTargets) {
+        const src = pageImageMap.get(pageNum);
+        if (src) applyInlineImage(container, src);
+      }
+    })
+    .catch(() => { /* Manuscript unavailable */ });
+
+  // Fetch imageGallery for inline figures to inject into text pages.
+  if (imageGalleryUrl !== readingUrl) {
+    fetch(imageGalleryUrl)
+      .then((res) => (res.ok ? res.text() : Promise.reject(new Error(`HTTP ${res.status}`))))
+      .then((html) => {
+        const galleryDoc = new DOMParser().parseFromString(html, 'text/html');
+
+        // Build page-num -> inline figure src map (exclude thumbs, buttons, video icons).
+        const figureMap = new Map<string, string>();
+        galleryDoc.querySelectorAll('page').forEach((pageEl) => {
+          const pageNum = pageEl.getAttribute('page-num');
+          if (!pageNum || figureMap.has(pageNum)) return;
+
+          pageEl.querySelectorAll('img').forEach((img) => {
+            const src = img.getAttribute('src') || '';
+            const isFigure = !src.includes('th0') && !src.includes('button-') && !src.includes('video_icon');
+            if (isFigure) figureMap.set(pageNum, src);
+          });
+        });
+
+        // Inject figures into matching text pages.
+        doc.querySelectorAll('page').forEach((pageEl) => {
+          const pageNum = pageEl.getAttribute('page-num');
+          if (!pageNum) return;
+          const figureSrc = figureMap.get(pageNum);
+          if (!figureSrc) return;
+
+          const pageDiv = pageEl.querySelector('.page') as HTMLElement | null;
+          if (!pageDiv) return;
+
+          applyFigureToTextPage(pageDiv, figureSrc);
+        });
+      })
+      .catch(() => { /* imageGallery unavailable */ });
+  }
+}
+
+/**
+ * Appends an inline figure image (screenshot, photo) from the imageGallery
+ * to the bottom of a text page's .page div.
+ */
+function applyFigureToTextPage(container: HTMLElement, src: string): void {
+  if (container.dataset.populatedFigure) return;
+  container.dataset.populatedFigure = 'true';
+
+  const img = container.ownerDocument.createElement('img');
+  img.src = src;
+  img.loading = 'lazy';
+  img.alt = '';
+  img.style.cssText = 'display:block;width:100%;height:auto;margin:1.5rem auto 0 auto;';
+
+  img.addEventListener('error', () => {
+    delete container.dataset.populatedFigure;
+    if (img.parentNode === container) container.removeChild(img);
+  });
+
+  container.appendChild(img);
+}
+
+/**
+ * Inserts a real <img> into an empty .img-all title-page container.
+ */
+function applyInlineImage(container: HTMLElement, src: string): void {
+  if (container.dataset.populatedImage) return;
+  container.dataset.populatedImage = 'true';
+
+  const img = container.ownerDocument.createElement('img');
+  img.src = src;
+  img.loading = 'lazy';
+  img.alt = '';
+  img.style.cssText = 'display:block;width:100%;height:auto;margin:0 auto;';
+
+  img.addEventListener('error', () => {
+    delete container.dataset.populatedImage;
+    if (img.parentNode === container) container.removeChild(img);
+  });
+
+  container.style.backgroundColor = 'transparent';
+  container.style.minHeight = '0';
+  container.appendChild(img);
+}
+
+
+
+function injectNewArchivalViewStyles(doc: Document): void {
+    // New-format archival (manuscript*.html) = fixed 1024x768 page-image spreads.
+    // For 127+ this may be a combined document (manuscript + imageGallery pages appended).
+    // Be extremely conservative: center everything, let the original Cinefex.css
+    // handle the page-image presentation, only add light container fixes.
+
+    // Sanitize any remaining malformed SGML comments (<!br ...> and <!img ...>)
+    // that can appear in both manuscript and gallery source files.
+    sanitizeMalformedComments(doc);
+
+    const style = doc.createElement('style');
+    style.textContent = `
+        html {
+            margin: 0 !important;
+            padding: 0 !important;
+            background: #1a1a2e !important;
+            overflow: auto !important;
+        }
+
+        body {
+            margin: 0 !important;
+            padding: 20px !important;
+            background: #1a1a2e !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+
+        page {
+            display: block !important;
+            margin: 0 auto 20px auto !important;
+            width: 1024px !important;
+            float: none !important;
+        }
+
+        .page {
+            float: none !important;
+            display: block !important;
+            margin: 0 auto !important;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.6) !important;
+            border-radius: 4px !important;
+            background-size: 1024px 768px !important;
+            position: relative !important;
+        }
+
+        .page > div {
+            float: none !important;
+            display: block !important;
+        }
+
+        img {
+            width: 100% !important;
+            height: auto !important;
+            max-width: 100% !important;
+            display: block !important;
+        }
+    `;
+    doc.head.appendChild(style);
 }
 
 function injectOldArchivalViewStyles(doc: Document): void {
@@ -284,5 +528,136 @@ function injectTitle(doc: Document): void {
             text-align: left;
         `;
         doc.body.insertBefore(h1, doc.body.firstChild);
+    }
+}
+
+/**
+ * Append image gallery pages to a new-format archival view (127+).
+ * This is the core of Path A: we fetch the gallery HTML at runtime and
+ * concatenate its <page> elements into the already-loaded manuscript iframe.
+ *
+ * Called from ArticleViewer after injectStyles for !isReadingView && issue > 126.
+ * Gracefully degrades if gallery is missing or fetch fails (silent per plan default C).
+ */
+export function appendImageGalleryToArchival(
+    iframe: HTMLIFrameElement,
+    galleryUrl: string
+): void {
+    const doc = iframe.contentDocument;
+    if (!doc) return;
+
+    const issueMatch = galleryUrl.match(/issues\/(\d+)\//);
+    const issueNum = issueMatch ? issueMatch[1] : '???';
+
+    debugLog(`Starting gallery append for issue ${issueNum}: ${galleryUrl}`);
+
+    fetch(galleryUrl)
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error(`HTTP ${res.status}`);
+            }
+            return res.text();
+        })
+        .then((html) => {
+            const galleryDoc = new DOMParser().parseFromString(html, 'text/html');
+
+            // Collect all <page> elements from the gallery (these are the photo spreads)
+            const galleryPages = Array.from(galleryDoc.querySelectorAll('page'));
+
+            if (galleryPages.length === 0) {
+                debugLog(`Issue ${issueNum}: gallery had 0 pages, nothing to append`);
+                return;
+            }
+
+            // Sanitize any malformed comments inside the gallery fragment before cloning
+            sanitizeMalformedComments(galleryDoc);
+
+            // Append clones so we don't move nodes out of the parsed document
+            const fragment = doc.createDocumentFragment();
+            for (const page of galleryPages) {
+                const clone = page.cloneNode(true) as HTMLElement;
+                fragment.appendChild(clone);
+            }
+
+            doc.body.appendChild(fragment);
+
+            debugLog(`Issue ${issueNum}: appended ${galleryPages.length} gallery pages (total pages now ${doc.querySelectorAll('page').length})`);
+
+            // Re-apply base archival styling (safe to call multiple times).
+            injectNewArchivalViewStyles(doc);
+
+            // Apply the additional gallery-specific polish (hiding chrome, proper .imageGalleryPage treatment, etc.).
+            // This is the "styling polish" half of "do both" (plan Phase 4).
+            enhanceCombinedArchivalStyles(doc);
+        })
+        .catch((err) => {
+            // Silent degradation per plan default C — only log when debug is on
+            debugLog(`Issue ${issueNum}: gallery fetch failed or unavailable — ${err}. Continuing with manuscript only.`);
+        });
+}
+
+/**
+ * Enhance archival styling for combined 127+ views (manuscript + appended gallery pages).
+ * Extends the base rules already injected by injectNewArchivalViewStyles.
+ * Called automatically at the end of appendImageGalleryToArchival, and also safe to call on pure manuscripts.
+ */
+export function enhanceCombinedArchivalStyles(doc: Document): void {
+    // We intentionally keep this light — the heavy lifting is already done by the base injector.
+    // Here we only add/override rules that are specific to the gallery markup we now append.
+
+    const style = doc.createElement('style');
+    style.textContent = `
+        /* Gallery photo-spread containers (127+ imageGallery*.html) */
+        .imageGalleryPage {
+            display: block !important;
+            width: 1024px !important;
+            height: 768px !important;
+            margin: 0 auto 20px auto !important;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.6) !important;
+            border-radius: 4px !important;
+            background-size: 1024px 768px !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            position: relative !important;
+            overflow: hidden !important;
+        }
+
+        /* The photo that is dropped onto the page plate — respect authored margins */
+        .imageGalleryPage > div > img,
+        .imageGalleryPage img {
+            max-width: none !important; /* allow the authored pixel margins to work */
+            height: auto !important;
+            display: block !important;
+        }
+
+        /* Hide all the iPad-era gallery chrome (video buttons, thumbs, etc.) */
+        .new_button-left,
+        .new_button-top,
+        .new_button-top-2,
+        .button-left,
+        .button-left-2,
+        .button-top,
+        .button-top-2,
+        .thumbs,
+        .new_button-left a,
+        .thumbs a {
+            display: none !important;
+        }
+
+        /* A few other classes that appear in some galleries and can cause noise */
+        .gallery,
+        .header,
+        .logo,
+        .filmTitle,
+        .filmTitleTop {
+            display: none !important;
+        }
+    `;
+
+    // Insert early so it can be overridden by more specific rules if needed
+    if (doc.head.firstChild) {
+        doc.head.insertBefore(style, doc.head.firstChild);
+    } else {
+        doc.head.appendChild(style);
     }
 }

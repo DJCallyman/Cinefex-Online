@@ -28,7 +28,7 @@ export function ArchiveGrid() {
                     <div className="col-span-full text-center py-16">
                         <p className="text-2xl text-gray-300 mb-2">No results found</p>
                         <p className="text-gray-400">
-                            No issues matching "<strong className="text-white">{searchQuery}</strong>" were found.
+                            No issues matching &ldquo;<strong className="text-white">{searchQuery}</strong>&rdquo; were found.
                         </p>
                     </div>
                 </div>

@@ -2,6 +2,7 @@ export interface Article {
     name: string;
     readingUrl: string;
     archiveUrl: string;
+    imageGalleryUrl?: string;
     articleTitle?: string;
 }
 
