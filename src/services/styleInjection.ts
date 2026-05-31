@@ -1,4 +1,5 @@
 import { CONFIG } from '../config';
+import { collapseMultiVariantGalleryPages } from './collapseMultiVariant';
 
 const FONT_FACE_CSS = `
     @font-face {
@@ -583,6 +584,10 @@ export function appendImageGalleryToArchival(
 
             debugLog(`Issue ${issueNum}: appended ${galleryPages.length} gallery pages (total pages now ${doc.querySelectorAll('page').length})`);
 
+            // Collapse multi-variant photo spreads (e.g. p75.1–p75.4 in Kong) into single interactive pages
+            // with working thumbnail switchers. Runs on the combined document after gallery pages are appended.
+            collapseMultiVariantGalleryPages(doc);
+
             // Re-apply base archival styling (safe to call multiple times).
             injectNewArchivalViewStyles(doc);
 
@@ -651,6 +656,56 @@ export function enhanceCombinedArchivalStyles(doc: Document): void {
         .filmTitle,
         .filmTitleTop {
             display: none !important;
+        }
+
+        /* Functional thumbnail switcher for multi-variant photo spreads (e.g. 4 versions on p75 for Kong).
+           Compact 2x2 grid in the bottom-right corner of the plate. */
+        .variant-thumbs {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            flex-direction: row !important;
+            width: 63px !important;
+            position: absolute !important;
+            right: 14px !important;
+            bottom: 12px !important;
+            gap: 3px !important;
+            z-index: 30 !important;
+            background: rgba(0,0,0,0.45) !important;
+            padding: 2px !important;
+            border-radius: 2px !important;
+        }
+
+        .variant-thumbs button {
+            border: 1px solid rgba(255,255,255,0.5) !important;
+            background: transparent !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            cursor: pointer !important;
+            width: 30px !important;
+            height: 22px !important;
+            overflow: hidden !important;
+            border-radius: 1px !important;
+            opacity: 0.75 !important;
+            transition: opacity 0.1s ease, border-color 0.1s ease, transform 0.1s ease !important;
+            flex-shrink: 0 !important;
+        }
+
+        .variant-thumbs button:hover {
+            opacity: 1 !important;
+            transform: scale(1.05) !important;
+        }
+
+        .variant-thumbs button[aria-pressed="true"],
+        .variant-thumbs button:active {
+            opacity: 1 !important;
+            border-color: #fff !important;
+        }
+
+        .variant-thumbs img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            display: block !important;
         }
     `;
 
