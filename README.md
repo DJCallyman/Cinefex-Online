@@ -148,7 +148,7 @@ A root `ErrorBoundary` wraps the entire application. If any component throws, us
 2. For issues `1-126`, the manifest typically points to paired `N.ReadingView.html` and `N.ArchivalView.html` files.
 3. For issues `127+`, the manifest points to `readingView*.html`, `manuscript*.html`, and, when present, `imageGallery*.html` files for each article.
 4. Each article HTML file contains `<meta name="Film">` and `<meta name="Title">` (or Dublin Core equivalents).
-5. Run `python create_json.py` from the repo root. It writes `issues_full.json`, `issues.json`, **and** `public/search_index.json` (the full-text search index used by the search bar). All three are gitignored.
+5. Run `python create_json.py` from the repo root. It writes `public/issues_full.json`, `public/issues.json`, and `public/search_index.json` (the full-text search index used by the search bar). All are gitignored. Vite's build copies `public/` into `dist/`, so the app's runtime fetch of `/issues_full.json` resolves correctly in both dev and production.
 6. `npm run build` does the same: it runs `create_json.py` automatically, then bundles the React app, which copies the freshly-built `search_index.json` into `dist/`.
 7. Run `python check_article_names.py` (optional but recommended) to validate consistency.
 
