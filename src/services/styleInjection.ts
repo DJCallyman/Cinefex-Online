@@ -137,8 +137,34 @@ function fixMalformedArchivalPageStructure(doc: Document): void {
 
         // Only repair the double-.page case that produces the scroll trap.
         if (inner.classList.contains('page')) {
-            outerPlate.appendChild(inner);
+            // When the source is missing its closing tags, the HTML parser nests every
+            // subsequent <page> sibling inside this wrapper, then ignores the </page> end tag.
+            // Those trapped pages must be rescued back to document flow BEFORE we remove
+            // the wrapper, otherwise the entire rest of the article disappears.
+            const rescued: Node[] = [];
+            while (wrapper.firstChild) {
+                rescued.push(wrapper.removeChild(wrapper.firstChild));
+            }
+
+            if (rescued.length > 0) {
+                const fragment = doc.createDocumentFragment();
+                for (const node of rescued) {
+                    fragment.appendChild(node);
+                }
+                pageEl.parentNode?.insertBefore(fragment, pageEl.nextSibling);
+            }
+
             wrapper.remove();
+
+            // Collapse the now-redundant outerPlate into the inner plate, so the page ends up
+            // as a single <page><div class="page">…</div></page> — matching every other
+            // well-formed pre-127 page. The outerPlate had no inline size of its own; the
+            // inner carries the background image, so we keep inner's class & style and drop
+            // outerPlate. This also avoids the "title page zoomed to a corner" symptom caused
+            // by the original outerPlate inheriting 864x768 with the inner shrinking to 0.
+            if (outerPlate.parentNode) {
+                outerPlate.parentNode.replaceChild(inner, outerPlate);
+            }
         }
         // Plain <img> cases inside the wrapper are left alone; our CSS already handles them.
     });
@@ -487,11 +513,13 @@ function injectOldArchivalViewStyles(doc: Document): void {
             overflow: hidden !important;
         }
 
-        /* Some early issues have a malformed double-.page wrapper on full-bleed
-           image-only title pages (e.g. issue 3 Empire Strikes Back p4).
-           The inner .page carries the background/image inside an explicit 864x768 div.
-           Use an exact path selector so that parser mis-nesting in that one broken file
-           cannot accidentally apply height:100% (and thus collapse scrolling) to later pages. */
+        /* The malformed double-.page wrapper on full-bleed image-only title pages
+           (e.g. issue 3 Empire Strikes Back p4) is collapsed in
+           fixMalformedArchivalPageStructure() into a single <page><div class="page">…
+           matching every other pre-127 page, so the page > .page rule above sizes it
+           correctly. The legacy 3-level selector below is kept as a safety net for any
+           future pre-127 source file that happens to ship with the same double-.page
+           nesting still intact (no repair triggered). */
         page > .page > div > .page {
             height: 100% !important;
             min-height: 0 !important;
