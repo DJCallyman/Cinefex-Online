@@ -1,23 +1,26 @@
 import { useNavigate } from 'react-router-dom';
 import { Magazine, Article } from '../../types';
+import { useArchiveContext } from '../../context/ArchiveContext';
 
 interface ViewOptionsProps {
     magazine: Magazine;
     article: Article;
+    articleIndex: number;
     onBack: () => void;
 }
 
-export function ViewOptions({ magazine, article, onBack }: ViewOptionsProps) {
+export function ViewOptions({ magazine, article, articleIndex, onBack }: ViewOptionsProps) {
     const navigate = useNavigate();
-
-    const articleIndex = magazine.articles.findIndex((a) => a === article);
+    const { setSelectedIssue } = useArchiveContext();
 
     const handleReadOnline = () => {
-        navigate(`/issue/${magazine.issue}/article/${articleIndex}/read`);
+        setSelectedIssue(null);
+        navigate(`/article/${articleIndex}/read?issue=${magazine.issue}`);
     };
 
     const handleViewLayout = () => {
-        navigate(`/issue/${magazine.issue}/article/${articleIndex}/archive`);
+        setSelectedIssue(null);
+        navigate(`/article/${articleIndex}/archive?issue=${magazine.issue}`);
     };
 
     return (

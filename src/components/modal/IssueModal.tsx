@@ -1,29 +1,30 @@
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState, useCallback } from 'react';
 import { useFocusTrap } from '../../hooks';
 import { useArchiveContext } from '../../context/ArchiveContext';
-import { COVER_PATH, COVER_FALLBACK } from '../../config';
+import { COVER_FALLBACK } from '../../config';
+import { getIssueNeighbors } from '../../utils/nav';
 import { ArticleList } from './ArticleList';
 import { ViewOptions } from './ViewOptions';
+import { Cover } from '../archive/Cover';
 import { Article } from '../../types';
 
-export function IssueModal() {
-    const navigate = useNavigate();
-    const params = useParams();
-    const issueNumber = parseInt(params.issueId ?? '', 10);
+interface IssueModalProps {
+    issueNumber: number;
+}
 
-    const { getMagazineByIssue } = useArchiveContext();
+export function IssueModal({ issueNumber }: IssueModalProps) {
+    const { getMagazineByIssue, magazines, setSelectedIssue } = useArchiveContext();
     const magazine = getMagazineByIssue(issueNumber);
 
     const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
-    const [imgSrc, setImgSrc] = useState(COVER_PATH(issueNumber));
+    const [selectedArticleIndex, setSelectedArticleIndex] = useState<number | null>(null);
     const [imgError, setImgError] = useState(false);
 
     const modalRef = useFocusTrap(!!magazine);
 
-    const handleClose = () => {
-        navigate('/');
-    };
+    const handleClose = useCallback(() => {
+        setSelectedIssue(null);
+    }, [setSelectedIssue]);
 
     const handleOverlayClick = (e: React.MouseEvent) => {
         if (e.target === e.currentTarget) {
@@ -31,13 +32,22 @@ export function IssueModal() {
         }
     };
 
-    const handleSelectArticle = (article: Article) => {
+    const handleSelectArticle = (article: Article, index: number) => {
         setSelectedArticle(article);
+        setSelectedArticleIndex(index);
     };
 
     const handleBackToArticles = () => {
         setSelectedArticle(null);
+        setSelectedArticleIndex(null);
     };
+
+    // Reset inner state whenever the modal is opened for a new issue
+    useEffect(() => {
+        setSelectedArticle(null);
+        setSelectedArticleIndex(null);
+        setImgError(false);
+    }, [issueNumber]);
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -53,7 +63,7 @@ export function IssueModal() {
             document.removeEventListener('keydown', handleKeyDown);
             document.body.style.overflow = '';
         };
-    }, []);
+    }, [handleClose]);
 
     if (!magazine) {
         return (
@@ -69,12 +79,7 @@ export function IssueModal() {
         );
     }
 
-    const handleImgError = () => {
-        if (!imgError) {
-            setImgSrc(COVER_FALLBACK(issueNumber));
-            setImgError(true);
-        }
-    };
+    const { prev: prevIssue, next: nextIssue } = getIssueNeighbors(magazines, issueNumber);
 
     return (
         <div
@@ -102,19 +107,56 @@ export function IssueModal() {
                 </button>
 
                 <div className="w-full md:w-1/2 p-0">
-                    <img
-                        src={imgSrc}
+                    <Cover
+                        issue={magazine.issue}
                         alt={`Cover of Cinefex Issue ${magazine.issue}`}
                         className="w-full h-full object-cover"
-                        onError={handleImgError}
+                        fallback={imgError ? COVER_FALLBACK(magazine.issue) : undefined}
+                        onError={() => setImgError(true)}
+                        loading="eager"
                     />
                 </div>
 
                 <div id="modal-dynamic-content" className="w-full md:w-1/2 p-6 sm:p-8 flex flex-col">
-                    {selectedArticle ? (
-                        <ViewOptions magazine={magazine} article={selectedArticle} onBack={handleBackToArticles} />
+                    {selectedArticle && selectedArticleIndex !== null ? (
+                        <ViewOptions
+                            magazine={magazine}
+                            article={selectedArticle}
+                            articleIndex={selectedArticleIndex}
+                            onBack={handleBackToArticles}
+                        />
                     ) : (
                         <ArticleList magazine={magazine} onSelectArticle={handleSelectArticle} />
+                    )}
+
+                    {(prevIssue !== null || nextIssue !== null) && (
+                        <nav
+                            className="mt-6 pt-4 border-t border-gray-700 flex justify-between gap-2"
+                            aria-label="Navigate to adjacent issues"
+                        >
+                            <button
+                                onClick={() => prevIssue !== null && setSelectedIssue(prevIssue)}
+                                disabled={prevIssue === null}
+                                className="flex items-center gap-1 px-3 py-2 text-sm text-cyan-400 hover:text-cyan-300 disabled:text-gray-600 disabled:cursor-not-allowed transition-colors"
+                                aria-label={prevIssue !== null ? `Go to Issue ${prevIssue}` : 'No previous issue'}
+                            >
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                </svg>
+                                {prevIssue !== null ? `Issue ${prevIssue}` : 'First issue'}
+                            </button>
+                            <button
+                                onClick={() => nextIssue !== null && setSelectedIssue(nextIssue)}
+                                disabled={nextIssue === null}
+                                className="flex items-center gap-1 px-3 py-2 text-sm text-cyan-400 hover:text-cyan-300 disabled:text-gray-600 disabled:cursor-not-allowed transition-colors"
+                                aria-label={nextIssue !== null ? `Go to Issue ${nextIssue}` : 'No next issue'}
+                            >
+                                {nextIssue !== null ? `Issue ${nextIssue}` : 'Last issue'}
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
+                            </button>
+                        </nav>
                     )}
                 </div>
             </div>

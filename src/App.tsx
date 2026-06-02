@@ -1,35 +1,52 @@
+import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { Header, SkipLink, ScrollToTop } from './components/layout';
+import { Header, SkipLink, ScrollToTop, ThemeToggle } from './components/layout';
 import { ArchiveGrid } from './components/archive';
 import { IssueModal } from './components/modal';
-import { ArticleViewer } from './components/viewer';
+import { BookmarksView } from './components/bookmarks';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { useArchiveContext } from './context/ArchiveContext';
-import { useEffect } from 'react';
+import { useGlobalShortcuts, useFirstBucketPreloads } from './hooks';
+
+const ArticleViewer = lazy(() =>
+    import('./components/viewer').then((m) => ({ default: m.ArticleViewer })),
+);
 
 function AppContent() {
-    const { magazines, isLoading } = useArchiveContext();
+    const { selectedIssue, setSelectedIssue } = useArchiveContext();
+    useGlobalShortcuts();
+    useFirstBucketPreloads();
 
-    useEffect(() => {
-        if ('serviceWorker' in navigator && !isLoading && magazines.length > 0) {
-            navigator.serviceWorker.register('/sw.js').catch((err) => {
-                console.warn('Service worker registration failed:', err);
-            });
-        }
-    }, [isLoading, magazines.length]);
+    const handleErrorReset = () => {
+        setSelectedIssue(null);
+    };
 
     return (
-        <>
+        <ErrorBoundary onReset={handleErrorReset}>
             <SkipLink />
             <Header />
             <main id="magazine-grid" className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto" role="main">
-                <Routes>
-                    <Route path="/" element={<ArchiveGrid />} />
-                    <Route path="/issue/:issueId" element={<IssueModal />} />
-                    <Route path="/issue/:issueId/article/:articleIndex/:viewMode" element={<ArticleViewer />} />
-                </Routes>
+                <Suspense
+                    fallback={
+                        <div className="flex items-center justify-center min-h-[60vh]">
+                            <div
+                                className="w-12 h-12 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin"
+                                aria-label="Loading article"
+                            />
+                        </div>
+                    }
+                >
+                    <Routes>
+                        <Route path="/" element={<ArchiveGrid />} />
+                        <Route path="/bookmarks" element={<BookmarksView />} />
+                        <Route path="/article/:articleIndex/:viewMode" element={<ArticleViewer />} />
+                    </Routes>
+                </Suspense>
             </main>
+            {selectedIssue !== null && <IssueModal issueNumber={selectedIssue} />}
             <ScrollToTop />
-        </>
+            <ThemeToggle />
+        </ErrorBoundary>
     );
 }
 

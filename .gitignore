@@ -26,16 +26,56 @@
 *.mpeg
 *.mp2
 *.mp3
-.ds_store
-*.code-workspace
-issues/
 
+# macOS Finder metadata
+.DS_Store
+._*
+Thumbs.db
+
+# Editor / IDE
+*.code-workspace
+
+# ============================================================
+# Cinefex content tree
+# ============================================================
+# The magazine content (HTML pages + per-issue fonts/images) and the
+# cover images are too large for git. They are deployed separately
+# from the built dist/. New clones must run `npm run covers:webp`
+# and `npm run search:index` to populate the public/ assets, and
+# the issues/ tree is shipped as a separate download.
+issues/
+covers/
+
+# Generated data files (rebuilt by create_json.py / npm run search:index)
+issues.json
+issues_full.json
+public/issues.json
+public/issues_full.json
+public/search_index.json
+public/search_index.json.gz
+
+# ============================================================
 # Build artifacts
+# ============================================================
 node_modules/
 dist/
+*.tsbuildinfo
 
-# Auth credentials
+# Auth credentials (server-only)
 cinefex.htpasswd
 
-# Ignore OpenCode files
+# Tooling state
 .opencode
+.idea/
+.vscode/
+__pycache__/
+*.pyc
+
+# ============================================================
+# Historical artifacts (no longer used by the app)
+# ============================================================
+# The unused GillSans-Bold fallback was the only .tt file in the
+# fonts/ tree. The repo-standard extension is .ttf. Once the rename
+# is committed, this rule is harmless; it prevents any future .tt
+# from sneaking back in.
+*.tt
