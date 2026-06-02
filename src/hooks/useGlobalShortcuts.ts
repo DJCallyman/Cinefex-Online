@@ -1,6 +1,4 @@
-import { useEffect, useRef } from 'react';
-import { useArchiveContext } from '../context/ArchiveContext';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useMemo, useRef } from 'react';
 
 interface Options {
     /**
@@ -32,9 +30,10 @@ const DEFAULT_OPTIONS: Options = {
  * because it needs Roving-tabindex state; we don't try to multiplex that here.
  */
 export function useGlobalShortcuts(options: Partial<Options> = {}) {
-    const navigate = useNavigate();
-    const { buckets } = useArchiveContext();
-    const opts = { ...DEFAULT_OPTIONS, ...options };
+    const opts = useMemo<Options>(
+        () => ({ ...DEFAULT_OPTIONS, ...options }),
+        [options],
+    );
     const lastGRef = useRef<number>(0);
 
     useEffect(() => {
@@ -71,5 +70,5 @@ export function useGlobalShortcuts(options: Partial<Options> = {}) {
 
         document.addEventListener('keydown', handler);
         return () => document.removeEventListener('keydown', handler);
-    }, [opts.isEditableTarget, navigate, buckets]);
+    }, [opts]);
 }

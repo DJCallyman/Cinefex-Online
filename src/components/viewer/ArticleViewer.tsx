@@ -35,15 +35,9 @@ export function ArticleViewer() {
     );
 
     const handleClose = useCallback(() => {
-        setSelectedIssue(issueNumber);
+        setSelectedIssue(null);
         navigate('/');
-    }, [setSelectedIssue, issueNumber, navigate]);
-
-    const handleBackToIssue = useCallback(() => {
-        // Open the issue modal for the current issue without changing route
-        setSelectedIssue(issueNumber);
-        navigate('/');
-    }, [setSelectedIssue, issueNumber, navigate]);
+    }, [setSelectedIssue, navigate]);
 
     const navigateToArticle = useCallback(
         (target: { issue: number; articleIndex: number } | null) => {
@@ -144,7 +138,10 @@ export function ArticleViewer() {
                     <div className="flex flex-col sm:flex-row gap-3 justify-center">
                         {Number.isFinite(issueNumber) && (
                             <button
-                                onClick={handleBackToIssue}
+                                onClick={() => {
+                                    setSelectedIssue(issueNumber);
+                                    navigate('/');
+                                }}
                                 className="px-4 py-2 bg-gray-600 hover:bg-gray-500 rounded text-white"
                             >
                                 Back to Issue {issueNumber}

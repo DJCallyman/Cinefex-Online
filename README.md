@@ -210,14 +210,12 @@ The site is designed to run behind HTTP Basic Authentication. No credentials are
 
 - No offline support (articles require network access)
 - `issues/` and `covers/` directories are large and intentionally excluded from the Git repository
-- Full-text search across article content is not implemented (only metadata search)
 - The application is read-only; there is no user-generated content or favorites system
 
 ## Future Enhancements (Aspirational)
 
-- Full-text article search (currently metadata-only)
 - Service worker / offline support
-- Per-build nonce-based CSP (so `style-src` can drop `'unsafe-inline'`)
+- Per-build nonce-based CSP (so `style-src` can drop `'unsafe-inline'` for the host page)
 
 ## License
 

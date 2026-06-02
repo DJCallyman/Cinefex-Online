@@ -76,18 +76,14 @@ export function SearchBar() {
     const showStatus = inputValue.trim() || (searchMode === 'fulltext' && isSearchIndexLoading);
     const statusText = (() => {
         if (searchMode === 'fulltext' && isSearchIndexLoading) return 'Loading article index…';
-        if (inputValue.trim()) {
-            if (searchMode === 'fulltext') {
-                if (!isSearchIndexReady) {
-                    return 'Index unavailable — check the build output.';
-                }
-                const n = fullTextHits.length;
-                return n === 0
-                    ? 'No matches in article text'
-                    : `${n} match${n === 1 ? '' : 'es'} in article text`;
+        if (inputValue.trim() && searchMode === 'fulltext') {
+            if (!isSearchIndexReady) {
+                return 'Index unavailable — check the build output.';
             }
-            // Title mode: number of filtered results
-            // (the consumer of the context already shows this implicitly)
+            const n = fullTextHits.length;
+            return n === 0
+                ? 'No matches in article text'
+                : `${n} match${n === 1 ? '' : 'es'} in article text`;
         }
         return '';
     })();

@@ -50,6 +50,7 @@ export function IssueModal({ issueNumber }: IssueModalProps) {
     }, [issueNumber]);
 
     useEffect(() => {
+        if (!magazine) return;
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === 'Escape') {
                 handleClose();
@@ -63,7 +64,7 @@ export function IssueModal({ issueNumber }: IssueModalProps) {
             document.removeEventListener('keydown', handleKeyDown);
             document.body.style.overflow = '';
         };
-    }, [handleClose]);
+    }, [handleClose, magazine]);
 
     if (!magazine) {
         return (
