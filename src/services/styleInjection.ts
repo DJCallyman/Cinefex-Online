@@ -107,6 +107,43 @@ function sanitizeMalformedComments(doc: Document): void {
     }
 }
 
+/**
+ * Repair a rare malformed structure found in a few pre-127 archival HTML files
+ * (e.g. issue 3 "Empire Strikes Back" title page).
+ *
+ * The broken pattern:
+ *   <page><div class="page"><div style="width:864px;height:768px;"><div class="page">...</div></div></div></page>
+ *
+ * Missing closing tags + an extra .page inside the explicit wrapper cause the HTML parser
+ * to trap all subsequent <page> siblings inside the first page's clipped box.
+ * Result: only the title page is visible; no scrolling to the rest of the article.
+ *
+ * This fix promotes the real inner plate content up one level and removes the redundant
+ * wrapper so the document regains normal block flow for the rest of the pages.
+ */
+function fixMalformedArchivalPageStructure(doc: Document): void {
+    doc.querySelectorAll('page').forEach((pageEl) => {
+        const outerPlate = pageEl.firstElementChild as HTMLElement | null;
+        if (!outerPlate || !outerPlate.classList.contains('page')) return;
+
+        const wrapper = outerPlate.firstElementChild as HTMLElement | null;
+        if (!wrapper || wrapper.tagName !== 'DIV') return;
+
+        const styleAttr = wrapper.getAttribute('style') || '';
+        if (!/width:\s*864px/i.test(styleAttr) || !/height:\s*768px/i.test(styleAttr)) return;
+
+        const inner = wrapper.firstElementChild as HTMLElement | null;
+        if (!inner) return;
+
+        // Only repair the double-.page case that produces the scroll trap.
+        if (inner.classList.contains('page')) {
+            outerPlate.appendChild(inner);
+            wrapper.remove();
+        }
+        // Plain <img> cases inside the wrapper are left alone; our CSS already handles them.
+    });
+}
+
 export function injectStyles(iframe: HTMLIFrameElement, issueNumber: number, isReadingView: boolean): void {
     const doc = iframe.contentDocument;
     if (!doc) return;
@@ -403,9 +440,16 @@ function injectNewArchivalViewStyles(doc: Document): void {
 }
 
 function injectOldArchivalViewStyles(doc: Document): void {
+    // Repair rare malformed page structures in a few pre-127 archival files
+    // (e.g. issue 3 Empire Strikes Back title page) before applying styles.
+    // This fixes the "only title page visible, no scroll" bug.
+    fixMalformedArchivalPageStructure(doc);
+
     const style = doc.createElement('style');
     style.textContent = `
-        html {
+        html, body {
+            height: auto !important;
+            min-height: 0 !important;
             margin: 0 !important;
             padding: 0 !important;
             background: #1a1a2e !important;
@@ -413,12 +457,7 @@ function injectOldArchivalViewStyles(doc: Document): void {
         }
 
         body {
-            margin: 0 !important;
             padding: 20px !important;
-            background: #1a1a2e !important;
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
         }
 
         page {
@@ -428,25 +467,55 @@ function injectOldArchivalViewStyles(doc: Document): void {
             float: none !important;
         }
 
-        .page {
+        /* Plate container: only style .page elements that are direct children of <page>.
+           This avoids breaking rare malformed pages that nest an extra .page inside
+           a width/height wrapper (e.g. issue 3 Empire Strikes Back title page). */
+        page > .page {
             float: none !important;
             display: block !important;
             margin: 0 auto !important;
+            width: 864px !important;
+            height: 768px !important;
+            min-height: 768px !important;
+            max-height: 768px !important;
             box-shadow: 0 4px 30px rgba(0,0,0,0.6) !important;
             border-radius: 4px !important;
             background-size: 864px 768px !important;
+            background-repeat: no-repeat !important;
+            background-position: center top !important;
+            position: relative !important;
+            overflow: hidden !important;
+        }
+
+        /* Some early issues have a malformed double-.page wrapper on full-bleed
+           image-only title pages (e.g. issue 3 Empire Strikes Back p4).
+           The inner .page carries the background/image inside an explicit 864x768 div.
+           Use an exact path selector so that parser mis-nesting in that one broken file
+           cannot accidentally apply height:100% (and thus collapse scrolling) to later pages. */
+        page > .page > div > .page {
+            height: 100% !important;
+            min-height: 0 !important;
+            max-height: none !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            overflow: visible !important;
+            float: none !important;
+        }
+
+        /* Full-bleed single-image pages: the <img> is inside the explicit wrapper div */
+        page > .page > div > img {
+            width: 100% !important;
+            height: 100% !important;
+            max-width: none !important;
             position: relative !important;
         }
 
-        .page > div {
-            float: none !important;
-            display: block !important;
-        }
-
-        img {
-            width: auto !important;
-            height: auto !important;
-            max-width: 100% !important;
+        /* Multi-image layout pages: images fill their explicit-sized container divs */
+        page > .page div > div > img {
+            width: 100% !important;
+            height: 100% !important;
+            max-width: none !important;
+            position: relative !important;
         }
     `;
     doc.head.appendChild(style);

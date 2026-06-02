@@ -89,7 +89,7 @@ Cinefex-Online/
 │   ├── types/index.ts               # Magazine, Article, ViewMode, etc.
 │   └── App.tsx, main.tsx
 ├── covers/                   # Magazine cover images (one per issue) — deployed separately
-├── issues/                   # Article HTML files (ReadingView + ArchivalView per article) + manifest.xml — deployed separately, gitignored
+├── issues/                   # Issue HTML trees + manifest.xml (pre-127 and 127+ formats differ) — deployed separately, gitignored
 ├── fonts/                    # Custom typefaces (also copied to public/ for dev)
 ├── vite.config.ts
 ├── eslint.config.js
@@ -113,7 +113,23 @@ Cinefex-Online/
 
 ### Article Viewing
 
-The `ArticleViewer` component renders the selected article inside an `<iframe>`. A dedicated `styleInjection` service detects whether the issue is “old” (≤126) or “new” (>126) and whether the user chose Reading or Archival view, then injects the minimal CSS required for each combination.
+The `ArticleViewer` component renders the selected article inside an `<iframe>`. A dedicated `styleInjection` service detects whether the issue is “old” (≤126) or “new” (>126) and whether the user chose Reading or Archival view, then injects the format-specific behavior required for that combination.
+
+### Issue Format Split
+
+The archive has two distinct source architectures:
+
+- **Issues 1-126 (legacy format)**
+   - Each article is represented by a paired `N.ReadingView.html` and `N.ArchivalView.html`.
+   - Reading View is mostly self-contained reflowed HTML.
+   - Original Layout maps directly to the archival HTML file for that article.
+
+- **Issues 127+ (new-format / iPad-derived format)**
+   - Reading View is a hybrid document. Text lives in `readingView*.html`, but some opening spreads and inline imagery are populated at runtime from related `manuscript*.html` and `imageGallery*.html` files.
+   - Original Layout is based on `manuscript*.html`, and may be augmented by appending `imageGallery*.html` pages so the viewer can reconstruct the combined magazine experience.
+   - The `styleInjection` service handles the extra DOM cleanup, font fixes, image population, and gallery-page composition needed for these issues.
+
+Issue `127` is the format threshold, exposed in `CONFIG.FORMAT_THRESHOLD`.
 
 ### Focus & Accessibility
 
@@ -128,14 +144,13 @@ A root `ErrorBoundary` wraps the entire application. If any component throws, us
 
 ## Data Pipeline
 
-1. New issue directories are added under `issues/{N}/` with:
-   - `N.ReadingView.html`
-   - `N.ArchivalView.html`
-   - `manifest.xml`
-2. Each HTML file contains `<meta name="Film">` and `<meta name="Title">` (or Dublin Core equivalents).
-3. Run `python create_json.py` from the repo root. It writes `issues_full.json`.
-4. Copy (or symlink) the generated `issues_full.json` into `public/` so Vite includes it in the build.
-5. Run `python check_article_names.py` (optional but recommended) to validate consistency.
+1. New issue directories are added under `issues/{N}/` with a `manifest.xml` plus the article HTML files referenced by that manifest.
+2. For issues `1-126`, the manifest typically points to paired `N.ReadingView.html` and `N.ArchivalView.html` files.
+3. For issues `127+`, the manifest points to `readingView*.html`, `manuscript*.html`, and, when present, `imageGallery*.html` files for each article.
+4. Each article HTML file contains `<meta name="Film">` and `<meta name="Title">` (or Dublin Core equivalents).
+5. Run `python create_json.py` from the repo root. It writes `issues_full.json`.
+6. Copy (or symlink) the generated `issues_full.json` into `public/` so Vite includes it in the build.
+7. Run `python check_article_names.py` (optional but recommended) to validate consistency.
 
 ## Adding a New Issue (Workflow)
 
