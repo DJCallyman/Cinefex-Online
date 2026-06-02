@@ -14,10 +14,35 @@
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
 
     # Content Security Policy
-    Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' https://placehold.co; frame-src 'self'; connect-src 'self';"
+    #
+    # The host app (dist/) is built by Vite + Tailwind v4 and ships
+    # only a single linked stylesheet (no inline <style>, no inline
+    # event handlers). The `'unsafe-inline'` for style-src is REQUIRED
+    # because the same-origin article iframes
+    # (issues/N/*.ArchivalView.html) dynamically inject <style> blocks at
+    # runtime via src/services/styleInjection.ts to re-skin the page-image
+    # plates. Those injections happen inside the iframe's document and
+    # inherit this CSP, so we can't tighten it without also breaking the
+    # combined-archival-view feature for issues 127+.
+    #
+    # If you want to drop 'unsafe-inline' from the host app while
+    # keeping it for the iframes, the options are:
+    #   (a) Serve issues/ from a separate Apache <Location> block with
+    #       a different (looser) CSP, or
+    #   (b) Inject a per-build nonce into the dynamic style tag and
+    #       switch style-src to 'self' 'nonce-…'. Both are non-trivial.
+    #
+    # Everything else is locked to 'self' (or the placehold.co fallback
+    # image source). base-uri 'self' and form-action 'self' close two
+    # common injection vectors.
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' https://placehold.co data:; frame-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self';"
 
-    # HTTPS enforcement (uncomment for production)
-    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+    # NOTE: HSTS (Strict-Transport-Security) is intentionally NOT enabled.
+    # Once a browser caches HSTS for a domain, the policy is effectively
+    # irreversible for the max-age period. If the certificate, hosting, or
+    # HTTPS setup is ever misconfigured, users with cached HSTS would be
+    # locked out until the policy expires. Until a stable, monitored HTTPS
+    # deployment is in place, leave HSTS off.
 </IfModule>
 
 # --- HTTP Basic Authentication ---
@@ -63,7 +88,7 @@
 # --- MIME Types ---
 <IfModule mod_mime.c>
     AddType font/opentype .otf
-    AddType font/truetype .tt .ttf
+    AddType font/truetype .ttf
     AddType application/json .json
 </IfModule>
 

@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useArchiveContext } from '../../context/ArchiveContext';
 import { injectStyles, appendImageGalleryToArchival } from '../../services/styleInjection';
+import { getArticleNeighbors } from '../../utils/nav';
 
 export function ArticleViewer() {
     const navigate = useNavigate();
@@ -12,12 +13,14 @@ export function ArticleViewer() {
     const articleIndex = parseInt(params.articleIndex ?? '', 10);
     const viewMode = params.viewMode as 'read' | 'archive';
 
-    const { getMagazineByIssue, setSelectedIssue } = useArchiveContext();
+    const { getMagazineByIssue, magazines, setSelectedIssue } = useArchiveContext();
     const magazine = getMagazineByIssue(issueNumber);
     const article = magazine?.articles[articleIndex];
 
     const iframeRef = useRef<HTMLIFrameElement>(null);
     const closeButtonRef = useRef<HTMLButtonElement>(null);
+    const prevButtonRef = useRef<HTMLButtonElement>(null);
+    const nextButtonRef = useRef<HTMLButtonElement>(null);
     const previousFocusRef = useRef<HTMLElement | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
@@ -25,10 +28,30 @@ export function ArticleViewer() {
     const isReadingView = viewMode === 'read';
     const url = isReadingView ? article?.readingUrl : article?.archiveUrl;
 
+    // Adjacent articles for prev/next navigation, scoped to the whole archive
+    const { prev, next } = useMemo(
+        () => getArticleNeighbors(magazines, issueNumber, articleIndex),
+        [magazines, issueNumber, articleIndex],
+    );
+
     const handleClose = useCallback(() => {
         setSelectedIssue(issueNumber);
         navigate('/');
     }, [setSelectedIssue, issueNumber, navigate]);
+
+    const handleBackToIssue = useCallback(() => {
+        // Open the issue modal for the current issue without changing route
+        setSelectedIssue(issueNumber);
+        navigate('/');
+    }, [setSelectedIssue, issueNumber, navigate]);
+
+    const navigateToArticle = useCallback(
+        (target: { issue: number; articleIndex: number } | null) => {
+            if (!target) return;
+            navigate(`/article/${target.articleIndex}/${viewMode}?issue=${target.issue}`);
+        },
+        [navigate, viewMode],
+    );
 
     // Focus management: move focus into viewer on open, restore on close
     useEffect(() => {
@@ -51,7 +74,6 @@ export function ArticleViewer() {
                     }
                 }, 0);
             } else {
-                // Direct URL access or no previous focusable element — fallback
                 const fallback =
                     document.getElementById('search-input') ||
                     document.querySelector<HTMLElement>('.magazine-cover') ||
@@ -91,23 +113,15 @@ export function ArticleViewer() {
         if (iframeRef.current) {
             injectStyles(iframeRef.current, issueNumber, isReadingView);
 
-            // Path A (plan): For 127+ Original Layout ("archive"), if we have an imageGalleryUrl,
-            // append the gallery photo spreads to the manuscript content after initial styling.
-            // This makes "Original Layout" show the full combined magazine experience.
-            // Debug logging is gated inside appendImageGalleryToArchival (plan default A).
             if (!isReadingView && issueNumber > 126) {
                 const galleryUrl = article?.imageGalleryUrl;
                 if (galleryUrl) {
-                    // Small delay ensures the base archival styles from injectStyles have applied
-                    // before we append more nodes and re-enhance.
                     setTimeout(() => {
                         if (iframeRef.current) {
                             appendImageGalleryToArchival(iframeRef.current, galleryUrl);
                         }
                     }, 0);
                 }
-                // If no galleryUrl (missing in data or the 5 known missing galleries), we silently
-                // degrade to manuscript-only per plan default C. Debug mode will still note it if active.
             }
         }
     };
@@ -120,11 +134,29 @@ export function ArticleViewer() {
     if (!magazine || !article) {
         return (
             <div className="fixed inset-0 z-[60] bg-gray-900 flex items-center justify-center">
-                <div className="text-center text-white">
-                    <p className="text-xl mb-4">Article not found</p>
-                    <button onClick={() => navigate('/')} className="px-4 py-2 bg-cyan-600 rounded hover:bg-cyan-500">
-                        Return to Archive
-                    </button>
+                <div className="text-center text-white max-w-md p-6">
+                    <p className="text-xl mb-2">Article not found</p>
+                    <p className="text-sm text-gray-400 mb-6">
+                        {Number.isFinite(issueNumber) && Number.isFinite(articleIndex)
+                            ? `Issue ${issueNumber}, article ${articleIndex + 1} is not in the archive.`
+                            : 'The article URL is malformed.'}
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                        {Number.isFinite(issueNumber) && (
+                            <button
+                                onClick={handleBackToIssue}
+                                className="px-4 py-2 bg-gray-600 hover:bg-gray-500 rounded text-white"
+                            >
+                                Back to Issue {issueNumber}
+                            </button>
+                        )}
+                        <button
+                            onClick={() => navigate('/')}
+                            className="px-4 py-2 bg-cyan-600 rounded hover:bg-cyan-500 text-white"
+                        >
+                            Return to Archive
+                        </button>
+                    </div>
                 </div>
             </div>
         );
@@ -157,6 +189,7 @@ export function ArticleViewer() {
             )}
 
             <iframe
+                key={`${issueNumber}-${articleIndex}-${viewMode}`}
                 ref={iframeRef}
                 src={url}
                 className="w-full h-full border-0"
@@ -164,6 +197,50 @@ export function ArticleViewer() {
                 onLoad={handleIframeLoad}
                 onError={handleIframeError}
             />
+
+            {/* Top-center navigation bar: prev/next article + article title */}
+            <div
+                className="absolute top-4 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-black/60 rounded-full pl-2 pr-3 py-1.5 max-w-[calc(100vw-160px)]"
+                role="toolbar"
+                aria-label="Article navigation"
+            >
+                <button
+                    ref={prevButtonRef}
+                    onClick={() => navigateToArticle(prev)}
+                    disabled={!prev}
+                    className="flex items-center gap-1 px-2 py-1 text-sm text-gray-200 hover:text-white disabled:text-gray-600 disabled:cursor-not-allowed transition-colors"
+                    aria-label={prev ? `Previous article: ${prev.articleName} (Issue ${prev.issue})` : 'No previous article'}
+                    title={prev ? `← ${prev.articleName} (Issue ${prev.issue})` : 'First article'}
+                >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                    <span className="hidden sm:inline max-w-[140px] truncate">
+                        {prev ? prev.articleName : 'First'}
+                    </span>
+                </button>
+                <span
+                    className="text-xs text-cyan-300 border-l border-r border-gray-600 px-3 whitespace-nowrap"
+                    aria-live="polite"
+                >
+                    Issue {issueNumber} · {article.name}
+                </span>
+                <button
+                    ref={nextButtonRef}
+                    onClick={() => navigateToArticle(next)}
+                    disabled={!next}
+                    className="flex items-center gap-1 px-2 py-1 text-sm text-gray-200 hover:text-white disabled:text-gray-600 disabled:cursor-not-allowed transition-colors"
+                    aria-label={next ? `Next article: ${next.articleName} (Issue ${next.issue})` : 'No next article'}
+                    title={next ? `${next.articleName} (Issue ${next.issue}) →` : 'Last article'}
+                >
+                    <span className="hidden sm:inline max-w-[140px] truncate">
+                        {next ? next.articleName : 'Last'}
+                    </span>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
 
             <button
                 ref={closeButtonRef}

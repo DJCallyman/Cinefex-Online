@@ -1,59 +1,6 @@
 import { CONFIG } from '../config';
 import { collapseMultiVariantGalleryPages } from './collapseMultiVariant';
-
-const FONT_FACE_CSS = `
-    @font-face {
-        font-family: "BenguiatStd-Book";
-        src: url("/fonts/BenguiatStd-Book.otf") format("opentype");
-        font-style: normal;
-    }
-    @font-face {
-        font-family: "BenguiatStd-BookItalic";
-        src: url("/fonts/BenguiatStd-BookItalic.otf") format("opentype");
-        font-style: italic;
-    }
-    @font-face {
-        font-family: "BenguiatStd-Medium";
-        src: url("/fonts/BenguiatStd-Medium.otf") format("opentype");
-        font-style: normal;
-    }
-    @font-face {
-        font-family: "BenguiatStd-MediumItalic";
-        src: url("/fonts/BenguiatStd-MediumItalic.otf") format("opentype");
-        font-style: italic;
-    }
-    @font-face {
-        font-family: "BenguiatStd-Bold";
-        src: url("/fonts/BenguiatStd-Bold.otf") format("opentype");
-        font-style: normal;
-        font-weight: bold;
-    }
-    @font-face {
-        font-family: "GillSansStd";
-        src: url("/fonts/GillSansStd.otf") format("opentype");
-        font-style: normal;
-    }
-    @font-face {
-        font-family: "GillSansStd-Italic";
-        src: url("/fonts/GillSansStd-Italic.otf") format("opentype");
-        font-style: italic;
-    }
-    @font-face {
-        font-family: "GillSans-Bold";
-        src: url("/fonts/GillSans%20Bold.tt") format("truetype");
-        font-weight: bold;
-    }
-    @font-face {
-        font-family: "FuturaStd-ExtraBold";
-        src: url("/fonts/FuturaStd-ExtraBold.otf") format("opentype");
-        font-weight: bold;
-    }
-    @font-face {
-        font-family: "DucDeBerryLTStd";
-        src: url("/fonts/DucDeBerryLTStd.otf") format("opentype");
-        font-style: normal;
-    }
-`;
+import { FONT_FACE_CSS } from '../styles/fonts';
 
 /**
  * Debug gate for archival view instrumentation (127+ combined layout work).
@@ -110,6 +57,7 @@ function sanitizeMalformedComments(doc: Document): void {
 /**
  * Repair a rare malformed structure found in a few pre-127 archival HTML files
  * (e.g. issue 3 "Empire Strikes Back" title page).
+ * Exported for unit testing.
  *
  * The broken pattern:
  *   <page><div class="page"><div style="width:864px;height:768px;"><div class="page">...</div></div></div></page>
@@ -121,7 +69,7 @@ function sanitizeMalformedComments(doc: Document): void {
  * This fix promotes the real inner plate content up one level and removes the redundant
  * wrapper so the document regains normal block flow for the rest of the pages.
  */
-function fixMalformedArchivalPageStructure(doc: Document): void {
+export function fixMalformedArchivalPageStructure(doc: Document): void {
     doc.querySelectorAll('page').forEach((pageEl) => {
         const outerPlate = pageEl.firstElementChild as HTMLElement | null;
         if (!outerPlate || !outerPlate.classList.contains('page')) return;

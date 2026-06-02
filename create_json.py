@@ -9,38 +9,38 @@ from typing import Optional
 
 class MetadataExtractor(HTMLParser):
     """HTML parser to extract metadata from HTML files including Film, Title, and articleTitle"""
-    
+
     def __init__(self):
         super().__init__()
         self.in_article_title = False
         self.article_title_text = None
         self.meta_title = None
         self.meta_film = None
-        
+
     def handle_starttag(self, tag, attrs):
         attrs_dict = dict(attrs)
-        
+
         # Check for <meta name="Title" content="..."/>
         if tag == 'meta' and attrs_dict.get('name', '').lower() == 'title':
             self.meta_title = attrs_dict.get('content', '')
-        
+
         # Check for <meta name="Film" content="..."/>
         if tag == 'meta' and attrs_dict.get('name', '').lower() == 'film':
             self.meta_film = attrs_dict.get('content', '')
-        
+
         # Check for <articleTitle>
         if tag.lower() == 'articletitle':
             self.in_article_title = True
             self.article_title_text = ''
-                
+
     def handle_endtag(self, tag):
         if tag.lower() == 'articletitle' and self.in_article_title:
             self.in_article_title = False
-            
+
     def handle_data(self, data):
         if self.in_article_title:
             self.article_title_text = (self.article_title_text or '') + data.strip() + ' '
-    
+
     def get_title(self) -> Optional[str]:
         """Return the best available title, preferring meta title"""
         if self.meta_title:
@@ -49,12 +49,50 @@ class MetadataExtractor(HTMLParser):
             # Clean up the articleTitle text (remove extra whitespace)
             return ' '.join(self.article_title_text.split())
         return None
-    
+
     def get_film(self) -> Optional[str]:
         """Return the Film metadata (movie/subject name shown in iPad app)"""
         if self.meta_film:
             return self.meta_film.strip()
         return None
+
+
+class TextExtractor(HTMLParser):
+    """HTML parser that strips all tags and returns plain text.
+
+    Used for full-text search indexing. We discard script/style contents
+    and condense whitespace so the index stays small.
+    """
+
+    SKIP_TAGS = {'script', 'style', 'noscript'}
+
+    def __init__(self):
+        super().__init__()
+        self._skip_depth = 0
+        self.parts: list[str] = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag.lower() in self.SKIP_TAGS:
+            self._skip_depth += 1
+            return
+        # Block-level tags get a space so concatenated text reads naturally
+        if tag.lower() in {'p', 'div', 'br', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'tr', 'page'}:
+            self.parts.append(' ')
+
+    def handle_endtag(self, tag):
+        if tag.lower() in self.SKIP_TAGS and self._skip_depth > 0:
+            self._skip_depth -= 1
+            return
+        if tag.lower() in {'p', 'div', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'tr', 'page'}:
+            self.parts.append(' ')
+
+    def handle_data(self, data):
+        if self._skip_depth == 0:
+            self.parts.append(data)
+
+    def get_text(self) -> str:
+        # Collapse runs of whitespace to a single space
+        return ' '.join(''.join(self.parts).split())
 
 
 def extract_metadata_from_html(file_path: str) -> dict[str, Optional[str]]:
@@ -84,11 +122,18 @@ def fix_xml_ampersands(xml_content: str) -> str:
 
 def create_issues_json() -> None:
     """
-    Parses manifest.xml and cover.html files from issue folders (1-169) 
+    Parses manifest.xml and cover.html files from issue folders (1-169)
     and creates a single issues.json file.
+
+    Run from anywhere; the script anchors itself to its own directory
+    so paths to ./issues/, ./issues_full.json, ./issues.json are
+    always resolved relative to the script, not the caller's CWD.
     """
+    # Anchor to the script's own directory so this works from any CWD
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    os.chdir(script_dir)
+
     all_issues_data = []
-    # Assumes the script is in the parent directory of the 'issues' folder.
     issues_base_dir = 'issues'
     
     print("Starting to process issue folders...")
@@ -209,5 +254,109 @@ def create_issues_json() -> None:
 
     print(f"\nProcessing complete.")
 
+def build_search_index(
+    issues_data: list[dict],
+    issues_base_dir: str = 'issues',
+    max_chars_per_doc: int = 24000,
+) -> None:
+    """Walk every ReadingView HTML file referenced in `issues_data`, strip
+    tags, and emit `public/search_index.json` (which Vite copies into
+    the dist/ output) for the client to load lazily on first search.
+
+    The schema is intentionally simple — one record per (issue, articleIndex)
+    pair — so the client can build a MiniSearch index from it at runtime.
+
+    Per-document text is truncated to `max_chars_per_doc` to keep the
+    shipped payload under ~2 MB. The vast majority of articles are well
+    under 8 kB of text and fit completely; only the longest 127+ features
+    get clipped, and the text near the start is usually the most
+    search-relevant anyway (article openings, byline, intro).
+    """
+    import datetime
+    import html
+
+    documents: list[dict] = []
+    skipped = 0
+    truncated = 0
+
+    for issue in issues_data:
+        issue_num = issue['issue']
+        for article_index, article in enumerate(issue.get('articles', [])):
+            reading_url = article.get('readingUrl', '')
+            # reading_url looks like "issues/3/1.ReadingView.html"
+            filename = os.path.basename(reading_url)
+            full_path = os.path.join(issues_base_dir, str(issue_num), filename)
+            if not os.path.exists(full_path):
+                skipped += 1
+                continue
+            try:
+                with open(full_path, 'r', encoding='utf-8', errors='ignore') as f:
+                    raw = f.read()
+                parser = TextExtractor()
+                parser.feed(raw)
+                text = parser.get_text()
+            except Exception as e:
+                print(f"Warning: failed to index issue {issue_num} article {article_index}: {e}",
+                      file=sys.stderr)
+                skipped += 1
+                continue
+
+            if not text.strip():
+                skipped += 1
+                continue
+
+            if len(text) > max_chars_per_doc:
+                text = text[:max_chars_per_doc]
+                truncated += 1
+
+            documents.append({
+                'id': f"{issue_num}/{article_index}",
+                'issue': issue_num,
+                'articleIndex': article_index,
+                'name': html.unescape(article.get('name', '')),
+                'articleTitle': html.unescape(article.get('articleTitle', '') or ''),
+                'year': issue.get('year', 0),
+                'text': text,
+            })
+
+    payload = {
+        'version': 1,
+        'generatedAt': datetime.datetime.utcnow().isoformat() + 'Z',
+        'documentCount': len(documents),
+        'maxCharsPerDoc': max_chars_per_doc,
+        'documents': documents,
+    }
+
+    public_dir = 'public'
+    os.makedirs(public_dir, exist_ok=True)
+    output_path = os.path.join(public_dir, 'search_index.json')
+    with open(output_path, 'w', encoding='utf-8') as f:
+        json.dump(payload, f, ensure_ascii=False, separators=(',', ':'))
+
+    # Also write a gzipped copy for servers that serve it with Content-Encoding.
+    try:
+        import gzip
+        with open(output_path + '.gz', 'wb') as gz:
+            with gzip.open(gz, 'wt', encoding='utf-8', compresslevel=6) as g:
+                g.write(json.dumps(payload, ensure_ascii=False, separators=(',', ':')))
+    except Exception as e:
+        print(f"Warning: could not write gzipped index: {e}", file=sys.stderr)
+
+    raw_size = os.path.getsize(output_path)
+    gz_size = os.path.getsize(output_path + '.gz') if os.path.exists(output_path + '.gz') else 0
+    print(
+        f"Search index ({len(documents)} documents, {skipped} skipped, "
+        f"{truncated} truncated to {max_chars_per_doc} chars) saved to {output_path} "
+        f"(raw {raw_size} bytes, gz {gz_size} bytes)"
+    )
+
+
 if __name__ == '__main__':
+    # Anchor to script dir so relative paths work from any CWD
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
     create_issues_json()
+    # Re-load the freshly written full archive to build the search index
+    # in the same run.
+    with open('issues_full.json', 'r', encoding='utf-8') as f:
+        all_issues = json.load(f)
+    build_search_index(all_issues)

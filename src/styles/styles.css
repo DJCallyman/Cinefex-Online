@@ -1,15 +1,126 @@
-/* Cinefex Archives - Main Stylesheet */
+/* ==========================================================================
+   Cinefex Archives - Main Stylesheet
+   ========================================================================== */
 
 /* ==========================================================================
-   Base Styles
-   ========================================================================== */
+   Theme variables
+   ==========================================================================
+   Light/dark palettes are driven by `data-theme` on <html>. We default to
+   the dark palette (the app's original look) and the [data-theme="light"]
+   block overrides the same custom-property names. Tailwind utility classes
+   read from these via `bg-[var(--bg)]` etc. in the few places we use them.
+   Most styling is plain Tailwind with `dark:` variants; we add the light
+   palette by *also* overriding the Tailwind palette via @theme in index.css.
+*/
+
+:root,
+:root[data-theme='dark'] {
+    --bg: #111827;
+    --bg-elev: #1f2937;
+    --bg-elev-2: #374151;
+    --text: #f9fafb;
+    --text-muted: #d1d5db;
+    --text-dim: #9ca3af;
+    --accent: #22d3ee;
+    --accent-hover: #67e8f9;
+    --mark-bg: rgba(34, 211, 238, 0.3);
+    --mark-fg: #67e8f9;
+    --border: #374151;
+}
+
+:root[data-theme='light'] {
+    --bg: #fdfaf2;            /* cream / parchment */
+    --bg-elev: #ffffff;
+    --bg-elev-2: #f3eee0;
+    --text: #1a1a1a;          /* ink */
+    --text-muted: #4b4b4b;
+    --text-dim: #6b6b6b;
+    --accent: #0e7490;         /* deeper teal so it pops on cream */
+    --accent-hover: #0891b2;
+    --mark-bg: rgba(14, 116, 144, 0.18);
+    --mark-fg: #0e7490;
+    --border: #d6cfb8;
+}
+
 html {
     scroll-behavior: smooth;
 }
 
 body {
     font-family: 'BenguiatStd-Book', serif;
-    background-color: #111827;
+    background-color: var(--bg);
+    color: var(--text);
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+/* Light theme: re-skin the major surfaces. The component code uses fixed
+   Tailwind colors (e.g. bg-gray-800, bg-gray-700) which are dark by default.
+   We re-skin just the high-level containers in light mode so the page
+   visibly changes without rewriting every Tailwind class throughout the
+   codebase. Components that should adapt fully (search input, modal panel,
+   issue cover) are styled via these overrides. */
+:root[data-theme='light'] body {
+    background-color: var(--bg);
+    color: var(--text);
+}
+:root[data-theme='light'] header.bg-gray-900\/80 {
+    background-color: rgba(253, 250, 242, 0.85) !important;
+    color: var(--text) !important;
+    border-bottom: 1px solid var(--border);
+}
+:root[data-theme='light'] #bucket-nav button {
+    background-color: var(--bg-elev) !important;
+    color: var(--text) !important;
+    border: 1px solid var(--border);
+}
+:root[data-theme='light'] #bucket-nav button:hover {
+    background-color: var(--accent) !important;
+    color: white !important;
+}
+:root[data-theme='light'] #search-input,
+:root[data-theme='light'] input[type='search'] {
+    background-color: var(--bg-elev) !important;
+    color: var(--text) !important;
+    border-color: var(--border) !important;
+}
+:root[data-theme='light'] input::placeholder {
+    color: var(--text-dim) !important;
+}
+:root[data-theme='light'] .article-btn {
+    background-color: var(--bg-elev) !important;
+    color: var(--text) !important;
+    border: 1px solid var(--border);
+}
+:root[data-theme='light'] .article-btn:hover {
+    background-color: var(--bg-elev-2) !important;
+}
+:root[data-theme='light'] .modal-content {
+    background-color: var(--bg-elev) !important;
+    color: var(--text) !important;
+}
+:root[data-theme='light'] #viewer {
+    background-color: var(--bg) !important;
+}
+:root[data-theme='light'] .text-gray-300,
+:root[data-theme='light'] .text-gray-400 {
+    color: var(--text-muted) !important;
+}
+:root[data-theme='light'] .text-white {
+    color: var(--text) !important;
+}
+:root[data-theme='light'] .text-cyan-400 {
+    color: var(--accent) !important;
+}
+:root[data-theme='light'] .bg-gray-800 {
+    background-color: var(--bg-elev) !important;
+}
+:root[data-theme='light'] .bg-gray-700 {
+    background-color: var(--bg-elev-2) !important;
+}
+:root[data-theme='light'] .border-gray-700 {
+    border-color: var(--border) !important;
 }
 
 /* ==========================================================================
@@ -59,7 +170,7 @@ body {
     width: 48px;
     height: 48px;
     border: 4px solid rgba(255, 255, 255, 0.3);
-    border-top-color: #22d3ee;
+    border-top-color: var(--accent);
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -74,7 +185,7 @@ body {
    Accessibility - Focus Styles
    ========================================================================== */
 :focus-visible {
-    outline: 2px solid #22d3ee;
+    outline: 2px solid var(--accent);
     outline-offset: 2px;
 }
 
@@ -83,8 +194,8 @@ body {
     position: absolute;
     top: -40px;
     left: 0;
-    background: #22d3ee;
-    color: #111827;
+    background: var(--accent);
+    color: var(--bg);
     padding: 8px 16px;
     z-index: 100;
     font-weight: bold;
@@ -93,6 +204,16 @@ body {
 
 .skip-link:focus {
     top: 0;
+}
+
+/* ==========================================================================
+   Search result highlighting
+   ========================================================================== */
+mark {
+    background: var(--mark-bg);
+    color: var(--mark-fg);
+    padding: 0 2px;
+    border-radius: 2px;
 }
 
 /* ==========================================================================

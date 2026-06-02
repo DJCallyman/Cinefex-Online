@@ -33,7 +33,7 @@ export default tseslint.config(
                 'warn',
                 {
                     allowConstantExport: true,
-                    allowExportNames: ['useArchiveContext'],
+                    allowExportNames: ['useArchiveContext', 'useBookmarks'],
                 },
             ],
             'react/prop-types': 'off',
