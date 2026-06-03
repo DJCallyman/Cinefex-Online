@@ -64,6 +64,10 @@ dist/
 # Auth credentials (server-only)
 cinefex.htpasswd
 
+# Deployment-specific Apache config (servers read .htaccess by default;
+# the repo ships the template as .htaccess.example, which IS committed).
+.htaccess
+
 # Tooling state
 .opencode
 .idea/

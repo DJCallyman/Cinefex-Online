@@ -1,6 +1,15 @@
 # ============================================================
 # Cinefex Archives - Apache Server Configuration
 # ============================================================
+#
+# TEMPLATE FILE — this is committed as .htaccess.example so that
+# deployment-specific values (especially the AuthUserFile path
+# below) never leak into git. To deploy, copy this file to .htaccess
+# on your server and edit the AuthUserFile line for your machine.
+# See README.md (Deployment) for the full workflow.
+#
+# Apache will read .htaccess by default; the .example suffix only
+# exists in the repository copy.
 
 # --- Security Headers ---
 <IfModule mod_headers.c>
