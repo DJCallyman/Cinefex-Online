@@ -10,12 +10,12 @@
   <Support>https://github.com/DJCallyman/Cinefex-Online/issues</Support>
   <Project>https://github.com/DJCallyman/Cinefex-Online</Project>
   <Overview>The complete Cinefex magazine archive (1980-present), served as a static web app.
-Image rebuilds on every merge to master. Issues content is supplied at runtime via a bind mount
+Image rebuilds on every merge to main. Issues content is supplied at runtime via a bind mount
 on your share.</Overview>
   <Category>Books:Comics</Category>
   <WebUI>http://[IP]:[PORT:8080]/</WebUI>
   <TemplateURL/>
-  <Icon>https://raw.githubusercontent.com/DJCallyman/Cinefex-Online/master/public/favicon.ico</Icon>
+  <Icon>https://raw.githubusercontent.com/DJCallyman/Cinefex-Online/main/public/favicon.ico</Icon>
   <ExtraParams/>
   <PostArgs/>
   <CPUset/>
@@ -47,7 +47,7 @@ Update the image by re-running the container (unraid pulls :latest on restart wh
   <Labels/>
   <Config Name="Web Port" Target="8080" Default="8080" Mode="tcp" Description="Internal port vite preview listens on." Type="Port" Display="always" Required="true" Mask="false">8080</Config>
   <Config Name="Issues Share" Target="/issues" Default="/mnt/user/appdata/cinefex/issues" Mode="rw" Description="Path on the unraid host to your issues/ tree. Each issue should be a numbered subdirectory (1, 2, ..., N) with manifest.xml and *.html files." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/cinefex/issues</Config>
-  <Config Name="Image Tag" Target="cinefex-online" Default="latest" Mode="" Description="Which tag to pull. :latest is rebuilt on every merge to master." Type="Variable" Display="advanced" Required="false" Mask="false">latest</Config>
+  <Config Name="Image Tag" Target="cinefex-online" Default="latest" Mode="" Description="Which tag to pull. :latest is rebuilt on every merge to main." Type="Variable" Display="advanced" Required="false" Mask="false">latest</Config>
   <Port>8080:8080</Port>
   <Data>
     <Volume>
