@@ -139,8 +139,8 @@ def create_issues_json() -> None:
     os.chdir(script_dir)
 
     all_issues_data = []
-    issues_base_dir = 'issues'
-    
+    issues_base_dir = os.environ.get('ISSUES_BASE_DIR', 'issues')
+
     print("Starting to process issue folders...")
 
     for i in range(1, 170):
@@ -230,6 +230,13 @@ def create_issues_json() -> None:
 
             issue_title = " / ".join(article_names)
 
+            # Skip issues with no usable HTML articles on disk. This prevents
+            # cover-only entries (e.g. /covers/N/ exists but /issues/N/ has no
+            # ReadingView HTML files) from being listed in the web app.
+            if not articles_data:
+                print(f"Skipping issue {i}: no HTML articles on disk (cover-only entry)")
+                continue
+
             issue_data = {
                 "issue": int(issue_number),
                 "title": issue_title,
@@ -264,7 +271,7 @@ def create_issues_json() -> None:
 
 def build_search_index(
     issues_data: list[dict],
-    issues_base_dir: str = 'issues',
+    issues_base_dir: str | None = None,
     max_chars_per_doc: int = 24000,
 ) -> None:
     """Walk every ReadingView HTML file referenced in `issues_data`, strip
@@ -280,6 +287,9 @@ def build_search_index(
     get clipped, and the text near the start is usually the most
     search-relevant anyway (article openings, byline, intro).
     """
+    if issues_base_dir is None:
+        issues_base_dir = os.environ.get('ISSUES_BASE_DIR', 'issues')
+
     import datetime
     import html
 

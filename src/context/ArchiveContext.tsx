@@ -86,6 +86,7 @@ export function ArchiveProvider({ children }: { children: ReactNode }) {
         fetchData();
     }, []);
 
+
     // Full-text hits — only computed when in fulltext mode AND the index is ready.
     // We depend only on the `search` function (not the whole fulltextContext
     // object) to avoid re-running on every parent re-render.
