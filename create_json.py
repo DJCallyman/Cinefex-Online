@@ -329,7 +329,7 @@ def build_search_index(
 
     payload = {
         'version': 1,
-        'generatedAt': datetime.datetime.utcnow().isoformat() + 'Z',
+        'generatedAt': datetime.datetime.now(datetime.UTC).isoformat().replace('+00:00', 'Z'),
         'documentCount': len(documents),
         'maxCharsPerDoc': max_chars_per_doc,
         'documents': documents,
