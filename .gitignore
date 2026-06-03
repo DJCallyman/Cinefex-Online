@@ -11,6 +11,8 @@
 *.ico
 *.heic
 *.heif
+# ...except cover images, which ship baked into the Docker image.
+!covers/**
 *.archive
 *.archive.1
 *.mp4
@@ -38,13 +40,11 @@ Thumbs.db
 # ============================================================
 # Cinefex content tree
 # ============================================================
-# The magazine content (HTML pages + per-issue fonts/images) and the
-# cover images are too large for git. They are deployed separately
-# from the built dist/. New clones must run `npm run covers:webp`
-# and `npm run search:index` to populate the public/ assets, and
-# the issues/ tree is shipped as a separate download.
+# Issue HTML trees are too large for git and are deployed as a
+# bind-mount at runtime (see unraid/cinefex-online.xml). Cover
+# images (covers/) ARE committed — they ship baked into the
+# Docker image so the runtime can serve them.
 issues/
-covers/
 
 # Generated data files (rebuilt by create_json.py / npm run search:index)
 issues.json

@@ -3,16 +3,20 @@ ARG NODE_VERSION=20-bookworm
 
 FROM node:${NODE_VERSION} AS builder
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        python3 webp ca-certificates \
+        python3 ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --include=dev --no-audit --no-fund
-COPY --from=covers  . /app/covers
-COPY --from=issues  . /app/issues
 COPY . .
-RUN npm run covers:webp
-RUN ISSUES_BASE_DIR=/app/issues python3 create_json.py
+# Strip the dev-only public/covers and public/issues symlinks. They
+# point at ../covers and ../issues, which exist on the developer's
+# Mac but not in the CI build context. Vite's publicDir copy follows
+# symlinks and would fail. Replace with empty placeholders so Vite
+# copies empty dirs into dist/; the entrypoint will symlink the real
+# content (baked covers + bind-mounted issues) over them at startup.
+RUN rm -f /app/public/covers /app/public/issues \
+    && mkdir -p /app/public/covers /app/public/issues
 RUN npx tsc -b && npx vite build
 
 FROM node:${NODE_VERSION}-slim AS runtime
@@ -23,6 +27,7 @@ WORKDIR /app
 COPY --from=builder /app/dist            /app/dist
 COPY --from=builder /app/fonts           /app/fonts
 COPY --from=builder /app/public          /app/public
+COPY --from=builder /app/covers          /app/covers
 COPY create_json.py                      /app/create_json.py
 COPY docker/entrypoint.sh                /app/docker/entrypoint.sh
 RUN chmod +x /app/docker/entrypoint.sh

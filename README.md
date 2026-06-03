@@ -71,15 +71,15 @@ npm run format       # Prettier (writes to disk)
 
 The app is packaged as a Docker image and published to
 [ghcr.io/djcallyman/cinefex-online](https://ghcr.io/djcallyman/cinefex-online)
-on every merge to `master`. The image is `linux/amd64` only.
+on every merge to `main`. The image is `linux/amd64` only.
 
 ### unraid
 
 1. Make sure your `issues/` share exists at
-   `/mnt/user/appdata/cinefex/issues/` (or update the template's
+   `/mnt/user/issues/` (or update the template's
    "Issues Share" path).
 2. Add a container in unraid with this Template URL:
-   `https://raw.githubusercontent.com/DJCallyman/Cinefex-Online/master/unraid/cinefex-online.xml`
+   `https://raw.githubusercontent.com/DJCallyman/Cinefex-Online/main/unraid/cinefex-online.xml`
 3. The template pre-fills: image, port 8080, the issues volume, and
    a handful of env vars. Adjust as needed and click Apply.
 4. In Nginx Proxy Manager, add a new Proxy Host that forwards your
