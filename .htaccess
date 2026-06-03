@@ -15,27 +15,62 @@
 
     # Content Security Policy
     #
-    # The host app (dist/) is built by Vite + Tailwind v4 and ships
-    # only a single linked stylesheet (no inline <style>, no inline
-    # event handlers). The `'unsafe-inline'` for style-src is REQUIRED
-    # because the same-origin article iframes
-    # (issues/N/*.ArchivalView.html) dynamically inject <style> blocks at
-    # runtime via src/services/styleInjection.ts to re-skin the page-image
-    # plates. Those injections happen inside the iframe's document and
-    # inherit this CSP, so we can't tighten it without also breaking the
-    # combined-archival-view feature for issues 127+.
+    # Two policies, applied by URL prefix. Implemented with <If> blocks
+    # because <Location> is not allowed in .htaccess context (it requires
+    # server-config or virtual-host context). Each <If> sets a single
+    # CSP header; the two conditions are mutually exclusive, so only one
+    # policy applies per request.
     #
-    # If you want to drop 'unsafe-inline' from the host app while
-    # keeping it for the iframes, the options are:
-    #   (a) Serve issues/ from a separate Apache <Location> block with
-    #       a different (looser) CSP, or
-    #   (b) Inject a per-build nonce into the dynamic style tag and
-    #       switch style-src to 'self' 'nonce-…'. Both are non-trivial.
+    #   1. Host page (default, the "not /issues/" branch) — TIGHT. The
+    #      host app is built by Vite + Tailwind v4 and ships only a single
+    #      linked stylesheet, no inline <style> and no inline event
+    #      handlers, so style-src can be locked to 'self' alone.
     #
-    # Everything else is locked to 'self' (or the placehold.co fallback
-    # image source). base-uri 'self' and form-action 'self' close two
-    # common injection vectors.
-    Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' https://placehold.co data:; frame-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self';"
+    #   2. Article iframes (the "/issues/" branch) — LOOSER. Article
+    #      iframes at /issues/{N}/*.html are loaded by ArticleViewer and
+    #      inherit this CSP. styleInjection.ts dynamically appends <style>
+    #      blocks to those iframe documents at runtime, which requires
+    #      'unsafe-inline' for style-src. Without it the combined-archival-
+    #      view feature for issues 127+ breaks.
+    #
+    # Both policies close two common injection vectors with base-uri 'self'
+    # and form-action 'self', and both redundantly set frame-ancestors 'self'
+    # alongside X-Frame-Options: SAMEORIGIN for defense in depth.
+    #
+    # HSTS is intentionally NOT enabled (see note below).
+
+    # Article iframe policy (looser; 'unsafe-inline' for style-src REQUIRED
+    # by styleInjection.ts to re-skin page-image plates at runtime).
+    <If "%{REQUEST_URI} =~ m#^/issues/#">
+    Header always set Content-Security-Policy "\
+default-src 'self';\
+script-src 'self';\
+style-src 'self' 'unsafe-inline';\
+font-src 'self';\
+img-src 'self' data:;\
+frame-src 'self';\
+connect-src 'self';\
+base-uri 'self';\
+form-action 'self';\
+frame-ancestors 'self'\
+"
+    </If>
+
+    # Host page policy (default; tighter, no inline styles).
+    <If "! %{REQUEST_URI} =~ m#^/issues/#">
+    Header always set Content-Security-Policy "\
+default-src 'self';\
+script-src 'self';\
+style-src 'self';\
+font-src 'self';\
+img-src 'self' https://placehold.co data:;\
+frame-src 'self';\
+connect-src 'self';\
+base-uri 'self';\
+form-action 'self';\
+frame-ancestors 'self'\
+"
+    </If>
 
     # NOTE: HSTS (Strict-Transport-Security) is intentionally NOT enabled.
     # Once a browser caches HSTS for a domain, the policy is effectively
