@@ -41,8 +41,10 @@ cp /app/public/search_index.json.gz  /app/dist/search_index.json.gz 2>/dev/null 
 # Expose the baked covers tree and the bind-mounted issues tree under
 # the same paths Vite preview serves from. /app/dist/covers and
 # /app/dist/issues are empty placeholder dirs from the builder
-# stage; symlinking over them lets the app's /covers/N/cover512.webp
-# and /issues/N/file.html requests resolve.
+# stage. We must `rm -rf` them first because `ln -sfn` on a
+# non-empty directory silently fails to replace it and just drops
+# a useless symlink inside.
+rm -rf /app/dist/covers /app/dist/issues
 ln -sfn /app/covers /app/dist/covers
 ln -sfn "$ISSUES_DIR" /app/dist/issues
 
