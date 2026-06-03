@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<issue name="">
+	<issueNumber value="1"/>
+    <publicationDate value="March 1980"/>
+    <thumbnails value="Thumbs.archive"/>
+    <cover value="cover.html"/>
+    <masthead value="masthead.html"/>
+    <tail value="tail.html"/>
+    <articles>
+        <article name="Star Trek" value="1.ArchivalView.html"/>
+        <article name="Alien" value="2.ArchivalView.html"/>
+    </articles>
+    <readingViews>
+        <readingView name="Star Trek" value="1.ReadingView.html"/>
+        <readingView name="Alien" value="2.ReadingView.html"/>
+    </readingViews>
+</issue> 

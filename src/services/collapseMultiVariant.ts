@@ -18,9 +18,6 @@ export function collapseMultiVariantGalleryPages(doc: Document): void {
 
     if (allPages.length === 0) return;
 
-    let collapsedCount = 0;
-    let groupCount = 0;
-
     let i = 0;
     while (i < allPages.length) {
         const pageEl = allPages[i] as HTMLElement;
@@ -62,9 +59,6 @@ export function collapseMultiVariantGalleryPages(doc: Document): void {
         }
 
         if (group.length >= 2) {
-            groupCount++;
-            collapsedCount += (group.length - 1);
-
             // The first page in the group is the "canonical" one we will keep and enhance.
             const canonicalPage = group[0];
             const canonicalGallery = canonicalPage.querySelector('.imageGalleryPage') as HTMLElement;
@@ -191,9 +185,5 @@ export function collapseMultiVariantGalleryPages(doc: Document): void {
 
         // Advance past the group we just processed
         i = j;
-    }
-
-    if (groupCount > 0) {
-        console.log(`[CinefexArchival] Collapsed ${groupCount} multi-variant groups, removed ${collapsedCount} duplicate pages`);
     }
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<issue name="">
+	<issueNumber value="11"/>
+    <publicationDate value="July 1982"/>
+    <thumbnails value="Thumbs.archive"/>
+    <cover value="cover.html"/>
+    <masthead value="masthead.html"/>
+    <tail value="tail.html"/>
+    <articles>
+        <article name="E.T." value="1.ArchivalView.html"/>
+        <article name="Blade Runner" value="2.ArchivalView.html"/>
+    </articles>
+    <readingViews>
+        <readingView name="E.T." value="1.ReadingView.html"/>
+        <readingView name="Blade Runner" value="2.ReadingView.html"/>
+    </readingViews>
+</issue> 

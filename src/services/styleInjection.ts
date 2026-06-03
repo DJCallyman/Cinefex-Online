@@ -1,6 +1,13 @@
 import { CONFIG } from '../config';
 import { collapseMultiVariantGalleryPages } from './collapseMultiVariant';
 import { FONT_FACE_CSS } from '../styles/fonts';
+import {
+    NEW_READING_CSS,
+    NEW_ARCHIVAL_CSS,
+    OLD_READING_CSS,
+    OLD_ARCHIVAL_CSS,
+    COMBINED_ARCHIVAL_CSS,
+} from './iframeStyles';
 
 /**
  * Debug gate for archival view instrumentation (127+ combined layout work).
@@ -142,60 +149,7 @@ function injectNewReadingViewStyles(doc: Document): void {
     // We only provide minimal fixes for fonts, centering, and basic readability.
 
     const style = doc.createElement('style');
-    style.textContent = `
-        ${FONT_FACE_CSS}
-
-        html, body {
-            margin: 0 !important;
-            padding: 0 !important;
-            box-sizing: border-box !important;
-        }
-
-        body {
-            background-color: #f8f9fa !important;
-            color: #1e293b !important;
-            padding: 1rem 1.5rem !important;
-            max-width: 1024px !important;
-            margin-left: auto !important;
-            margin-right: auto !important;
-        }
-
-        .page {
-            font-family: "BenguiatStd-Book", Georgia, serif !important;
-            font-size: 16px !important;
-            line-height: 28px !important;
-            text-align: left !important;
-            margin-bottom: 1.25em !important;
-        }
-
-        em, i {
-            font-family: "BenguiatStd-BookItalic", Georgia, serif !important;
-            font-style: italic !important;
-        }
-
-        strong, b {
-            font-family: "BenguiatStd-Medium", Georgia, serif !important;
-            font-weight: normal !important;
-        }
-
-        page {
-            display: block !important;
-            break-inside: avoid !important;
-        }
-
-        img {
-            max-width: 100% !important;
-            height: auto !important;
-        }
-
-        .img-all {
-            min-height: 660px;
-            background-color: #111827;
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-    `;
+    style.textContent = `${FONT_FACE_CSS}\n\n${NEW_READING_CSS}`;
 
     if (doc.head.firstChild) {
         doc.head.insertBefore(style, doc.head.firstChild);
@@ -364,52 +318,7 @@ function injectNewArchivalViewStyles(doc: Document): void {
     sanitizeMalformedComments(doc);
 
     const style = doc.createElement('style');
-    style.textContent = `
-        html {
-            margin: 0 !important;
-            padding: 0 !important;
-            background: #1a1a2e !important;
-            overflow: auto !important;
-        }
-
-        body {
-            margin: 0 !important;
-            padding: 20px !important;
-            background: #1a1a2e !important;
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-        }
-
-        page {
-            display: block !important;
-            margin: 0 auto 20px auto !important;
-            width: 1024px !important;
-            float: none !important;
-        }
-
-        .page {
-            float: none !important;
-            display: block !important;
-            margin: 0 auto !important;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.6) !important;
-            border-radius: 4px !important;
-            background-size: 1024px 768px !important;
-            position: relative !important;
-        }
-
-        .page > div {
-            float: none !important;
-            display: block !important;
-        }
-
-        img {
-            width: 100% !important;
-            height: auto !important;
-            max-width: 100% !important;
-            display: block !important;
-        }
-    `;
+    style.textContent = NEW_ARCHIVAL_CSS;
     doc.head.appendChild(style);
 }
 
@@ -420,126 +329,13 @@ function injectOldArchivalViewStyles(doc: Document): void {
     fixMalformedArchivalPageStructure(doc);
 
     const style = doc.createElement('style');
-    style.textContent = `
-        html, body {
-            height: auto !important;
-            min-height: 0 !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            background: #1a1a2e !important;
-            overflow: auto !important;
-        }
-
-        body {
-            padding: 20px !important;
-        }
-
-        page {
-            display: block !important;
-            margin: 0 auto 20px auto !important;
-            width: 864px !important;
-            float: none !important;
-        }
-
-        /* Plate container: only style .page elements that are direct children of <page>.
-           This avoids breaking rare malformed pages that nest an extra .page inside
-           a width/height wrapper (e.g. issue 3 Empire Strikes Back title page). */
-        page > .page {
-            float: none !important;
-            display: block !important;
-            margin: 0 auto !important;
-            width: 864px !important;
-            height: 768px !important;
-            min-height: 768px !important;
-            max-height: 768px !important;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.6) !important;
-            border-radius: 4px !important;
-            background-size: 864px 768px !important;
-            background-repeat: no-repeat !important;
-            background-position: center top !important;
-            position: relative !important;
-            overflow: hidden !important;
-        }
-
-        /* The malformed double-.page wrapper on full-bleed image-only title pages
-           (e.g. issue 3 Empire Strikes Back p4) is collapsed in
-           fixMalformedArchivalPageStructure() into a single <page><div class="page">…
-           matching every other pre-127 page, so the page > .page rule above sizes it
-           correctly. The legacy 3-level selector below is kept as a safety net for any
-           future pre-127 source file that happens to ship with the same double-.page
-           nesting still intact (no repair triggered). */
-        page > .page > div > .page {
-            height: 100% !important;
-            min-height: 0 !important;
-            max-height: none !important;
-            box-shadow: none !important;
-            border-radius: 0 !important;
-            overflow: visible !important;
-            float: none !important;
-        }
-
-        /* Full-bleed single-image pages: the <img> is inside the explicit wrapper div */
-        page > .page > div > img {
-            width: 100% !important;
-            height: 100% !important;
-            max-width: none !important;
-            position: relative !important;
-        }
-
-        /* Multi-image layout pages: images fill their explicit-sized container divs */
-        page > .page div > div > img {
-            width: 100% !important;
-            height: 100% !important;
-            max-width: none !important;
-            position: relative !important;
-        }
-    `;
+    style.textContent = OLD_ARCHIVAL_CSS;
     doc.head.appendChild(style);
 }
 
 function injectOldReadingViewStyles(doc: Document): void {
     const style = doc.createElement('style');
-    style.textContent = `
-        ${FONT_FACE_CSS}
-
-        body {
-            font-family: "BenguiatStd-Book", Georgia, serif !important;
-        }
-
-        em, i {
-            font-family: "BenguiatStd-BookItalic", Georgia, serif !important;
-            font-style: italic !important;
-        }
-
-        strong, b {
-            font-family: "BenguiatStd-Medium", Georgia, serif !important;
-            font-weight: normal !important;
-        }
-
-        articleTitle {
-            font-family: "BenguiatStd-Medium", Georgia, serif !important;
-            font-weight: normal !important;
-        }
-
-        .dropCap span {
-            font-family: "BenguiatStd-BookItalic", Georgia, serif !important;
-        }
-
-        page {
-            display: block !important;
-        }
-
-        .footer {
-            clear: both !important;
-            margin-top: 2em !important;
-        }
-
-        body::after {
-            content: "" !important;
-            display: block !important;
-            clear: both !important;
-        }
-    `;
+    style.textContent = `${FONT_FACE_CSS}\n\n${OLD_READING_CSS}`;
     doc.head.appendChild(style);
 }
 
@@ -656,103 +452,7 @@ export function enhanceCombinedArchivalStyles(doc: Document): void {
     // Here we only add/override rules that are specific to the gallery markup we now append.
 
     const style = doc.createElement('style');
-    style.textContent = `
-        /* Gallery photo-spread containers (127+ imageGallery*.html) */
-        .imageGalleryPage {
-            display: block !important;
-            width: 1024px !important;
-            height: 768px !important;
-            margin: 0 auto 20px auto !important;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.6) !important;
-            border-radius: 4px !important;
-            background-size: 1024px 768px !important;
-            background-position: center !important;
-            background-repeat: no-repeat !important;
-            position: relative !important;
-            overflow: hidden !important;
-        }
-
-        /* The photo that is dropped onto the page plate — respect authored margins */
-        .imageGalleryPage > div > img,
-        .imageGalleryPage img {
-            max-width: none !important; /* allow the authored pixel margins to work */
-            height: auto !important;
-            display: block !important;
-        }
-
-        /* Hide all the iPad-era gallery chrome (video buttons, thumbs, etc.) */
-        .new_button-left,
-        .new_button-top,
-        .new_button-top-2,
-        .button-left,
-        .button-left-2,
-        .button-top,
-        .button-top-2,
-        .thumbs,
-        .new_button-left a,
-        .thumbs a {
-            display: none !important;
-        }
-
-        /* A few other classes that appear in some galleries and can cause noise */
-        .gallery,
-        .header,
-        .logo,
-        .filmTitle,
-        .filmTitleTop {
-            display: none !important;
-        }
-
-        /* Functional thumbnail switcher for multi-variant photo spreads (e.g. 4 versions on p75 for Kong).
-           Compact 2x2 grid in the bottom-right corner of the plate. */
-        .variant-thumbs {
-            display: flex !important;
-            flex-wrap: wrap !important;
-            flex-direction: row !important;
-            width: 63px !important;
-            position: absolute !important;
-            right: 14px !important;
-            bottom: 12px !important;
-            gap: 3px !important;
-            z-index: 30 !important;
-            background: rgba(0,0,0,0.45) !important;
-            padding: 2px !important;
-            border-radius: 2px !important;
-        }
-
-        .variant-thumbs button {
-            border: 1px solid rgba(255,255,255,0.5) !important;
-            background: transparent !important;
-            padding: 0 !important;
-            margin: 0 !important;
-            cursor: pointer !important;
-            width: 30px !important;
-            height: 22px !important;
-            overflow: hidden !important;
-            border-radius: 1px !important;
-            opacity: 0.75 !important;
-            transition: opacity 0.1s ease, border-color 0.1s ease, transform 0.1s ease !important;
-            flex-shrink: 0 !important;
-        }
-
-        .variant-thumbs button:hover {
-            opacity: 1 !important;
-            transform: scale(1.05) !important;
-        }
-
-        .variant-thumbs button[aria-pressed="true"],
-        .variant-thumbs button:active {
-            opacity: 1 !important;
-            border-color: #fff !important;
-        }
-
-        .variant-thumbs img {
-            width: 100% !important;
-            height: 100% !important;
-            object-fit: cover !important;
-            display: block !important;
-        }
-    `;
+    style.textContent = COMBINED_ARCHIVAL_CSS;
 
     // Insert early so it can be overridden by more specific rules if needed
     if (doc.head.firstChild) {

@@ -12,6 +12,7 @@ export function SearchBar() {
         isSearchIndexLoading,
         isSearchIndexReady,
         fullTextHits,
+        filteredMagazines,
     } = useArchiveContext();
     const [inputValue, setInputValue] = useState(searchQuery);
     const [showClear, setShowClear] = useState(false);
@@ -75,19 +76,19 @@ export function SearchBar() {
     // Status pill below the input.
     const showStatus = inputValue.trim() || (searchMode === 'fulltext' && isSearchIndexLoading);
     const statusText = (() => {
+        if (searchMode === 'title' && inputValue.trim()) {
+            const n = filteredMagazines?.length ?? 0;
+            return n === 0 ? 'No matching issues' : `${n} matching ${n === 1 ? 'issue' : 'issues'}`;
+        }
         if (searchMode === 'fulltext' && isSearchIndexLoading) return 'Loading article index…';
-        if (inputValue.trim()) {
-            if (searchMode === 'fulltext') {
-                if (!isSearchIndexReady) {
-                    return 'Index unavailable — check the build output.';
-                }
-                const n = fullTextHits.length;
-                return n === 0
-                    ? 'No matches in article text'
-                    : `${n} match${n === 1 ? '' : 'es'} in article text`;
+        if (inputValue.trim() && searchMode === 'fulltext') {
+            if (!isSearchIndexReady) {
+                return 'Index unavailable — check the build output.';
             }
-            // Title mode: number of filtered results
-            // (the consumer of the context already shows this implicitly)
+            const n = fullTextHits.length;
+            return n === 0
+                ? 'No matches in article text'
+                : `${n} match${n === 1 ? '' : 'es'} in article text`;
         }
         return '';
     })();

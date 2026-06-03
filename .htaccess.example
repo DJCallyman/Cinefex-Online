@@ -1,0 +1,144 @@
+# ============================================================
+# Cinefex Archives - Apache Server Configuration
+# ============================================================
+#
+# TEMPLATE FILE — this is committed as .htaccess.example so that
+# deployment-specific values (especially the AuthUserFile path
+# below) never leak into git. To deploy, copy this file to .htaccess
+# on your server and edit the AuthUserFile line for your machine.
+# See README.md (Deployment) for the full workflow.
+#
+# Apache will read .htaccess by default; the .example suffix only
+# exists in the repository copy.
+
+# --- Security Headers ---
+<IfModule mod_headers.c>
+    # Prevent MIME type sniffing
+    Header always set X-Content-Type-Options "nosniff"
+
+    # Clickjacking protection
+    Header always set X-Frame-Options "SAMEORIGIN"
+
+    # Referrer policy
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Content Security Policy
+    #
+    # Two policies, applied by URL prefix. Implemented with <If> blocks
+    # because <Location> is not allowed in .htaccess context (it requires
+    # server-config or virtual-host context). Each <If> sets a single
+    # CSP header; the two conditions are mutually exclusive, so only one
+    # policy applies per request.
+    #
+    #   1. Host page (default, the "not /issues/" branch) — TIGHT. The
+    #      host app is built by Vite + Tailwind v4 and ships only a single
+    #      linked stylesheet, no inline <style> and no inline event
+    #      handlers, so style-src can be locked to 'self' alone.
+    #
+    #   2. Article iframes (the "/issues/" branch) — LOOSER. Article
+    #      iframes at /issues/{N}/*.html are loaded by ArticleViewer and
+    #      inherit this CSP. styleInjection.ts dynamically appends <style>
+    #      blocks to those iframe documents at runtime, which requires
+    #      'unsafe-inline' for style-src. Without it the combined-archival-
+    #      view feature for issues 127+ breaks.
+    #
+    # Both policies close two common injection vectors with base-uri 'self'
+    # and form-action 'self', and both redundantly set frame-ancestors 'self'
+    # alongside X-Frame-Options: SAMEORIGIN for defense in depth.
+    #
+    # HSTS is intentionally NOT enabled (see note below).
+
+    # Article iframe policy (looser; 'unsafe-inline' for style-src REQUIRED
+    # by styleInjection.ts to re-skin page-image plates at runtime).
+    <If "%{REQUEST_URI} =~ m#^/issues/#">
+    Header always set Content-Security-Policy "\
+default-src 'self';\
+script-src 'self';\
+style-src 'self' 'unsafe-inline';\
+font-src 'self';\
+img-src 'self' data:;\
+frame-src 'self';\
+connect-src 'self';\
+base-uri 'self';\
+form-action 'self';\
+frame-ancestors 'self'\
+"
+    </If>
+
+    # Host page policy (default; tighter, no inline styles).
+    <If "! %{REQUEST_URI} =~ m#^/issues/#">
+    Header always set Content-Security-Policy "\
+default-src 'self';\
+script-src 'self';\
+style-src 'self';\
+font-src 'self';\
+img-src 'self' https://placehold.co data:;\
+frame-src 'self';\
+connect-src 'self';\
+base-uri 'self';\
+form-action 'self';\
+frame-ancestors 'self'\
+"
+    </If>
+
+    # NOTE: HSTS (Strict-Transport-Security) is intentionally NOT enabled.
+    # Once a browser caches HSTS for a domain, the policy is effectively
+    # irreversible for the max-age period. If the certificate, hosting, or
+    # HTTPS setup is ever misconfigured, users with cached HSTS would be
+    # locked out until the policy expires. Until a stable, monitored HTTPS
+    # deployment is in place, leave HSTS off.
+</IfModule>
+
+# --- HTTP Basic Authentication ---
+<IfModule mod_authn_core.c>
+    AuthType Basic
+    AuthName "Cinefex Archives"
+    AuthUserFile /path/to/cinefex.htpasswd
+    Require valid-user
+</IfModule>
+
+# --- Caching ---
+<IfModule mod_expires.c>
+    ExpiresActive On
+
+    # Fonts: cache for 1 year
+    ExpiresByType font/opentype "access plus 1 year"
+    ExpiresByType font/truetype "access plus 1 year"
+    ExpiresByType application/font-woff "access plus 1 year"
+    ExpiresByType application/font-woff2 "access plus 1 year"
+
+    # Images: cache for 1 month
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+
+    # CSS/JS: cache for 1 week
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+
+    # HTML: cache for 1 hour
+    ExpiresByType text/html "access plus 1 hour"
+
+    # JSON: cache for 1 day
+    ExpiresByType application/json "access plus 1 day"
+</IfModule>
+
+# --- Compression ---
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json
+    AddOutputFilterByType DEFLATE font/opentype font/truetype
+</IfModule>
+
+# --- MIME Types ---
+<IfModule mod_mime.c>
+    AddType font/opentype .otf
+    AddType font/truetype .ttf
+    AddType application/json .json
+</IfModule>
+
+# --- Prevent access to sensitive files ---
+<FilesMatch "\.(htpasswd|gitignore|md|py)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+</FilesMatch>

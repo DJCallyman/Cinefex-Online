@@ -21,9 +21,3 @@ export interface YearBucket {
     endYear: number;
     magazines: Magazine[];
 }
-
-export interface SearchResult {
-    magazines: Magazine[];
-    query: string;
-    isEmpty: boolean;
-}

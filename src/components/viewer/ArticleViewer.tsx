@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
+import { useRef, useState, useCallback, useMemo } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useModalShell } from '../../hooks';
 import { useArchiveContext } from '../../context/ArchiveContext';
 import { injectStyles, appendImageGalleryToArchival } from '../../services/styleInjection';
 import { getArticleNeighbors } from '../../utils/nav';
@@ -21,7 +22,6 @@ export function ArticleViewer() {
     const closeButtonRef = useRef<HTMLButtonElement>(null);
     const prevButtonRef = useRef<HTMLButtonElement>(null);
     const nextButtonRef = useRef<HTMLButtonElement>(null);
-    const previousFocusRef = useRef<HTMLElement | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
 
@@ -35,15 +35,9 @@ export function ArticleViewer() {
     );
 
     const handleClose = useCallback(() => {
-        setSelectedIssue(issueNumber);
+        setSelectedIssue(null);
         navigate('/');
-    }, [setSelectedIssue, issueNumber, navigate]);
-
-    const handleBackToIssue = useCallback(() => {
-        // Open the issue modal for the current issue without changing route
-        setSelectedIssue(issueNumber);
-        navigate('/');
-    }, [setSelectedIssue, issueNumber, navigate]);
+    }, [setSelectedIssue, navigate]);
 
     const navigateToArticle = useCallback(
         (target: { issue: number; articleIndex: number } | null) => {
@@ -53,60 +47,11 @@ export function ArticleViewer() {
         [navigate, viewMode],
     );
 
-    // Focus management: move focus into viewer on open, restore on close
-    useEffect(() => {
-        previousFocusRef.current = document.activeElement as HTMLElement | null;
-
-        const rafId = requestAnimationFrame(() => {
-            closeButtonRef.current?.focus();
-        });
-
-        return () => {
-            cancelAnimationFrame(rafId);
-
-            const prev = previousFocusRef.current;
-            if (prev && typeof prev.focus === 'function') {
-                setTimeout(() => {
-                    try {
-                        prev.focus();
-                    } catch {
-                        // Element may have been removed from DOM; ignore
-                    }
-                }, 0);
-            } else {
-                const fallback =
-                    document.getElementById('search-input') ||
-                    document.querySelector<HTMLElement>('.magazine-cover') ||
-                    document.body;
-                if (fallback && typeof fallback.focus === 'function') {
-                    setTimeout(() => {
-                        try {
-                            fallback.focus();
-                        } catch {
-                            // ignore
-                        }
-                    }, 0);
-                }
-            }
-            previousFocusRef.current = null;
-        };
-    }, []);
-
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === 'Escape') {
-                handleClose();
-            }
-        };
-
-        document.addEventListener('keydown', handleKeyDown);
-        document.body.style.overflow = 'hidden';
-
-        return () => {
-            document.removeEventListener('keydown', handleKeyDown);
-            document.body.style.overflow = '';
-        };
-    }, [handleClose]);
+    const containerRef = useModalShell({
+        isOpen: !!magazine && !!article,
+        onClose: handleClose,
+        initialFocusRef: closeButtonRef,
+    });
 
     const handleIframeLoad = () => {
         setIsLoading(false);
@@ -144,7 +89,10 @@ export function ArticleViewer() {
                     <div className="flex flex-col sm:flex-row gap-3 justify-center">
                         {Number.isFinite(issueNumber) && (
                             <button
-                                onClick={handleBackToIssue}
+                                onClick={() => {
+                                    setSelectedIssue(issueNumber);
+                                    navigate('/');
+                                }}
                                 className="px-4 py-2 bg-gray-600 hover:bg-gray-500 rounded text-white"
                             >
                                 Back to Issue {issueNumber}
@@ -165,6 +113,7 @@ export function ArticleViewer() {
     return (
         <div
             id="viewer"
+            ref={containerRef}
             className="fixed inset-0 z-[60] bg-gray-900"
             role="dialog"
             aria-modal="true"

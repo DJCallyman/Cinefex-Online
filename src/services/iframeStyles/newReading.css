@@ -1,0 +1,57 @@
+/* ==========================================================================
+   New-format reading view (issues 127+) — minimal font/layout overrides.
+   Applied on top of the source article's own Cinefex.css. Font-face
+   declarations are prepended at injection time from FONT_FACE_CSS so we
+   don't duplicate font URLs here.
+   ========================================================================== */
+
+html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+}
+
+body {
+    background-color: #f8f9fa !important;
+    color: #1e293b !important;
+    padding: 1rem 1.5rem !important;
+    max-width: 1024px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.page {
+    font-family: "BenguiatStd-Book", Georgia, serif !important;
+    font-size: 16px !important;
+    line-height: 28px !important;
+    text-align: left !important;
+    margin-bottom: 1.25em !important;
+}
+
+em, i {
+    font-family: "BenguiatStd-BookItalic", Georgia, serif !important;
+    font-style: italic !important;
+}
+
+strong, b {
+    font-family: "BenguiatStd-Medium", Georgia, serif !important;
+    font-weight: normal !important;
+}
+
+page {
+    display: block !important;
+    break-inside: avoid !important;
+}
+
+img {
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+.img-all {
+    min-height: 660px;
+    background-color: #111827;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}

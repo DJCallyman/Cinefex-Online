@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import { useFocusTrap } from '../../hooks';
+import { useModalShell } from '../../hooks';
 import { useArchiveContext } from '../../context/ArchiveContext';
 import { COVER_FALLBACK } from '../../config';
 import { getIssueNeighbors } from '../../utils/nav';
@@ -20,11 +20,11 @@ export function IssueModal({ issueNumber }: IssueModalProps) {
     const [selectedArticleIndex, setSelectedArticleIndex] = useState<number | null>(null);
     const [imgError, setImgError] = useState(false);
 
-    const modalRef = useFocusTrap(!!magazine);
-
     const handleClose = useCallback(() => {
         setSelectedIssue(null);
     }, [setSelectedIssue]);
+
+    const modalRef = useModalShell({ isOpen: !!magazine, onClose: handleClose });
 
     const handleOverlayClick = (e: React.MouseEvent) => {
         if (e.target === e.currentTarget) {
@@ -48,22 +48,6 @@ export function IssueModal({ issueNumber }: IssueModalProps) {
         setSelectedArticleIndex(null);
         setImgError(false);
     }, [issueNumber]);
-
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === 'Escape') {
-                handleClose();
-            }
-        };
-
-        document.addEventListener('keydown', handleKeyDown);
-        document.body.style.overflow = 'hidden';
-
-        return () => {
-            document.removeEventListener('keydown', handleKeyDown);
-            document.body.style.overflow = '';
-        };
-    }, [handleClose]);
 
     if (!magazine) {
         return (

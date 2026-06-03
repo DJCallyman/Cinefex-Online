@@ -27,34 +27,30 @@ export function ArchiveGrid() {
     if (filteredMagazines !== null) {
         if (filteredMagazines.length === 0) {
             return (
-                <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto" id="magazine-grid">
-                    <div className="col-span-full text-center py-16">
-                        <p className="text-2xl text-gray-300 mb-2">No results found</p>
-                        <p className="text-gray-400">
-                            No issues matching &ldquo;<strong className="text-white">{searchQuery}</strong>&rdquo; were found.
-                        </p>
-                    </div>
+                <div className="col-span-full text-center py-16">
+                    <p className="text-2xl text-gray-300 mb-2">No results found</p>
+                    <p className="text-gray-400">
+                        No issues matching &ldquo;<strong className="text-white">{searchQuery}</strong>&rdquo; were found.
+                    </p>
                 </div>
             );
         }
 
         return (
-            <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto" id="magazine-grid">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
-                    {filteredMagazines.map((magazine, idx) => (
-                        <MagazineCover
-                            key={magazine.issue}
-                            magazine={magazine}
-                            priority={idx < LCP_COVER_COUNT}
-                        />
-                    ))}
-                </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+                {filteredMagazines.map((magazine, idx) => (
+                    <MagazineCover
+                        key={magazine.issue}
+                        magazine={magazine}
+                        priority={idx < LCP_COVER_COUNT}
+                    />
+                ))}
             </div>
         );
     }
 
     return (
-        <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto" id="magazine-grid">
+        <>
             {buckets.map((bucket, bucketIdx) => (
                 <YearBucketWrapper
                     key={bucket.key}
@@ -62,7 +58,7 @@ export function ArchiveGrid() {
                     isFirstBucket={bucketIdx === 0}
                 />
             ))}
-        </div>
+        </>
     );
 }
 

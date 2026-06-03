@@ -1,0 +1,52 @@
+/* ==========================================================================
+   New-format archival view (issues 127+) — page-image spread layout.
+   Applied to manuscript*.html (and combined manuscript + imageGallery)
+   iframes. Conservative: lets the source Cinefex.css handle page
+   presentation and only adds the light container fixes Cinefex.css is
+   missing (centering, dark backdrop, max-width, etc.).
+   ========================================================================== */
+
+html {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #1a1a2e !important;
+    overflow: auto !important;
+}
+
+body {
+    margin: 0 !important;
+    padding: 20px !important;
+    background: #1a1a2e !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+page {
+    display: block !important;
+    margin: 0 auto 20px auto !important;
+    width: 1024px !important;
+    float: none !important;
+}
+
+.page {
+    float: none !important;
+    display: block !important;
+    margin: 0 auto !important;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.6) !important;
+    border-radius: 4px !important;
+    background-size: 1024px 768px !important;
+    position: relative !important;
+}
+
+.page > div {
+    float: none !important;
+    display: block !important;
+}
+
+img {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    display: block !important;
+}

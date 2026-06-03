@@ -1,0 +1,176 @@
+@font-face {
+	font-family: "CaeciliaLTStd";
+	src: url("fonts/CaeciliaLTStd-Italic.otf") format("opentype");
+	font-style: italic;
+}
+
+@font-face {
+	font-family: "CaeciliaLTStd";
+	src: url("fonts/CaeciliaLTStd-Roman.otf") format("opentype");
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "CaeciliaLTStd";
+	src: url("fonts/CaeciliaLTStd-Bold.otf") format("opentype");
+	font-style: normal;
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: "CaeciliaLTStd";
+	src: url("fonts/CaeciliaLTStd-BoldItalic.otf") format("opentype");
+	font-style: italic;
+	font-weight: bold;
+}
+
+em {
+    font-style: italic;
+}
+
+strong {
+    font-style: normal;
+    font-weight: bold;
+}
+
+@media all and (-webkit-min-device-pixel-ratio: 2) {
+   .lores { display:none  }
+   .hires   { display:block }
+}
+
+@media all and (-webkit-min-device-pixel-ratio: 1) {
+   .lores { display:none  }
+   .hires   { display:block }
+}
+
+/*
+@media all and (-webkit-min-device-pixel-ratio: 1) {
+   .lores { display:block  }
+   .hires   { display:none }
+}
+*/
+
+.dropCap{
+    display      : block;
+    float        : left;
+    margin-top   : -0.21em; /* use -0.205em for two lines, -0.63em for four lines */
+    margin-left  : -0.40em;
+    margin-right : 0.4em;
+    height       : 3.5em;
+}
+
+.dropCap span{
+    font-size    : 4.8em;   /* use 3.33em for two lines, 5.6em for four lines */
+    line-height  : 1.0em;
+    color: #454545;
+}
+
+articleTitle {
+	font-style: normal;
+	font-weight: bold;
+	font-size: 24pt;
+	line-height:1.1em;
+}
+
+person {
+	//color: brown;
+    //font-style: italic;
+}
+
+movie {
+	//color: red;
+    font-style: italic;
+}
+
+company {
+	//color: green;
+    //font-style: italic;
+}
+
+html {
+	//outline: 1px dashed orange;
+	text-align: center;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	background: rgb( 245, 245, 245);
+	width: 1024px;
+}
+
+body {
+	//outline: 1px dashed blue;
+	//width: 724px;
+	text-align: left;
+	font-family: "CaeciliaLTStd";
+	font-style: normal;
+	font-size: 12pt;
+	line-height:1.4em;
+	float: left;
+	padding: 0 0 0 0;
+	margin: 50 120 50 120;
+	background: rgb( 245, 245, 245);
+}
+
+p {
+	text-indent: 0px;
+	margin-top: 18;
+}
+
+img {
+    //outline: 1px dashed red;
+    width: 100%;
+    margin: 10 0 10 0;
+    position: relative;
+    float: right;
+}
+
+.img-group {
+	//outline: 1px dashed red;
+    width: 400;
+    margin: 0 -120 20 20;
+    float: right;
+    clear: both;
+}
+
+.img-group-not-for-gallery {
+	//outline: 1px dashed red;
+    width: 400;
+    margin: 0 -120 20 20;
+    float: right;
+    clear: both;
+}
+
+.img-group-big {
+	//outline: 1px dashed red;
+    width: 924px;
+    padding: 0 0 0 0;
+	margin: 0 -150 20 0;
+    float: right;
+    clear: both;
+}
+
+.caption {
+	//outline: 1px dashed blue;
+	//width: 400px;
+    margin: 10 20 10 50;
+	padding:0 0 0 0; 
+	font-size: 0.90em;
+	line-height:1.3em;
+	text-align: left;
+	font-style: italic;
+    float: right;
+    color: black;
+}
+
+.footer {
+	//outline: 1px dashed blue;
+	//width: 400px;
+    margin: 10 0 10 0;
+	padding:0 0 0 0; 
+	font-size: 0.90em;
+	line-height:1.3em;
+	text-align: left;
+	font-style: italic;
+    //float: left;
+    color: black;
+}
+

@@ -1,0 +1,45 @@
+/* ==========================================================================
+   Old-format reading view (pre-127) — font application only.
+   The legacy article HTML already has full layout; we just need to make
+   the right Benguiat face stick to body/em/strong/etc. so headings,
+   italics, and drop caps render in the typeface they were authored in.
+   Font-face declarations are prepended at injection time from FONT_FACE_CSS.
+   ========================================================================== */
+
+body {
+    font-family: "BenguiatStd-Book", Georgia, serif !important;
+}
+
+em, i {
+    font-family: "BenguiatStd-BookItalic", Georgia, serif !important;
+    font-style: italic !important;
+}
+
+strong, b {
+    font-family: "BenguiatStd-Medium", Georgia, serif !important;
+    font-weight: normal !important;
+}
+
+articleTitle {
+    font-family: "BenguiatStd-Medium", Georgia, serif !important;
+    font-weight: normal !important;
+}
+
+.dropCap span {
+    font-family: "BenguiatStd-BookItalic", Georgia, serif !important;
+}
+
+page {
+    display: block !important;
+}
+
+.footer {
+    clear: both !important;
+    margin-top: 2em !important;
+}
+
+body::after {
+    content: "" !important;
+    display: block !important;
+    clear: both !important;
+}

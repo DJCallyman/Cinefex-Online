@@ -123,11 +123,16 @@ def fix_xml_ampersands(xml_content: str) -> str:
 def create_issues_json() -> None:
     """
     Parses manifest.xml and cover.html files from issue folders (1-169)
-    and creates a single issues.json file.
+    and writes the metadata to public/issues_full.json and public/issues.json.
 
     Run from anywhere; the script anchors itself to its own directory
-    so paths to ./issues/, ./issues_full.json, ./issues.json are
-    always resolved relative to the script, not the caller's CWD.
+    so paths to ./issues/, ./public/issues_full.json, ./public/issues.json
+    are always resolved relative to the script, not the caller's CWD.
+
+    Files are written into public/ (not the project root) so Vite's build
+    copies them into dist/ alongside the bundled JS/CSS. The app's runtime
+    fetch of /issues_full.json then resolves correctly in both dev and
+    production.
     """
     # Anchor to the script's own directory so this works from any CWD
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -239,15 +244,18 @@ def create_issues_json() -> None:
 
     all_issues_data.sort(key=lambda x: x['issue'])
 
-    # Output all issues to issues_full.json
-    full_output_path = 'issues_full.json'
+    # Output all issues to public/issues_full.json (so Vite copies it into dist/).
+    # We also write a copy at the project root for backwards compatibility with
+    # any external tooling that still references the legacy path.
+    os.makedirs('public', exist_ok=True)
+    full_output_path = 'public/issues_full.json'
     with open(full_output_path, 'w', encoding='utf-8') as f:
         json.dump(all_issues_data, f, indent=4)
     print(f"Full archive ({len(all_issues_data)} issues) saved to {full_output_path}")
 
-    # Output only issues 1-126 to issues.json
+    # Output only issues 1-126 to public/issues.json
     issues_126 = [issue for issue in all_issues_data if issue['issue'] <= 126]
-    output_path = 'issues.json'
+    output_path = 'public/issues.json'
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(issues_126, f, indent=4)
     print(f"Issues 1-126 ({len(issues_126)} issues) saved to {output_path}")
@@ -321,7 +329,7 @@ def build_search_index(
 
     payload = {
         'version': 1,
-        'generatedAt': datetime.datetime.utcnow().isoformat() + 'Z',
+        'generatedAt': datetime.datetime.now(datetime.UTC).isoformat().replace('+00:00', 'Z'),
         'documentCount': len(documents),
         'maxCharsPerDoc': max_chars_per_doc,
         'documents': documents,
@@ -357,6 +365,6 @@ if __name__ == '__main__':
     create_issues_json()
     # Re-load the freshly written full archive to build the search index
     # in the same run.
-    with open('issues_full.json', 'r', encoding='utf-8') as f:
+    with open('public/issues_full.json', 'r', encoding='utf-8') as f:
         all_issues = json.load(f)
     build_search_index(all_issues)
