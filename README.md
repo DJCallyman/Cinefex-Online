@@ -76,7 +76,7 @@ on every merge to `main`. The image is `linux/amd64` only.
 ### unraid
 
 1. Make sure your `issues/` share exists at
-   `/mnt/user/appdata/cinefex/issues/` (or update the template's
+   `/mnt/user/issues/` (or update the template's
    "Issues Share" path).
 2. Add a container in unraid with this Template URL:
    `https://raw.githubusercontent.com/DJCallyman/Cinefex-Online/main/unraid/cinefex-online.xml`

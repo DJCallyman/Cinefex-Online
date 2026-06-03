@@ -46,12 +46,12 @@ Update the image by re-running the container (unraid pulls :latest on restart wh
   </Environment>
   <Labels/>
   <Config Name="Web Port" Target="8080" Default="8080" Mode="tcp" Description="Internal port vite preview listens on." Type="Port" Display="always" Required="true" Mask="false">8080</Config>
-  <Config Name="Issues Share" Target="/issues" Default="/mnt/user/appdata/cinefex/issues" Mode="rw" Description="Path on the unraid host to your issues/ tree. Each issue should be a numbered subdirectory (1, 2, ..., N) with manifest.xml and *.html files." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/cinefex/issues</Config>
+  <Config Name="Issues Share" Target="/issues" Default="/mnt/user/issues" Mode="rw" Description="Path on the unraid host to your issues/ tree. Each issue should be a numbered subdirectory (1, 2, ..., N) with manifest.xml and *.html files." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/issues</Config>
   <Config Name="Image Tag" Target="cinefex-online" Default="latest" Mode="" Description="Which tag to pull. :latest is rebuilt on every merge to main." Type="Variable" Display="advanced" Required="false" Mask="false">latest</Config>
   <Port>8080:8080</Port>
   <Data>
     <Volume>
-      <HostDir>/mnt/user/appdata/cinefex/issues</HostDir>
+      <HostDir>/mnt/user/issues</HostDir>
       <ContainerDir>/issues</ContainerDir>
       <Mode>rw</Mode>
     </Volume>
