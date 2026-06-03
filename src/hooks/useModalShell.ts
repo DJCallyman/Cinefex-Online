@@ -4,7 +4,7 @@ import { useFocusTrap } from './useFocusTrap';
 interface UseModalShellOptions {
     isOpen: boolean;
     onClose: () => void;
-    initialFocusRef?: RefObject<HTMLElement>;
+    initialFocusRef?: RefObject<HTMLElement | null>;
 }
 
 export function useModalShell({ isOpen, onClose, initialFocusRef }: UseModalShellOptions) {
