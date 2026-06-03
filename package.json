@@ -5,6 +5,7 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
+        "start": "vite preview --host 0.0.0.0",
         "covers:webp": "node scripts/convert-covers-to-webp.js",
         "covers:webp:check": "node scripts/convert-covers-to-webp.js --check",
         "search:index": "python3 create_json.py",
