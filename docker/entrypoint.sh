@@ -1,19 +1,25 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # Runs inside the runtime container. Waits for the bind-mounted
-# ISSUES_DIR, regenerates JSON metadata against it, and starts
-# vite preview.
-set -euo pipefail
+# ISSUES_DIR, regenerates JSON metadata against it, exposes the baked
+# covers + bind-mounted issues trees under nginx's docroot, then exits
+# so the base image's own /docker-entrypoint.sh can start nginx.
+#
+# Uses POSIX /bin/sh (not bash) because the nginx:alpine base image
+# only ships BusyBox ash, and the base image's own entrypoint runs
+# our script via `ash` regardless of the shebang — but using /bin/sh
+# keeps the script portable to other minimal images.
+set -eu
 
 ISSUES_DIR="${ISSUES_DIR:-/issues}"
-PORT="${PORT:-8080}"
+DOCROOT="/usr/share/nginx/html"
 
-echo "[entrypoint] ISSUES_DIR=$ISSUES_DIR PORT=$PORT"
+echo "[entrypoint] ISSUES_DIR=$ISSUES_DIR DOCROOT=$DOCROOT"
 
 # Wait up to 30s for the bind mount. unraid sometimes has a race where
 # the share isn't quite ready when the container starts.
 MOUNTED=0
 for i in $(seq 1 30); do
-    if [[ -d "$ISSUES_DIR" && -n "$(ls -A "$ISSUES_DIR" 2>/dev/null)" ]]; then
+    if [ -d "$ISSUES_DIR" ] && [ -n "$(ls -A "$ISSUES_DIR" 2>/dev/null)" ]; then
         MOUNTED=1
         break
     fi
@@ -21,7 +27,7 @@ for i in $(seq 1 30); do
     sleep 1
 done
 
-if [[ $MOUNTED -eq 0 ]]; then
+if [ "$MOUNTED" -eq 0 ]; then
     echo "[entrypoint] FATAL: $ISSUES_DIR is empty or not mounted."
     echo "[entrypoint] Bind-mount your issues share, e.g.:"
     echo "[entrypoint]   -v /mnt/user/appdata/cinefex/issues:$ISSUES_DIR"
@@ -31,22 +37,21 @@ fi
 echo "[entrypoint] Regenerating JSON metadata against $ISSUES_DIR ..."
 ISSUES_BASE_DIR="$ISSUES_DIR" python3 /app/create_json.py
 
-# Vite preview serves from /app/dist. Replace the bundle's pre-baked
-# (empty-issues) JSON with the freshly generated ones.
-cp /app/public/issues_full.json      /app/dist/issues_full.json
-cp /app/public/issues.json           /app/dist/issues.json
-cp /app/public/search_index.json     /app/dist/search_index.json
-cp /app/public/search_index.json.gz  /app/dist/search_index.json.gz 2>/dev/null || true
+# Replace the bundle's pre-baked (empty-issues) JSON with the freshly
+# generated ones under nginx's docroot.
+cp /app/public/issues_full.json      "$DOCROOT/issues_full.json"
+cp /app/public/issues.json           "$DOCROOT/issues.json"
+cp /app/public/search_index.json     "$DOCROOT/search_index.json"
+cp /app/public/search_index.json.gz  "$DOCROOT/search_index.json.gz" 2>/dev/null || true
 
-# Expose the baked covers tree and the bind-mounted issues tree under
-# the same paths Vite preview serves from. /app/dist/covers and
-# /app/dist/issues are empty placeholder dirs from the builder
-# stage. We must `rm -rf` them first because `ln -sfn` on a
-# non-empty directory silently fails to replace it and just drops
-# a useless symlink inside.
-rm -rf /app/dist/covers /app/dist/issues
-ln -sfn /app/covers /app/dist/covers
-ln -sfn "$ISSUES_DIR" /app/dist/issues
+# Expose the bind-mounted issues tree at /issues under nginx's docroot.
+# $DOCROOT/issues is an empty placeholder from the builder stage. We
+# must `rm -rf` it first because `ln -sfn` on a non-empty directory
+# silently fails to replace it and just drops a useless symlink inside.
+# (Covers are already baked into $DOCROOT/covers at build time and
+# don't need a runtime symlink.)
+rm -rf "$DOCROOT/issues"
+ln -sfn "$ISSUES_DIR" "$DOCROOT/issues"
 
-echo "[entrypoint] Starting vite preview on 0.0.0.0:$PORT"
-exec npx vite preview --host 0.0.0.0 --port "$PORT"
+echo "[entrypoint] Symlinks ready; nginx will serve $DOCROOT"
+echo "[entrypoint] (Handing off to nginx:alpine's own /docker-entrypoint.sh)"

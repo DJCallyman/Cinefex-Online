@@ -32,12 +32,6 @@ Update the image by re-running the container (unraid pulls :latest on restart wh
       <Description>Container path the issues/ share is bind-mounted to. Don't change unless you also update the Volume mapping.</Description>
     </Variable>
     <Variable>
-      <Key>PORT</Key>
-      <Value>8080</Value>
-      <Mode/>
-      <Description>Internal port vite preview listens on. Must match the published port on the left side of the Port mapping.</Description>
-    </Variable>
-    <Variable>
       <Key>TZ</Key>
       <Value>Australia/Sydney</Value>
       <Mode/>
@@ -45,10 +39,10 @@ Update the image by re-running the container (unraid pulls :latest on restart wh
     </Variable>
   </Environment>
   <Labels/>
-  <Config Name="Web Port" Target="8080" Default="8080" Mode="tcp" Description="Internal port vite preview listens on." Type="Port" Display="always" Required="true" Mask="false">8080</Config>
+  <Config Name="Web Port" Target="80" Default="80" Mode="tcp" Description="Internal port nginx listens on. Mapped to 8080 on the host by the Port mapping." Type="Port" Display="always" Required="true" Mask="false">80</Config>
   <Config Name="Issues Share" Target="/issues" Default="/mnt/user/issues" Mode="rw" Description="Path on the unraid host to your issues/ tree. Each issue should be a numbered subdirectory (1, 2, ..., N) with manifest.xml and *.html files." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/issues</Config>
   <Config Name="Image Tag" Target="cinefex-online" Default="latest" Mode="" Description="Which tag to pull. :latest is rebuilt on every merge to main." Type="Variable" Display="advanced" Required="false" Mask="false">latest</Config>
-  <Port>8080:8080</Port>
+  <Port>8080:80</Port>
   <Data>
     <Volume>
       <HostDir>/mnt/user/issues</HostDir>

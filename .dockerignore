@@ -7,3 +7,10 @@ dist
 .idea
 .vscode
 coverage
+# Large content trees that aren't needed for the build.
+# The runtime issues/ tree is supplied via bind-mount (see
+# unraid/cinefex-online.xml); covers/ and fonts/ are explicitly
+# COPY'd from the builder, so excluding the dev-only working trees
+# here keeps the build context small.
+issues/
+.docker-issues/
