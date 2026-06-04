@@ -1,0 +1,38 @@
+# Local dev/test orchestration for the production image.
+#
+# Mirrors the unraid container setup 1:1 (same bind mount, same exposed
+# port) so a successful `docker compose up` here is a faithful preview
+# of what unraid will run.
+#
+# Usage:
+#   1. Point ISSUES_PATH below at a directory containing numbered issue
+#      subdirs (1, 2, ..., N) with manifest.xml + *.html files. An empty
+#      dir is fine for testing the UI shell; the entrypoint will wait up
+#      to 30s for content.
+#   2. docker compose up --build
+#   3. Open http://localhost:8080
+
+name: cinefex-online
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: cinefex-online:local
+    container_name: cinefex-online
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      TZ: ${TZ:-Australia/Sydney}
+    volumes:
+      # Override the issues path on the host machine. Use a real share
+      # in production; an empty dir works for UI smoke tests.
+      - ${ISSUES_PATH:-./.docker-issues}:/issues
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost/issues_full.json',timeout=3).status==200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      start_period: 20s
+      retries: 3
