@@ -21,7 +21,13 @@ RUN npx tsc -b && npx vite build
 
 FROM nginx:1.27-alpine AS runtime
 # python3 is needed for the entrypoint's create_json.py regen + healthcheck.
-RUN apk add --no-cache python3
+# Alpine's python3 package depends on libexpat >= 2.7.5 (for the
+# XML_SetAllocTrackerActivationThreshold symbol pyexpat needs), but the
+# nginx:1.27-alpine base image ships libexpat 2.7.0. Upgrade the lib in
+# the same apk add so pyexpat can load. Without this, create_json.py
+# fails to parse issue manifest.xml files and the app boots with 0
+# issues (visible as "no covers" in the browser).
+RUN apk add --no-cache python3 && apk upgrade libexpat
 WORKDIR /app
 # dist is the Vite build output. Its issues/ subdir is an empty placeholder
 # that the entrypoint will `rm -rf` and symlink to the bind-mounted issues

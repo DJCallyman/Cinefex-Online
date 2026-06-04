@@ -13,7 +13,7 @@
 Image rebuilds on every merge to main. Issues content is supplied at runtime via a bind mount
 on your share.</Overview>
   <Category>Books:Comics</Category>
-  <WebUI>http://[IP]:[PORT:8080]/</WebUI>
+  <WebUI>http://[IP]:[PORT:8586]/</WebUI>
   <TemplateURL/>
   <Icon>https://raw.githubusercontent.com/DJCallyman/Cinefex-Online/main/public/favicon.ico</Icon>
   <ExtraParams/>
@@ -39,10 +39,10 @@ Update the image by re-running the container (unraid pulls :latest on restart wh
     </Variable>
   </Environment>
   <Labels/>
-  <Config Name="Web Port" Target="80" Default="80" Mode="tcp" Description="Internal port nginx listens on. Mapped to 8080 on the host by the Port mapping." Type="Port" Display="always" Required="true" Mask="false">80</Config>
+  <Config Name="Web Port" Target="8586" Default="8586" Mode="tcp" Description="Host port mapped to container port 80 (where nginx listens). Must match the upstream port your reverse proxy forwards to." Type="Port" Display="always" Required="true" Mask="false">8586</Config>
   <Config Name="Issues Share" Target="/issues" Default="/mnt/user/issues" Mode="rw" Description="Path on the unraid host to your issues/ tree. Each issue should be a numbered subdirectory (1, 2, ..., N) with manifest.xml and *.html files." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/issues</Config>
   <Config Name="Image Tag" Target="cinefex-online" Default="latest" Mode="" Description="Which tag to pull. :latest is rebuilt on every merge to main." Type="Variable" Display="advanced" Required="false" Mask="false">latest</Config>
-  <Port>8080:80</Port>
+  <Port>8586:80</Port>
   <Data>
     <Volume>
       <HostDir>/mnt/user/issues</HostDir>
