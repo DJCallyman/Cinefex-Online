@@ -1,6 +1,6 @@
 {
     "name": "cinefex-online",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "A web front end to access the archive of Cinefex magazines. This project provides an interactive interface to browse and view digitized issues of Cinefex magazine, including both reading-optimized and archival layout views.",
     "type": "module",
     "scripts": {

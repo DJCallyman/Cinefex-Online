@@ -41,7 +41,7 @@ export function Header() {
                 </NavLink>
 
                 <BucketNav buckets={buckets} />
-                <div className="mt-4 max-w-md mx-auto relative">
+                <div className="mt-4 max-w-md mx-auto">
                     <SearchBar />
                 </div>
             </div>

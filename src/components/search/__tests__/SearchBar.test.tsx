@@ -156,3 +156,52 @@ describe('SearchBar status pill (title mode)', () => {
         expect(screen.queryByTestId('search-status')).toBeNull();
     });
 });
+
+describe('SearchBar clear button (regression)', () => {
+    beforeEach(() => {
+        vi.useFakeTimers({ shouldAdvanceTime: true });
+    });
+
+    afterEach(() => {
+        vi.useRealTimers();
+        vi.restoreAllMocks();
+    });
+
+    it('uses appearance-none on the input and exposes exactly one custom clear control when text is present', async () => {
+        globalThis.fetch = mockFetchSuccess(SAMPLE) as typeof fetch;
+        render(
+            <ArchiveProvider>
+                <SearchBar />
+            </ArchiveProvider>,
+        );
+
+        const input = (await waitFor(() =>
+            screen.getByLabelText('Search the archive') as HTMLInputElement,
+        ))!;
+
+        // No custom clear button while the input is empty.
+        expect(document.querySelectorAll('#search-clear')).toHaveLength(0);
+
+        // The input must carry `appearance-none` so the native search chrome
+        // (cancel button etc.) is suppressed and only our custom control
+        // remains visible.
+        expect(input.className).toContain('appearance-none');
+
+        await act(async () => {
+            fireEvent.change(input, { target: { value: 'empire' } });
+            await vi.advanceTimersByTimeAsync(DEBOUNCE_BUFFER);
+        });
+
+        // Exactly one custom clear control, regardless of the native one.
+        const clears = document.querySelectorAll('#search-clear');
+        expect(clears).toHaveLength(1);
+        expect(clears[0].getAttribute('aria-label')).toBe('Clear search');
+
+        // Clearing the input removes the custom button.
+        await act(async () => {
+            fireEvent.change(input, { target: { value: '' } });
+            await vi.advanceTimersByTimeAsync(DEBOUNCE_BUFFER);
+        });
+        expect(document.querySelectorAll('#search-clear')).toHaveLength(0);
+    });
+});
