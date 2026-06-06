@@ -33,7 +33,7 @@ services:
       # in production; an empty dir works for UI smoke tests.
       - ${ISSUES_PATH:-./.docker-issues}:/issues
     healthcheck:
-      test: ["CMD", "python3", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost/issues_full.json',timeout=3).status==200 else 1)"]
+      test: ["CMD", "wget", "-qO/dev/null", "http://localhost/issues_full.json"]
       interval: 30s
       timeout: 5s
       start_period: 20s

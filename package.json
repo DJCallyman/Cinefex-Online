@@ -9,7 +9,7 @@
         "covers:webp": "node scripts/convert-covers-to-webp.js",
         "covers:webp:check": "node scripts/convert-covers-to-webp.js --check",
         "search:index": "python3 create_json.py",
-        "build": "npm run covers:webp && npm run search:index && tsc -b && vite build",
+        "build": "npm run covers:webp && tsc -b && vite build",
         "preview": "vite preview",
         "lint": "eslint .",
         "format": "prettier --write \"src/**/*.{ts,tsx,css}\" \"*.html\"",

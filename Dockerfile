@@ -2,9 +2,6 @@
 ARG NODE_VERSION=20-bookworm
 
 FROM node:${NODE_VERSION} AS builder
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        python3 ca-certificates \
-    && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --include=dev --no-audit --no-fund
@@ -20,21 +17,17 @@ RUN rm -f /app/public/covers /app/public/issues \
 RUN npx tsc -b && npx vite build
 
 FROM nginx:1.27-alpine AS runtime
-# python3 is needed for the entrypoint's create_json.py regen + healthcheck.
-# Alpine's python3 package depends on libexpat >= 2.7.5 (for the
-# XML_SetAllocTrackerActivationThreshold symbol pyexpat needs), but the
-# nginx:1.27-alpine base image ships libexpat 2.7.0. Upgrade the lib in
-# the same apk add so pyexpat can load. Without this, create_json.py
-# fails to parse issue manifest.xml files and the app boots with 0
-# issues (visible as "no covers" in the browser).
-RUN apk add --no-cache python3 && apk upgrade libexpat
+# Python is no longer needed in the runtime image: the JSON metadata
+# (issues.json, issues_full.json) is committed to git and baked into
+# the image at build time, and the entrypoint no longer regenerates
+# it. The /issues share is still bind-mounted at runtime because the
+# article iframes load their HTML directly from it.
 WORKDIR /app
 # dist is the Vite build output. Its issues/ subdir is an empty placeholder
 # that the entrypoint will `rm -rf` and symlink to the bind-mounted issues
 # share. covers/ is overwritten in the next COPY with the baked tree.
 COPY --from=builder /app/dist            /usr/share/nginx/html
 COPY --from=builder /app/covers          /usr/share/nginx/html/covers
-COPY create_json.py                      /app/create_json.py
 # The official nginx:alpine base image auto-runs every script in
 # /docker-entrypoint.d/ before its own CMD fires, so this chains our
 # setup onto nginx's startup with no extra plumbing.
@@ -44,5 +37,5 @@ RUN chmod +x /docker-entrypoint.d/40-cinefex.sh
 ENV ISSUES_DIR=/issues
 EXPOSE 80
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
-    CMD python3 -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost/issues_full.json',timeout=3).status==200 else 1)"
+    CMD wget -qO/dev/null http://localhost/issues_full.json || exit 1
 CMD ["nginx", "-g", "daemon off;"]
