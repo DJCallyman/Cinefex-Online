@@ -160,6 +160,23 @@ class CleanArticleTitleTests(unittest.TestCase):
         # After stripping, only the subject remains
         self.assertIsNone(clean_article_title('Alien - Alien', 'Alien'))
 
+    def test_subject_that_is_prefix_of_longer_word_is_not_stripped(self):
+        # The cleaner must require an explicit separator after the
+        # subject. Otherwise "Tron" would be stripped from "Tronic
+        # Imagery", "Alien" from "Aliens", etc., leaving gibberish.
+        self.assertEqual(
+            clean_article_title('Tronic Imagery', 'Tron'),
+            'Tronic Imagery',
+        )
+        self.assertEqual(
+            clean_article_title('Aliens', 'Alien'),
+            'Aliens',
+        )
+        self.assertEqual(
+            clean_article_title('Alienware', 'Alien'),
+            'Alienware',
+        )
+
 
 if __name__ == '__main__':
     unittest.main()
