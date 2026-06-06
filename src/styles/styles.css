@@ -85,6 +85,12 @@ body {
     color: var(--text) !important;
     border-color: var(--border) !important;
 }
+#search-input::-webkit-search-cancel-button,
+#search-input::-webkit-search-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+    display: none;
+}
 :root[data-theme='light'] input::placeholder {
     color: var(--text-dim) !important;
 }
