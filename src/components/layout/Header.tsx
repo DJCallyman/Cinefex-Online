@@ -15,6 +15,9 @@ export function Header() {
                     Cinefex Archives
                 </h1>
                 <p className="mt-2 text-lg text-gray-300">A tribute to the journal of cinematic illusions.</p>
+                {__APP_VERSION__ && (
+                    <p className="mt-1 text-xs text-gray-600 select-none" aria-hidden="true">v{__APP_VERSION__}</p>
+                )}
 
                 <NavLink
                     to="/bookmarks"
