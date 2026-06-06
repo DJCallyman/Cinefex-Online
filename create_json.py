@@ -120,6 +120,81 @@ def fix_xml_ampersands(xml_content: str) -> str:
     # Replace & that is not already part of an entity (like &amp; &lt; &gt; &quot; &apos; or numeric &#123;)
     return re.sub(r'&(?!(?:amp|lt|gt|quot|apos|#\d+|#x[0-9a-fA-F]+);)', '&amp;', xml_content)
 
+
+# Separators that can appear between the subject and the real subtitle
+# in the source `<meta name="Title">` / `<articleTitle>` text. We treat
+# all of them as equivalent when stripping the subject prefix.
+_SUBJECT_SEPARATORS = ('-', '–', '—', ':', '|')
+
+# Characters we trim from the start and end of a cleaned subtitle.
+_TRIM_CHARS = ' \t\n\r,.;:–—'
+
+
+def clean_article_title(title: Optional[str], subject: Optional[str]) -> Optional[str]:
+    """Return a subtitle string with any duplicated subject prefix
+    removed, or None if the result is empty / meaningless.
+
+    The source HTML files were authored by the magazine publisher with
+    inconsistent Title metadata. The two patterns we handle here are
+    both a "<subject> <separator> <subtitle>" duplication at the
+    **start** of the title:
+
+      "Brainstorm — Getting the Cookie at the End"  →  "Getting the Cookie at the End"
+      "Blade Runner: 2020 Foresight"                →  "2020 Foresight"
+      "The Right Stuff: Low-Tech Effects"           →  "Low-Tech Effects"   (if it ever appears)
+
+    We do **not** strip the subject when it appears mid-string or as a
+    suffix, because doing so destroys meaningful content. For example
+    "The Effects of Beetlejuice" with subject "Beetlejuice" should
+    pass through unchanged; "Visions of the Hereafter" with subject
+    "Hereafter" likewise. The 127+ issues include many titles of the
+    form "<description> of/on <subject>" and stripping those would
+    leave truncated, meaningless subtitles.
+
+    Rules:
+      1. Empty / whitespace-only title → None.
+      2. Title equals subject (case-insensitive) → None.
+      3. Title starts with "<subject> <separator>..." → strip the
+         subject and the leading separator(s).
+      4. After stripping, trim leading/trailing whitespace and
+         separators. If the remainder is empty or equal to the subject,
+         return None. Otherwise return the cleaned subtitle.
+    """
+    if not title or not subject:
+        return None
+    t = ' '.join(title.split())
+    s = ' '.join(subject.split())
+    if not t or not s:
+        return None
+    if t.lower() == s.lower():
+        return None
+
+    # Case 3: subject is a prefix immediately followed by a separator.
+    # Only the leading occurrence is stripped; mid-string occurrences
+    # are left alone on purpose.
+    sep_pattern = '|'.join(re.escape(c) for c in _SUBJECT_SEPARATORS)
+    prefix_re = re.compile(
+        r'^\s*' + re.escape(s) + r'\s*(?:' + sep_pattern + r')+\s*',
+        re.IGNORECASE,
+    )
+    t = prefix_re.sub('', t)
+
+    # Trim separator punctuation and whitespace from both ends. Do this
+    # in a loop because stripping one separator can reveal another (e.g.
+    # "Outland: — " → strip ":" → "Outland — " → strip "—" → "Outland ").
+    while True:
+        trimmed = t.strip().strip(_TRIM_CHARS).strip()
+        if trimmed == t:
+            break
+        t = trimmed
+    if not t or t.lower() == s.lower():
+        return None
+    # Collapse any double spaces the strip loop may have left behind.
+    t = ' '.join(t.split())
+    if not t or t.lower() == s.lower():
+        return None
+    return t
+
 def create_issues_json() -> None:
     """
     Parses manifest.xml and cover.html files from issue folders (1-169)
@@ -221,9 +296,13 @@ def create_issues_json() -> None:
                     if gallery_url:
                         article_data["imageGalleryUrl"] = f"issues/{i}/{gallery_url}"
                     
-                    # Add articleTitle only if it's different from the name
-                    if article_title and article_title.lower() != article_name.lower():
-                        article_data["articleTitle"] = article_title
+                    # Add articleTitle only if it survives cleaning. The
+                    # helper strips any subject prefix/containment so the
+                    # modal can render subject on line 1 and a distinct
+                    # subtitle on line 2 without duplication.
+                    cleaned_title = clean_article_title(article_title, article_name)
+                    if cleaned_title:
+                        article_data["articleTitle"] = cleaned_title
                     
                     articles_data.append(article_data)
                     article_names.append(article_name)

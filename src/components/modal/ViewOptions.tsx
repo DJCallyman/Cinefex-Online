@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Magazine, Article } from '../../types';
 import { useArchiveContext } from '../../context/ArchiveContext';
+import { displayTitle } from '../../utils/articleDisplay';
 
 interface ViewOptionsProps {
     magazine: Magazine;
@@ -12,6 +13,7 @@ interface ViewOptionsProps {
 export function ViewOptions({ magazine, article, articleIndex, onBack }: ViewOptionsProps) {
     const navigate = useNavigate();
     const { setSelectedIssue } = useArchiveContext();
+    const subtitle = displayTitle(article.name, article.articleTitle);
 
     const handleReadOnline = () => {
         setSelectedIssue(null);
@@ -33,7 +35,7 @@ export function ViewOptions({ magazine, article, articleIndex, onBack }: ViewOpt
             </button>
             <span className="text-sm font-semibold text-cyan-400">CINEFEX #{magazine.issue}</span>
             <h2 className="text-2xl sm:text-3xl font-bold mt-2">{article.name}</h2>
-            {article.articleTitle && <p className="text-lg text-gray-300 mt-1 mb-4">{article.articleTitle}</p>}
+            {subtitle && <p className="text-lg text-gray-300 mt-1 mb-4">{subtitle}</p>}
             <p className="text-gray-300 leading-relaxed mb-6">Select a format to view the article.</p>
             <div className="mt-auto flex flex-col sm:flex-row gap-4">
                 <button

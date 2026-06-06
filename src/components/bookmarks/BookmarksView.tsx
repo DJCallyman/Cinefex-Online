@@ -4,6 +4,7 @@ import { useArchiveContext } from '../../context/ArchiveContext';
 import { useBookmarks } from '../../context/BookmarksContext';
 import { Magazine } from '../../types';
 import { Cover } from '../archive/Cover';
+import { displayTitle } from '../../utils/articleDisplay';
 
 export function BookmarksView() {
     const { magazines, isLoading } = useArchiveContext();
@@ -120,6 +121,7 @@ function BookmarkedIssueCard({
     // "open modal" behaviour is replaced with a direct link to the article.
     const article = magazine.articles[articleIndex];
     if (!article) return null;
+    const subtitle = displayTitle(article.name, article.articleTitle);
 
     return (
         <div className="magazine-cover group">
@@ -139,8 +141,8 @@ function BookmarkedIssueCard({
                     <p className="text-sm text-cyan-300 group-hover:text-cyan-200 transition-colors truncate">
                         {article.name}
                     </p>
-                    {article.articleTitle && (
-                        <p className="text-xs text-gray-400 mt-1 truncate">{article.articleTitle}</p>
+                    {subtitle && (
+                        <p className="text-xs text-gray-400 mt-1 truncate">{subtitle}</p>
                     )}
                 </div>
             </Link>

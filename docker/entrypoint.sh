@@ -1,8 +1,13 @@
 #!/bin/sh
 # Runs inside the runtime container. Waits for the bind-mounted
-# ISSUES_DIR, regenerates JSON metadata against it, exposes the baked
-# covers + bind-mounted issues trees under nginx's docroot, then exits
-# so the base image's own /docker-entrypoint.sh can start nginx.
+# ISSUES_DIR, exposes the baked covers + bind-mounted issues trees
+# under nginx's docroot, then exits so the base image's own
+# /docker-entrypoint.sh can start nginx.
+#
+# Note: JSON metadata (issues.json, issues_full.json) is baked into
+# the image at build time and committed to git, so we no longer
+# regenerate it here. The cinefex run is finite (the magazine is
+# cancelled), so the JSON only changes via targeted hand edits.
 #
 # Uses POSIX /bin/sh (not bash) because the nginx:alpine base image
 # only ships BusyBox ash, and the base image's own entrypoint runs
@@ -16,7 +21,9 @@ DOCROOT="/usr/share/nginx/html"
 echo "[entrypoint] ISSUES_DIR=$ISSUES_DIR DOCROOT=$DOCROOT"
 
 # Wait up to 30s for the bind mount. unraid sometimes has a race where
-# the share isn't quite ready when the container starts.
+# the share isn't quite ready when the container starts. The mount is
+# required because the article iframes load /issues/<N>/<file>.html
+# straight out of this share at request time.
 MOUNTED=0
 for i in $(seq 1 30); do
     if [ -d "$ISSUES_DIR" ] && [ -n "$(ls -A "$ISSUES_DIR" 2>/dev/null)" ]; then
@@ -33,16 +40,6 @@ if [ "$MOUNTED" -eq 0 ]; then
     echo "[entrypoint]   -v /mnt/user/appdata/cinefex/issues:$ISSUES_DIR"
     exit 1
 fi
-
-echo "[entrypoint] Regenerating JSON metadata against $ISSUES_DIR ..."
-ISSUES_BASE_DIR="$ISSUES_DIR" python3 /app/create_json.py
-
-# Replace the bundle's pre-baked (empty-issues) JSON with the freshly
-# generated ones under nginx's docroot.
-cp /app/public/issues_full.json      "$DOCROOT/issues_full.json"
-cp /app/public/issues.json           "$DOCROOT/issues.json"
-cp /app/public/search_index.json     "$DOCROOT/search_index.json"
-cp /app/public/search_index.json.gz  "$DOCROOT/search_index.json.gz" 2>/dev/null || true
 
 # Expose the bind-mounted issues tree at /issues under nginx's docroot.
 # $DOCROOT/issues is an empty placeholder from the builder stage. We
