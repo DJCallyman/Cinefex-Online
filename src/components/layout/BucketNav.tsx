@@ -21,7 +21,7 @@ export function BucketNav({ buckets }: BucketNavProps) {
                     <button
                         key={bucket.key}
                         onClick={() => scrollToBucket(bucket.key)}
-                        className="inline-flex items-center px-3 py-1 bg-gray-700 text-gray-300 rounded-full text-sm font-semibold hover:bg-cyan-500 hover:text-white transition-colors cursor-pointer"
+                        className="inline-flex items-center h-7 leading-7 px-3 bg-gray-700 text-gray-300 rounded-full text-sm font-semibold hover:bg-cyan-500 hover:text-white transition-colors cursor-pointer"
                         aria-label={`Browse issues from ${bucket.startYear} to ${bucket.endYear}`}
                     >
                         {bucket.key}

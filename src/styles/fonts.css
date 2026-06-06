@@ -3,6 +3,17 @@
    Kept in sync with src/styles/fonts.ts (which is used by the iframe
    style injector). If you add/remove/rename a font, update BOTH files.
    font-display: swap is set on every face so first paint isn't blocked.
+
+   BenguiatStd ships with an unbalanced Win ascent/descent
+   (usWinAscent 882 / usWinDescent 250 of unitsPerEm 1000). Browsers use
+   those Win metrics to size the CSS line-box, so on a single-line
+   control (button, <input>) the cap-height ink lands noticeably above
+   the geometric centre. We override the line-box metrics so cap-height
+   is centred in the line-box:
+       ascent-override  = (em + capHeight) / 2 / em
+       descent-override = (em - capHeight) / 2 / em
+   With em=1000 and capHeight=658 this is 82.9% / 17.1%. line-gap-override
+   is zeroed because we don't need extra inter-line space for these faces.
    ========================================================================== */
 
 @font-face {
@@ -10,24 +21,36 @@
     src: url('/fonts/BenguiatStd-Book.otf') format('opentype');
     font-style: normal;
     font-display: swap;
+    ascent-override: 82.9%;
+    descent-override: 17.1%;
+    line-gap-override: 0%;
 }
 @font-face {
     font-family: 'BenguiatStd-BookItalic';
     src: url('/fonts/BenguiatStd-BookItalic.otf') format('opentype');
     font-style: italic;
     font-display: swap;
+    ascent-override: 82.9%;
+    descent-override: 17.1%;
+    line-gap-override: 0%;
 }
 @font-face {
     font-family: 'BenguiatStd-Medium';
     src: url('/fonts/BenguiatStd-Medium.otf') format('opentype');
     font-style: normal;
     font-display: swap;
+    ascent-override: 82.9%;
+    descent-override: 17.1%;
+    line-gap-override: 0%;
 }
 @font-face {
     font-family: 'BenguiatStd-MediumItalic';
     src: url('/fonts/BenguiatStd-MediumItalic.otf') format('opentype');
     font-style: italic;
     font-display: swap;
+    ascent-override: 82.9%;
+    descent-override: 17.1%;
+    line-gap-override: 0%;
 }
 @font-face {
     font-family: 'BenguiatStd-Bold';
@@ -35,6 +58,9 @@
     font-style: normal;
     font-weight: bold;
     font-display: swap;
+    ascent-override: 82.9%;
+    descent-override: 17.1%;
+    line-gap-override: 0%;
 }
 @font-face {
     font-family: 'BenguiatStd-BoldItalic';
@@ -42,6 +68,9 @@
     font-style: italic;
     font-weight: bold;
     font-display: swap;
+    ascent-override: 82.9%;
+    descent-override: 17.1%;
+    line-gap-override: 0%;
 }
 @font-face {
     font-family: 'GillSansStd';

@@ -121,7 +121,7 @@ export function SearchBar() {
                     onChange={handleInput}
                     onKeyDown={handleKeyDown}
                     placeholder={placeholder}
-                    className="appearance-none w-full px-4 py-2 pl-10 bg-gray-800 border border-gray-600 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
+                    className="appearance-none w-full h-10 leading-10 px-4 pl-10 bg-gray-800 border border-gray-600 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
                     aria-label="Search the archive"
                     data-search-mode={searchMode}
                 />
@@ -181,7 +181,7 @@ function ModePill({
             aria-selected={active}
             onClick={onClick}
             className={
-                'inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full transition-colors ' +
+                'inline-flex items-center h-6 leading-6 px-3 text-xs font-semibold rounded-full transition-colors ' +
                 (active
                     ? 'bg-cyan-500 text-gray-900'
                     : 'bg-gray-800 text-gray-300 hover:bg-gray-700')
