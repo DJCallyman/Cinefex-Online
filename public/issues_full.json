@@ -4226,25 +4226,29 @@
                 "name": "Cowboys & Aliens",
                 "readingUrl": "issues/127/readingView1.html",
                 "archiveUrl": "issues/127/manuscript1.html",
-                "imageGalleryUrl": "issues/127/imageGallery1.html"
+                "imageGalleryUrl": "issues/127/imageGallery1.html",
+                "articleTitle": "Invasion of the Body Snatchers"
             },
             {
                 "name": "Anonymous",
                 "readingUrl": "issues/127/readingView2.html",
                 "archiveUrl": "issues/127/manuscript2.html",
-                "imageGalleryUrl": "issues/127/imageGallery2.html"
+                "imageGalleryUrl": "issues/127/imageGallery2.html",
+                "articleTitle": "This Realm, This England"
             },
             {
                 "name": "Captain America",
                 "readingUrl": "issues/127/readingView3.html",
                 "archiveUrl": "issues/127/manuscript3.html",
-                "imageGalleryUrl": "issues/127/imageGallery3.html"
+                "imageGalleryUrl": "issues/127/imageGallery3.html",
+                "articleTitle": "Soldier Blue"
             },
             {
                 "name": "Harry Potter 7.2",
                 "readingUrl": "issues/127/readingView4.html",
                 "archiveUrl": "issues/127/manuscript4.html",
-                "imageGalleryUrl": "issues/127/imageGallery4.html"
+                "imageGalleryUrl": "issues/127/imageGallery4.html",
+                "articleTitle": "Wizard Wars"
             }
         ]
     },
@@ -4257,25 +4261,29 @@
                 "name": "Hugo",
                 "readingUrl": "issues/128/readingView1.html",
                 "archiveUrl": "issues/128/manuscript1.html",
-                "imageGalleryUrl": "issues/128/imageGallery1.html"
+                "imageGalleryUrl": "issues/128/imageGallery1.html",
+                "articleTitle": "Man in the Moon"
             },
             {
                 "name": "Rise of the Planet of the Apes",
                 "readingUrl": "issues/128/readingView2.html",
                 "archiveUrl": "issues/128/manuscript2.html",
-                "imageGalleryUrl": "issues/128/imageGallery2.html"
+                "imageGalleryUrl": "issues/128/imageGallery2.html",
+                "articleTitle": "Render Unto Caesar"
             },
             {
                 "name": "Tree of Life",
                 "readingUrl": "issues/128/readingView3.html",
                 "archiveUrl": "issues/128/manuscript3.html",
-                "imageGalleryUrl": "issues/128/imageGallery3.html"
+                "imageGalleryUrl": "issues/128/imageGallery3.html",
+                "articleTitle": "Creationisms"
             },
             {
                 "name": "Real Steel",
                 "readingUrl": "issues/128/readingView4.html",
                 "archiveUrl": "issues/128/manuscript4.html",
-                "imageGalleryUrl": "issues/128/imageGallery4.html"
+                "imageGalleryUrl": "issues/128/imageGallery4.html",
+                "articleTitle": "Steal Works"
             }
         ]
     },
@@ -4288,25 +4296,29 @@
                 "name": "Red Tails",
                 "readingUrl": "issues/129/readingView1.html",
                 "archiveUrl": "issues/129/manuscript1.html",
-                "imageGalleryUrl": "issues/129/imageGallery1.html"
+                "imageGalleryUrl": "issues/129/imageGallery1.html",
+                "articleTitle": "The Long, Long War"
             },
             {
                 "name": "John Carter",
                 "readingUrl": "issues/129/readingView2.html",
                 "archiveUrl": "issues/129/manuscript2.html",
-                "imageGalleryUrl": "issues/129/imageGallery2.html"
+                "imageGalleryUrl": "issues/129/imageGallery2.html",
+                "articleTitle": "Under the Moons of Mars"
             },
             {
                 "name": "The Adventures of Tintin",
                 "readingUrl": "issues/129/readingView3.html",
                 "archiveUrl": "issues/129/manuscript3.html",
-                "imageGalleryUrl": "issues/129/imageGallery3.html"
+                "imageGalleryUrl": "issues/129/imageGallery3.html",
+                "articleTitle": "A Thirst for Adventure"
             },
             {
                 "name": "Mission: Impossible - Ghost Protocol",
                 "readingUrl": "issues/129/readingView4.html",
                 "archiveUrl": "issues/129/manuscript4.html",
-                "imageGalleryUrl": "issues/129/imageGallery4.html"
+                "imageGalleryUrl": "issues/129/imageGallery4.html",
+                "articleTitle": "Ingenious"
             }
         ]
     },
@@ -4354,25 +4366,29 @@
                 "name": "The Amazing Spider-Man",
                 "readingUrl": "issues/131/readingView1.html",
                 "archiveUrl": "issues/131/manuscript1.html",
-                "imageGalleryUrl": "issues/131/imageGallery1.html"
+                "imageGalleryUrl": "issues/131/imageGallery1.html",
+                "articleTitle": "Return of the Webslinger"
             },
             {
                 "name": "The Dark Knight Rises",
                 "readingUrl": "issues/131/readingView2.html",
                 "archiveUrl": "issues/131/manuscript2.html",
-                "imageGalleryUrl": "issues/131/imageGallery2.html"
+                "imageGalleryUrl": "issues/131/imageGallery2.html",
+                "articleTitle": "A Farewell to Arms"
             },
             {
                 "name": "Total Recall",
                 "readingUrl": "issues/131/readingView3.html",
                 "archiveUrl": "issues/131/manuscript3.html",
-                "imageGalleryUrl": "issues/131/imageGallery3.html"
+                "imageGalleryUrl": "issues/131/imageGallery3.html",
+                "articleTitle": "Recall Redux"
             },
             {
                 "name": "Abraham Lincoln: Vampire Hunter",
                 "readingUrl": "issues/131/readingView4.html",
                 "archiveUrl": "issues/131/manuscript4.html",
-                "imageGalleryUrl": "issues/131/imageGallery4.html"
+                "imageGalleryUrl": "issues/131/imageGallery4.html",
+                "articleTitle": "Slayer in Chief"
             }
         ]
     },
@@ -4385,25 +4401,29 @@
                 "name": "Beasts of the Southern Wild",
                 "readingUrl": "issues/132/readingView1.html",
                 "archiveUrl": "issues/132/manuscript1.html",
-                "imageGalleryUrl": "issues/132/imageGallery1.html"
+                "imageGalleryUrl": "issues/132/imageGallery1.html",
+                "articleTitle": "Q&A: Ray Tintori"
             },
             {
                 "name": "Cloud Atlas",
                 "readingUrl": "issues/132/readingView2.html",
                 "archiveUrl": "issues/132/manuscript2.html",
-                "imageGalleryUrl": "issues/132/imageGallery2.html"
+                "imageGalleryUrl": "issues/132/imageGallery2.html",
+                "articleTitle": "Causes and Consequences"
             },
             {
                 "name": "Life of Pi",
                 "readingUrl": "issues/132/readingView3.html",
                 "archiveUrl": "issues/132/manuscript3.html",
-                "imageGalleryUrl": "issues/132/imageGallery3.html"
+                "imageGalleryUrl": "issues/132/imageGallery3.html",
+                "articleTitle": "The Calculus of Pi"
             },
             {
                 "name": "The Hobbit: An Unexpected Journey",
                 "readingUrl": "issues/132/readingView4.html",
                 "archiveUrl": "issues/132/manuscript4.html",
-                "imageGalleryUrl": "issues/132/imageGallery4.html"
+                "imageGalleryUrl": "issues/132/imageGallery4.html",
+                "articleTitle": "There and Back Again"
             }
         ]
     },
@@ -4416,25 +4436,29 @@
                 "name": "Les Miserables",
                 "readingUrl": "issues/133/readingView1.html",
                 "archiveUrl": "issues/133/manuscript1.html",
-                "imageGalleryUrl": "issues/133/imageGallery1.html"
+                "imageGalleryUrl": "issues/133/imageGallery1.html",
+                "articleTitle": "At the Barricade"
             },
             {
                 "name": "Skyfall",
                 "readingUrl": "issues/133/readingView2.html",
                 "archiveUrl": "issues/133/manuscript2.html",
-                "imageGalleryUrl": "issues/133/imageGallery2.html"
+                "imageGalleryUrl": "issues/133/imageGallery2.html",
+                "articleTitle": "Old Dog, New Tricks"
             },
             {
                 "name": "Jack the Giant Slayer",
                 "readingUrl": "issues/133/readingView3.html",
                 "archiveUrl": "issues/133/manuscript3.html",
-                "imageGalleryUrl": "issues/133/imageGallery3.html"
+                "imageGalleryUrl": "issues/133/imageGallery3.html",
+                "articleTitle": "Giant Steps"
             },
             {
                 "name": "Oz: The Great and Powerful",
                 "readingUrl": "issues/133/readingView4.html",
                 "archiveUrl": "issues/133/manuscript4.html",
-                "imageGalleryUrl": "issues/133/imageGallery4.html"
+                "imageGalleryUrl": "issues/133/imageGallery4.html",
+                "articleTitle": "Tempests and Teapots"
             }
         ]
     },
@@ -4447,31 +4471,36 @@
                 "name": "Les Miserables",
                 "readingUrl": "issues/134/readingView1.html",
                 "archiveUrl": "issues/134/manuscript1.html",
-                "imageGalleryUrl": "issues/134/imageGallery1.html"
+                "imageGalleryUrl": "issues/134/imageGallery1.html",
+                "articleTitle": "Rough Around the Edges"
             },
             {
                 "name": "White House Down",
                 "readingUrl": "issues/134/readingView2.html",
                 "archiveUrl": "issues/134/manuscript2.html",
-                "imageGalleryUrl": "issues/134/imageGallery2.html"
+                "imageGalleryUrl": "issues/134/imageGallery2.html",
+                "articleTitle": "To the Rescue"
             },
             {
                 "name": "Star Trek Into Darkness",
                 "readingUrl": "issues/134/readingView3.html",
                 "archiveUrl": "issues/134/manuscript3.html",
-                "imageGalleryUrl": "issues/134/imageGallery3.html"
+                "imageGalleryUrl": "issues/134/imageGallery3.html",
+                "articleTitle": "Dark Side of the Earth"
             },
             {
                 "name": "Oz: The Great and Powerful",
                 "readingUrl": "issues/134/readingView4.html",
                 "archiveUrl": "issues/134/manuscript4.html",
-                "imageGalleryUrl": "issues/134/imageGallery4.html"
+                "imageGalleryUrl": "issues/134/imageGallery4.html",
+                "articleTitle": "Last Man Standing"
             },
             {
                 "name": "Oz: The Great and Powerful",
                 "readingUrl": "issues/134/readingView5.html",
                 "archiveUrl": "issues/134/manuscript5.html",
-                "imageGalleryUrl": "issues/134/imageGallery5.html"
+                "imageGalleryUrl": "issues/134/imageGallery5.html",
+                "articleTitle": "Q&A with Eli Sasich"
             }
         ]
     },
@@ -4484,25 +4513,29 @@
                 "name": "World War Z",
                 "readingUrl": "issues/135/readingView1.html",
                 "archiveUrl": "issues/135/manuscript1.html",
-                "imageGalleryUrl": "issues/135/imageGallery1.html"
+                "imageGalleryUrl": "issues/135/imageGallery1.html",
+                "articleTitle": "Zombie Wars"
             },
             {
                 "name": "Elysium",
                 "readingUrl": "issues/135/readingView2.html",
                 "archiveUrl": "issues/135/manuscript2.html",
-                "imageGalleryUrl": "issues/135/imageGallery2.html"
+                "imageGalleryUrl": "issues/135/imageGallery2.html",
+                "articleTitle": "A Tale of Two Cities"
             },
             {
                 "name": "Pacific Rim",
                 "readingUrl": "issues/135/readingView3.html",
                 "archiveUrl": "issues/135/manuscript3.html",
-                "imageGalleryUrl": "issues/135/imageGallery3.html"
+                "imageGalleryUrl": "issues/135/imageGallery3.html",
+                "articleTitle": "Kaiju Dynasty"
             },
             {
                 "name": "Man of Steel",
                 "readingUrl": "issues/135/readingView4.html",
                 "archiveUrl": "issues/135/manuscript4.html",
-                "imageGalleryUrl": "issues/135/imageGallery4.html"
+                "imageGalleryUrl": "issues/135/imageGallery4.html",
+                "articleTitle": "Burnished Steel"
             }
         ]
     },
@@ -4550,25 +4583,29 @@
                 "name": "The Hobbit: The Desolation of Smaug",
                 "readingUrl": "issues/137/readingView1.html",
                 "archiveUrl": "issues/137/manuscript1.html",
-                "imageGalleryUrl": "issues/137/imageGallery1.html"
+                "imageGalleryUrl": "issues/137/imageGallery1.html",
+                "articleTitle": "Pete's Dragon"
             },
             {
                 "name": "Game of Thrones",
                 "readingUrl": "issues/137/readingView2.html",
                 "archiveUrl": "issues/137/manuscript2.html",
-                "imageGalleryUrl": "issues/137/imageGallery2.html"
+                "imageGalleryUrl": "issues/137/imageGallery2.html",
+                "articleTitle": "Songs of Ice and Fire"
             },
             {
                 "name": "RoboCop",
                 "readingUrl": "issues/137/readingView3.html",
                 "archiveUrl": "issues/137/manuscript3.html",
-                "imageGalleryUrl": "issues/137/imageGallery3.html"
+                "imageGalleryUrl": "issues/137/imageGallery3.html",
+                "articleTitle": "RocoCop Retooled"
             },
             {
                 "name": "The Secret Life of Walter Mitty",
                 "readingUrl": "issues/137/readingView4.html",
                 "archiveUrl": "issues/137/manuscript4.html",
-                "imageGalleryUrl": "issues/137/imageGallery4.html"
+                "imageGalleryUrl": "issues/137/imageGallery4.html",
+                "articleTitle": "Beautiful Dreamer"
             }
         ]
     },
@@ -4581,31 +4618,36 @@
                 "name": "O'Brien vs Dawley",
                 "readingUrl": "issues/138/readingView1.html",
                 "archiveUrl": "issues/138/manuscript1.html",
-                "imageGalleryUrl": "issues/138/imageGallery1.html"
+                "imageGalleryUrl": "issues/138/imageGallery1.html",
+                "articleTitle": "The First Great Rivalry in Visual Effects"
             },
             {
                 "name": "Captain America: The Winter Soldier",
                 "readingUrl": "issues/138/readingView2.html",
                 "archiveUrl": "issues/138/manuscript2.html",
-                "imageGalleryUrl": "issues/138/imageGallery2.html"
+                "imageGalleryUrl": "issues/138/imageGallery2.html",
+                "articleTitle": "Captain's Orders"
             },
             {
                 "name": "The Amazing Spider-Man 2",
                 "readingUrl": "issues/138/readingView3.html",
                 "archiveUrl": "issues/138/manuscript3.html",
-                "imageGalleryUrl": "issues/138/imageGallery3.html"
+                "imageGalleryUrl": "issues/138/imageGallery3.html",
+                "articleTitle": "The Body Electric"
             },
             {
                 "name": "Maleficent",
                 "readingUrl": "issues/138/readingView4.html",
                 "archiveUrl": "issues/138/manuscript4.html",
-                "imageGalleryUrl": "issues/138/imageGallery4.html"
+                "imageGalleryUrl": "issues/138/imageGallery4.html",
+                "articleTitle": "Paradise Lost"
             },
             {
                 "name": "Godzilla",
                 "readingUrl": "issues/138/readingView5.html",
                 "archiveUrl": "issues/138/manuscript5.html",
-                "imageGalleryUrl": "issues/138/imageGallery5.html"
+                "imageGalleryUrl": "issues/138/imageGallery5.html",
+                "articleTitle": "I Am Become Death"
             }
         ]
     },
@@ -4618,25 +4660,29 @@
                 "name": "Guardians of the Galaxy",
                 "readingUrl": "issues/139/readingView1.html",
                 "archiveUrl": "issues/139/manuscript1.html",
-                "imageGalleryUrl": "issues/139/imageGallery1.html"
+                "imageGalleryUrl": "issues/139/imageGallery1.html",
+                "articleTitle": "The Rocket Files"
             },
             {
                 "name": "Edge of Tomorrow",
                 "readingUrl": "issues/139/readingView2.html",
                 "archiveUrl": "issues/139/manuscript2.html",
-                "imageGalleryUrl": "issues/139/imageGallery2.html"
+                "imageGalleryUrl": "issues/139/imageGallery2.html",
+                "articleTitle": "The Longest Day"
             },
             {
                 "name": "Dawn of the Planet of the Apes",
                 "readingUrl": "issues/139/readingView3.html",
                 "archiveUrl": "issues/139/manuscript3.html",
-                "imageGalleryUrl": "issues/139/imageGallery3.html"
+                "imageGalleryUrl": "issues/139/imageGallery3.html",
+                "articleTitle": "Ape Apocalypse"
             },
             {
                 "name": "X-Men: Days of Future Past",
                 "readingUrl": "issues/139/readingView4.html",
                 "archiveUrl": "issues/139/manuscript4.html",
-                "imageGalleryUrl": "issues/139/imageGallery4.html"
+                "imageGalleryUrl": "issues/139/imageGallery4.html",
+                "articleTitle": "Mutant Destiny"
             }
         ]
     },
@@ -4649,25 +4695,29 @@
                 "name": "The Zero Theorem",
                 "readingUrl": "issues/140/readingView1.html",
                 "archiveUrl": "issues/140/manuscript1.html",
-                "imageGalleryUrl": "issues/140/imageGallery1.html"
+                "imageGalleryUrl": "issues/140/imageGallery1.html",
+                "articleTitle": "Nowhere Man"
             },
             {
                 "name": "Interstellar",
                 "readingUrl": "issues/140/readingView2.html",
                 "archiveUrl": "issues/140/manuscript2.html",
-                "imageGalleryUrl": "issues/140/imageGallery2.html"
+                "imageGalleryUrl": "issues/140/imageGallery2.html",
+                "articleTitle": "That Our Feet May Leave"
             },
             {
                 "name": "Exodus: Gods and Kings",
                 "readingUrl": "issues/140/readingView3.html",
                 "archiveUrl": "issues/140/manuscript3.html",
-                "imageGalleryUrl": "issues/140/imageGallery3.html"
+                "imageGalleryUrl": "issues/140/imageGallery3.html",
+                "articleTitle": "Gods and Kings"
             },
             {
                 "name": "ADI",
                 "readingUrl": "issues/140/readingView4.html",
                 "archiveUrl": "issues/140/manuscript4.html",
-                "imageGalleryUrl": "issues/140/imageGallery4.html"
+                "imageGalleryUrl": "issues/140/imageGallery4.html",
+                "articleTitle": "Q&A: Tom Woodruff Jr. & Alec Gillis"
             }
         ]
     },
@@ -4715,25 +4765,29 @@
                 "name": "Mad Max: Fury Road",
                 "readingUrl": "issues/142/readingView1.html",
                 "archiveUrl": "issues/142/manuscript1.html",
-                "imageGalleryUrl": "issues/142/imageGallery1.html"
+                "imageGalleryUrl": "issues/142/imageGallery1.html",
+                "articleTitle": "Dust, Grime, Sweat and Blood"
             },
             {
                 "name": "Avengers: Age of Ultron",
                 "readingUrl": "issues/142/readingView2.html",
                 "archiveUrl": "issues/142/manuscript2.html",
-                "imageGalleryUrl": "issues/142/imageGallery2.html"
+                "imageGalleryUrl": "issues/142/imageGallery2.html",
+                "articleTitle": "A More Perfect Vision"
             },
             {
                 "name": "Jurassic World",
                 "readingUrl": "issues/142/readingView3.html",
                 "archiveUrl": "issues/142/manuscript3.html",
-                "imageGalleryUrl": "issues/142/imageGallery3.html"
+                "imageGalleryUrl": "issues/142/imageGallery3.html",
+                "articleTitle": "Indominus"
             },
             {
                 "name": "San Andreas",
                 "readingUrl": "issues/142/readingView4.html",
                 "archiveUrl": "issues/142/manuscript4.html",
-                "imageGalleryUrl": "issues/142/imageGallery4.html"
+                "imageGalleryUrl": "issues/142/imageGallery4.html",
+                "articleTitle": "The Big One"
             }
         ]
     },
@@ -4746,24 +4800,28 @@
                 "name": "The Walk",
                 "readingUrl": "issues/143/readingView1.html",
                 "archiveUrl": "issues/143/manuscript1.html",
-                "imageGalleryUrl": "issues/143/imageGallery1.html"
+                "imageGalleryUrl": "issues/143/imageGallery1.html",
+                "articleTitle": "Skywalker"
             },
             {
                 "name": "Ant-Man",
                 "readingUrl": "issues/143/readingView2.html",
                 "archiveUrl": "issues/143/manuscript2.html",
-                "imageGalleryUrl": "issues/143/imageGallery2.html"
+                "imageGalleryUrl": "issues/143/imageGallery2.html",
+                "articleTitle": "Microcosmos"
             },
             {
                 "name": "Terminator Genisys",
                 "readingUrl": "issues/143/readingView3.html",
                 "archiveUrl": "issues/143/manuscript3.html",
-                "imageGalleryUrl": "issues/143/imageGallery3.html"
+                "imageGalleryUrl": "issues/143/imageGallery3.html",
+                "articleTitle": "Wrinkles in Time"
             },
             {
                 "name": "Mission: Impossible - Rogue Nation",
                 "readingUrl": "issues/143/readingView4.html",
-                "archiveUrl": "issues/143/manuscript4.html"
+                "archiveUrl": "issues/143/manuscript4.html",
+                "articleTitle": "Keeping it Real"
             }
         ]
     },
@@ -4776,25 +4834,29 @@
                 "name": "In the Heart of the Sea",
                 "readingUrl": "issues/144/readingView1.html",
                 "archiveUrl": "issues/144/manuscript1.html",
-                "imageGalleryUrl": "issues/144/imageGallery1.html"
+                "imageGalleryUrl": "issues/144/imageGallery1.html",
+                "articleTitle": "High Seas Drifter"
             },
             {
                 "name": "Crimson Peak",
                 "readingUrl": "issues/144/readingView2.html",
                 "archiveUrl": "issues/144/manuscript2.html",
-                "imageGalleryUrl": "issues/144/imageGallery2.html"
+                "imageGalleryUrl": "issues/144/imageGallery2.html",
+                "articleTitle": "A Monstrous Love"
             },
             {
                 "name": "The Martian",
                 "readingUrl": "issues/144/readingView3.html",
                 "archiveUrl": "issues/144/manuscript3.html",
-                "imageGalleryUrl": "issues/144/imageGallery3.html"
+                "imageGalleryUrl": "issues/144/imageGallery3.html",
+                "articleTitle": "An Abundant Solitude"
             },
             {
                 "name": "Everest",
                 "readingUrl": "issues/144/readingView4.html",
                 "archiveUrl": "issues/144/manuscript4.html",
-                "imageGalleryUrl": "issues/144/imageGallery4.html"
+                "imageGalleryUrl": "issues/144/imageGallery4.html",
+                "articleTitle": "The Death Zone"
             }
         ]
     },
@@ -4807,25 +4869,29 @@
                 "name": "Spectre",
                 "readingUrl": "issues/145/readingView1.html",
                 "archiveUrl": "issues/145/manuscript1.html",
-                "imageGalleryUrl": "issues/145/imageGallery1.html"
+                "imageGalleryUrl": "issues/145/imageGallery1.html",
+                "articleTitle": "Explosive Cocktail"
             },
             {
                 "name": "Star Wars: The Force Awakens",
                 "readingUrl": "issues/145/readingView2.html",
                 "archiveUrl": "issues/145/manuscript2.html",
-                "imageGalleryUrl": "issues/145/imageGallery2.html"
+                "imageGalleryUrl": "issues/145/imageGallery2.html",
+                "articleTitle": "The Spirit of '77"
             },
             {
                 "name": "Ex Machina",
                 "readingUrl": "issues/145/readingView3.html",
                 "archiveUrl": "issues/145/manuscript3.html",
-                "imageGalleryUrl": "issues/145/imageGallery3.html"
+                "imageGalleryUrl": "issues/145/imageGallery3.html",
+                "articleTitle": "Q&A: Andrew Whitehurst"
             },
             {
                 "name": "The Revenant",
                 "readingUrl": "issues/145/readingView4.html",
                 "archiveUrl": "issues/145/manuscript4.html",
-                "imageGalleryUrl": "issues/145/imageGallery4.html"
+                "imageGalleryUrl": "issues/145/imageGallery4.html",
+                "articleTitle": "Into the Wild"
             }
         ]
     },
@@ -4838,25 +4904,29 @@
                 "name": "Deadpool",
                 "readingUrl": "issues/146/readingView1.html",
                 "archiveUrl": "issues/146/manuscript1.html",
-                "imageGalleryUrl": "issues/146/imageGallery1.html"
+                "imageGalleryUrl": "issues/146/imageGallery1.html",
+                "articleTitle": "Smart-Mouthed Glory"
             },
             {
                 "name": "Hail, Caesar!",
                 "readingUrl": "issues/146/readingView2.html",
                 "archiveUrl": "issues/146/manuscript2.html",
-                "imageGalleryUrl": "issues/146/imageGallery2.html"
+                "imageGalleryUrl": "issues/146/imageGallery2.html",
+                "articleTitle": "History in the Making"
             },
             {
                 "name": "Batman v Superman: Dawn of Justice",
                 "readingUrl": "issues/146/readingView3.html",
                 "archiveUrl": "issues/146/manuscript3.html",
-                "imageGalleryUrl": "issues/146/imageGallery3.html"
+                "imageGalleryUrl": "issues/146/imageGallery3.html",
+                "articleTitle": "When Gods Collide"
             },
             {
                 "name": "Gods of Egypt",
                 "readingUrl": "issues/146/readingView5.html",
                 "archiveUrl": "issues/146/manuscript5.html",
-                "imageGalleryUrl": "issues/146/imageGallery5.html"
+                "imageGalleryUrl": "issues/146/imageGallery5.html",
+                "articleTitle": "Q&A: Eric Durst"
             }
         ]
     },
@@ -4869,24 +4939,28 @@
                 "name": "Captain America: Civil War",
                 "readingUrl": "issues/147/readingView1.html",
                 "archiveUrl": "issues/147/manuscript1.html",
-                "imageGalleryUrl": "issues/147/imageGallery1.html"
+                "imageGalleryUrl": "issues/147/imageGallery1.html",
+                "articleTitle": "A Family Affair"
             },
             {
                 "name": "X-Men: Apocalypse",
                 "readingUrl": "issues/147/readingView2.html",
                 "archiveUrl": "issues/147/manuscript2.html",
-                "imageGalleryUrl": "issues/147/imageGallery2.html"
+                "imageGalleryUrl": "issues/147/imageGallery2.html",
+                "articleTitle": "Apocalypse Rising"
             },
             {
                 "name": "The Jungle Book",
                 "readingUrl": "issues/147/readingView3.html",
                 "archiveUrl": "issues/147/manuscript3.html",
-                "imageGalleryUrl": "issues/147/imageGallery3.html"
+                "imageGalleryUrl": "issues/147/imageGallery3.html",
+                "articleTitle": "Law of the Jungle"
             },
             {
                 "name": "Alice Through the Looking Glass",
                 "readingUrl": "issues/147/readingView4.html",
-                "archiveUrl": "issues/147/manuscript4.html"
+                "archiveUrl": "issues/147/manuscript4.html",
+                "articleTitle": "Accross the Sea of Time"
             }
         ]
     },
@@ -4899,25 +4973,29 @@
                 "name": "Independence Day: Resurgence",
                 "readingUrl": "issues/148/readingView1.html",
                 "archiveUrl": "issues/148/manuscript1.html",
-                "imageGalleryUrl": "issues/148/imageGallery1.html"
+                "imageGalleryUrl": "issues/148/imageGallery1.html",
+                "articleTitle": "What Would Roland Emmerich Do?"
             },
             {
                 "name": "Warcraft",
                 "readingUrl": "issues/148/readingView2.html",
                 "archiveUrl": "issues/148/manuscript2.html",
-                "imageGalleryUrl": "issues/148/imageGallery2.html"
+                "imageGalleryUrl": "issues/148/imageGallery2.html",
+                "articleTitle": "Acts of War"
             },
             {
                 "name": "Star Trek Beyond",
                 "readingUrl": "issues/148/readingView3.html",
                 "archiveUrl": "issues/148/manuscript3.html",
-                "imageGalleryUrl": "issues/148/imageGallery3.html"
+                "imageGalleryUrl": "issues/148/imageGallery3.html",
+                "articleTitle": "Cosmic Deconstruction"
             },
             {
                 "name": "The Legend of Tarzan",
                 "readingUrl": "issues/148/readingView4.html",
                 "archiveUrl": "issues/148/manuscript4.html",
-                "imageGalleryUrl": "issues/148/imageGallery4.html"
+                "imageGalleryUrl": "issues/148/imageGallery4.html",
+                "articleTitle": "Lord of the Apes"
             }
         ]
     },
@@ -4930,31 +5008,36 @@
                 "name": "Miss Peregrine's Home for Peculiar Children",
                 "readingUrl": "issues/149/readingView1.html",
                 "archiveUrl": "issues/149/manuscript1.html",
-                "imageGalleryUrl": "issues/149/imageGallery1.html"
+                "imageGalleryUrl": "issues/149/imageGallery1.html",
+                "articleTitle": "The Stuff of Children's Nightmares"
             },
             {
                 "name": "Suicide Squad",
                 "readingUrl": "issues/149/readingView2.html",
                 "archiveUrl": "issues/149/manuscript2.html",
-                "imageGalleryUrl": "issues/149/imageGallery2.html"
+                "imageGalleryUrl": "issues/149/imageGallery2.html",
+                "articleTitle": "The Bad Guys"
             },
             {
                 "name": "The BFG",
                 "readingUrl": "issues/149/readingView3.html",
                 "archiveUrl": "issues/149/manuscript3.html",
-                "imageGalleryUrl": "issues/149/imageGallery3.html"
+                "imageGalleryUrl": "issues/149/imageGallery3.html",
+                "articleTitle": "A Melancholy Joy"
             },
             {
                 "name": "Ben-Hur",
                 "readingUrl": "issues/149/readingView4.html",
                 "archiveUrl": "issues/149/manuscript4.html",
-                "imageGalleryUrl": "issues/149/imageGallery4.html"
+                "imageGalleryUrl": "issues/149/imageGallery4.html",
+                "articleTitle": "Quick the Eye, Steady the Hand"
             },
             {
                 "name": "Approaching the Unknown",
                 "readingUrl": "issues/149/readingView5.html",
                 "archiveUrl": "issues/149/manuscript5.html",
-                "imageGalleryUrl": "issues/149/imageGallery5.html"
+                "imageGalleryUrl": "issues/149/imageGallery5.html",
+                "articleTitle": "One Moment of Pure Wonder"
             }
         ]
     },
@@ -4967,25 +5050,29 @@
                 "name": "Fantastic Beasts and Where to Find Them",
                 "readingUrl": "issues/150/readingView1.html",
                 "archiveUrl": "issues/150/manuscript1.html",
-                "imageGalleryUrl": "issues/150/imageGallery1.html"
+                "imageGalleryUrl": "issues/150/imageGallery1.html",
+                "articleTitle": "The Magical Congress"
             },
             {
                 "name": "Arrival",
                 "readingUrl": "issues/150/readingView2.html",
                 "archiveUrl": "issues/150/manuscript2.html",
-                "imageGalleryUrl": "issues/150/imageGallery2.html"
+                "imageGalleryUrl": "issues/150/imageGallery2.html",
+                "articleTitle": "Persistence of Vision"
             },
             {
                 "name": "Doctor Strange",
                 "readingUrl": "issues/150/readingView3.html",
                 "archiveUrl": "issues/150/manuscript3.html",
-                "imageGalleryUrl": "issues/150/imageGallery3.html"
+                "imageGalleryUrl": "issues/150/imageGallery3.html",
+                "articleTitle": "In a Mirror Darkly"
             },
             {
                 "name": "Allied",
                 "readingUrl": "issues/150/readingView4.html",
                 "archiveUrl": "issues/150/manuscript4.html",
-                "imageGalleryUrl": "issues/150/imageGallery4.html"
+                "imageGalleryUrl": "issues/150/imageGallery4.html",
+                "articleTitle": "Love in a Dangerous Time"
             }
         ]
     },
@@ -4998,31 +5085,36 @@
                 "name": "A Monster Calls",
                 "readingUrl": "issues/151/readingView1.html",
                 "archiveUrl": "issues/151/manuscript1.html",
-                "imageGalleryUrl": "issues/151/imageGallery1.html"
+                "imageGalleryUrl": "issues/151/imageGallery1.html",
+                "articleTitle": "King of Pain"
             },
             {
                 "name": "Westworld",
                 "readingUrl": "issues/151/readingView2.html",
                 "archiveUrl": "issues/151/manuscript2.html",
-                "imageGalleryUrl": "issues/151/imageGallery2.html"
+                "imageGalleryUrl": "issues/151/imageGallery2.html",
+                "articleTitle": "These Violent Delights"
             },
             {
                 "name": "Rogue One",
                 "readingUrl": "issues/151/readingView3.html",
                 "archiveUrl": "issues/151/manuscript3.html",
-                "imageGalleryUrl": "issues/151/imageGallery3.html"
+                "imageGalleryUrl": "issues/151/imageGallery3.html",
+                "articleTitle": "Sacred Ground"
             },
             {
                 "name": "Virtual Reality",
                 "readingUrl": "issues/151/readingView4.html",
                 "archiveUrl": "issues/151/manuscript4.html",
-                "imageGalleryUrl": "issues/151/imageGallery4.html"
+                "imageGalleryUrl": "issues/151/imageGallery4.html",
+                "articleTitle": "The Dreamsmiths Unleashed"
             },
             {
                 "name": "Passengers",
                 "readingUrl": "issues/151/readingView5.html",
                 "archiveUrl": "issues/151/manuscript5.html",
-                "imageGalleryUrl": "issues/151/imageGallery5.html"
+                "imageGalleryUrl": "issues/151/imageGallery5.html",
+                "articleTitle": "Alone in the Dark"
             }
         ]
     },
@@ -5035,25 +5127,29 @@
                 "name": "The Great Wall",
                 "readingUrl": "issues/152/readingView1.html",
                 "archiveUrl": "issues/152/manuscript1.html",
-                "imageGalleryUrl": "issues/152/imageGallery1.html"
+                "imageGalleryUrl": "issues/152/imageGallery1.html",
+                "articleTitle": "War Machine"
             },
             {
                 "name": "A Cure for Wellness",
                 "readingUrl": "issues/152/readingView2.html",
                 "archiveUrl": "issues/152/manuscript2.html",
-                "imageGalleryUrl": "issues/152/imageGallery2.html"
+                "imageGalleryUrl": "issues/152/imageGallery2.html",
+                "articleTitle": "Under the Skin"
             },
             {
                 "name": "Kong: Skull Island",
                 "readingUrl": "issues/152/readingView3.html",
                 "archiveUrl": "issues/152/manuscript3.html",
-                "imageGalleryUrl": "issues/152/imageGallery3.html"
+                "imageGalleryUrl": "issues/152/imageGallery3.html",
+                "articleTitle": "A Lonely God"
             },
             {
                 "name": "Logan",
                 "readingUrl": "issues/152/readingView4.html",
                 "archiveUrl": "issues/152/manuscript4.html",
-                "imageGalleryUrl": "issues/152/imageGallery4.html"
+                "imageGalleryUrl": "issues/152/imageGallery4.html",
+                "articleTitle": "Blood Father"
             }
         ]
     },
@@ -5066,31 +5162,36 @@
                 "name": "Alien: Covenant",
                 "readingUrl": "issues/153/readingView1.html",
                 "archiveUrl": "issues/153/manuscript1.html",
-                "imageGalleryUrl": "issues/153/imageGallery1.html"
+                "imageGalleryUrl": "issues/153/imageGallery1.html",
+                "articleTitle": "Dark Materials"
             },
             {
                 "name": "The Fate of the Furious",
                 "readingUrl": "issues/153/readingView2.html",
                 "archiveUrl": "issues/153/manuscript2.html",
-                "imageGalleryUrl": "issues/153/imageGallery2.html"
+                "imageGalleryUrl": "issues/153/imageGallery2.html",
+                "articleTitle": "Life in the Fast Lane"
             },
             {
                 "name": "Guardians of the Galaxy Vol. 2",
                 "readingUrl": "issues/153/readingView3.html",
                 "archiveUrl": "issues/153/manuscript3.html",
-                "imageGalleryUrl": "issues/153/imageGallery3.html"
+                "imageGalleryUrl": "issues/153/imageGallery3.html",
+                "articleTitle": "Spirit in the Sky"
             },
             {
                 "name": "Life",
                 "readingUrl": "issues/153/readingView4.html",
                 "archiveUrl": "issues/153/manuscript4.html",
-                "imageGalleryUrl": "issues/153/imageGallery4.html"
+                "imageGalleryUrl": "issues/153/imageGallery4.html",
+                "articleTitle": "Finding Calvin"
             },
             {
                 "name": "Ghost in the Shell",
                 "readingUrl": "issues/153/readingView5.html",
                 "archiveUrl": "issues/153/manuscript5.html",
-                "imageGalleryUrl": "issues/153/imageGallery5.html"
+                "imageGalleryUrl": "issues/153/imageGallery5.html",
+                "articleTitle": "Retro Future Tech"
             }
         ]
     },
@@ -5103,31 +5204,36 @@
                 "name": "War for the Planet of the Apes",
                 "readingUrl": "issues/154/readingView1.html",
                 "archiveUrl": "issues/154/manuscript1.html",
-                "imageGalleryUrl": "issues/154/imageGallery1.html"
+                "imageGalleryUrl": "issues/154/imageGallery1.html",
+                "articleTitle": "Endangered Species"
             },
             {
                 "name": "Pirates of the Caribbean 5",
                 "readingUrl": "issues/154/readingView2.html",
                 "archiveUrl": "issues/154/manuscript2.html",
-                "imageGalleryUrl": "issues/154/imageGallery2.html"
+                "imageGalleryUrl": "issues/154/imageGallery2.html",
+                "articleTitle": "Spirit of the Ocean"
             },
             {
                 "name": "Spider-Man: Homecoming",
                 "readingUrl": "issues/154/readingView3.html",
                 "archiveUrl": "issues/154/manuscript3.html",
-                "imageGalleryUrl": "issues/154/imageGallery3.html"
+                "imageGalleryUrl": "issues/154/imageGallery3.html",
+                "articleTitle": "The Kid Underneath the Suit"
             },
             {
                 "name": "Valerian",
                 "readingUrl": "issues/154/readingView4.html",
                 "archiveUrl": "issues/154/manuscript4.html",
-                "imageGalleryUrl": "issues/154/imageGallery4.html"
+                "imageGalleryUrl": "issues/154/imageGallery4.html",
+                "articleTitle": "Symphony of Color"
             },
             {
                 "name": "The Mummy",
                 "readingUrl": "issues/154/readingView5.html",
                 "archiveUrl": "issues/154/manuscript5.html",
-                "imageGalleryUrl": "issues/154/imageGallery5.html"
+                "imageGalleryUrl": "issues/154/imageGallery5.html",
+                "articleTitle": "Heritage of Horror"
             }
         ]
     },
@@ -5140,31 +5246,36 @@
                 "name": "Dunkirk",
                 "readingUrl": "issues/155/readingView1.html",
                 "archiveUrl": "issues/155/manuscript1.html",
-                "imageGalleryUrl": "issues/155/imageGallery1.html"
+                "imageGalleryUrl": "issues/155/imageGallery1.html",
+                "articleTitle": "Deliverance"
             },
             {
                 "name": "The Dark Tower",
                 "readingUrl": "issues/155/readingView2.html",
                 "archiveUrl": "issues/155/manuscript2.html",
-                "imageGalleryUrl": "issues/155/imageGallery2.html"
+                "imageGalleryUrl": "issues/155/imageGallery2.html",
+                "articleTitle": "Gunslinger"
             },
             {
                 "name": "Blade Runner 2049",
                 "readingUrl": "issues/155/readingView3.html",
                 "archiveUrl": "issues/155/manuscript3.html",
-                "imageGalleryUrl": "issues/155/imageGallery3.html"
+                "imageGalleryUrl": "issues/155/imageGallery3.html",
+                "articleTitle": "2049 Foresight"
             },
             {
                 "name": "Blade Runner",
                 "readingUrl": "issues/155/readingView4.html",
                 "archiveUrl": "issues/155/manuscript4.html",
-                "imageGalleryUrl": "issues/155/imageGallery4.html"
+                "imageGalleryUrl": "issues/155/imageGallery4.html",
+                "articleTitle": "Portfolio"
             },
             {
                 "name": "Kingsman: The Golden Circle",
                 "readingUrl": "issues/155/readingView5.html",
                 "archiveUrl": "issues/155/manuscript5.html",
-                "imageGalleryUrl": "issues/155/imageGallery5.html"
+                "imageGalleryUrl": "issues/155/imageGallery5.html",
+                "articleTitle": "Gentlemen Brawlers"
             }
         ]
     },
@@ -5177,31 +5288,36 @@
                 "name": "It",
                 "readingUrl": "issues/156/readingView1.html",
                 "archiveUrl": "issues/156/manuscript1.html",
-                "imageGalleryUrl": "issues/156/imageGallery1.html"
+                "imageGalleryUrl": "issues/156/imageGallery1.html",
+                "articleTitle": "Send in the Clown"
             },
             {
                 "name": "The Shape of Water",
                 "readingUrl": "issues/156/readingView2.html",
                 "archiveUrl": "issues/156/manuscript2.html",
-                "imageGalleryUrl": "issues/156/imageGallery2.html"
+                "imageGalleryUrl": "issues/156/imageGallery2.html",
+                "articleTitle": "The Patron Saint of Otherness"
             },
             {
                 "name": "Only the Brave",
                 "readingUrl": "issues/156/readingView3.html",
                 "archiveUrl": "issues/156/manuscript3.html",
-                "imageGalleryUrl": "issues/156/imageGallery3.html"
+                "imageGalleryUrl": "issues/156/imageGallery3.html",
+                "articleTitle": "Brave Hearts"
             },
             {
                 "name": "Thor: Ragnarok",
                 "readingUrl": "issues/156/readingView4.html",
                 "archiveUrl": "issues/156/manuscript4.html",
-                "imageGalleryUrl": "issues/156/imageGallery4.html"
+                "imageGalleryUrl": "issues/156/imageGallery4.html",
+                "articleTitle": "Team Thor"
             },
             {
                 "name": "Wonder Woman",
                 "readingUrl": "issues/156/readingView5.html",
                 "archiveUrl": "issues/156/manuscript5.html",
-                "imageGalleryUrl": "issues/156/imageGallery5.html"
+                "imageGalleryUrl": "issues/156/imageGallery5.html",
+                "articleTitle": "Invincible"
             }
         ]
     },
@@ -5214,25 +5330,29 @@
                 "name": "Downsizing",
                 "readingUrl": "issues/157/readingView1.html",
                 "archiveUrl": "issues/157/manuscript1.html",
-                "imageGalleryUrl": "issues/157/imageGallery1.html"
+                "imageGalleryUrl": "issues/157/imageGallery1.html",
+                "articleTitle": "These Little Town Blues"
             },
             {
                 "name": "Star Wars: The Last Jedi",
                 "readingUrl": "issues/157/readingView2.html",
                 "archiveUrl": "issues/157/manuscript2.html",
-                "imageGalleryUrl": "issues/157/imageGallery2.html"
+                "imageGalleryUrl": "issues/157/imageGallery2.html",
+                "articleTitle": "Force Strong"
             },
             {
                 "name": "Game of Thrones (Season 7)",
                 "readingUrl": "issues/157/readingView3.html",
                 "archiveUrl": "issues/157/manuscript3.html",
-                "imageGalleryUrl": "issues/157/imageGallery3.html"
+                "imageGalleryUrl": "issues/157/imageGallery3.html",
+                "articleTitle": "A Mud and Dirt Show"
             },
             {
                 "name": "Jumanji: Welcome to the Jungle",
                 "readingUrl": "issues/157/readingView4.html",
                 "archiveUrl": "issues/157/manuscript4.html",
-                "imageGalleryUrl": "issues/157/imageGallery4.html"
+                "imageGalleryUrl": "issues/157/imageGallery4.html",
+                "articleTitle": "It's a Jungle Out There"
             }
         ]
     },
@@ -5245,35 +5365,41 @@
                 "name": "Stan Lee Tribute",
                 "readingUrl": "issues/158/readingView1.html",
                 "archiveUrl": "issues/158/manuscript1.html",
-                "imageGalleryUrl": "issues/158/imageGallery1.html"
+                "imageGalleryUrl": "issues/158/imageGallery1.html",
+                "articleTitle": "Stan's Soapbox"
             },
             {
                 "name": "Q&A: Victoria Alonso",
                 "readingUrl": "issues/158/readingView2.html",
                 "archiveUrl": "issues/158/manuscript2.html",
-                "imageGalleryUrl": "issues/158/imageGallery2.html"
+                "imageGalleryUrl": "issues/158/imageGallery2.html",
+                "articleTitle": "Marvel Studios"
             },
             {
                 "name": "MCU: The Big Bang",
                 "readingUrl": "issues/158/readingView3.html",
-                "archiveUrl": "issues/158/manuscript3.html"
+                "archiveUrl": "issues/158/manuscript3.html",
+                "articleTitle": "VFX Highlights"
             },
             {
-                "name": "MCU: The Big Bang",
-                "readingUrl": "issues/158/readingView3.html",
+                "name": "Black Panther",
+                "readingUrl": "issues/158/readingView4.html",
                 "archiveUrl": "issues/158/manuscript4.html",
-                "imageGalleryUrl": "issues/158/imageGallery4.html"
+                "imageGalleryUrl": "issues/158/imageGallery4.html",
+                "articleTitle": "Afrofuture"
             },
             {
-                "name": "MCU: The Big Bang",
-                "readingUrl": "issues/158/readingView3.html",
-                "archiveUrl": "issues/158/manuscript5.html"
+                "name": "The Marvel Effect",
+                "readingUrl": "issues/158/readingView5.html",
+                "archiveUrl": "issues/158/manuscript5.html",
+                "articleTitle": "VFX Roundtable Discussion"
             },
             {
-                "name": "MCU: The Big Bang",
-                "readingUrl": "issues/158/readingView3.html",
+                "name": "Keepers of the Flame",
+                "readingUrl": "issues/158/readingView6.html",
                 "archiveUrl": "issues/158/manuscript6.html",
-                "imageGalleryUrl": "issues/158/imageGallery6.html"
+                "imageGalleryUrl": "issues/158/imageGallery6.html",
+                "articleTitle": "Marvel Studios Visual Development"
             }
         ]
     },
@@ -5286,25 +5412,29 @@
                 "name": "Annihilation",
                 "readingUrl": "issues/159/readingView1.html",
                 "archiveUrl": "issues/159/manuscript1.html",
-                "imageGalleryUrl": "issues/159/imageGallery1.html"
+                "imageGalleryUrl": "issues/159/imageGallery1.html",
+                "articleTitle": "Into the Shimmer"
             },
             {
                 "name": "Pacific Rim Uprising",
                 "readingUrl": "issues/159/readingView2.html",
                 "archiveUrl": "issues/159/manuscript2.html",
-                "imageGalleryUrl": "issues/159/imageGallery2.html"
+                "imageGalleryUrl": "issues/159/imageGallery2.html",
+                "articleTitle": "Heft and Jank"
             },
             {
                 "name": "Avengers: Infinity War",
                 "readingUrl": "issues/159/readingView3.html",
                 "archiveUrl": "issues/159/manuscript3.html",
-                "imageGalleryUrl": "issues/159/imageGallery3.html"
+                "imageGalleryUrl": "issues/159/imageGallery3.html",
+                "articleTitle": "The Gauntlet"
             },
             {
                 "name": "Ready Player One",
                 "readingUrl": "issues/159/readingView4.html",
                 "archiveUrl": "issues/159/manuscript4.html",
-                "imageGalleryUrl": "issues/159/imageGallery4.html"
+                "imageGalleryUrl": "issues/159/imageGallery4.html",
+                "articleTitle": "Lightning in the Bottle"
             }
         ]
     },
@@ -5317,25 +5447,29 @@
                 "name": "Ant-Man and the Wasp",
                 "readingUrl": "issues/160/readingView1.html",
                 "archiveUrl": "issues/160/manuscript1.html",
-                "imageGalleryUrl": "issues/160/imageGallery1.html"
+                "imageGalleryUrl": "issues/160/imageGallery1.html",
+                "articleTitle": "Beyond the Void"
             },
             {
                 "name": "Deadpool 2",
                 "readingUrl": "issues/160/readingView2.html",
                 "archiveUrl": "issues/160/manuscript2.html",
-                "imageGalleryUrl": "issues/160/imageGallery2.html"
+                "imageGalleryUrl": "issues/160/imageGallery2.html",
+                "articleTitle": "Knocking 'em Dead"
             },
             {
                 "name": "Solo: A Star Wars Story",
                 "readingUrl": "issues/160/readingView3.html",
                 "archiveUrl": "issues/160/manuscript3.html",
-                "imageGalleryUrl": "issues/160/imageGallery3.html"
+                "imageGalleryUrl": "issues/160/imageGallery3.html",
+                "articleTitle": "Kessel Runner"
             },
             {
                 "name": "Jurassic World: Fallen Kingdom",
                 "readingUrl": "issues/160/readingView4.html",
                 "archiveUrl": "issues/160/manuscript4.html",
-                "imageGalleryUrl": "issues/160/imageGallery4.html"
+                "imageGalleryUrl": "issues/160/imageGallery4.html",
+                "articleTitle": "Fallen"
             }
         ]
     },
@@ -5348,31 +5482,36 @@
                 "name": "Alpha",
                 "readingUrl": "issues/161/readingView1.html",
                 "archiveUrl": "issues/161/manuscript1.html",
-                "imageGalleryUrl": "issues/161/imageGallery1.html"
+                "imageGalleryUrl": "issues/161/imageGallery1.html",
+                "articleTitle": "Lone Wolf"
             },
             {
                 "name": "The Meg",
                 "readingUrl": "issues/161/readingView2.html",
                 "archiveUrl": "issues/161/manuscript2.html",
-                "imageGalleryUrl": "issues/161/imageGallery2.html"
+                "imageGalleryUrl": "issues/161/imageGallery2.html",
+                "articleTitle": "Oh, the Shark, Babe"
             },
             {
                 "name": "First Man",
                 "readingUrl": "issues/161/readingView3.html",
                 "archiveUrl": "issues/161/manuscript3.html",
-                "imageGalleryUrl": "issues/161/imageGallery3.html"
+                "imageGalleryUrl": "issues/161/imageGallery3.html",
+                "articleTitle": "Impossible Journey"
             },
             {
                 "name": "A.X.L.",
                 "readingUrl": "issues/161/readingView4.html",
                 "archiveUrl": "issues/161/manuscript4.html",
-                "imageGalleryUrl": "issues/161/imageGallery4.html"
+                "imageGalleryUrl": "issues/161/imageGallery4.html",
+                "articleTitle": "RoboDog"
             },
             {
                 "name": "Venom",
                 "readingUrl": "issues/161/readingView5.html",
                 "archiveUrl": "issues/161/manuscript5.html",
-                "imageGalleryUrl": "issues/161/imageGallery5.html"
+                "imageGalleryUrl": "issues/161/imageGallery5.html",
+                "articleTitle": "Symbiosis"
             }
         ]
     },
@@ -5385,31 +5524,36 @@
                 "name": "Welcome to Marwen",
                 "readingUrl": "issues/162/readingView1.html",
                 "archiveUrl": "issues/162/manuscript1.html",
-                "imageGalleryUrl": "issues/162/imageGallery1.html"
+                "imageGalleryUrl": "issues/162/imageGallery1.html",
+                "articleTitle": "Small Wonder"
             },
             {
-                "name": "Q&A",
+                "name": "Q&A: Robert Zemeckis",
                 "readingUrl": "issues/162/readingView2.html",
                 "archiveUrl": "issues/162/manuscript2.html",
-                "imageGalleryUrl": "issues/162/imageGallery2.html"
+                "imageGalleryUrl": "issues/162/imageGallery2.html",
+                "articleTitle": "Robert Zemeckis"
             },
             {
                 "name": "Aquaman",
                 "readingUrl": "issues/162/readingView3.html",
                 "archiveUrl": "issues/162/manuscript3.html",
-                "imageGalleryUrl": "issues/162/imageGallery3.html"
+                "imageGalleryUrl": "issues/162/imageGallery3.html",
+                "articleTitle": "Romancing the Sea"
             },
             {
                 "name": "Fantastic Beasts 2",
                 "readingUrl": "issues/162/readingView4.html",
                 "archiveUrl": "issues/162/manuscript4.html",
-                "imageGalleryUrl": "issues/162/imageGallery4.html"
+                "imageGalleryUrl": "issues/162/imageGallery4.html",
+                "articleTitle": "Wizard Uprising"
             },
             {
                 "name": "20,000 Leagues Under the Sea",
                 "readingUrl": "issues/162/readingView5.html",
                 "archiveUrl": "issues/162/manuscript5.html",
-                "imageGalleryUrl": "issues/162/imageGallery5.html"
+                "imageGalleryUrl": "issues/162/imageGallery5.html",
+                "articleTitle": "Q&A: Richard Fleischer"
             }
         ]
     },
@@ -5422,25 +5566,29 @@
                 "name": "Alita: Battle Angel",
                 "readingUrl": "issues/163/readingView1.html",
                 "archiveUrl": "issues/163/manuscript1.html",
-                "imageGalleryUrl": "issues/163/imageGallery1.html"
+                "imageGalleryUrl": "issues/163/imageGallery1.html",
+                "articleTitle": "Iron Maiden"
             },
             {
                 "name": "Mortal Engines",
                 "readingUrl": "issues/163/readingView2.html",
                 "archiveUrl": "issues/163/manuscript2.html",
-                "imageGalleryUrl": "issues/163/imageGallery2.html"
+                "imageGalleryUrl": "issues/163/imageGallery2.html",
+                "articleTitle": "Houses in Motion"
             },
             {
                 "name": "Bumblebee",
                 "readingUrl": "issues/163/readingView3.html",
                 "archiveUrl": "issues/163/manuscript3.html",
-                "imageGalleryUrl": "issues/163/imageGallery3.html"
+                "imageGalleryUrl": "issues/163/imageGallery3.html",
+                "articleTitle": "Transformation"
             },
             {
                 "name": "Mary Poppins Returns",
                 "readingUrl": "issues/163/readingView4.html",
                 "archiveUrl": "issues/163/manuscript4.html",
-                "imageGalleryUrl": "issues/163/imageGallery4.html"
+                "imageGalleryUrl": "issues/163/imageGallery4.html",
+                "articleTitle": "Something Wonderful and Wondrous"
             }
         ]
     },
@@ -5453,25 +5601,29 @@
                 "name": "Hellboy",
                 "readingUrl": "issues/164/readingView1.html",
                 "archiveUrl": "issues/164/manuscript1.html",
-                "imageGalleryUrl": "issues/164/imageGallery1.html"
+                "imageGalleryUrl": "issues/164/imageGallery1.html",
+                "articleTitle": "Beast of the Apocalypse"
             },
             {
                 "name": "Captain Marvel",
                 "readingUrl": "issues/164/readingView2.html",
                 "archiveUrl": "issues/164/manuscript2.html",
-                "imageGalleryUrl": "issues/164/imageGallery2.html"
+                "imageGalleryUrl": "issues/164/imageGallery2.html",
+                "articleTitle": "The Power Within Her"
             },
             {
                 "name": "Dumbo",
                 "readingUrl": "issues/164/readingView3.html",
                 "archiveUrl": "issues/164/manuscript3.html",
-                "imageGalleryUrl": "issues/164/imageGallery3.html"
+                "imageGalleryUrl": "issues/164/imageGallery3.html",
+                "articleTitle": "The Elephant in the Room"
             },
             {
                 "name": "The Nature of the Beast",
                 "readingUrl": "issues/164/readingView4.html",
                 "archiveUrl": "issues/164/manuscript4.html",
-                "imageGalleryUrl": "issues/164/imageGallery4.html"
+                "imageGalleryUrl": "issues/164/imageGallery4.html",
+                "articleTitle": "Digital Animals"
             }
         ]
     },
@@ -5484,31 +5636,36 @@
                 "name": "X-Men: Dark Phoenix",
                 "readingUrl": "issues/165/readingView1.html",
                 "archiveUrl": "issues/165/manuscript1.html",
-                "imageGalleryUrl": "issues/165/imageGallery1.html"
+                "imageGalleryUrl": "issues/165/imageGallery1.html",
+                "articleTitle": "Everybody Hurts"
             },
             {
                 "name": "Godzilla: King of the Monsters",
                 "readingUrl": "issues/165/readingView2.html",
                 "archiveUrl": "issues/165/manuscript2.html",
-                "imageGalleryUrl": "issues/165/imageGallery2.html"
+                "imageGalleryUrl": "issues/165/imageGallery2.html",
+                "articleTitle": "Ancient Gods"
             },
             {
                 "name": "Avengers: Endgame",
                 "readingUrl": "issues/165/readingView3.html",
                 "archiveUrl": "issues/165/manuscript3.html",
-                "imageGalleryUrl": "issues/165/imageGallery3.html"
+                "imageGalleryUrl": "issues/165/imageGallery3.html",
+                "articleTitle": "A Heroes' Journey"
             },
             {
                 "name": "Good Omens",
                 "readingUrl": "issues/165/readingView4.html",
                 "archiveUrl": "issues/165/manuscript4.html",
-                "imageGalleryUrl": "issues/165/imageGallery4.html"
+                "imageGalleryUrl": "issues/165/imageGallery4.html",
+                "articleTitle": "A Very English Armageddon"
             },
             {
                 "name": "Pokemon: Detective Pikachu",
                 "readingUrl": "issues/165/readingView5.html",
                 "archiveUrl": "issues/165/manuscript5.html",
-                "imageGalleryUrl": "issues/165/imageGallery5.html"
+                "imageGalleryUrl": "issues/165/imageGallery5.html",
+                "articleTitle": "Survive the Night"
             }
         ]
     },
@@ -5521,25 +5678,29 @@
                 "name": "MIB: International",
                 "readingUrl": "issues/166/readingView1.html",
                 "archiveUrl": "issues/166/manuscript1.html",
-                "imageGalleryUrl": "issues/166/imageGallery1.html"
+                "imageGalleryUrl": "issues/166/imageGallery1.html",
+                "articleTitle": "Loving the Alien"
             },
             {
                 "name": "Spider-Man: Far From Home",
                 "readingUrl": "issues/166/readingView2.html",
                 "archiveUrl": "issues/166/manuscript2.html",
-                "imageGalleryUrl": "issues/166/imageGallery2.html"
+                "imageGalleryUrl": "issues/166/imageGallery2.html",
+                "articleTitle": "Grand Illusions"
             },
             {
                 "name": "The Lion King",
                 "readingUrl": "issues/166/readingView3.html",
                 "archiveUrl": "issues/166/manuscript3.html",
-                "imageGalleryUrl": "issues/166/imageGallery3.html"
+                "imageGalleryUrl": "issues/166/imageGallery3.html",
+                "articleTitle": "A Moon-Shot Movie"
             },
             {
                 "name": "Game of Thrones (Season 8)",
                 "readingUrl": "issues/166/readingView4.html",
                 "archiveUrl": "issues/166/manuscript4.html",
-                "imageGalleryUrl": "issues/166/imageGallery4.html"
+                "imageGalleryUrl": "issues/166/imageGallery4.html",
+                "articleTitle": "When Dragons Go to War"
             }
         ]
     },
@@ -5552,31 +5713,36 @@
                 "name": "Ad Astra",
                 "readingUrl": "issues/167/readingView1.html",
                 "archiveUrl": "issues/167/manuscript1.html",
-                "imageGalleryUrl": "issues/167/imageGallery1.html"
+                "imageGalleryUrl": "issues/167/imageGallery1.html",
+                "articleTitle": "The Place of No Return"
             },
             {
                 "name": "The Dark Crystal",
                 "readingUrl": "issues/167/readingView2.html",
                 "archiveUrl": "issues/167/manuscript2.html",
-                "imageGalleryUrl": "issues/167/imageGallery2.html"
+                "imageGalleryUrl": "issues/167/imageGallery2.html",
+                "articleTitle": "The Living Planet"
             },
             {
                 "name": "Gemini Man",
                 "readingUrl": "issues/167/readingView3.html",
                 "archiveUrl": "issues/167/manuscript3.html",
-                "imageGalleryUrl": "issues/167/imageGallery3.html"
+                "imageGalleryUrl": "issues/167/imageGallery3.html",
+                "articleTitle": "Uncanny"
             },
             {
                 "name": "Hobbs & Shaw",
                 "readingUrl": "issues/167/readingView4.html",
                 "archiveUrl": "issues/167/manuscript4.html",
-                "imageGalleryUrl": "issues/167/imageGallery4.html"
+                "imageGalleryUrl": "issues/167/imageGallery4.html",
+                "articleTitle": "Muscle Cars"
             },
             {
                 "name": "Q&A: Stephan Trojansky",
                 "readingUrl": "issues/167/readingView5.html",
                 "archiveUrl": "issues/167/manuscript5.html",
-                "imageGalleryUrl": "issues/167/imageGallery5.html"
+                "imageGalleryUrl": "issues/167/imageGallery5.html",
+                "articleTitle": "Scanline's 30th Anniversary"
             }
         ]
     },
@@ -5589,31 +5755,36 @@
                 "name": "Midway",
                 "readingUrl": "issues/168/readingView1.html",
                 "archiveUrl": "issues/168/manuscript1.html",
-                "imageGalleryUrl": "issues/168/imageGallery1.html"
+                "imageGalleryUrl": "issues/168/imageGallery1.html",
+                "articleTitle": "12,000 Feet Straight Down"
             },
             {
                 "name": "Ford v Ferrari",
                 "readingUrl": "issues/168/readingView2.html",
                 "archiveUrl": "issues/168/manuscript2.html",
-                "imageGalleryUrl": "issues/168/imageGallery2.html"
+                "imageGalleryUrl": "issues/168/imageGallery2.html",
+                "articleTitle": "The Perfect Lap"
             },
             {
                 "name": "Terminator: Dark Fate",
                 "readingUrl": "issues/168/readingView3.html",
                 "archiveUrl": "issues/168/manuscript3.html",
-                "imageGalleryUrl": "issues/168/imageGallery3.html"
+                "imageGalleryUrl": "issues/168/imageGallery3.html",
+                "articleTitle": "No Fate But What We Make"
             },
             {
                 "name": "The Irishman",
                 "readingUrl": "issues/168/readingView4.html",
                 "archiveUrl": "issues/168/manuscript4.html",
-                "imageGalleryUrl": "issues/168/imageGallery4.html"
+                "imageGalleryUrl": "issues/168/imageGallery4.html",
+                "articleTitle": "Nothing Short of Witchcraft"
             },
             {
                 "name": "Q&A: John Fragomeni",
                 "readingUrl": "issues/168/readingView5.html",
                 "archiveUrl": "issues/168/manuscript5.html",
-                "imageGalleryUrl": "issues/168/imageGallery5.html"
+                "imageGalleryUrl": "issues/168/imageGallery5.html",
+                "articleTitle": "Digital Domain at 25"
             }
         ]
     },
@@ -5625,48 +5796,56 @@
             {
                 "name": "40 Is The New 80",
                 "readingUrl": "issues/169/readingView1.html",
-                "archiveUrl": "issues/169/manuscript1.html"
+                "archiveUrl": "issues/169/manuscript1.html",
+                "articleTitle": "Introduction"
             },
             {
                 "name": "The Illusionists",
                 "readingUrl": "issues/169/readingView2.html",
-                "archiveUrl": "issues/169/manuscript2.html"
+                "archiveUrl": "issues/169/manuscript2.html",
+                "articleTitle": "Roundtable VFX Discussion"
             },
             {
                 "name": "James Cameron",
                 "readingUrl": "issues/169/readingView3.html",
                 "archiveUrl": "issues/169/manuscript3.html",
-                "imageGalleryUrl": "issues/169/imageGallery1.html"
+                "imageGalleryUrl": "issues/169/imageGallery1.html",
+                "articleTitle": "The Visionaries"
             },
             {
                 "name": "George Lucas",
                 "readingUrl": "issues/169/readingView4.html",
                 "archiveUrl": "issues/169/manuscript4.html",
-                "imageGalleryUrl": "issues/169/imageGallery2.html"
+                "imageGalleryUrl": "issues/169/imageGallery2.html",
+                "articleTitle": "The Visionaries"
             },
             {
                 "name": "Christopher Nolan",
                 "readingUrl": "issues/169/readingView5.html",
                 "archiveUrl": "issues/169/manuscript5.html",
-                "imageGalleryUrl": "issues/169/imageGallery3.html"
+                "imageGalleryUrl": "issues/169/imageGallery3.html",
+                "articleTitle": "The Visionaries"
             },
             {
                 "name": "Robert Zemeckis",
                 "readingUrl": "issues/169/readingView6.html",
                 "archiveUrl": "issues/169/manuscript6.html",
-                "imageGalleryUrl": "issues/169/imageGallery4.html"
+                "imageGalleryUrl": "issues/169/imageGallery4.html",
+                "articleTitle": "The Visionaries"
             },
             {
-                "name": "Star Wars: The Last Skywalker",
+                "name": "Star Wars: The Rise of Skywalker",
                 "readingUrl": "issues/169/readingView7.html",
                 "archiveUrl": "issues/169/manuscript7.html",
-                "imageGalleryUrl": "issues/169/imageGallery5.html"
+                "imageGalleryUrl": "issues/169/imageGallery5.html",
+                "articleTitle": "The Long Goodbye"
             },
             {
                 "name": "The Mandalorian",
                 "readingUrl": "issues/169/readingView8.html",
                 "archiveUrl": "issues/169/manuscript8.html",
-                "imageGalleryUrl": "issues/169/imageGallery6.html"
+                "imageGalleryUrl": "issues/169/imageGallery6.html",
+                "articleTitle": "As Geeky As It Gets"
             }
         ]
     }
