@@ -467,12 +467,22 @@ extraction.
 
 ### How the JSON files are produced
 
+> **⚠️  `create_json.py` is DEPRECATED.** The archive is finite and the
+> JSON metadata is hand-curated and committed to git. Running this script
+> is **destructive** — it overwrites `public/issues.json` and
+> `public/issues_full.json` with raw extraction output, discarding the
+> 99 hand-corrections made for department-style articles in issues 50-63
+> and any other one-off JSON fixes. The only safe use today is
+> `build_search_index()` against an already-correct `issues_full.json`,
+> to rebuild the gitignored `search_index.json`. See the long deprecation
+> notice at the top of `create_json.py` for details.
+
 `create_json.py` is the original extraction script. It is kept in the
 repo for two reasons:
 
 1. **One-shot regeneration from scratch.** If you ever need to rebuild the
    metadata (e.g. after a bulk find-and-replace pass on the source HTML),
-   `npm run search:index` runs it. The script walks every
+   the script can be run. The script walks every
    `issues/{N}/manifest.xml`, parses the `<article>` / `<readingView>` /
    `<imageGallery>` sections, reads each article's
    `<meta name="Film">` / `<meta name="Title">` /
@@ -488,7 +498,9 @@ repo for two reasons:
    surface the things that need hand-correction.
 
 The script is **not** wired into `npm run build`, is not installed in the
-runtime container, and does not run on container start. See the
+runtime container, and does not run on container start. The `__main__`
+guard at the bottom of the file now prints a 5-second warning before
+executing `create_issues_json()`. See the
 [Container image & runtime](#container-image--runtime) section for the
 runtime flow.
 

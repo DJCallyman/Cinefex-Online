@@ -1023,20 +1023,21 @@
                 "archiveUrl": "issues/50/1.ArchivalView.html"
             },
             {
-                "name": "Effects Scene: 64th Academy Awards",
+                "name": "64th Academy Awards",
                 "readingUrl": "issues/50/2.ReadingView.html",
                 "archiveUrl": "issues/50/2.ArchivalView.html",
-                "articleTitle": "EFF E.T. SCENE: 64TH ACADEMY AWARDS"
+                "articleTitle": "Effects Scene"
             },
             {
-                "name": "Video Beat: Morphing to the Music",
+                "name": "Michael Jackson: Black or White",
                 "readingUrl": "issues/50/3.ReadingView.html",
                 "archiveUrl": "issues/50/3.ArchivalView.html"
             },
             {
-                "name": "Profile: Joseph Viskocil",
+                "name": "Joseph Viskocil",
                 "readingUrl": "issues/50/4.ReadingView.html",
-                "archiveUrl": "issues/50/4.ArchivalView.html"
+                "archiveUrl": "issues/50/4.ArchivalView.html",
+                "articleTitle": "Profile"
             },
             {
                 "name": "Aliens 3",
@@ -1051,14 +1052,16 @@
                 "articleTitle": "Cyberworld"
             },
             {
-                "name": "Commercial Spot: Widebody Whales",
+                "name": "United Airlines",
                 "readingUrl": "issues/50/7.ReadingView.html",
-                "archiveUrl": "issues/50/7.ArchivalView.html"
+                "archiveUrl": "issues/50/7.ArchivalView.html",
+                "articleTitle": "Widebody Whales"
             },
             {
-                "name": "Commercial Spot: Reflections of the Dead",
+                "name": "Diet Coke",
                 "readingUrl": "issues/50/8.ReadingView.html",
-                "archiveUrl": "issues/50/8.ArchivalView.html"
+                "archiveUrl": "issues/50/8.ArchivalView.html",
+                "articleTitle": "Reflections of the Dead"
             },
             {
                 "name": "Laser Revolution: Laserdisc Manifesto",
@@ -1079,19 +1082,22 @@
         "year": 1992,
         "articles": [
             {
-                "name": "Effects Scene: Technology And Magic",
+                "name": "SMPTE",
                 "readingUrl": "issues/51/1.ReadingView.html",
-                "archiveUrl": "issues/51/1.ArchivalView.html"
+                "archiveUrl": "issues/51/1.ArchivalView.html",
+                "articleTitle": "Technology and Magic"
             },
             {
-                "name": "Profile: Katherine Kean",
+                "name": "Katherine Kean",
                 "readingUrl": "issues/51/2.ReadingView.html",
-                "archiveUrl": "issues/51/2.ArchivalView.html"
+                "archiveUrl": "issues/51/2.ArchivalView.html",
+                "articleTitle": "Profile"
             },
             {
-                "name": "Quick Cuts: Dating The Babe",
+                "name": "The Babe",
                 "readingUrl": "issues/51/3.ReadingView.html",
-                "archiveUrl": "issues/51/3.ArchivalView.html"
+                "archiveUrl": "issues/51/3.ArchivalView.html",
+                "articleTitle": "Dating the Babe"
             },
             {
                 "name": "Batman Returns",
@@ -1100,14 +1106,16 @@
                 "articleTitle": "A KNIGHT AT THE ZOO"
             },
             {
-                "name": "Commercial Spot: Dodge Blocks",
+                "name": "Dodge",
                 "readingUrl": "issues/51/5.ReadingView.html",
-                "archiveUrl": "issues/51/5.ArchivalView.html"
+                "archiveUrl": "issues/51/5.ArchivalView.html",
+                "articleTitle": "Dodge Blocks"
             },
             {
-                "name": "Video Beat: Short Intruders",
+                "name": "Intruders",
                 "readingUrl": "issues/51/6.ReadingView.html",
-                "archiveUrl": "issues/51/6.ArchivalView.html"
+                "archiveUrl": "issues/51/6.ArchivalView.html",
+                "articleTitle": "Short Intruders"
             },
             {
                 "name": "Laser Revolution: The Eighth Wonder",
@@ -1122,19 +1130,22 @@
         "year": 1992,
         "articles": [
             {
-                "name": "Commercial Spot: Simian Simulation",
+                "name": "Michelob",
                 "readingUrl": "issues/52/1.ReadingView.html",
-                "archiveUrl": "issues/52/1.ArchivalView.html"
+                "archiveUrl": "issues/52/1.ArchivalView.html",
+                "articleTitle": "Simian Simulation"
             },
             {
-                "name": "Commercial Spot: Elevator To The Stars",
+                "name": "British Petroleum",
                 "readingUrl": "issues/52/2.ReadingView.html",
-                "archiveUrl": "issues/52/2.ArchivalView.html"
+                "archiveUrl": "issues/52/2.ArchivalView.html",
+                "articleTitle": "Elevator to the Stars"
             },
             {
-                "name": "Quick Cuts: Video Hell",
+                "name": "Stay Tuned",
                 "readingUrl": "issues/52/3.ReadingView.html",
-                "archiveUrl": "issues/52/3.ArchivalView.html"
+                "archiveUrl": "issues/52/3.ArchivalView.html",
+                "articleTitle": "Video Hell"
             },
             {
                 "name": "Honey, I Blew Up The Kid",
@@ -1149,17 +1160,19 @@
                 "articleTitle": "Life Neverlasting"
             },
             {
-                "name": "Quick Cuts: Panic On Liberty Island",
+                "name": "Home Alone 2: Lost in New York",
                 "readingUrl": "issues/52/6.ReadingView.html",
-                "archiveUrl": "issues/52/6.ArchivalView.html"
+                "archiveUrl": "issues/52/6.ArchivalView.html",
+                "articleTitle": "Panic on Liberty Island"
             },
             {
-                "name": "Profile: Alan Munro",
+                "name": "Alan Munro",
                 "readingUrl": "issues/52/7.ReadingView.html",
-                "archiveUrl": "issues/52/7.ArchivalView.html"
+                "archiveUrl": "issues/52/7.ArchivalView.html",
+                "articleTitle": "Profile"
             },
             {
-                "name": "Video Beat: Morphing To The Madness",
+                "name": "David Byrne: She’s Mad",
                 "readingUrl": "issues/52/8.ReadingView.html",
                 "archiveUrl": "issues/52/8.ArchivalView.html"
             },
@@ -1169,9 +1182,10 @@
                 "archiveUrl": "issues/52/9.ArchivalView.html"
             },
             {
-                "name": "Effects Scene: Therapy In Pen-And-Ink",
+                "name": "The Available Light Calendar",
                 "readingUrl": "issues/52/10.ReadingView.html",
-                "archiveUrl": "issues/52/10.ArchivalView.html"
+                "archiveUrl": "issues/52/10.ArchivalView.html",
+                "articleTitle": "Therapy in Pen-and-Ink"
             }
         ]
     },
@@ -1181,19 +1195,22 @@
         "year": 1993,
         "articles": [
             {
-                "name": "Quick Cuts: Muppetized Dickens",
+                "name": "The Muppet Christmas Carol",
                 "readingUrl": "issues/53/1.ReadingView.html",
-                "archiveUrl": "issues/53/1.ArchivalView.html"
+                "archiveUrl": "issues/53/1.ArchivalView.html",
+                "articleTitle": "Muppetized Dickens"
             },
             {
-                "name": "Commercial Spot: True Colors",
+                "name": "Kodak",
                 "readingUrl": "issues/53/2.ReadingView.html",
-                "archiveUrl": "issues/53/2.ArchivalView.html"
+                "archiveUrl": "issues/53/2.ArchivalView.html",
+                "articleTitle": "True Colors"
             },
             {
-                "name": "Effects Scene: Full Moon Rising",
+                "name": "Full Moon Entertainment",
                 "readingUrl": "issues/53/3.ReadingView.html",
-                "archiveUrl": "issues/53/3.ArchivalView.html"
+                "archiveUrl": "issues/53/3.ArchivalView.html",
+                "articleTitle": "Full Moon Rising"
             },
             {
                 "name": "Heart of Darkness",
@@ -1206,14 +1223,16 @@
                 "archiveUrl": "issues/53/5.ArchivalView.html"
             },
             {
-                "name": "Commercial Spot: Sci-Fi Pest Control",
+                "name": "Orkin",
                 "readingUrl": "issues/53/6.ReadingView.html",
-                "archiveUrl": "issues/53/6.ArchivalView.html"
+                "archiveUrl": "issues/53/6.ArchivalView.html",
+                "articleTitle": "Sci-Fi Pest Control"
             },
             {
-                "name": "Profile: Doug Beswick",
+                "name": "Doug Beswick",
                 "readingUrl": "issues/53/7.ReadingView.html",
-                "archiveUrl": "issues/53/7.ArchivalView.html"
+                "archiveUrl": "issues/53/7.ArchivalView.html",
+                "articleTitle": "Profile"
             },
             {
                 "name": "Laser Revolution: Harryhausen Cornucopia",
@@ -1228,26 +1247,28 @@
         "year": 1993,
         "articles": [
             {
-                "name": "Quick Cuts: Unfriendly Skies",
+                "name": "Fire in the Sky",
                 "readingUrl": "issues/54/1.ReadingView.html",
-                "archiveUrl": "issues/54/1.ArchivalView.html"
+                "archiveUrl": "issues/54/1.ArchivalView.html",
+                "articleTitle": "Unfriendly Skies"
             },
             {
-                "name": "Commercial Spot: Thoroughbred Animation",
+                "name": "Norfolk Southern",
                 "readingUrl": "issues/54/2.ReadingView.html",
                 "archiveUrl": "issues/54/2.ArchivalView.html",
-                "articleTitle": "COMMERCIAL SPOT: THOROUGHBRED A.I MATION"
+                "articleTitle": "Thoroughbred Animation"
             },
             {
-                "name": "Video Beat: Deep Space Miniatures",
+                "name": "Star Trek: Deep Space Nine",
                 "readingUrl": "issues/54/3.ReadingView.html",
-                "archiveUrl": "issues/54/3.ArchivalView.html"
+                "archiveUrl": "issues/54/3.ArchivalView.html",
+                "articleTitle": "Deep Space Miniatures"
             },
             {
-                "name": "Commercial Spot: What's Up, Nike?",
+                "name": "Nike",
                 "readingUrl": "issues/54/4.ReadingView.html",
                 "archiveUrl": "issues/54/4.ArchivalView.html",
-                "articleTitle": "COMMERCIAL SPOT: WHAT’S UP, NIKE?"
+                "articleTitle": "What’s Up, Nike?"
             },
             {
                 "name": "Effects in the Vertical Realm",
@@ -1260,20 +1281,22 @@
                 "archiveUrl": "issues/54/6.ArchivalView.html"
             },
             {
-                "name": "Video Beat: Chronicling Young Indy",
+                "name": "The Young Indiana Jones Chronicles",
                 "readingUrl": "issues/54/7.ReadingView.html",
-                "archiveUrl": "issues/54/7.ArchivalView.html"
+                "archiveUrl": "issues/54/7.ArchivalView.html",
+                "articleTitle": "Chronicling Young Indy"
             },
             {
-                "name": "Effects Scene: The Perigee of Apogee",
+                "name": "Apogee, Inc.",
                 "readingUrl": "issues/54/8.ReadingView.html",
                 "archiveUrl": "issues/54/8.ArchivalView.html",
-                "articleTitle": "EFF E.T. SCENE: THE PERIGEE OF APOGEE"
+                "articleTitle": "The Perigee of Apogee"
             },
             {
-                "name": "Profile: Peter Kuran",
+                "name": "Peter Kuran",
                 "readingUrl": "issues/54/9.ReadingView.html",
-                "archiveUrl": "issues/54/9.ArchivalView.html"
+                "archiveUrl": "issues/54/9.ArchivalView.html",
+                "articleTitle": "Profile"
             },
             {
                 "name": "Laserdisc Revolution: Tall Tales and Epic Lore",
@@ -1288,14 +1311,16 @@
         "year": 1993,
         "articles": [
             {
-                "name": "Video Beat: Deep Space Wormholes",
+                "name": "Star Trek: Deep Space Nine",
                 "readingUrl": "issues/55/1.ReadingView.html",
-                "archiveUrl": "issues/55/1.ArchivalView.html"
+                "archiveUrl": "issues/55/1.ArchivalView.html",
+                "articleTitle": "Deep Space Wormholes"
             },
             {
-                "name": "Quick Cuts: Under Heavy Cetacean",
+                "name": "Free Willy",
                 "readingUrl": "issues/55/2.ReadingView.html",
-                "archiveUrl": "issues/55/2.ArchivalView.html"
+                "archiveUrl": "issues/55/2.ArchivalView.html",
+                "articleTitle": "Under Heavy Cetacean"
             },
             {
                 "name": "Company File: Pixar",
@@ -1303,14 +1328,16 @@
                 "archiveUrl": "issues/55/3.ArchivalView.html"
             },
             {
-                "name": "Quick Cuts: Once More into the Abyss",
+                "name": "The Abyss",
                 "readingUrl": "issues/55/4.ReadingView.html",
-                "archiveUrl": "issues/55/4.ArchivalView.html"
+                "archiveUrl": "issues/55/4.ArchivalView.html",
+                "articleTitle": "Once More into the Abyss"
             },
             {
-                "name": "Quick Cuts: Hail to the Impostor",
+                "name": "Dave",
                 "readingUrl": "issues/55/5.ReadingView.html",
-                "archiveUrl": "issues/55/5.ArchivalView.html"
+                "archiveUrl": "issues/55/5.ArchivalView.html",
+                "articleTitle": "Hail to the Impostor"
             },
             {
                 "name": "The Beauty in the Beasts",
@@ -1323,25 +1350,28 @@
                 "archiveUrl": "issues/55/7.ArchivalView.html"
             },
             {
-                "name": "Commercial Spot: Evolutionary Auto",
+                "name": "Acura",
                 "readingUrl": "issues/55/8.ReadingView.html",
-                "archiveUrl": "issues/55/8.ArchivalView.html"
+                "archiveUrl": "issues/55/8.ArchivalView.html",
+                "articleTitle": "Evolutionary Auto"
             },
             {
-                "name": "Effects Scene: In the Digital Domain",
+                "name": "Digital Domain",
                 "readingUrl": "issues/55/9.ReadingView.html",
                 "archiveUrl": "issues/55/9.ArchivalView.html",
-                "articleTitle": "EFF E.T. SCENE: IN THE DIGITAL DOMAIN"
+                "articleTitle": "In the Digital Domain"
             },
             {
-                "name": "Quick Cuts: A Crash in the Andes",
+                "name": "Alive",
                 "readingUrl": "issues/55/10.ReadingView.html",
-                "archiveUrl": "issues/55/10.ArchivalView.html"
+                "archiveUrl": "issues/55/10.ArchivalView.html",
+                "articleTitle": "A Crash in the Andes"
             },
             {
-                "name": "Effects Scene: Cinematic Archaeology",
+                "name": "The Lost World",
                 "readingUrl": "issues/55/11.ReadingView.html",
-                "archiveUrl": "issues/55/11.ArchivalView.html"
+                "archiveUrl": "issues/55/11.ArchivalView.html",
+                "articleTitle": "Cinematic Archaeology"
             },
             {
                 "name": "LaserDisc Revolution: Jurassic Reality",
@@ -1356,19 +1386,22 @@
         "year": 1993,
         "articles": [
             {
-                "name": "Quick Cuts: Digital Soul Searching",
+                "name": "Heart and Souls",
                 "readingUrl": "issues/56/1.ReadingView.html",
-                "archiveUrl": "issues/56/1.ArchivalView.html"
+                "archiveUrl": "issues/56/1.ArchivalView.html",
+                "articleTitle": "Digital Soul Searching"
             },
             {
-                "name": "Quick Cuts: Feline Fabrication",
+                "name": "Hocus Pocus",
                 "readingUrl": "issues/56/2.ReadingView.html",
-                "archiveUrl": "issues/56/2.ArchivalView.html"
+                "archiveUrl": "issues/56/2.ArchivalView.html",
+                "articleTitle": "Feline Fabrication"
             },
             {
-                "name": "Commercial Spot: Track Sold Separately",
+                "name": "Acura",
                 "readingUrl": "issues/56/3.ReadingView.html",
-                "archiveUrl": "issues/56/3.ArchivalView.html"
+                "archiveUrl": "issues/56/3.ArchivalView.html",
+                "articleTitle": "Track Sold Separately"
             },
             {
                 "name": "Animation in the Third Dimension",
@@ -1387,19 +1420,22 @@
                 "archiveUrl": "issues/56/6.ArchivalView.html"
             },
             {
-                "name": "Quick Cuts: That Other T-Rex",
+                "name": "Super Mario Bros.",
                 "readingUrl": "issues/56/7.ReadingView.html",
-                "archiveUrl": "issues/56/7.ArchivalView.html"
+                "archiveUrl": "issues/56/7.ArchivalView.html",
+                "articleTitle": "That Other T-Rex"
             },
             {
-                "name": "Profile: Pete Romano",
+                "name": "Pete Romano",
                 "readingUrl": "issues/56/8.ReadingView.html",
-                "archiveUrl": "issues/56/8.ArchivalView.html"
+                "archiveUrl": "issues/56/8.ArchivalView.html",
+                "articleTitle": "Profile"
             },
             {
-                "name": "Video Beat: Making Movie Magic",
+                "name": "Movie Magic",
                 "readingUrl": "issues/56/9.ReadingView.html",
-                "archiveUrl": "issues/56/9.ArchivalView.html"
+                "archiveUrl": "issues/56/9.ArchivalView.html",
+                "articleTitle": "Making Movie Magic"
             },
             {
                 "name": "Laserdisc Revolution: From the Disney Archives",
@@ -1414,19 +1450,22 @@
         "year": 1994,
         "articles": [
             {
-                "name": "Video Beat: Toasting Babylon 5",
+                "name": "Babylon 5",
                 "readingUrl": "issues/57/1.ReadingView.html",
-                "archiveUrl": "issues/57/1.ArchivalView.html"
+                "archiveUrl": "issues/57/1.ArchivalView.html",
+                "articleTitle": "Toasting Babylon 5"
             },
             {
-                "name": "Special Venues: Deep Earth, Dark Ride",
+                "name": "Deep Earth Exploration",
                 "readingUrl": "issues/57/2.ReadingView.html",
-                "archiveUrl": "issues/57/2.ArchivalView.html"
+                "archiveUrl": "issues/57/2.ArchivalView.html",
+                "articleTitle": "Special Venues"
             },
             {
-                "name": "Video Beat: Order Out Of Xaos",
+                "name": "The Sci-Fi Channel",
                 "readingUrl": "issues/57/3.ReadingView.html",
-                "archiveUrl": "issues/57/3.ArchivalView.html"
+                "archiveUrl": "issues/57/3.ArchivalView.html",
+                "articleTitle": "Order Out of Xaos"
             },
             {
                 "name": "The Making Of A 50 Foot Woman",
@@ -1439,17 +1478,19 @@
                 "archiveUrl": "issues/57/5.ArchivalView.html"
             },
             {
-                "name": "Quick Cuts: Digital Effects",
+                "name": "The Addams Family",
                 "readingUrl": "issues/57/6.ReadingView.html",
-                "archiveUrl": "issues/57/6.ArchivalView.html"
+                "archiveUrl": "issues/57/6.ArchivalView.html",
+                "articleTitle": "Digital Effects"
             },
             {
-                "name": "Commercial Spot: Chevy Hulk",
+                "name": "Chevrolet",
                 "readingUrl": "issues/57/7.ReadingView.html",
-                "archiveUrl": "issues/57/7.ArchivalView.html"
+                "archiveUrl": "issues/57/7.ArchivalView.html",
+                "articleTitle": "Chevy Hulk"
             },
             {
-                "name": "Video Beat: Mccartney Takes Wing",
+                "name": "Paul McCartney: Off the Ground",
                 "readingUrl": "issues/57/8.ReadingView.html",
                 "archiveUrl": "issues/57/8.ArchivalView.html"
             },
@@ -1467,28 +1508,28 @@
         "year": 1994,
         "articles": [
             {
-                "name": "Quick Cuts: Crime And Banishment",
+                "name": "No Escape",
                 "readingUrl": "issues/58/1.ReadingView.html",
                 "archiveUrl": "issues/58/1.ArchivalView.html",
-                "articleTitle": "QUICK CUTS CRIME AND BANISHMENT"
+                "articleTitle": "Crime and Banishment"
             },
             {
-                "name": "Quick Cuts: Visionary Visuals",
+                "name": "Blink",
                 "readingUrl": "issues/58/2.ReadingView.html",
                 "archiveUrl": "issues/58/2.ArchivalView.html",
-                "articleTitle": "QUICK CUTS VISIONARY VISUALS"
+                "articleTitle": "Visionary Visuals"
             },
             {
-                "name": "Quick Cuts: Making The Crow Fly",
+                "name": "The Crow",
                 "readingUrl": "issues/58/3.ReadingView.html",
                 "archiveUrl": "issues/58/3.ArchivalView.html",
-                "articleTitle": "QUICK CUTS MAKING THE CROW FLY"
+                "articleTitle": "Making the Crow Fly"
             },
             {
-                "name": "Video Beat: Midair Morphing",
+                "name": "Lois & Clark: The New Adventures of Superman",
                 "readingUrl": "issues/58/4.ReadingView.html",
                 "archiveUrl": "issues/58/4.ArchivalView.html",
-                "articleTitle": "VIDEO BEAT MIDAIR MORPHING"
+                "articleTitle": "Midair Morphing"
             },
             {
                 "name": "The Making Of A Rockbuster",
@@ -1501,28 +1542,28 @@
                 "archiveUrl": "issues/58/6.ArchivalView.html"
             },
             {
-                "name": "Video Beat: Viper Sheds Its Skin",
+                "name": "Viper",
                 "readingUrl": "issues/58/7.ReadingView.html",
                 "archiveUrl": "issues/58/7.ArchivalView.html",
-                "articleTitle": "VIDEO BEAT VIPER SHEDS ITS SKIN"
+                "articleTitle": "Viper Sheds Its Skin"
             },
             {
-                "name": "Quick Cuts: A Lady In Disguise",
+                "name": "Mrs. Doubtfire",
                 "readingUrl": "issues/58/8.ReadingView.html",
                 "archiveUrl": "issues/58/8.ArchivalView.html",
-                "articleTitle": "QUICK CUTS A LADY IN DISGUISE"
+                "articleTitle": "A Lady in Disguise"
             },
             {
-                "name": "Commercial Spot: Kong Reenergized",
+                "name": "Energizer",
                 "readingUrl": "issues/58/9.ReadingView.html",
                 "archiveUrl": "issues/58/9.ArchivalView.html",
-                "articleTitle": "COMMERCIAL SPOT KONG REENERGIZED"
+                "articleTitle": "Kong Reenergized"
             },
             {
-                "name": "Profile: Kevin Yagher",
+                "name": "Kevin Yagher",
                 "readingUrl": "issues/58/10.ReadingView.html",
                 "archiveUrl": "issues/58/10.ArchivalView.html",
-                "articleTitle": "PROFILE KEVIN YAGHER"
+                "articleTitle": "Profile"
             }
         ]
     },
@@ -1532,22 +1573,22 @@
         "year": 1992,
         "articles": [
             {
-                "name": "Special Venues: Moon Shots",
+                "name": "Space Shuttle America",
                 "readingUrl": "issues/59/1.ReadingView.html",
                 "archiveUrl": "issues/59/1.ArchivalView.html",
-                "articleTitle": "SPECIAL VENUES MOON SHOTS"
+                "articleTitle": "Special Venues"
             },
             {
-                "name": "Quick Cuts: Terminal Effects",
+                "name": "Terminal Velocity",
                 "readingUrl": "issues/59/2.ReadingView.html",
                 "archiveUrl": "issues/59/2.ArchivalView.html",
-                "articleTitle": "QUICK CUTS TERMINAL EFFECTS"
+                "articleTitle": "Terminal Effects"
             },
             {
-                "name": "Video Beat: Alien Nation Revisited",
+                "name": "Alien Nation: Dark Horizon",
                 "readingUrl": "issues/59/3.ReadingView.html",
                 "archiveUrl": "issues/59/3.ArchivalView.html",
-                "articleTitle": "VIDEO BEAT ALIEN NATION REVISITED"
+                "articleTitle": "Alien Nation Revisited"
             },
             {
                 "name": "Company File: Animal Makers",
@@ -1561,16 +1602,16 @@
                 "archiveUrl": "issues/59/5.ArchivalView.html"
             },
             {
-                "name": "Commercial Spot: `They Keep Going And Going...'",
+                "name": "Energizer",
                 "readingUrl": "issues/59/6.ReadingView.html",
                 "archiveUrl": "issues/59/6.ArchivalView.html",
-                "articleTitle": "COMMERCIAL SPOT ‘THEY KEEP GOING AND GOING…’"
+                "articleTitle": "They Keep Going and Going..."
             },
             {
-                "name": "Quick Cuts: Maximum Speed",
+                "name": "Speed",
                 "readingUrl": "issues/59/7.ReadingView.html",
                 "archiveUrl": "issues/59/7.ArchivalView.html",
-                "articleTitle": "QUICK CUTS MAXIMUM SPEED"
+                "articleTitle": "Maximum Speed"
             },
             {
                 "name": "Closeup: Adding Teeth To Wolf",
@@ -1585,10 +1626,10 @@
                 "articleTitle": "COMPANY FILE MAKEUP & EFFECTS LABORATORIES"
             },
             {
-                "name": "Profile: Randal M. Dutra",
+                "name": "Randal M. Dutra",
                 "readingUrl": "issues/59/10.ReadingView.html",
                 "archiveUrl": "issues/59/10.ArchivalView.html",
-                "articleTitle": "PROFILE Randal M. Dutra"
+                "articleTitle": "Profile"
             }
         ]
     },
@@ -1598,34 +1639,34 @@
         "year": 1994,
         "articles": [
             {
-                "name": "Video Beat: Piloting To Earth 2",
+                "name": "Earth 2",
                 "readingUrl": "issues/60/1.ReadingView.html",
                 "archiveUrl": "issues/60/1.ArchivalView.html",
-                "articleTitle": "VIDEO BEAT PILOTING TO EARTH 2"
+                "articleTitle": "Piloting to Earth 2"
             },
             {
-                "name": "Quick Cuts: Time Passages",
+                "name": "Timecop",
                 "readingUrl": "issues/60/2.ReadingView.html",
                 "archiveUrl": "issues/60/2.ArchivalView.html",
-                "articleTitle": "QUICK CUTS TIME PASSAGES"
+                "articleTitle": "Time Passages"
             },
             {
-                "name": "Commercial Spot: Cola Bears",
+                "name": "Coca-Cola",
                 "readingUrl": "issues/60/3.ReadingView.html",
                 "archiveUrl": "issues/60/3.ArchivalView.html",
-                "articleTitle": "COMMERCIAL SPOT COLA BEARS"
+                "articleTitle": "Cola Bears"
             },
             {
-                "name": "Quick Cuts: Shadow World",
+                "name": "The Shadow",
                 "readingUrl": "issues/60/4.ReadingView.html",
                 "archiveUrl": "issues/60/4.ArchivalView.html",
-                "articleTitle": "QUICK CUTS SHADOW WORLD"
+                "articleTitle": "Shadow World"
             },
             {
-                "name": "Commercial Spot: Light and Liberty",
+                "name": "Timex",
                 "readingUrl": "issues/60/5.ReadingView.html",
                 "archiveUrl": "issues/60/5.ArchivalView.html",
-                "articleTitle": "COMMERCIAL SPOT LIGHT AND LIBERTY"
+                "articleTitle": "Light and Liberty"
             },
             {
                 "name": "From Zero to Hero",
@@ -1643,28 +1684,27 @@
                 "archiveUrl": "issues/60/8.ArchivalView.html"
             },
             {
-                "name": "Video Beat: Attack of The 80-Foot Stones",
+                "name": "The Rolling Stones: Love Is Strong",
                 "readingUrl": "issues/60/9.ReadingView.html",
-                "archiveUrl": "issues/60/9.ArchivalView.html",
-                "articleTitle": "VIDEO BEAT ATTACK OF THE 80-FOOT STONES"
+                "archiveUrl": "issues/60/9.ArchivalView.html"
             },
             {
-                "name": "Quick Cuts: The Return of The Vampire",
+                "name": "Ed Wood",
                 "readingUrl": "issues/60/10.ReadingView.html",
                 "archiveUrl": "issues/60/10.ArchivalView.html",
-                "articleTitle": "QUICK CUTS THE RETURN OF THE VAMPIRE"
+                "articleTitle": "The Return of the Vampire"
             },
             {
-                "name": "Video Beat: Casting Another Spell",
+                "name": "Witch Hunt",
                 "readingUrl": "issues/60/11.ReadingView.html",
                 "archiveUrl": "issues/60/11.ArchivalView.html",
-                "articleTitle": "VIDEO BEAT CASTING ANOTHER SPELL"
+                "articleTitle": "Casting Another Spell"
             },
             {
-                "name": "Commercial Spot: Byte-Size Cookies",
+                "name": "Chips Ahoy!",
                 "readingUrl": "issues/60/12.ReadingView.html",
                 "archiveUrl": "issues/60/12.ArchivalView.html",
-                "articleTitle": "COMMERCIAL SPOT BYTE-SIZE COOKIES"
+                "articleTitle": "Byte-Size Cookies"
             }
         ]
     },
@@ -1674,61 +1714,64 @@
         "year": 1995,
         "articles": [
             {
-                "name": "Quick Cuts: A New Twist on Tornadoes",
+                "name": "Tall Tale",
                 "readingUrl": "issues/61/1.ReadingView.html",
                 "archiveUrl": "issues/61/1.ArchivalView.html",
-                "articleTitle": "QUICK CUTS A NEW TWIST ON TORNADOES"
+                "articleTitle": "A New Twist on Tornadoes"
             },
             {
-                "name": "Quick Cuts: Clause and Effects",
+                "name": "The Santa Clause",
                 "readingUrl": "issues/61/2.ReadingView.html",
                 "archiveUrl": "issues/61/2.ArchivalView.html",
-                "articleTitle": "QUICK CUTS CLAUSE AND EFFECTS"
+                "articleTitle": "Clause and Effects"
             },
             {
-                "name": "Special Venues: Inside The Luxor Pyramid",
+                "name": "Secrets of the Luxor Pyramid",
                 "readingUrl": "issues/61/3.ReadingView.html",
                 "archiveUrl": "issues/61/3.ArchivalView.html",
-                "articleTitle": "SPECIAL VENUES INSIDE THE LUXOR PYRAMID"
+                "articleTitle": "Special Venues"
             },
             {
-                "name": "Quick Cuts: Santa's Helpers",
+                "name": "The Santa Clause",
                 "readingUrl": "issues/61/4.ReadingView.html",
                 "archiveUrl": "issues/61/4.ArchivalView.html",
-                "articleTitle": "QUICK CUTS SANTA’S HELPERS"
+                "articleTitle": "Santa’s Helpers"
             },
             {
-                "name": "Immortal Images",
+                "name": "Interview With the Vampire",
                 "readingUrl": "issues/61/5.ReadingView.html",
-                "archiveUrl": "issues/61/5.ArchivalView.html"
+                "archiveUrl": "issues/61/5.ArchivalView.html",
+                "articleTitle": "Immortal Images"
             },
             {
-                "name": "Kirk Out",
+                "name": "Star Trek Generations",
                 "readingUrl": "issues/61/6.ReadingView.html",
-                "archiveUrl": "issues/61/6.ArchivalView.html"
+                "archiveUrl": "issues/61/6.ArchivalView.html",
+                "articleTitle": "Kirk Out"
             },
             {
-                "name": "Through The Stargate",
+                "name": "Stargate",
                 "readingUrl": "issues/61/7.ReadingView.html",
-                "archiveUrl": "issues/61/7.ArchivalView.html"
+                "archiveUrl": "issues/61/7.ArchivalView.html",
+                "articleTitle": "Through the Stargate"
             },
             {
-                "name": "Quick Cuts: Animal House",
+                "name": "Fluke",
                 "readingUrl": "issues/61/8.ReadingView.html",
                 "archiveUrl": "issues/61/8.ArchivalView.html",
-                "articleTitle": "QUICK CUTS ANIMAL HOUSE"
+                "articleTitle": "Animal House"
             },
             {
-                "name": "Quick Cuts: Wood Works",
+                "name": "Ed Wood",
                 "readingUrl": "issues/61/9.ReadingView.html",
                 "archiveUrl": "issues/61/9.ArchivalView.html",
-                "articleTitle": "QUICK CUTS WOOD WORKS"
+                "articleTitle": "Wood Works"
             },
             {
-                "name": "Effects Scene: From Tatooine To Endor",
+                "name": "The Art of Star Wars",
                 "readingUrl": "issues/61/10.ReadingView.html",
                 "archiveUrl": "issues/61/10.ArchivalView.html",
-                "articleTitle": "EFFECTS SCENE: FROM TATOOIN TO ENDOR"
+                "articleTitle": "From Tatooine to Endor"
             }
         ]
     },
@@ -1738,33 +1781,34 @@
         "year": 1995,
         "articles": [
             {
-                "name": "Quick Cuts: Sub Plots",
+                "name": "Crimson Tide",
                 "readingUrl": "issues/62/1.ReadingView.html",
                 "archiveUrl": "issues/62/1.ArchivalView.html",
-                "articleTitle": "QUICK CUTS SUB PLOTS"
+                "articleTitle": "Sub Plots"
             },
             {
-                "name": "Quick Cuts: Cinematic Cyberspace",
+                "name": "Johnny Mnemonic",
                 "readingUrl": "issues/62/2.ReadingView.html",
                 "archiveUrl": "issues/62/2.ArchivalView.html",
-                "articleTitle": "QUICK CUTS CINEMATIC CYBERSPACE"
+                "articleTitle": "Cinematic Cyberspace"
             },
             {
-                "name": "Quick Cuts: Thirty Seconds Over Zaire",
+                "name": "Outbreak",
                 "readingUrl": "issues/62/3.ReadingView.html",
                 "archiveUrl": "issues/62/3.ArchivalView.html",
-                "articleTitle": "QUICK CUTS THIRTY SECONDS OVER ZAIRE"
+                "articleTitle": "Thirty Seconds Over Zaire"
             },
             {
-                "name": "Profile: Jeff Matakovich",
+                "name": "Jeff Matakovich",
                 "readingUrl": "issues/62/4.ReadingView.html",
                 "archiveUrl": "issues/62/4.ArchivalView.html",
-                "articleTitle": "PROFILE JEFF MATAKOVICH"
+                "articleTitle": "Profile"
             },
             {
-                "name": "Gorilla Warfare",
+                "name": "Congo",
                 "readingUrl": "issues/62/5.ReadingView.html",
-                "archiveUrl": "issues/62/5.ArchivalView.html"
+                "archiveUrl": "issues/62/5.ArchivalView.html",
+                "articleTitle": "Gorilla Warfare"
             },
             {
                 "name": "Dredd World",
@@ -1778,10 +1822,10 @@
                 "articleTitle": "DICK SMITH 50 YEARS I N MAKEUP"
             },
             {
-                "name": "Video Beat: Cannom Creations",
+                "name": "Earth 2",
                 "readingUrl": "issues/62/8.ReadingView.html",
                 "archiveUrl": "issues/62/8.ArchivalView.html",
-                "articleTitle": "VIDEO BEAT CANNOM CREATIONS"
+                "articleTitle": "Cannom Creations"
             }
         ]
     },
@@ -1791,46 +1835,46 @@
         "year": 1995,
         "articles": [
             {
-                "name": "Quick Cuts: The Ghost And Mr. Muren",
+                "name": "Casper",
                 "readingUrl": "issues/63/1.ReadingView.html",
                 "archiveUrl": "issues/63/1.ArchivalView.html",
-                "articleTitle": "QUICK CUTS THE GHOST AND MR. MUREN"
+                "articleTitle": "The Ghost and Mr. Muren"
             },
             {
-                "name": "Special Venues: Mgm's Grand EFX",
+                "name": "EFX",
                 "readingUrl": "issues/63/2.ReadingView.html",
                 "archiveUrl": "issues/63/2.ArchivalView.html",
-                "articleTitle": "SPECIAL VENUES MGM ’S GRAND EFX"
+                "articleTitle": "Special Venues"
             },
             {
-                "name": "Quick Cuts: Cowboys and Indians",
+                "name": "The Indian in the Cupboard",
                 "readingUrl": "issues/63/3.ReadingView.html",
                 "archiveUrl": "issues/63/3.ArchivalView.html",
-                "articleTitle": "QUICK CUTS COWBOYS AND INDIANS"
+                "articleTitle": "Cowboys and Indians"
             },
             {
-                "name": "Commercial Spot: Bear Necessities",
+                "name": "Honda",
                 "readingUrl": "issues/63/4.ReadingView.html",
                 "archiveUrl": "issues/63/4.ArchivalView.html",
-                "articleTitle": "COMMERCIAL SPOT BEAR NECESSITIES"
+                "articleTitle": "Bear Necessities"
             },
             {
-                "name": "Quick Cuts: An Endangering Species",
+                "name": "Species",
                 "readingUrl": "issues/63/5.ReadingView.html",
                 "archiveUrl": "issues/63/5.ArchivalView.html",
-                "articleTitle": "QUICK CUTS AN ENDANGERING SPECIES"
+                "articleTitle": "An Endangering Species"
             },
             {
-                "name": "Quick Cuts: Capturing an Alien Species",
+                "name": "Species",
                 "readingUrl": "issues/63/6.ReadingView.html",
                 "archiveUrl": "issues/63/6.ArchivalView.html",
-                "articleTitle": "QUICK CUTS CAPTURING AN ALIEN SPECIES"
+                "articleTitle": "Capturing an Alien Species"
             },
             {
-                "name": "Quick Cuts: Bonnie and Clyde",
+                "name": "Hideaway",
                 "readingUrl": "issues/63/7.ReadingView.html",
                 "archiveUrl": "issues/63/7.ArchivalView.html",
-                "articleTitle": "QUICK CUTS BONNIE AND CLYDE"
+                "articleTitle": "Bonnie and Clyde"
             },
             {
                 "name": "Launching Apollo 13",
@@ -1843,28 +1887,27 @@
                 "archiveUrl": "issues/63/9.ArchivalView.html"
             },
             {
-                "name": "Effects Scene: The Last Hurrah",
+                "name": "Stetson Visual Services",
                 "readingUrl": "issues/63/10.ReadingView.html",
                 "archiveUrl": "issues/63/10.ArchivalView.html",
-                "articleTitle": "EFFECTS SCENE THE LAST HURRAH"
+                "articleTitle": "The Last Hurrah"
             },
             {
-                "name": "Commercial Spot: This Frog's For You",
+                "name": "Budweiser",
                 "readingUrl": "issues/63/11.ReadingView.html",
                 "archiveUrl": "issues/63/11.ArchivalView.html",
-                "articleTitle": "COMMERCIAL SPOT THIS FROG’S FOR YOU"
+                "articleTitle": "This Frog’s For You"
             },
             {
-                "name": "Commercial Spot: Batteries Included",
+                "name": "Duracell",
                 "readingUrl": "issues/63/12.ReadingView.html",
                 "archiveUrl": "issues/63/12.ArchivalView.html",
-                "articleTitle": "COMMERCIAL SPOT BATTERIES INCLUDED"
+                "articleTitle": "Batteries Included"
             },
             {
-                "name": "Video Beat: Soldiers of Fortune",
+                "name": "Michael Jackson: HIStory",
                 "readingUrl": "issues/63/13.ReadingView.html",
-                "archiveUrl": "issues/63/13.ArchivalView.html",
-                "articleTitle": "VIDEO BEAT SOLDIERS OF FORTUNE"
+                "archiveUrl": "issues/63/13.ArchivalView.html"
             }
         ]
     },
