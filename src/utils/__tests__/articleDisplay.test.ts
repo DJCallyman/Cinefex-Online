@@ -81,4 +81,13 @@ describe('displayTitle', () => {
     it('returns null when stripping leaves only the subject', () => {
         expect(displayTitle('Alien', 'Alien - Alien')).toBeNull();
     });
+
+    it('does not strip a subject that is only a prefix of a longer word', () => {
+        // "Tron" inside "Tronic" must NOT be stripped — that would
+        // leave "ic Imagery". The cleaner requires an explicit
+        // separator after the subject.
+        expect(displayTitle('Tron', 'Tronic Imagery')).toBe('Tronic Imagery');
+        expect(displayTitle('Alien', 'Aliens')).toBe('Aliens');
+        expect(displayTitle('Alien', 'Alienware')).toBe('Alienware');
+    });
 });

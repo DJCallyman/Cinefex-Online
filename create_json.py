@@ -1,3 +1,54 @@
+# =============================================================================
+#  DEPRECATED — DO NOT RUN
+# =============================================================================
+# This script regenerates public/issues.json, public/issues_full.json, and
+# public/search_index.json from the on-disk issues/ tree. It was the original
+# extraction tool that produced the 169-issue archive, but the archive is
+# now finite and committed:
+#
+#   * Cinefex is a cancelled magazine; no new issues will be added.
+#   * The JSON metadata is hand-curated and committed to git.
+#   * public/issues.json and public/issues_full.json are BAKED into the
+#     production Docker image at build time (see Dockerfile) and are NOT
+#     regenerated at container startup (see docker/entrypoint.sh, which
+#     explicitly comments that JSON is committed rather than regenerated).
+#   * public/search_index.json is gitignored (~16 MB) and is rebuilt on
+#     demand via `npm run search:index` — but `npm run build`, `npm run
+#     dev`, the Dockerfile, docker/entrypoint.sh, docker-compose.yml, the
+#     unraid template, and the GHCR image workflow DO NOT invoke this
+#     script automatically.
+#
+# Running this script will OVERWRITE the hand-curated JSON with whatever the
+# on-disk <meta name="Film"> / <articleTitle> tags currently contain. That is
+# destructive for:
+#
+#   * The 99 "department-style" articles across issues 50-63 that were
+#     hand-corrected (the publisher's iPad HTML stored the article title
+#     in <meta name="Film">, leaving the script with no real subject to
+#     pick up). Re-running would restore the meaningless "Effects Scene: …"
+#     / "Quick Cuts: …" / "Special Venues: …" subjects and discard the
+#     hand-edits.
+#   * Any other one-off JSON fixes that diverge from what the HTML's
+#     metadata says (e.g. articleTitle "From Tatooine to Endor" for
+#     issue 61 #10, where the publisher's <articleTitle> still says
+#     "EFFECTS SCENE: FROM TATOOIN TO ENDOR" — the script would
+#     re-introduce the typo and the department prefix).
+#
+# The only safe use of this script today is `build_search_index()`,
+# called against an already-correct issues_full.json, to rebuild the
+# gitignored search_index.json. To do that, do NOT run the whole script
+# as `python3 create_json.py`; instead:
+#
+#   python3 -c "import json; from create_json import build_search_index; \
+#       build_search_index(json.load(open('public/issues_full.json')), \
+#       issues_base_dir='issues')"
+#
+# This is what the AGENTS.md recommends and what npm run search:index
+# could be (but currently is not) refactored to. Until then, if you
+# only need to refresh search_index.json after editing an article, run
+# the one-liner above directly. Do not run this whole module.
+# =============================================================================
+
 import xml.etree.ElementTree as ET
 import json
 import os
@@ -449,7 +500,34 @@ def build_search_index(
 
 
 if __name__ == '__main__':
-    # Anchor to script dir so relative paths work from any CWD
+    # See the deprecation notice at the top of this file. Running this
+    # module as `python3 create_json.py` will OVERWRITE the hand-curated
+    # issues.json / issues_full.json. If you got here by accident, hit
+    # Ctrl-C now.
+    print(
+        "\n*** create_json.py is DEPRECATED. ***\n"
+        "Running it will OVERWRITE public/issues.json and\n"
+        "public/issues_full.json with raw extraction output from the\n"
+        "on-disk issues/ tree, destroying hand-curated metadata for\n"
+        "the 99 department-style articles in issues 50-63 (and any\n"
+        "other one-off JSON fixes).\n"
+        "\n"
+        "If you only want to refresh the gitignored search index\n"
+        "after editing articles, run this one-liner instead:\n"
+        "\n"
+        "  python3 -c \"import json; \\\n"
+        "      from create_json import build_search_index; \\\n"
+        "      build_search_index(json.load(open('public/issues_full.json')), \\\n"
+        "                          issues_base_dir='issues')\"\n"
+        "\n"
+        "Continuing in 5 seconds... (Ctrl-C to abort)\n",
+        file=sys.stderr,
+    )
+    try:
+        import time
+        time.sleep(5)
+    except KeyboardInterrupt:
+        sys.exit(130)
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
     create_issues_json()
     # Re-load the freshly written full archive to build the search index

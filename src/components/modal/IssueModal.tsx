@@ -78,7 +78,7 @@ export function IssueModal({ issueNumber }: IssueModalProps) {
             <div
                 id="modal-content"
                 ref={modalRef}
-                className="modal-content relative bg-gray-800 rounded-lg shadow-xl w-full max-w-5xl max-h-[90vh] flex flex-col md:flex-row overflow-hidden"
+                className="modal-content relative bg-gray-800 rounded-lg shadow-xl w-full max-w-5xl aspect-[2/1] max-h-[90vh] flex flex-col md:flex-row overflow-hidden"
             >
                 <button
                     onClick={handleClose}

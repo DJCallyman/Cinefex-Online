@@ -59,16 +59,28 @@ export function BookmarksView() {
 
     return (
         <div>
-            <div className="flex items-baseline justify-between mb-6">
+            <div className="flex items-baseline justify-between mb-6 gap-4 flex-wrap">
                 <h1 className="text-3xl font-bold text-white">Saved articles</h1>
-                <button
-                    onClick={() => {
-                        if (confirm('Remove all saved articles? This cannot be undone.')) clearAll();
-                    }}
-                    className="text-sm text-gray-400 hover:text-red-400 transition-colors"
-                >
-                    Clear all
-                </button>
+                <div className="flex items-center gap-4">
+                    <Link
+                        to="/"
+                        className="inline-flex items-center gap-1 text-sm text-cyan-400 hover:text-cyan-300 transition-colors"
+                        aria-label="Back to the archive"
+                    >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to archive
+                    </Link>
+                    <button
+                        onClick={() => {
+                            if (confirm('Remove all saved articles? This cannot be undone.')) clearAll();
+                        }}
+                        className="text-sm text-gray-400 hover:text-red-400 transition-colors"
+                    >
+                        Clear all
+                    </button>
+                </div>
             </div>
 
             {matched.length > 0 && (
