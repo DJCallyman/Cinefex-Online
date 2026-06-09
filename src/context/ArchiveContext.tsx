@@ -32,7 +32,7 @@ interface ArchiveContextValue {
     setSelectedIssue: (issue: number | null) => void;
 }
 
-const ArchiveContext = createContext<ArchiveContextValue | null>(null);
+export const ArchiveContext = createContext<ArchiveContextValue | null>(null);
 
 function computeYearBuckets(magazines: Magazine[]): YearBucket[] {
     const bucketMap = new Map<string, { magazines: Magazine[]; startYear: number; endYear: number }>();

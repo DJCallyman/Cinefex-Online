@@ -1,7 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { displayTitle } from '../articleDisplay';
+import { cleanArticleTitle } from '../cleanArticleTitle';
 
-describe('displayTitle', () => {
+describe('displayTitle (React wrapper)', () => {
     it('returns null when either input is missing', () => {
         expect(displayTitle('', 'Whatever')).toBeNull();
         expect(displayTitle('Brainstorm', '')).toBeNull();
@@ -89,5 +90,34 @@ describe('displayTitle', () => {
         expect(displayTitle('Tron', 'Tronic Imagery')).toBe('Tronic Imagery');
         expect(displayTitle('Alien', 'Aliens')).toBe('Aliens');
         expect(displayTitle('Alien', 'Alienware')).toBe('Alienware');
+    });
+});
+
+// The build-time search-index generator (scripts/build-search-index.mjs)
+// imports cleanArticleTitle directly. It must produce the same results
+// as the React wrapper above; otherwise the runtime search snippets would
+// disagree with what the modal renders.
+describe('cleanArticleTitle (build-time, used by build-search-index.mjs)', () => {
+    it('matches displayTitle for the canonical cases', () => {
+        const cases: Array<[string, string, string | null]> = [
+            ['Brainstorm', 'Brainstorm - Getting the Cookie at the End', 'Getting the Cookie at the End'],
+            ['Brainstorm', 'Brainstorm — Getting the Cookie at the End', 'Getting the Cookie at the End'],
+            ['Blade Runner', 'Blade Runner: 2020 Foresight', '2020 Foresight'],
+            ['Beetlejuice', 'The Effects of Beetlejuice', 'The Effects of Beetlejuice'],
+            ['The Abyss', 'Dancing on the Edge of the Abyss', 'Dancing on the Edge of the Abyss'],
+            ['Tron', 'Tronic Imagery', 'Tronic Imagery'],
+            ['Outland', 'Outland,', null],
+            ['Alien', 'Alien - Alien', null],
+            ['Star Trek: The Motion Picture', "Into the V'ger Maw with Douglas Trumbull", "Into the V'ger Maw with Douglas Trumbull"],
+        ];
+        for (const [subject, title, expected] of cases) {
+            expect(cleanArticleTitle(subject, title)).toBe(expected);
+        }
+    });
+
+    it('returns null on empty inputs', () => {
+        expect(cleanArticleTitle('', 'Whatever')).toBeNull();
+        expect(cleanArticleTitle('Brainstorm', '')).toBeNull();
+        expect(cleanArticleTitle('Brainstorm', '   ')).toBeNull();
     });
 });

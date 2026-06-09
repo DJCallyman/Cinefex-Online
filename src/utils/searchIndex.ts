@@ -4,8 +4,8 @@ import MiniSearch, { SearchResult } from 'minisearch';
 const INDEX_URL = '/search_index.json';
 
 /**
- * Document shape produced by scripts/build_search_index (create_json.py)
- * and consumed by the client to build an in-memory MiniSearch index.
+ * Document shape produced by `scripts/build-search-index.mjs` and consumed
+ * by the client to build an in-memory MiniSearch index.
  */
 export interface IndexedDocument {
     id: string;                    // "<issue>/<articleIndex>"

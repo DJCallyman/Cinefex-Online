@@ -45,7 +45,7 @@ export function BookmarksProvider({ children }: { children: ReactNode }) {
         return () => window.removeEventListener('storage', onStorage);
     }, []);
 
-    const isBookmarkedFn = useCallback(
+    const check = useCallback(
         (issue: number, articleIndex: number) => isBookmarked(bookmarks, issue, articleIndex),
         [bookmarks],
     );
@@ -63,8 +63,8 @@ export function BookmarksProvider({ children }: { children: ReactNode }) {
     }, []);
 
     const value = useMemo(
-        () => ({ bookmarks, isBookmarked: isBookmarkedFn, toggleBookmark, clearAll }),
-        [bookmarks, isBookmarkedFn, toggleBookmark, clearAll],
+        () => ({ bookmarks, isBookmarked: check, toggleBookmark, clearAll }),
+        [bookmarks, check, toggleBookmark, clearAll],
     );
 
     return <BookmarksContext.Provider value={value}>{children}</BookmarksContext.Provider>;

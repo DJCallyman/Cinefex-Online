@@ -1,7 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
-import { useArchiveContext } from '../../context/ArchiveContext';
+import { useArchiveContext, SearchMode } from '../../context/ArchiveContext';
 import { CONFIG } from '../../config';
-import { SearchMode } from '../../context/ArchiveContext';
 
 export function SearchBar() {
     const {

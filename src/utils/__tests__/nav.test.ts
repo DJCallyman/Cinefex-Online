@@ -22,9 +22,9 @@ describe('getIssueNeighbors', () => {
     });
 
     it('preserves archive order of the input (does not sort by issue number)', () => {
-        // The archive is produced in a specific order by create_json.py; this
-        // helper must not silently re-sort by issue number, which would jump
-        // users to a different physical magazine on a renumbering.
+        // The archive is produced in a specific order upstream; this helper
+        // must not silently re-sort by issue number, which would jump users
+        // to a different physical magazine on a renumbering.
         const mags = [{ issue: 50 }, { issue: 1 }, { issue: 100 }];
         expect(getIssueNeighbors(mags, 50)).toEqual({ prev: null, next: 1 });
         expect(getIssueNeighbors(mags, 1)).toEqual({ prev: 50, next: 100 });

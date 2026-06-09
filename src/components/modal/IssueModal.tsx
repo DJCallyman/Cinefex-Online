@@ -1,11 +1,12 @@
 import { useEffect, useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useModalShell } from '../../hooks';
 import { useArchiveContext } from '../../context/ArchiveContext';
 import { COVER_FALLBACK } from '../../config';
 import { getIssueNeighbors } from '../../utils/nav';
 import { ArticleList } from './ArticleList';
 import { ViewOptions } from './ViewOptions';
-import { Cover } from '../archive/Cover';
+import { Cover } from '../archive';
 import { Article } from '../../types';
 
 interface IssueModalProps {
@@ -14,6 +15,7 @@ interface IssueModalProps {
 
 export function IssueModal({ issueNumber }: IssueModalProps) {
     const { getMagazineByIssue, magazines, setSelectedIssue } = useArchiveContext();
+    const navigate = useNavigate();
     const magazine = getMagazineByIssue(issueNumber);
 
     const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
@@ -41,6 +43,11 @@ export function IssueModal({ issueNumber }: IssueModalProps) {
         setSelectedArticle(null);
         setSelectedArticleIndex(null);
     };
+
+    const handleViewFullIssue = useCallback(() => {
+        setSelectedIssue(null);
+        navigate(`/issue/${issueNumber}/full`);
+    }, [navigate, setSelectedIssue, issueNumber]);
 
     // Reset inner state whenever the modal is opened for a new issue
     useEffect(() => {
@@ -110,7 +117,11 @@ export function IssueModal({ issueNumber }: IssueModalProps) {
                             onBack={handleBackToArticles}
                         />
                     ) : (
-                        <ArticleList magazine={magazine} onSelectArticle={handleSelectArticle} />
+                        <ArticleList
+                            magazine={magazine}
+                            onSelectArticle={handleSelectArticle}
+                            onViewFullIssue={handleViewFullIssue}
+                        />
                     )}
 
                     {(prevIssue !== null || nextIssue !== null) && (

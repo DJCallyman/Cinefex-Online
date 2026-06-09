@@ -4,6 +4,7 @@ import { useModalShell } from '../../hooks';
 import { useArchiveContext } from '../../context/ArchiveContext';
 import { injectStyles, appendImageGalleryToArchival } from '../../services/styleInjection';
 import { getArticleNeighbors } from '../../utils/nav';
+import { ViewerShell } from './ViewerShell';
 
 export function ArticleViewer() {
     const navigate = useNavigate();
@@ -20,8 +21,6 @@ export function ArticleViewer() {
 
     const iframeRef = useRef<HTMLIFrameElement>(null);
     const closeButtonRef = useRef<HTMLButtonElement>(null);
-    const prevButtonRef = useRef<HTMLButtonElement>(null);
-    const nextButtonRef = useRef<HTMLButtonElement>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
 
@@ -55,18 +54,13 @@ export function ArticleViewer() {
 
     const handleIframeLoad = () => {
         setIsLoading(false);
-        if (iframeRef.current) {
-            injectStyles(iframeRef.current, issueNumber, isReadingView);
+        if (!iframeRef.current) return;
+        injectStyles(iframeRef.current, issueNumber, isReadingView);
 
-            if (!isReadingView && issueNumber > 126) {
-                const galleryUrl = article?.imageGalleryUrl;
-                if (galleryUrl) {
-                    setTimeout(() => {
-                        if (iframeRef.current) {
-                            appendImageGalleryToArchival(iframeRef.current, galleryUrl);
-                        }
-                    }, 0);
-                }
+        if (!isReadingView && issueNumber > 126) {
+            const galleryUrl = article?.imageGalleryUrl;
+            if (galleryUrl) {
+                appendImageGalleryToArchival(iframeRef.current, galleryUrl);
             }
         }
     };
@@ -111,13 +105,35 @@ export function ArticleViewer() {
     }
 
     return (
-        <div
-            id="viewer"
-            ref={containerRef}
-            className="fixed inset-0 z-[60] bg-gray-900"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Article viewer"
+        <ViewerShell
+            containerRef={containerRef}
+            ariaLabel="Article viewer"
+            toolbarRoleLabel="Article navigation"
+            toolbarLabel={`Issue ${issueNumber} · ${article.name}`}
+            closeButtonRef={closeButtonRef}
+            onClose={handleClose}
+            prev={
+                prev
+                    ? {
+                          label: prev.articleName,
+                          ariaLabel: `Previous article: ${prev.articleName} (Issue ${prev.issue})`,
+                          title: `← ${prev.articleName} (Issue ${prev.issue})`,
+                          onClick: () => navigateToArticle(prev),
+                      }
+                    : null
+            }
+            next={
+                next
+                    ? {
+                          label: next.articleName,
+                          ariaLabel: `Next article: ${next.articleName} (Issue ${next.issue})`,
+                          title: `${next.articleName} (Issue ${next.issue}) →`,
+                          onClick: () => navigateToArticle(next),
+                      }
+                    : null
+            }
+            prevFallback="First"
+            nextFallback="Last"
         >
             {isLoading && (
                 <div className="loading-spinner visible absolute inset-0 flex items-center justify-center">
@@ -146,61 +162,6 @@ export function ArticleViewer() {
                 onLoad={handleIframeLoad}
                 onError={handleIframeError}
             />
-
-            {/* Top-center navigation bar: prev/next article + article title */}
-            <div
-                className="absolute top-4 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-black/60 rounded-full pl-2 pr-3 py-1.5 max-w-[calc(100vw-160px)]"
-                role="toolbar"
-                aria-label="Article navigation"
-            >
-                <button
-                    ref={prevButtonRef}
-                    onClick={() => navigateToArticle(prev)}
-                    disabled={!prev}
-                    className="flex items-center gap-1 px-2 py-1 text-sm text-gray-200 hover:text-white disabled:text-gray-600 disabled:cursor-not-allowed transition-colors"
-                    aria-label={prev ? `Previous article: ${prev.articleName} (Issue ${prev.issue})` : 'No previous article'}
-                    title={prev ? `← ${prev.articleName} (Issue ${prev.issue})` : 'First article'}
-                >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                    </svg>
-                    <span className="hidden sm:inline max-w-[140px] truncate">
-                        {prev ? prev.articleName : 'First'}
-                    </span>
-                </button>
-                <span
-                    className="text-xs text-cyan-300 border-l border-r border-gray-600 px-3 whitespace-nowrap"
-                    aria-live="polite"
-                >
-                    Issue {issueNumber} · {article.name}
-                </span>
-                <button
-                    ref={nextButtonRef}
-                    onClick={() => navigateToArticle(next)}
-                    disabled={!next}
-                    className="flex items-center gap-1 px-2 py-1 text-sm text-gray-200 hover:text-white disabled:text-gray-600 disabled:cursor-not-allowed transition-colors"
-                    aria-label={next ? `Next article: ${next.articleName} (Issue ${next.issue})` : 'No next article'}
-                    title={next ? `${next.articleName} (Issue ${next.issue}) →` : 'Last article'}
-                >
-                    <span className="hidden sm:inline max-w-[140px] truncate">
-                        {next ? next.articleName : 'Last'}
-                    </span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                </button>
-            </div>
-
-            <button
-                ref={closeButtonRef}
-                onClick={handleClose}
-                className="absolute top-4 right-4 text-gray-300 hover:text-white bg-black/50 rounded-full p-2 transition-colors"
-                aria-label="Close viewer"
-            >
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-        </div>
+        </ViewerShell>
     );
 }
