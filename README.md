@@ -1,6 +1,6 @@
 # Cinefex Archives
 
-A modern web application for browsing the complete archive of *Cinefex* magazine — the journal of cinematic illusions. The site provides an interactive interface to explore 169+ issues (1980–present), with every article available in both a comfortable reading-optimized view and the original magazine layout.
+A modern web application for browsing the complete archive of *Cinefex* magazine — the journal of cinematic illusions. The site provides an interactive interface to explore 172 issues (1980–present), with every article available in both a comfortable reading-optimized view and the original magazine layout.
 
 ---
 
@@ -461,7 +461,7 @@ The article viewer additionally distinguishes "missing article" (the route's `(i
 
 ## Data pipeline
 
-*Cinefex* is a long-cancelled magazine. The 169 issues in this archive are
+*Cinefex* is a long-cancelled magazine. The 172 issues in this archive are
 the complete, finite set; nothing new will be added. The metadata
 (`public/issues.json` and `public/issues_full.json`) is **committed to git
 and hand-curated** rather than regenerated on every build. The runtime
@@ -586,7 +586,7 @@ The search index in `public/search_index.json` powers full-text mode. It is:
 
 **`scripts/convert-covers-to-webp.js`** — wraps the system `cwebp` binary to produce a `cover512.webp` sibling for every `cover512.jpg`. Idempotent: skips files whose JPEG mtime is older than the WebP. Supports `--check` (exit non-zero if any cover needs conversion) and an explicit list of issue numbers. Quality is `-q 82` (perceptual sweet spot). Run as part of `npm run build` or manually via `npm run covers:webp`.
 
-**`scripts/normalize-issue-fonts.js`** — one-time mechanical fix for 127+ issues whose on-disk font filenames don't match what the in-issue `Cinefex.css` `@font-face` rules expect (e.g. `Benguiat-Book.otf` on disk vs `BenguiatStd-Book.otf` in the CSS). Creates the expected filenames as copies inside each issue's `fonts/` folder, without touching or deleting the originals. Idempotent. Defaults to processing issues 127–169; accepts a specific list of issue numbers as arguments. Pre-127 issues are skipped (their font files are in the top-level `fonts/` directory).
+**`scripts/normalize-issue-fonts.js`** — one-time mechanical fix for 127+ issues whose on-disk font filenames don't match what the in-issue `Cinefex.css` `@font-face` rules expect (e.g. `Benguiat-Book.otf` on disk vs `BenguiatStd-Book.otf` in the CSS). Creates the expected filenames as copies inside each issue's `fonts/` folder, without touching or deleting the originals. Idempotent. Defaults to processing issues 127–172; accepts a specific list of issue numbers as arguments. Pre-127 issues are skipped (their font files are in the top-level `fonts/` directory).
 
 ---
 

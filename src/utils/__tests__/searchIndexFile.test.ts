@@ -23,7 +23,7 @@ describe('search_index.json on disk', () => {
         expect(payload.version).toBe(1);
         expect(typeof payload.generatedAt).toBe('string');
         expect(payload.documentCount).toBe(payload.documents.length);
-        expect(payload.documents.length).toBeGreaterThan(100); // 169 issues × 3+ articles
+        expect(payload.documents.length).toBeGreaterThan(100); // 172 issues × 3+ articles
     });
 
     it('every document has a unique canonical id "<issue>/<articleIndex>"', () => {

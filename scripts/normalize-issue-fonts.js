@@ -15,7 +15,7 @@
  * issue's fonts/ folder, without touching or deleting the original files.
  *
  * Usage:
- *   node scripts/normalize-issue-fonts.js          # process all issues 127-169
+ *   node scripts/normalize-issue-fonts.js          # process all issues 127-172
  *   node scripts/normalize-issue-fonts.js 167      # process only issue 167
  *   node scripts/normalize-issue-fonts.js 150 160  # process specific issues
  *
@@ -105,16 +105,16 @@ function main() {
   const args = process.argv.slice(2);
 
   if (args.length === 0) {
-    // Default: all new-format issues (127 through 169)
-    log('Normalizing fonts for all new-format issues (127–169)...');
-    for (let i = 127; i <= 169; i++) {
+    // Default: all new-format issues (127 through 172)
+    log('Normalizing fonts for all new-format issues (127–172)...');
+    for (let i = 127; i <= 172; i++) {
       processIssue(i);
     }
   } else {
     // Specific issue numbers provided
     for (const arg of args) {
       const num = parseInt(arg, 10);
-      if (isNaN(num) || num < 1 || num > 169) {
+      if (isNaN(num) || num < 1 || num > 172) {
         warn(`Ignoring invalid issue number: ${arg}`);
         continue;
       }
