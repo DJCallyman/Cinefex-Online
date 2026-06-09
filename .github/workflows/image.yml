@@ -18,8 +18,6 @@ on:
       - '.dockerignore'
       - '.github/workflows/**'
       - 'unraid/**'
-  pull_request:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
