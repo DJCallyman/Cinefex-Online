@@ -39,7 +39,7 @@ function debugLog(...args: unknown[]): void {
  * The browser treats <! as the start of a comment, which can break the DOM.
  * We convert <!br ...> to a real <br style="clear:both"> and remove <!img ...> entirely.
  */
-function sanitizeMalformedComments(doc: Document): void {
+export function sanitizeMalformedComments(doc: Document): void {
     const walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_COMMENT);
     const nodesToProcess: Comment[] = [];
     let node: Node | null;

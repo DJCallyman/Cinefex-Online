@@ -6,16 +6,19 @@ import { IssueModal } from './components/modal';
 import { BookmarksView } from './components/bookmarks';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { useArchiveContext } from './context/ArchiveContext';
-import { useGlobalShortcuts, useFirstBucketPreloads } from './hooks';
+import { useGlobalShortcuts } from './hooks';
 
 const ArticleViewer = lazy(() =>
     import('./components/viewer').then((m) => ({ default: m.ArticleViewer })),
 );
 
+const FullIssueViewer = lazy(() =>
+    import('./components/viewer').then((m) => ({ default: m.FullIssueViewer })),
+);
+
 function AppContent() {
     const { selectedIssue, setSelectedIssue } = useArchiveContext();
     useGlobalShortcuts();
-    useFirstBucketPreloads();
 
     const handleErrorReset = () => {
         setSelectedIssue(null);
@@ -39,6 +42,7 @@ function AppContent() {
                     <Routes>
                         <Route path="/" element={<ArchiveGrid />} />
                         <Route path="/bookmarks" element={<BookmarksView />} />
+                        <Route path="/issue/:issueNumber/full" element={<FullIssueViewer />} />
                         <Route path="/article/:articleIndex/:viewMode" element={<ArticleViewer />} />
                     </Routes>
                 </Suspense>

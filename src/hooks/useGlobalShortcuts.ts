@@ -1,45 +1,28 @@
-import { useEffect, useMemo, useRef } from 'react';
-
-interface Options {
-    /**
-     * Return true if a global shortcut should be ignored because the user is
-     * typing into a form field. We don't want `/` to launch search while
-     * the user is typing into the search bar.
-     */
-    isEditableTarget: (target: EventTarget | null) => boolean;
-}
-
-const DEFAULT_OPTIONS: Options = {
-    isEditableTarget: (target) => {
-        if (!(target instanceof HTMLElement)) return false;
-        const tag = target.tagName;
-        if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return true;
-        if (target.isContentEditable) return true;
-        return false;
-    },
-};
+import { useEffect, useRef } from 'react';
 
 /**
  * Global keyboard shortcuts:
  *   /         focus the search bar
  *   g g       "go to bucket": focus the first bucket-nav button so a second
  *             letter picks a year range (a la Gmail)
- *   ?         show shortcut hints (placeholder; opens a help dialog in future)
  *
  * Arrow-key navigation on the cover grid is implemented inside ArchiveGrid
  * because it needs Roving-tabindex state; we don't try to multiplex that here.
  */
-export function useGlobalShortcuts(options: Partial<Options> = {}) {
-    const opts = useMemo<Options>(
-        () => ({ ...DEFAULT_OPTIONS, ...options }),
-        [options],
-    );
+export function useGlobalShortcuts() {
     const lastGRef = useRef<number>(0);
 
     useEffect(() => {
-        const isEditable = opts.isEditableTarget;
+        const isEditableTarget = (target: EventTarget | null): boolean => {
+            if (!(target instanceof HTMLElement)) return false;
+            const tag = target.tagName;
+            if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return true;
+            if (target.isContentEditable) return true;
+            return false;
+        };
+
         const handler = (e: KeyboardEvent) => {
-            if (isEditable(e.target)) return;
+            if (isEditableTarget(e.target)) return;
             if (e.metaKey || e.ctrlKey || e.altKey) return;
 
             // "/" focuses search (but "/" inside an input is ignored above)
@@ -70,5 +53,5 @@ export function useGlobalShortcuts(options: Partial<Options> = {}) {
 
         document.addEventListener('keydown', handler);
         return () => document.removeEventListener('keydown', handler);
-    }, [opts]);
+    }, []);
 }

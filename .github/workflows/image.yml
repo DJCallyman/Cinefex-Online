@@ -10,7 +10,6 @@ on:
       - 'vite.config.ts'
       - 'tsconfig*.json'
       - 'public/**'
-      - 'create_json.py'
       - 'scripts/**'
       - 'covers/**'
       - 'fonts/**'

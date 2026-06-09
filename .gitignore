@@ -52,13 +52,13 @@ issues/
 #   targeted corrections. The cinefex run is finite (the magazine is
 #   cancelled), so we don't need to rebuild these.
 # - public/search_index.json: derived from article full-text and
-#   rebuilt on demand via `npm run search:index` (which also calls
-#   create_json.py and clean_article_title if you ever do need to
-#   regenerate the metadata from scratch). Not committed because it's
-#   16 MB.
+#   rebuilt on demand via `npm run build:search-index` (the pure-JS
+#   `scripts/build-search-index.mjs` script). Not committed because
+#   it's ~16 MB; the Docker build regenerates it so the runtime
+#   image is always in sync with the committed JSON.
 # - public/search_index.json.gz: pre-compressed copy for servers that
-#   negotiate Content-Encoding. Not committed; the raw file is
-#   compressed by create_json.py during the search:index run.
+#   negotiate Content-Encoding. Not committed; written alongside the
+#   raw JSON by the same build script.
 public/search_index.json
 public/search_index.json.gz
 !public/issues.json
@@ -82,8 +82,6 @@ cinefex.htpasswd
 .opencode
 .idea/
 .vscode/
-__pycache__/
-*.pyc
 
 # ============================================================
 # Historical artifacts (no longer used by the app)

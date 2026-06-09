@@ -32,26 +32,23 @@ export function useTheme() {
 
     const resolved = resolveTheme(mode, prefersDark);
 
-    // Apply data-theme attribute to <html> whenever the resolved theme changes.
-    // We do this with an effect so the document attribute stays in sync with
-    // the hook state even if the hook is re-mounted under StrictMode.
+    // Persist + apply to <html> as a single effect so the side effect runs
+    // exactly once per resolved change, regardless of whether the user
+    // clicked a button or the OS preference shifted. Doing both in an
+    // effect (not inside the setState updater) keeps the side effect safe
+    // under React 19 concurrent re-invocations of the updater function.
+    useEffect(() => {
+        writeStoredTheme(mode);
+    }, [mode]);
+
     useEffect(() => {
         if (typeof document === 'undefined') return;
         document.documentElement.setAttribute('data-theme', resolved);
     }, [resolved]);
 
-    const setMode = useCallback((next: ThemeMode) => {
-        setModeState(next);
-        writeStoredTheme(next);
-    }, []);
-
     const cycle = useCallback(() => {
-        setModeState((prev) => {
-            const next: ThemeMode = prev === 'light' ? 'dark' : prev === 'dark' ? 'auto' : 'light';
-            writeStoredTheme(next);
-            return next;
-        });
+        setModeState((prev) => (prev === 'light' ? 'dark' : prev === 'dark' ? 'auto' : 'light'));
     }, []);
 
-    return { mode, resolved, setMode, cycle };
+    return { mode, resolved, cycle };
 }

@@ -40,7 +40,8 @@ export function getIssueNeighbors(
     currentIssue: number,
 ): { prev: number | null; next: number | null } {
     if (magazines.length === 0) return { prev: null, next: null };
-    // Preserve the archive order of `magazines` (already sorted by create_json.py).
+    // Preserve the archive order of `magazines` (the order the data ships
+    // in from public/issues_full.json).
     // Sorting here would silently reshuffle nav on issues where the data is
     // out of numeric order.
     const issues = magazines.map((m) => m.issue);

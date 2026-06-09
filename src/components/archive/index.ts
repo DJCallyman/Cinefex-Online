@@ -1,2 +1,2 @@
 export { ArchiveGrid } from './ArchiveGrid';
-export { MagazineCover } from './MagazineCover';
+export { Cover } from './Cover';

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useArchiveContext } from '../../context/ArchiveContext';
 import { useBookmarks } from '../../context/BookmarksContext';
 import { Magazine } from '../../types';
-import { Cover } from '../archive/Cover';
+import { Cover } from '../archive';
 import { displayTitle } from '../../utils/articleDisplay';
 
 export function BookmarksView() {

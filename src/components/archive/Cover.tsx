@@ -1,3 +1,4 @@
+import { type SyntheticEvent } from 'react';
 import { CONFIG } from '../../config';
 
 interface CoverProps {
@@ -25,11 +26,15 @@ export function Cover({ issue, className, alt, fallback, onError, loading, fetch
     const src = `/covers/${issue}/cover512.jpg`;
     const webp = `/covers/${issue}/cover512.webp`;
 
-    const handleError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const handleError = (e: SyntheticEvent<HTMLImageElement>) => {
         const img = e.currentTarget;
+        // Parent has supplied a placeholder URL: swap the image's src to
+        // it. The parent also flips its own `imgError` state via onError,
+        // which re-renders this component — but the user-visible image
+        // already shows the placeholder, so the next re-render is just
+        // confirmation, not a second flash.
         if (fallback && img.src !== fallback) {
             img.src = fallback;
-            return;
         }
         onError?.();
     };

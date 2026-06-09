@@ -5630,7 +5630,7 @@
     {
         "issue": 165,
         "title": "X-Men: Dark Phoenix / Godzilla: King of the Monsters / Avengers: Endgame / Good Omens / Pokemon: Detective Pikachu",
-        "year": 2018,
+        "year": 2019,
         "articles": [
             {
                 "name": "X-Men: Dark Phoenix",
@@ -5846,6 +5846,139 @@
                 "archiveUrl": "issues/169/manuscript8.html",
                 "imageGalleryUrl": "issues/169/imageGallery6.html",
                 "articleTitle": "As Geeky As It Gets"
+            }
+        ]
+    },
+    {
+        "issue": 170,
+        "title": "1917 / Watchmen / Underwater / Mulan / The New Mutants",
+        "year": 2020,
+        "articles": [
+            {
+                "name": "1917",
+                "readingUrl": "issues/170/readingView1.html",
+                "archiveUrl": "issues/170/manuscript1.html",
+                "imageGalleryUrl": "issues/170/imageGallery1.html",
+                "articleTitle": "1917"
+            },
+            {
+                "name": "Watchmen",
+                "readingUrl": "issues/170/readingView2.html",
+                "archiveUrl": "issues/170/manuscript2.html",
+                "imageGalleryUrl": "issues/170/imageGallery2.html",
+                "articleTitle": "Watchmen"
+            },
+            {
+                "name": "Underwater",
+                "readingUrl": "issues/170/readingView3.html",
+                "archiveUrl": "issues/170/manuscript3.html",
+                "imageGalleryUrl": "issues/170/imageGallery3.html",
+                "articleTitle": "Underwater"
+            },
+            {
+                "name": "Mulan",
+                "readingUrl": "issues/170/readingView4.html",
+                "archiveUrl": "issues/170/manuscript4.html",
+                "imageGalleryUrl": "issues/170/imageGallery4.html",
+                "articleTitle": "Mulan"
+            },
+            {
+                "name": "The New Mutants",
+                "readingUrl": "issues/170/readingView5.html",
+                "archiveUrl": "issues/170/manuscript5.html",
+                "imageGalleryUrl": "issues/170/imageGallery5.html",
+                "articleTitle": "The New Mutants"
+            }
+        ]
+    },
+    {
+        "issue": 171,
+        "title": "Star Trek: Picard / Tales from the Loop / The Boys / Devs / Altered Carbon / Westworld",
+        "year": 2020,
+        "articles": [
+            {
+                "name": "Star Trek: Picard",
+                "readingUrl": "issues/171/readingView1.html",
+                "archiveUrl": "issues/171/manuscript1.html",
+                "imageGalleryUrl": "issues/171/imageGallery1.html",
+                "articleTitle": "Star Trek: Picard"
+            },
+            {
+                "name": "Tales from the Loop",
+                "readingUrl": "issues/171/readingView2.html",
+                "archiveUrl": "issues/171/manuscript2.html",
+                "imageGalleryUrl": "issues/171/imageGallery2.html",
+                "articleTitle": "Tales from the Loop"
+            },
+            {
+                "name": "The Boys",
+                "readingUrl": "issues/171/readingView3.html",
+                "archiveUrl": "issues/171/manuscript3.html",
+                "imageGalleryUrl": "issues/171/imageGallery3.html",
+                "articleTitle": "The Boys"
+            },
+            {
+                "name": "Devs",
+                "readingUrl": "issues/171/readingView4.html",
+                "archiveUrl": "issues/171/manuscript4.html",
+                "imageGalleryUrl": "issues/171/imageGallery4.html",
+                "articleTitle": "Devs"
+            },
+            {
+                "name": "Altered Carbon",
+                "readingUrl": "issues/171/readingView5.html",
+                "archiveUrl": "issues/171/manuscript5.html",
+                "imageGalleryUrl": "issues/171/imageGallery5.html",
+                "articleTitle": "Altered Carbon"
+            },
+            {
+                "name": "Westworld",
+                "readingUrl": "issues/171/readingView6.html",
+                "archiveUrl": "issues/171/manuscript6.html",
+                "imageGalleryUrl": "issues/171/imageGallery6.html",
+                "articleTitle": "Westworld"
+            }
+        ]
+    },
+    {
+        "issue": 172,
+        "title": "Mank / Raised by Wolves / Star Trek: Discovery / The Mandalorian / The Stand",
+        "year": 2021,
+        "articles": [
+            {
+                "name": "Mank",
+                "readingUrl": "issues/172/readingView1.html",
+                "archiveUrl": "issues/172/manuscript1.html",
+                "imageGalleryUrl": "issues/172/imageGallery1.html",
+                "articleTitle": "Mank"
+            },
+            {
+                "name": "Raised by Wolves",
+                "readingUrl": "issues/172/readingView2.html",
+                "archiveUrl": "issues/172/manuscript2.html",
+                "imageGalleryUrl": "issues/172/imageGallery2.html",
+                "articleTitle": "Raised by Wolves"
+            },
+            {
+                "name": "Star Trek: Discovery",
+                "readingUrl": "issues/172/readingView3.html",
+                "archiveUrl": "issues/172/manuscript3.html",
+                "imageGalleryUrl": "issues/172/imageGallery3.html",
+                "articleTitle": "Star Trek: Discovery"
+            },
+            {
+                "name": "The Mandalorian",
+                "readingUrl": "issues/172/readingView4.html",
+                "archiveUrl": "issues/172/manuscript4.html",
+                "imageGalleryUrl": "issues/172/imageGallery4.html",
+                "articleTitle": "The Mandalorian"
+            },
+            {
+                "name": "The Stand",
+                "readingUrl": "issues/172/readingView5.html",
+                "archiveUrl": "issues/172/manuscript5.html",
+                "imageGalleryUrl": "issues/172/imageGallery5.html",
+                "articleTitle": "The Stand"
             }
         ]
     }
