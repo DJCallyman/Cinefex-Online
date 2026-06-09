@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { buildFullIssueHtml } from '../fullIssue';
 import { Magazine } from '../../types';
@@ -10,11 +10,23 @@ function loadIssueFile(issue: number, file: string): string {
     return readFileSync(resolve(PROJECT_ROOT, `issues/${issue}/${file}`), 'utf-8');
 }
 
+// The `issues/` tree is bind-mounted at runtime and gitignored, so it may
+// legitimately be absent in CI. Without this guard the file-level try/catch
+// below would silently turn a missing share into a 404, making every
+// assertion in this suite fail with a confusing fetch error.
+const ISSUE_5_DIR = resolve(PROJECT_ROOT, 'issues/5');
+
 afterEach(() => {
     vi.restoreAllMocks();
 });
 
 describe('buildFullIssueHtml: unitless-length normalization', () => {
+    // Skip the whole suite when the `issues/` share isn't available in the
+    // current checkout. Without this the test was swallowing the ENOENT
+    // and reporting a fetch-404 failure that looked like a real regression.
+    const issuesAvailable = existsSync(ISSUE_5_DIR);
+    const itIfIssues = it.runIf(issuesAvailable);
+
     beforeEach(() => {
         const issue = 5;
         // Stub fetches to return the real on-disk files
@@ -45,7 +57,7 @@ describe('buildFullIssueHtml: unitless-length normalization', () => {
         });
     });
 
-    it('normalizes `margin: 44 0 0 0;` to `margin: 44px 0 0 0;`', async () => {
+    itIfIssues('normalizes `margin: 44 0 0 0;` to `margin: 44px 0 0 0;`', async () => {
         const mag: Magazine = {
             issue: 5,
             title: 'test',
@@ -61,7 +73,7 @@ describe('buildFullIssueHtml: unitless-length normalization', () => {
         expect(html).not.toMatch(/margin:\s*44px\s+0px\s+0px\s+0px/);
     });
 
-    it('preserves valid CSS (px, %, em) in the stitched output', async () => {
+    itIfIssues('preserves valid CSS (px, %, em) in the stitched output', async () => {
         const mag: Magazine = {
             issue: 5,
             title: 'test',
@@ -77,7 +89,7 @@ describe('buildFullIssueHtml: unitless-length normalization', () => {
         expect(html).toMatch(/background-size:\s*864px\s+768px/);
     });
 
-    it('does not double-px numbers that already have a unit', async () => {
+    itIfIssues('does not double-px numbers that already have a unit', async () => {
         const mag: Magazine = {
             issue: 5,
             title: 'test',
