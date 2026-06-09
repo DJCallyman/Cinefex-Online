@@ -44,6 +44,14 @@ function parseAndCollectPages(
     const doc = parser.parseFromString(html, 'text/html');
     if (sanitize) sanitizeMalformedComments(doc);
     if (fixLegacyStructure) fixMalformedArchivalPageStructure(doc);
+    // The publisher's source XHTML uses unitless numbers in CSS length
+    // properties (e.g. `margin: 44 0 0 0;` instead of `margin: 44px 0 0 0px;`).
+    // The iPad app that produced this data was permissive about unitless
+    // lengths, but HTML5 spec-compliant browsers reject the whole declaration
+    // when any value is invalid, so margins/widths collapse to zero and
+    // multi-image plates lose their top padding. Normalize them here so the
+    // stitched document renders with the same spacing as the print magazine.
+    normalizeUnitlessLengths(doc);
     const frontInsideCover: HTMLElement[] = [];
     const rest: HTMLElement[] = [];
     for (const page of Array.from(doc.querySelectorAll('page')) as HTMLElement[]) {
@@ -54,6 +62,155 @@ function parseAndCollectPages(
         }
     }
     return { frontInsideCover, rest };
+}
+
+/**
+ * CSS properties that accept `<length>` values. We only normalize values in
+ * these properties; other properties (e.g. `z-index`, `opacity`, `line-height`)
+ * legitimately take unitless numbers.
+ */
+const LENGTH_PROPS = [
+    'margin',
+    'margin-top',
+    'margin-right',
+    'margin-bottom',
+    'margin-left',
+    'margin-block',
+    'margin-inline',
+    'padding',
+    'padding-top',
+    'padding-right',
+    'padding-bottom',
+    'padding-left',
+    'padding-block',
+    'padding-inline',
+    'width',
+    'min-width',
+    'max-width',
+    'height',
+    'min-height',
+    'max-height',
+    'top',
+    'right',
+    'bottom',
+    'left',
+    'inset',
+    'inset-block',
+    'inset-inline',
+    'border',
+    'border-top',
+    'border-right',
+    'border-bottom',
+    'border-left',
+    'border-width',
+    'border-top-width',
+    'border-right-width',
+    'border-bottom-width',
+    'border-left-width',
+    'border-radius',
+    'border-top-left-radius',
+    'border-top-right-radius',
+    'border-bottom-left-radius',
+    'border-bottom-right-radius',
+    'outline',
+    'outline-width',
+    'outline-offset',
+    'background-size',
+    'background-position',
+    'transform',
+    'translate',
+    'text-indent',
+    'letter-spacing',
+    'word-spacing',
+    'font-size',
+    'line-height',
+    'gap',
+    'row-gap',
+    'column-gap',
+    'grid-gap',
+    'grid-row-gap',
+    'grid-column-gap',
+];
+
+/**
+ * Walk the document and rewrite every `style` attribute so that unitless
+ * non-zero numbers inside length-accepting properties get a `px` suffix.
+ * `0` is left as-is (unitless zero is valid CSS).
+ *
+ * This is scoped to the inline `style` attribute; the publisher's linked
+ * stylesheets are loaded untouched and parsed by the browser normally.
+ */
+function normalizeUnitlessLengths(doc: Document): void {
+    const elements = doc.body.querySelectorAll('[style]');
+    for (const el of Array.from(elements)) {
+        const original = el.getAttribute('style');
+        if (!original) continue;
+        const rewritten = normalizeStyleString(original);
+        if (rewritten !== original) {
+            el.setAttribute('style', rewritten);
+        }
+    }
+}
+
+function normalizeStyleString(style: string): string {
+    // Split on `;` to handle declarations independently. A property whose
+    // entire value-list contains a unitless non-zero number in a length
+    // context is rewritten with `px` appended to each such number.
+    const declarations = style.split(';');
+    const out: string[] = [];
+    for (const decl of declarations) {
+        const trimmed = decl.trim();
+        if (!trimmed) {
+            out.push('');
+            continue;
+        }
+        const colon = trimmed.indexOf(':');
+        if (colon === -1) {
+            out.push(trimmed);
+            continue;
+        }
+        const prop = trimmed.slice(0, colon).trim().toLowerCase();
+        const value = trimmed.slice(colon + 1).trim();
+        if (LENGTH_PROPS.includes(prop) || isShorthandLengthProp(prop)) {
+            out.push(`${prop}: ${normalizeLengthValue(value)}`);
+        } else {
+            out.push(trimmed);
+        }
+    }
+    return out.join(';').replace(/;+/g, ';').replace(/;+\s*$/, '');
+}
+
+/**
+ * The 4-value `margin`/`padding` shorthand and `border-radius` can each
+ * contain length values. We treat any property whose name includes a
+ * length-accepting keyword as length-bearing for normalization.
+ */
+function isShorthandLengthProp(prop: string): boolean {
+    return (
+        prop === 'margin' ||
+        prop === 'padding' ||
+        prop === 'border' ||
+        prop === 'border-radius' ||
+        prop === 'outline' ||
+        prop === 'inset' ||
+        prop === 'background' ||
+        prop === 'translate'
+    );
+}
+
+/**
+ * For a CSS value string (the right-hand side of `prop: value;`), append
+ * `px` to any unitless number that isn't `0` and isn't part of a known
+ * unitless context (like a slash-separated ratio, a calc(), etc.).
+ */
+function normalizeLengthValue(value: string): string {
+    // Split on whitespace; for each token, if it's a bare number (signed
+    // integer or float) that isn't `0`, append `px`. Tokens with units, parens,
+    // commas, or other punctuation are passed through.
+    return value.replace(/(^|[\s,(])(-?\d+(?:\.\d+)?)(?=[\s,)]|$)/g, (match, lead, num) => {
+        if (parseFloat(num) === 0) return match;
+        return `${lead}${num}px`;
+    });
 }
 
 /**
@@ -184,28 +341,16 @@ function renderDocument(
     pages: HTMLElement[],
     parser: DOMParser,
 ): string {
+    // Match the single-article DOM shape exactly: <body> holds the <page>
+    // elements directly with no wrapper. The viewer's onLoad call to
+    // injectStyles() applies the format-appropriate layout CSS (oldArchival /
+    // newArchival + combined) exactly as it does for the per-article viewer.
     const doc = parser.parseFromString(
-        `<!doctype html><html><head><base href="/issues/${issueNumber}/"/></head><body><div class="full-issue-root"></div></body></html>`,
+        `<!doctype html><html><head><meta charset="utf-8"/><base href="/issues/${issueNumber}/"/><link rel="stylesheet" type="text/css" href="reset.css"/><link rel="stylesheet" type="text/css" href="${cssFile}"/><meta name="viewport" content="width = 1024"/></head><body></body></html>`,
         'text/html',
     );
-    const root = doc.querySelector('.full-issue-root') as HTMLElement;
     for (const page of pages) {
-        root.appendChild(doc.importNode(page, true));
-    }
-    const head = doc.head;
-    const base = head.querySelector('base');
-    const linkReset = doc.createElement('link');
-    linkReset.rel = 'stylesheet';
-    linkReset.href = 'reset.css';
-    const linkCss = doc.createElement('link');
-    linkCss.rel = 'stylesheet';
-    linkCss.href = cssFile;
-    if (base) {
-        base.parentNode?.insertBefore(linkReset, base.nextSibling);
-        linkReset.parentNode?.insertBefore(linkCss, linkReset.nextSibling);
-    } else {
-        head.appendChild(linkReset);
-        head.appendChild(linkCss);
+        doc.body.appendChild(doc.importNode(page, true));
     }
     return '<!doctype html>\n' + doc.documentElement.outerHTML;
 }
