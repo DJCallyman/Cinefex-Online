@@ -125,6 +125,49 @@ export function fixMalformedArchivalPageStructure(doc: Document): void {
     });
 }
 
+/**
+ * The publisher's pre-127 source HTML declares inline margin / padding values
+ * without units (e.g. `style="margin: 44 0 0 0;"`). Modern browsers in
+ * standards mode reject these as invalid and silently drop them — the visible
+ * result is that the inline images on a page butt up against each other and
+ * against the top of the plate, with no padding. The iPad source was designed
+ * for quirks mode where unitless lengths were treated as pixel values.
+ *
+ * This pass rewrites every `margin` / `margin-top` / `margin-right` /
+ * `margin-bottom` / `margin-left` value in inline styles so that any bare
+ * number gets `px` appended. Negative numbers are preserved (and are common
+ * in the source, used for slight overlap between adjacent plates).
+ *
+ * Exported for unit testing.
+ */
+export function repairUnitlessMargins(doc: Document): void {
+    const propsPattern = /(^|;)\s*(margin(?:-top|-right|-bottom|-left)?)\s*:\s*([^;]+)/gi;
+    const walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_ELEMENT);
+    const elements: Element[] = [];
+    let node: Node | null;
+    while ((node = walker.nextNode())) {
+        elements.push(node as Element);
+    }
+    for (const el of elements) {
+        const style = (el as HTMLElement).getAttribute('style');
+        if (!style) continue;
+        const updated = style.replace(
+            propsPattern,
+            (_full, prefix: string, prop: string, value: string) => {
+                const fixedValue = value
+                    .trim()
+                    .split(/\s+/)
+                    .map((tok) => (/^-?\d+(\.\d+)?$/.test(tok) ? `${tok}px` : tok))
+                    .join(' ');
+                return `${prefix}${prop}: ${fixedValue}`;
+            },
+        );
+        if (updated !== style) {
+            (el as HTMLElement).setAttribute('style', updated);
+        }
+    }
+}
+
 export function injectStyles(iframe: HTMLIFrameElement, issueNumber: number, isReadingView: boolean): void {
     const doc = iframe.contentDocument;
     if (!doc) return;
@@ -327,6 +370,15 @@ function injectOldArchivalViewStyles(doc: Document): void {
     // (e.g. issue 3 Empire Strikes Back title page) before applying styles.
     // This fixes the "only title page visible, no scroll" bug.
     fixMalformedArchivalPageStructure(doc);
+
+    // The publisher's source HTML declares inline `margin` values without
+    // units (e.g. `style="margin: 44 0 0 0;"`). Modern browsers in standards
+    // mode reject these as invalid and drop them entirely — the visible
+    // result is that the inline images on a page butt up against each other
+    // and against the top of the plate, with no padding. The iPad source was
+    // designed for quirks mode where unitless lengths were treated as pixels.
+    // Rewriting unitless numbers to add `px` restores the print-copy layout.
+    repairUnitlessMargins(doc);
 
     const style = doc.createElement('style');
     style.textContent = OLD_ARCHIVAL_CSS;

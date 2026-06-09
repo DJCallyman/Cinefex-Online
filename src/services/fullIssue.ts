@@ -184,28 +184,16 @@ function renderDocument(
     pages: HTMLElement[],
     parser: DOMParser,
 ): string {
+    // Match the single-article DOM shape exactly: <body> holds the <page>
+    // elements directly with no wrapper. The viewer's onLoad call to
+    // injectStyles() applies the format-appropriate layout CSS (oldArchival /
+    // newArchival + combined) exactly as it does for the per-article viewer.
     const doc = parser.parseFromString(
-        `<!doctype html><html><head><base href="/issues/${issueNumber}/"/></head><body><div class="full-issue-root"></div></body></html>`,
+        `<!doctype html><html><head><meta charset="utf-8"/><base href="/issues/${issueNumber}/"/><link rel="stylesheet" type="text/css" href="reset.css"/><link rel="stylesheet" type="text/css" href="${cssFile}"/><meta name="viewport" content="width = 1024"/></head><body></body></html>`,
         'text/html',
     );
-    const root = doc.querySelector('.full-issue-root') as HTMLElement;
     for (const page of pages) {
-        root.appendChild(doc.importNode(page, true));
-    }
-    const head = doc.head;
-    const base = head.querySelector('base');
-    const linkReset = doc.createElement('link');
-    linkReset.rel = 'stylesheet';
-    linkReset.href = 'reset.css';
-    const linkCss = doc.createElement('link');
-    linkCss.rel = 'stylesheet';
-    linkCss.href = cssFile;
-    if (base) {
-        base.parentNode?.insertBefore(linkReset, base.nextSibling);
-        linkReset.parentNode?.insertBefore(linkCss, linkReset.nextSibling);
-    } else {
-        head.appendChild(linkReset);
-        head.appendChild(linkCss);
+        doc.body.appendChild(doc.importNode(page, true));
     }
     return '<!doctype html>\n' + doc.documentElement.outerHTML;
 }
