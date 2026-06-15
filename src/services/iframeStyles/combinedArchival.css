@@ -79,19 +79,19 @@
     height: 22px !important;
     overflow: hidden !important;
     border-radius: 1px !important;
-    opacity: 0.75 !important;
+    opacity: 1 !important;
     transition: opacity 0.1s ease, border-color 0.1s ease, transform 0.1s ease !important;
     flex-shrink: 0 !important;
 }
 
 .variant-thumbs button:hover {
-    opacity: 1 !important;
+    opacity: 0.75 !important;
     transform: scale(1.05) !important;
 }
 
 .variant-thumbs button[aria-pressed="true"],
 .variant-thumbs button:active {
-    opacity: 1 !important;
+    opacity: 0.5 !important;
     border-color: #fff !important;
 }
 
