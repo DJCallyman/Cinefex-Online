@@ -125,6 +125,33 @@ describe('enhanceVideoLinks', () => {
         expect(doc.querySelectorAll('.cinefex-video-modal').length).toBe(1);
     });
 
+    it('rebinds anchors that are added to the document after the first call', () => {
+        // This mirrors the real app flow: the manuscript loads first,
+        // enhanceVideoLinks runs once, then image-gallery pages are appended
+        // and enhanceVideoLinks runs again. The newly-added anchors must be
+        // picked up — not skipped by a doc-level "already done" flag.
+        const doc = buildTestDoc();
+        enhanceVideoLinks(doc);
+
+        // Append a new page with a fresh video anchor.
+        const newPage = doc.createElement('page');
+        newPage.setAttribute('page-num', '99.1');
+        newPage.innerHTML = `
+            <div class="imageGalleryPage">
+                <div class="new_button-left">
+                    <a id="late-video" href="ns://Video/LATE-V1.mp4"><img src="images/video_icon.png"/></a>
+                </div>
+            </div>`;
+        doc.body.appendChild(newPage);
+
+        enhanceVideoLinks(doc);
+
+        const lateAnchor = doc.getElementById('late-video') as HTMLAnchorElement;
+        expect(lateAnchor.getAttribute('href')).toBe('videos/LATE-V1.mp4');
+        expect(lateAnchor.classList.contains('cinefex-video-button')).toBe(true);
+        expect(lateAnchor.closest('.new_button-left')?.classList.contains('has-cinefex-video')).toBe(true);
+    });
+
     it('injects the video modal stylesheet once', () => {
         const doc = buildTestDoc();
         enhanceVideoLinks(doc);

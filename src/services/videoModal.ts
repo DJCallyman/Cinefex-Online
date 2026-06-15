@@ -1,7 +1,8 @@
 import { VIDEO_MODAL_CSS } from './iframeStyles';
 
 const NS_VIDEO_RE = /^ns:\/\/Video\/(.+)$/i;
-const ENHANCED_FLAG = '__cinefexVideoEnhanced';
+const STYLES_FLAG = '__cinefexVideoStyles';
+const BOUND_FLAG = '__cinefexVideoBound';
 const GALLERY_BUTTON_CLASSES = [
     'new_button-left',
     'new_button-top',
@@ -89,6 +90,7 @@ function openVideoModal(doc: Document, url: string): void {
 }
 
 function bindVideoAnchor(a: HTMLAnchorElement): void {
+    if ((a as unknown as Record<string, boolean>)[BOUND_FLAG]) return;
     const href = a.getAttribute('href') || '';
     const match = isNsVideoHref(href);
     if (!match) return;
@@ -113,9 +115,12 @@ function bindVideoAnchor(a: HTMLAnchorElement): void {
         e.stopPropagation();
         openVideoModal(a.ownerDocument, url);
     });
+
+    (a as unknown as Record<string, boolean>)[BOUND_FLAG] = true;
 }
 
 function bindVideoArea(area: HTMLAreaElement): void {
+    if ((area as unknown as Record<string, boolean>)[BOUND_FLAG]) return;
     const href = area.getAttribute('href') || '';
     const match = isNsVideoHref(href);
     if (!match) return;
@@ -132,6 +137,8 @@ function bindVideoArea(area: HTMLAreaElement): void {
         e.stopPropagation();
         openVideoModal(area.ownerDocument, url);
     });
+
+    (area as unknown as Record<string, boolean>)[BOUND_FLAG] = true;
 }
 
 /**
@@ -142,13 +149,17 @@ function bindVideoArea(area: HTMLAreaElement): void {
  *   - Manuscript <area> image-map hot zones (e.g. first-page play buttons).
  *   - Gallery .new_button-* / .button-* <a> links that point at ns://Video.
  *
- * Idempotent: repeated calls for the same document are no-ops.
+ * Safe to call multiple times: the modal stylesheet is injected at most once,
+ * and each individual element is bound at most once (per-element flag).
+ * This matters because the gallery pages are appended to the document AFTER
+ * the initial manuscript load, so we need the second invocation to scan the
+ * newly-added anchors.
  */
 export function enhanceVideoLinks(doc: Document): void {
-    if ((doc as unknown as Record<string, boolean>)[ENHANCED_FLAG]) return;
-    (doc as unknown as Record<string, boolean>)[ENHANCED_FLAG] = true;
-
-    injectModalStyles(doc);
+    if (!(doc as unknown as Record<string, boolean>)[STYLES_FLAG]) {
+        injectModalStyles(doc);
+        (doc as unknown as Record<string, boolean>)[STYLES_FLAG] = true;
+    }
 
     // Manuscript page image-map hot zones.
     for (const area of Array.from(doc.querySelectorAll('area[href]'))) {

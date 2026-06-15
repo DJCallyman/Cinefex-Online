@@ -45,7 +45,16 @@
 
 /* Reveal gallery button blocks that contain a real playable video link.
    The video anchor is given the .cinefex-video-button class in JS; all other
-   anchors (sound/placeholder/commented-out icons) stay hidden. */
+   anchors (sound/placeholder/commented-out icons) stay hidden.
+
+   The source markup authors an inline margin like `margin: 134 0 0 770;`
+   with unitless numbers, which HTML5 rejects as invalid (silently zeroing
+   the whole declaration). To make the play icon reliably visible regardless
+   of the broken authored margin, we absolutely position the wrapper against
+   the .imageGalleryPage (which is `position: relative` from above) and
+   anchor it to the bottom-right of the plate. The variant-thumbs switcher
+   already lives there too; we use a slightly different inset so the two
+   controls don't visually collide. */
 .new_button-left.has-cinefex-video,
 .new_button-top.has-cinefex-video,
 .new_button-top-2.has-cinefex-video,
@@ -54,6 +63,22 @@
 .button-top.has-cinefex-video,
 .button-top-2.has-cinefex-video {
     display: block !important;
+    position: absolute !important;
+    right: 14px !important;
+    bottom: 12px !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    z-index: 30 !important;
+    line-height: 0 !important;
+}
+
+.new_button-top.has-cinefex-video,
+.new_button-top-2.has-cinefex-video,
+.button-top.has-cinefex-video,
+.button-top-2.has-cinefex-video {
+    top: 14px !important;
+    bottom: auto !important;
 }
 
 .new_button-left a.cinefex-video-button,
@@ -66,6 +91,19 @@
     display: inline-block !important;
 }
 
+.new_button-left a.cinefex-video-button img,
+.new_button-top a.cinefex-video-button img,
+.new_button-top-2 a.cinefex-video-button img,
+.button-left a.cinefex-video-button img,
+.button-left-2 a.cinefex-video-button img,
+.button-top a.cinefex-video-button img,
+.button-top-2 a.cinefex-video-button img {
+    display: block !important;
+    width: 28px !important;
+    height: 28px !important;
+    max-width: none !important;
+}
+
 /* A few other classes that appear in some galleries and can cause noise */
 .gallery,
 .header,
@@ -76,7 +114,8 @@
 }
 
 /* Functional thumbnail switcher for multi-variant photo spreads (e.g. 4 versions on p75 for Kong).
-   Compact 2x2 grid in the bottom-right corner of the plate. */
+   Compact 2x2 grid in the bottom-right corner of the plate. Anchored just above
+   the video-icon button so the two controls don't overlap. */
 .variant-thumbs {
     display: flex !important;
     flex-wrap: wrap !important;
@@ -84,7 +123,7 @@
     width: 63px !important;
     position: absolute !important;
     right: 14px !important;
-    bottom: 12px !important;
+    bottom: 48px !important;
     gap: 3px !important;
     z-index: 30 !important;
     background: rgba(0,0,0,0.45) !important;
