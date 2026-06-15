@@ -5,6 +5,7 @@ import {
     fixMalformedArchivalPageStructure,
 } from './styleInjection';
 import { collapseMultiVariantGalleryPages } from './collapseMultiVariant';
+import { enhanceVideoLinks } from './videoModal';
 
 async function fetchOptional(url: string): Promise<string | null> {
     try {
@@ -328,6 +329,9 @@ export async function buildFullIssueHtml(
             combinedDoc.body.appendChild(combinedDoc.importNode(page, true));
         }
         collapseMultiVariantGalleryPages(combinedDoc);
+        // The stitched full-issue document is never loaded into an iframe; injectStyles is
+        // not called on it, so wire up the video links here explicitly.
+        enhanceVideoLinks(combinedDoc);
         const finalPages = Array.from(combinedDoc.querySelectorAll('page')) as HTMLElement[];
         return renderDocument(issueNumber, cssFile, finalPages, parser);
     }

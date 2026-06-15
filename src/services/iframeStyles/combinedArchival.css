@@ -43,6 +43,29 @@
     display: none !important;
 }
 
+/* Reveal gallery button blocks that contain a real playable video link.
+   The video anchor is given the .cinefex-video-button class in JS; all other
+   anchors (sound/placeholder/commented-out icons) stay hidden. */
+.new_button-left.has-cinefex-video,
+.new_button-top.has-cinefex-video,
+.new_button-top-2.has-cinefex-video,
+.button-left.has-cinefex-video,
+.button-left-2.has-cinefex-video,
+.button-top.has-cinefex-video,
+.button-top-2.has-cinefex-video {
+    display: block !important;
+}
+
+.new_button-left a.cinefex-video-button,
+.new_button-top a.cinefex-video-button,
+.new_button-top-2 a.cinefex-video-button,
+.button-left a.cinefex-video-button,
+.button-left-2 a.cinefex-video-button,
+.button-top a.cinefex-video-button,
+.button-top-2 a.cinefex-video-button {
+    display: inline-block !important;
+}
+
 /* A few other classes that appear in some galleries and can cause noise */
 .gallery,
 .header,
