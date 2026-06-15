@@ -3,3 +3,4 @@ export { NEW_ARCHIVAL_CSS } from './newArchival';
 export { OLD_READING_CSS } from './oldReading';
 export { OLD_ARCHIVAL_CSS } from './oldArchival';
 export { COMBINED_ARCHIVAL_CSS } from './combinedArchival';
+export { VIDEO_MODAL_CSS } from './videoModal';

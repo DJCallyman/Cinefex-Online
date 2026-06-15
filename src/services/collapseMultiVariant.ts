@@ -63,10 +63,17 @@ export function collapseMultiVariantGalleryPages(doc: Document): void {
             const canonicalPage = group[0];
             const canonicalGallery = canonicalPage.querySelector('.imageGalleryPage') as HTMLElement;
 
-            // Collect the hero images for each variant (the <img> that is the main photograph)
+            // Collect the hero images for each variant (the <img> that is the main photograph),
+            // plus the publisher-authored thumbnail set on each variant page. The publisher pre-bakes
+            // a greyed copy of the "self" variant thumb and a standard copy of every other variant
+            // per page; we map those by variant number so each switcher button can use the standard
+            // copy of its own variant and let CSS dim the selected one.
             const variants: { imgSrc: string; thumbSrcs: string[] }[] = [];
+            // variant number (0-based) -> standard (bright) thumbnail src from another page in the group
+            const standardSrcByVariant = new Map<number, string>();
 
             for (const g of group) {
+                const pageNum = g.getAttribute('page-num') || '';
                 const heroImg = g.querySelector('.imageGalleryPage > div > img, .imageGalleryPage img') as HTMLImageElement | null;
                 const imgSrc = heroImg ? heroImg.getAttribute('src') || '' : '';
 
@@ -77,6 +84,30 @@ export function collapseMultiVariantGalleryPages(doc: Document): void {
 
                 if (imgSrc) {
                     variants.push({ imgSrc, thumbSrcs });
+                }
+
+                // Map which thumb is "self" (greyed) on this page by its <a href> and which variant it
+                // depicts by its filename's -th0N suffix. Any non-self occurrence is the standard copy for
+                // that variant. Both href="#" (legacy first-variant-only pages) and ns://Page/<page-num>
+                // are treated as self links.
+                for (const a of Array.from(g.querySelectorAll('.thumbs a'))) {
+                    const img = a.querySelector('img') as HTMLImageElement | null;
+                    const src = img?.getAttribute('src') || '';
+                    if (!src) continue;
+
+                    const suffixMatch = src.match(/-th0*(\d+)(?:\.jpg|\.jpeg|\.png|\.webp)$/i);
+                    if (!suffixMatch) continue;
+
+                    const variantIdx = parseInt(suffixMatch[1], 10) - 1;
+                    if (variantIdx < 0) continue;
+
+                    const href = a.getAttribute('href') || '';
+                    const isSelf =
+                        href === '#' || href === `ns://Page/${pageNum}` || href.endsWith(`/${pageNum}`);
+
+                    if (!isSelf && !standardSrcByVariant.has(variantIdx)) {
+                        standardSrcByVariant.set(variantIdx, src);
+                    }
                 }
             }
 
@@ -116,13 +147,22 @@ export function collapseMultiVariantGalleryPages(doc: Document): void {
                     `;
 
                     variants.forEach((variant, idx) => {
-                        let thumbSrc = variant.thumbSrcs[0] || '';
+                        // Use the publisher's standard (bright) copy of this variant's thumbnail if we
+                        // found one on another group page; fall back through the per-variant page's own
+                        // thumbs in case the source is missing the expected anchor/metadata.
+                        let thumbSrc = standardSrcByVariant.get(idx)
+                            || variant.thumbSrcs[idx]
+                            || variant.thumbSrcs[0]
+                            || '';
                         if (!thumbSrc && variant.imgSrc) {
-                            thumbSrc = variant.imgSrc.replace(/\.jpg$/i, '-th01.jpg');
+                            thumbSrc = variant.imgSrc.replace(/\.jpg$/i, `-th${String(idx + 1).padStart(2, '0')}.jpg`);
                         }
 
                         const btn = doc.createElement('button');
                         btn.type = 'button';
+                        // Inline opacity here is overridden by the !important rules in
+                        // combinedArchival.css, but we keep the values consistent with the new
+                        // convention: unselected = bright, selected = slightly dimmed.
                         btn.style.cssText = `
                             border: 1px solid rgba(255,255,255,0.5);
                             background: transparent;
@@ -133,7 +173,7 @@ export function collapseMultiVariantGalleryPages(doc: Document): void {
                             height: 22px;
                             overflow: hidden;
                             border-radius: 1px;
-                            opacity: ${idx === 0 ? '1' : '0.65'};
+                            opacity: ${idx === 0 ? '0.5' : '1'};
                             transition: opacity 0.1s ease, border-color 0.1s ease, transform 0.1s ease;
                             flex-shrink: 0;
                         `;
@@ -162,11 +202,11 @@ export function collapseMultiVariantGalleryPages(doc: Document): void {
 
                             strip.querySelectorAll('button').forEach(b => {
                                 const bb = b as HTMLElement;
-                                bb.style.opacity = '0.65';
+                                bb.style.opacity = '1';
                                 bb.style.borderColor = 'rgba(255,255,255,0.5)';
                                 bb.setAttribute('aria-pressed', 'false');
                             });
-                            btn.style.opacity = '1';
+                            btn.style.opacity = '0.5';
                             btn.style.borderColor = '#fff';
                             btn.setAttribute('aria-pressed', 'true');
                         });

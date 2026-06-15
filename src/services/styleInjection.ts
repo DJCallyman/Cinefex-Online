@@ -1,5 +1,6 @@
 import { CONFIG } from '../config';
 import { collapseMultiVariantGalleryPages } from './collapseMultiVariant';
+import { enhanceVideoLinks } from './videoModal';
 import { FONT_FACE_CSS } from '../styles/fonts';
 import {
     NEW_READING_CSS,
@@ -320,6 +321,9 @@ function injectNewArchivalViewStyles(doc: Document): void {
     const style = doc.createElement('style');
     style.textContent = NEW_ARCHIVAL_CSS;
     doc.head.appendChild(style);
+
+    // Make ns://Video/ links in the manuscript page image maps playable.
+    enhanceVideoLinks(doc);
 }
 
 function injectOldArchivalViewStyles(doc: Document): void {
@@ -435,6 +439,9 @@ export function appendImageGalleryToArchival(
             // Apply the additional gallery-specific polish (hiding chrome, proper .imageGalleryPage treatment, etc.).
             // This is the "styling polish" half of "do both" (plan Phase 4).
             enhanceCombinedArchivalStyles(doc);
+
+            // Make any ns://Video/ links in the appended gallery pages playable.
+            enhanceVideoLinks(doc);
         })
         .catch((err) => {
             // Silent degradation per plan default C — only log when debug is on
