@@ -1,5 +1,5 @@
 # ============================================================
-# Cinefex Archives - Apache Server Configuration
+# Cinefex Archive - Apache Server Configuration
 # ============================================================
 #
 # TEMPLATE FILE — this is committed as .htaccess.example so that
@@ -92,7 +92,7 @@ frame-ancestors 'self'\
 # --- HTTP Basic Authentication ---
 <IfModule mod_authn_core.c>
     AuthType Basic
-    AuthName "Cinefex Archives"
+    AuthName "Cinefex Archive"
     AuthUserFile /path/to/cinefex.htpasswd
     Require valid-user
 </IfModule>
