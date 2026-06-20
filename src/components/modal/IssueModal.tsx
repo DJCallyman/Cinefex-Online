@@ -58,13 +58,39 @@ export function IssueModal({ issueNumber }: IssueModalProps) {
 
     if (!magazine) {
         return (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={handleOverlayClick}>
+            <div
+                className="fixed inset-0 z-50 flex items-center justify-center p-4"
+                onClick={handleOverlayClick}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="issue-not-found-title"
+            >
                 <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" />
-                <div className="relative bg-gray-800 rounded-lg shadow-xl w-full max-w-5xl max-h-[90vh] flex flex-col md:flex-row overflow-hidden p-6">
-                    <p className="text-white">Issue not found</p>
-                    <button onClick={handleClose} className="mt-4 px-4 py-2 bg-cyan-600 rounded hover:bg-cyan-500">
-                        Close
-                    </button>
+                <div className="relative bg-gray-800 rounded-lg shadow-xl w-full max-w-md max-h-[90vh] flex flex-col overflow-hidden p-6 text-center">
+                    <h2
+                        id="issue-not-found-title"
+                        className="text-xl font-bold text-white mb-2"
+                    >
+                        Issue not found
+                    </h2>
+                    <p className="text-sm text-gray-400 mb-6">
+                        Issue {issueNumber} is not in the archive. It may have been
+                        removed or the URL is incorrect.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                        <button
+                            onClick={() => navigate('/')}
+                            className="px-4 py-2 bg-cyan-600 rounded hover:bg-cyan-500 text-white font-semibold transition-colors"
+                        >
+                            Return to Archive
+                        </button>
+                        <button
+                            onClick={handleClose}
+                            className="px-4 py-2 bg-gray-600 rounded hover:bg-gray-500 text-white font-semibold transition-colors"
+                        >
+                            Close
+                        </button>
+                    </div>
                 </div>
             </div>
         );

@@ -52,7 +52,7 @@ export function ArticleViewer() {
         initialFocusRef: closeButtonRef,
     });
 
-    const handleIframeLoad = () => {
+    const handleIframeLoad = useCallback(() => {
         setIsLoading(false);
         if (!iframeRef.current) return;
         injectStyles(iframeRef.current, issueNumber, isReadingView);
@@ -63,12 +63,12 @@ export function ArticleViewer() {
                 appendImageGalleryToArchival(iframeRef.current, galleryUrl);
             }
         }
-    };
+    }, [issueNumber, isReadingView, article?.imageGalleryUrl]);
 
-    const handleIframeError = () => {
+    const handleIframeError = useCallback(() => {
         setIsLoading(false);
         setHasError(true);
-    };
+    }, []);
 
     if (!magazine || !article) {
         return (

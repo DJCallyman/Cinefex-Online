@@ -36,6 +36,13 @@ COPY docker/nginx.conf                   /etc/nginx/conf.d/default.conf
 RUN chmod +x /docker-entrypoint.d/40-cinefex.sh
 ENV ISSUES_DIR=/issues
 EXPOSE 80
+# Healthcheck verifies the bind-mounted /issues share is actually
+# populated and served by nginx — NOT just the baked metadata JSON.
+# `issues_full.json` is baked into the image, so checking it would
+# report healthy even when the bind mount is empty/missing (the exact
+# failure the entrypoint's 30s wait is meant to catch). Issue 1's
+# ReadingView HTML is a stable, known-present file in every complete
+# archive, so a 200 here proves the mount is live.
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
-    CMD wget -qO/dev/null http://localhost/issues_full.json || exit 1
+    CMD wget -qO/dev/null http://localhost/issues/1/1.ReadingView.html || exit 1
 CMD ["nginx", "-g", "daemon off;"]

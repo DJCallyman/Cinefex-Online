@@ -27,14 +27,13 @@ services:
     ports:
       - "8586:80"
     environment:
-      TZ: ${TZ:-Australia/Sydney}
+      # Default to UTC so logs are unambiguous regardless of host
+      # timezone. Override with TZ=<zone> for local dev if desired.
+      TZ: ${TZ:-UTC}
     volumes:
       # Override the issues path on the host machine. Use a real share
       # in production; an empty dir works for UI smoke tests.
       - ${ISSUES_PATH:-./.docker-issues}:/issues
-    healthcheck:
-      test: ["CMD", "wget", "-qO/dev/null", "http://localhost/issues_full.json"]
-      interval: 30s
-      timeout: 5s
-      start_period: 20s
-      retries: 3
+    # No inline healthcheck: the Dockerfile defines one that verifies
+    # the bind-mounted /issues share is actually served. Duplicating it
+    # here would create drift risk.

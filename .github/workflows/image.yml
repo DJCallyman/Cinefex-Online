@@ -1,23 +1,23 @@
 name: Build & publish image
 
+# Build & publish the GHCR image only after the CI workflow has
+# completed successfully on `main`. This prevents a broken image
+# (failing tests/lint/typecheck) from being pushed to :latest.
+#
+# `workflow_run` fires after the referenced workflow finishes, on the
+# same ref. We gate on `ci.yml` succeeding so a red CI blocks the
+# image build. `workflow_dispatch` is kept for manual rebuilds (e.g.
+# after a cover/font-only change that didn't touch CI-relevant paths).
+#
+# Note: `workflow_run` always runs on the default branch's copy of
+# this workflow file, so the path filter that used to live on the
+# `push` trigger is no longer applied here. Manual rebuilds via
+# `workflow_dispatch` cover the "rebuild without a CI run" case.
 on:
-  push:
+  workflow_run:
+    workflows: ['CI']
+    types: [completed]
     branches: [main]
-    paths:
-      - 'src/**'
-      - 'package.json'
-      - 'package-lock.json'
-      - 'vite.config.ts'
-      - 'tsconfig*.json'
-      - 'public/**'
-      - 'scripts/**'
-      - 'covers/**'
-      - 'fonts/**'
-      - 'Dockerfile'
-      - 'docker/**'
-      - '.dockerignore'
-      - '.github/workflows/**'
-      - 'unraid/**'
   workflow_dispatch:
 
 permissions:
@@ -25,8 +25,11 @@ permissions:
   packages: write
 
 jobs:
+  # `workflow_run` fires for both success and failure of the upstream
+  # workflow; skip the build unless CI actually passed.
   build:
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     steps:
       - uses: actions/checkout@v6
 
