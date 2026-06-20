@@ -61,6 +61,12 @@ export function MagazineCover({ magazine, priority = false }: MagazineCoverProps
                 <div className="absolute top-2 right-2">
                     <BookmarkButton
                         issue={magazine.issue}
+                        // articleIndex={0} is a sentinel meaning "bookmark the
+                        // issue itself", not a specific article. The bookmark
+                        // key is (issue, articleIndex); using 0 here lets the
+                        // bookmark restore to the issue modal rather than a
+                        // specific article viewer. Do NOT change without
+                        // updating the bookmark-restore logic.
                         articleIndex={0}
                         name={magazine.title || `Issue ${magazine.issue}`}
                         size="sm"

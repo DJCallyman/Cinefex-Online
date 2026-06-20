@@ -27,7 +27,7 @@ export function ArticleList({ magazine, onSelectArticle, onViewFullIssue }: Arti
                     const subtitle = displayTitle(article.name, article.articleTitle);
                     return (
                         <button
-                            key={index}
+                            key={`${magazine.issue}-${index}`}
                             className="article-btn w-full text-left px-4 py-3 bg-gray-700 hover:bg-gray-600 rounded-md font-semibold transition-colors text-white"
                             onClick={() => onSelectArticle(article, index)}
                         >
