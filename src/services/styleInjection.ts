@@ -144,19 +144,38 @@ export function injectStyles(iframe: HTMLIFrameElement, issueNumber: number, isR
     }
 }
 
-function injectNewReadingViewStyles(doc: Document): void {
-    // Do NOT remove the original Cinefex.css for new-format reading views.
-    // These files are hybrid (full-bleed image pages + later reflow text) and depend on it.
-    // We only provide minimal fixes for fonts, centering, and basic readability.
+/**
+ * Inject a `<style>` element with a stable id, removing any pre-existing
+ * element with the same id first. This prevents style-sheet accumulation
+ * when `injectStyles` is called more than once on the same document
+ * (e.g. during iframe reloads or repeated debug invocations), which would
+ * otherwise pile up duplicate `<style>` blocks in `<head>` and waste memory.
+ */
+function injectStyleBlock(doc: Document, id: string, css: string): void {
+    const existing = doc.getElementById(id);
+    if (existing) existing.remove();
 
     const style = doc.createElement('style');
-    style.textContent = `${FONT_FACE_CSS}\n\n${NEW_READING_CSS}`;
+    style.id = id;
+    style.textContent = css;
 
+    // Insert at the top of <head> so our overrides win against the
+    // publisher's linked stylesheets that follow, matching the original
+    // insertBefore-firstChild behaviour. Fall back to appendChild if
+    // <head> is empty.
     if (doc.head.firstChild) {
         doc.head.insertBefore(style, doc.head.firstChild);
     } else {
         doc.head.appendChild(style);
     }
+}
+
+function injectNewReadingViewStyles(doc: Document): void {
+    // Do NOT remove the original Cinefex.css for new-format reading views.
+    // These files are hybrid (full-bleed image pages + later reflow text) and depend on it.
+    // We only provide minimal fixes for fonts, centering, and basic readability.
+
+    injectStyleBlock(doc, 'cinefex-new-reading-styles', `${FONT_FACE_CSS}\n\n${NEW_READING_CSS}`);
 
     injectTitle(doc);
 
@@ -196,11 +215,16 @@ function populateNewReadingViewImages(doc: Document): void {
 
   // Derive the manuscript and imageGallery URLs from this reading view's URL.
   // e.g. issues/167/readingView4.html -> manuscript4.html + imageGallery4.html
+  // The regex is anchored to end-of-string so a stray "readingView123.html"
+  // appearing earlier in the URL (e.g. in a query param) can't match.
   const readingUrl = doc.URL || doc.location?.href || '';
-  const manuscriptUrl = readingUrl.replace(/readingView(\d+)\.html/i, 'manuscript$1.html');
-  const imageGalleryUrl = readingUrl.replace(/readingView(\d+)\.html/i, 'imageGallery$1.html');
+  const manuscriptUrl = readingUrl.replace(/readingView(\d+)\.html$/i, 'manuscript$1.html');
+  const imageGalleryUrl = readingUrl.replace(/readingView(\d+)\.html$/i, 'imageGallery$1.html');
 
-  if (manuscriptUrl === readingUrl) return;
+  if (manuscriptUrl === readingUrl) {
+    debugLog(`populateNewReadingViewImages: URL did not match readingView<N>.html pattern; skipping. URL=${readingUrl}`);
+    return;
+  }
 
   // Fetch manuscript for title images.
   fetch(manuscriptUrl)
@@ -318,9 +342,7 @@ function injectNewArchivalViewStyles(doc: Document): void {
     // that can appear in both manuscript and gallery source files.
     sanitizeMalformedComments(doc);
 
-    const style = doc.createElement('style');
-    style.textContent = NEW_ARCHIVAL_CSS;
-    doc.head.appendChild(style);
+    injectStyleBlock(doc, 'cinefex-new-archival-styles', NEW_ARCHIVAL_CSS);
 
     // Make ns://Video/ links in the manuscript page image maps playable.
     enhanceVideoLinks(doc);
@@ -332,15 +354,11 @@ function injectOldArchivalViewStyles(doc: Document): void {
     // This fixes the "only title page visible, no scroll" bug.
     fixMalformedArchivalPageStructure(doc);
 
-    const style = doc.createElement('style');
-    style.textContent = OLD_ARCHIVAL_CSS;
-    doc.head.appendChild(style);
+    injectStyleBlock(doc, 'cinefex-old-archival-styles', OLD_ARCHIVAL_CSS);
 }
 
 function injectOldReadingViewStyles(doc: Document): void {
-    const style = doc.createElement('style');
-    style.textContent = `${FONT_FACE_CSS}\n\n${OLD_READING_CSS}`;
-    doc.head.appendChild(style);
+    injectStyleBlock(doc, 'cinefex-old-reading-styles', `${FONT_FACE_CSS}\n\n${OLD_READING_CSS}`);
 }
 
 function injectTitle(doc: Document): void {

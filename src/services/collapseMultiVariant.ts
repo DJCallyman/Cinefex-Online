@@ -127,6 +127,14 @@ export function collapseMultiVariantGalleryPages(doc: Document): void {
                     // Remove any old .thumbs blocks for this canonical page so they don't fight positioning
                     canonicalGallery.querySelectorAll('.thumbs').forEach(t => t.remove());
 
+                    // Mark the hero image with a stable attribute so the click handler
+                    // and any future code can locate it without relying on a fragile
+                    // structural selector (`.imageGalleryPage > div > img`).
+                    const heroImg = canonicalGallery.querySelector('.imageGalleryPage > div > img, .imageGalleryPage img') as HTMLImageElement | null;
+                    if (heroImg) {
+                        heroImg.setAttribute('data-variant-hero', 'true');
+                    }
+
                     // Build the switcher strip and append it directly to the gallery page container
                     // (which has position:relative from our archival styles).
                     const strip = doc.createElement('div');
@@ -160,9 +168,12 @@ export function collapseMultiVariantGalleryPages(doc: Document): void {
 
                         const btn = doc.createElement('button');
                         btn.type = 'button';
-                        // Inline opacity here is overridden by the !important rules in
-                        // combinedArchival.css, but we keep the values consistent with the new
-                        // convention: unselected = bright, selected = slightly dimmed.
+                        // Selection state is driven solely by the `data-selected` and
+                        // `aria-pressed` attributes; the visual styling (opacity,
+                        // border-color) is owned by combinedArchival.css rules keyed on
+                        // those attributes. Do NOT set inline opacity/border-color here —
+                        // doing so fights the CSS `!important` rules and splits state
+                        // between JS and CSS.
                         btn.style.cssText = `
                             border: 1px solid rgba(255,255,255,0.5);
                             background: transparent;
@@ -173,7 +184,6 @@ export function collapseMultiVariantGalleryPages(doc: Document): void {
                             height: 22px;
                             overflow: hidden;
                             border-radius: 1px;
-                            opacity: ${idx === 0 ? '0.5' : '1'};
                             transition: opacity 0.1s ease, border-color 0.1s ease, transform 0.1s ease;
                             flex-shrink: 0;
                         `;
@@ -195,23 +205,25 @@ export function collapseMultiVariantGalleryPages(doc: Document): void {
                         }
 
                         btn.addEventListener('click', () => {
-                            const currentHero = canonicalGallery.querySelector('.imageGalleryPage > div > img, .imageGalleryPage img') as HTMLImageElement | null;
+                            // Locate the hero image via the stable attribute rather than
+                            // a fragile structural selector.
+                            const currentHero = canonicalGallery.querySelector('[data-variant-hero]') as HTMLImageElement | null;
                             if (currentHero && variant.imgSrc && currentHero.src !== variant.imgSrc) {
                                 currentHero.src = variant.imgSrc;
                             }
 
+                            // Toggle selection state via attributes only; CSS handles
+                            // the visual dimming via [data-selected] / [aria-pressed].
                             strip.querySelectorAll('button').forEach(b => {
-                                const bb = b as HTMLElement;
-                                bb.style.opacity = '1';
-                                bb.style.borderColor = 'rgba(255,255,255,0.5)';
-                                bb.setAttribute('aria-pressed', 'false');
+                                b.removeAttribute('data-selected');
+                                b.setAttribute('aria-pressed', 'false');
                             });
-                            btn.style.opacity = '0.5';
-                            btn.style.borderColor = '#fff';
+                            btn.setAttribute('data-selected', 'true');
                             btn.setAttribute('aria-pressed', 'true');
                         });
 
                         if (idx === 0) {
+                            btn.setAttribute('data-selected', 'true');
                             btn.setAttribute('aria-pressed', 'true');
                         }
 

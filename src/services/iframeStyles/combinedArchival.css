@@ -115,7 +115,11 @@
 
 /* Functional thumbnail switcher for multi-variant photo spreads (e.g. 4 versions on p75 for Kong).
    Compact 2x2 grid in the bottom-right corner of the plate. Anchored just above
-   the video-icon button so the two controls don't overlap. */
+   the video-icon button so the two controls don't overlap.
+   Offsets: right:14px / bottom:48px — the 48px bottom clears the
+   cinefex-video-button (28px tall + ~20px margin from the plate edge),
+   leaving a small gap. right:14px matches the video button's right inset.
+   If the video button position changes, update both together. */
 .variant-thumbs {
     display: flex !important;
     flex-wrap: wrap !important;
@@ -152,6 +156,7 @@
 }
 
 .variant-thumbs button[aria-pressed="true"],
+.variant-thumbs button[data-selected="true"],
 .variant-thumbs button:active {
     opacity: 0.5 !important;
     border-color: #fff !important;
