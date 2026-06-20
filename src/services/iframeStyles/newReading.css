@@ -49,6 +49,12 @@ img {
 }
 
 .img-all {
+    /* 660px approximates the height of a full-bleed iPad magazine page
+       (768px viewport minus the publisher's header/margin chrome). It
+       keeps the empty placeholder from collapsing before the manuscript
+       title image is injected at runtime by populateNewReadingViewImages.
+       Once the <img> is inserted, applyInlineImage() clears min-height
+       so the container shrinks to the image's natural height. */
     min-height: 660px;
     background-color: #111827;
     background-size: contain;

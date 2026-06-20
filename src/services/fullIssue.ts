@@ -140,12 +140,23 @@ const LENGTH_PROPS = [
  *
  * This is scoped to the inline `style` attribute; the publisher's linked
  * stylesheets are loaded untouched and parsed by the browser normally.
+ *
+ * Performance: a pre-filter regex skips any `[style]` element whose style
+ * string contains no bare (unitless) number at all, avoiding the cost of
+ * splitting and re-joining declarations for the common case of styles that
+ * are already well-formed (e.g. `color: red; font-weight: bold;`).
  */
 function normalizeUnitlessLengths(doc: Document): void {
+    // Matches a number that is NOT immediately followed by a unit letter or
+    // a `%`. This lets us skip elements whose styles only contain values
+    // like `12px`, `1.5em`, `100%`, or non-numeric values entirely.
+    const hasBareNumber = /-?\d+(?:\.\d+)?(?![a-z%])/i;
+
     const elements = doc.body.querySelectorAll('[style]');
     for (const el of Array.from(elements)) {
         const original = el.getAttribute('style');
         if (!original) continue;
+        if (!hasBareNumber.test(original)) continue;
         const rewritten = normalizeStyleString(original);
         if (rewritten !== original) {
             el.setAttribute('style', rewritten);
