@@ -1,4 +1,4 @@
-# Cinefex Archives
+# Cinefex Archive
 
 A modern web application for browsing the complete archive of *Cinefex* magazine — the journal of cinematic illusions. The site provides an interactive interface to explore 172 issues (1980–present), with every article available in both a comfortable reading-optimized view and the original magazine layout.
 
@@ -45,7 +45,7 @@ A modern web application for browsing the complete archive of *Cinefex* magazine
 
 ## Project overview
 
-Cinefex Archives is a **React 19 + Vite 6** single-page web app that makes the full digitized Cinefex magazine collection accessible through a clean, keyboard-friendly, deeply linkable interface. The site is read-only and exists purely as an archival browser.
+cinefex archive is a **React 19 + Vite 6** single-page web app that makes the full digitized Cinefex magazine collection accessible through a clean, keyboard-friendly, deeply linkable interface. The site is read-only and exists purely as an archival browser.
 
 The React front-end is fully static. All of the magazine content — hundreds of HTML files, cover images, and font files — is served as ordinary files by nginx (inside the published container) or Apache (in the manual `dist/` deployment). The JS bundle's only jobs are to render the cover grid, the issue modal, the article viewer, the search bar, and the bookmarks view.
 

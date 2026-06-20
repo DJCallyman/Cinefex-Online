@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Cinefex Archives - Host page font definitions.
+   cinefex archive - Host page font definitions.
    Kept in sync with src/styles/fonts.ts (which is used by the iframe
    style injector). If you add/remove/rename a font, update BOTH files.
    font-display: swap is set on every face so first paint isn't blocked.
