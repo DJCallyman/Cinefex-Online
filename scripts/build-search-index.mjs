@@ -46,6 +46,8 @@ const OUTPUT_GZ = OUTPUT_PATH + '.gz';
 
 const MAX_CHARS_PER_DOC = 24000;
 
+const OUTPUT_WORDCOUNTS = join(PUBLIC_DIR, 'wordcounts.json');
+
 // =============================================================================
 //  HTML → plain-text stripper (port of create_json.py:TextExtractor)
 // =============================================================================
@@ -309,6 +311,7 @@ function buildDocuments(issuesData) {
                 articleTitle: htmlUnescape(article.articleTitle || ''),
                 year: issue.year || 0,
                 text,
+                wordCount: text.split(/\s+/).filter(Boolean).length,
             });
         }
     }
@@ -346,6 +349,14 @@ function main() {
     const json = JSON.stringify(payload);
     writeFileSync(OUTPUT_PATH, json, 'utf-8');
     writeFileSync(OUTPUT_GZ, gzipSync(Buffer.from(json, 'utf-8'), { level: 6 }));
+
+    // Write lightweight word-count side-car for reading-time estimates in the UI.
+    // Format: { version: 1, wordCounts: { "issue/articleIndex": wordCount } }
+    const wordCounts = {};
+    for (const doc of documents) {
+        wordCounts[doc.id] = doc.wordCount;
+    }
+    writeFileSync(OUTPUT_WORDCOUNTS, JSON.stringify({ version: 1, wordCounts }), 'utf-8');
 
     console.log(
         `[build-search-index] ${documents.length} documents, ${skipped} skipped, ` +

@@ -1,4 +1,5 @@
 import { useBookmarks } from '../../context/BookmarksContext';
+import { useToast } from '../../context/ToastContext';
 import { StarIcon } from '../icons/StarIcon';
 
 interface BookmarkButtonProps {
@@ -31,6 +32,7 @@ const ICON_SIZES: Record<NonNullable<BookmarkButtonProps['size']>, string> = {
  */
 export function BookmarkButton({ issue, articleIndex, name, className, size = 'md' }: BookmarkButtonProps) {
     const { isBookmarked, toggleBookmark } = useBookmarks();
+    const { addToast } = useToast();
     const saved = isBookmarked(issue, articleIndex);
 
     return (
@@ -40,6 +42,7 @@ export function BookmarkButton({ issue, articleIndex, name, className, size = 'm
                 e.stopPropagation();
                 e.preventDefault();
                 toggleBookmark({ issue, articleIndex, name });
+                addToast(saved ? 'Bookmark removed' : 'Bookmark added');
             }}
             // Stop Space/Enter from bubbling to the parent role="button"
             // (e.g. MagazineCover), which would also open the modal in

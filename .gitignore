@@ -48,7 +48,7 @@ issues/
 
 # Generated data files.
 # - public/issues.json / public/issues_full.json: hand-curated metadata
-#   for all 169 issues. Committed to git; edit them directly for
+#   for all 172 issues. Committed to git; edit them directly for
 #   targeted corrections. The cinefex run is finite (the magazine is
 #   cancelled), so we don't need to rebuild these.
 # - public/search_index.json: derived from article full-text and

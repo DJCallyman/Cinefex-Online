@@ -13,7 +13,7 @@ export interface Magazine {
     articles: Article[];
 }
 
-export type ViewMode = 'read' | 'archive';
+export type ViewMode = 'read' | 'archive' | 'gallery';
 
 export interface YearBucket {
     key: string;
