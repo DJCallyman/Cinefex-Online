@@ -29,6 +29,25 @@ const COVERS_DIR = path.resolve(__dirname, '..', 'covers');
 
 const CWEBP = 'cwebp';
 
+/**
+ * Verify the `cwebp` binary is on PATH before attempting any conversion.
+ * Without this, a missing binary produces a stream of per-issue
+ * "cwebp failed" errors (spawnSync returns status null on ENOENT) that
+ * obscure the root cause. Exits non-zero with a clear message instead.
+ */
+function assertCwebpAvailable() {
+    const probe = spawnSync(CWEBP, ['-version'], { stdio: ['ignore', 'pipe', 'pipe'] });
+    if (probe.error || probe.status === null) {
+        console.error(
+            `ERROR: \`${CWEBP}\` was not found on PATH. Install the WebP utilities:\n` +
+                `  macOS:  brew install webp\n` +
+                `  Debian: sudo apt-get install webp\n` +
+                `  Alpine: sudo apk add webp\n`,
+        );
+        process.exit(1);
+    }
+}
+
 function runCwebp(input, output) {
     // -q 82 is a good perceptual-quality/size sweet spot for cover images
     const result = spawnSync(CWEBP, ['-q', '82', input, '-o', output], {
@@ -62,6 +81,13 @@ function main() {
     const checkOnly = args.includes('--check');
     const issueArgs = args.filter((a) => !a.startsWith('--'));
     const issues = listIssueNumbers(issueArgs);
+
+    // --check only inspects mtimes and never invokes cwebp, so the binary
+    // presence check is skipped in that mode. For actual conversion, fail
+    // fast with a clear message if cwebp isn't installed.
+    if (!checkOnly) {
+        assertCwebpAvailable();
+    }
 
     if (issues.length === 0) {
         console.log('No issue directories found in', COVERS_DIR);

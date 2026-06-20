@@ -21,7 +21,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     }
 
     componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-        console.error('Cinefex Archives Error Boundary caught an error:', error, errorInfo);
+        console.error('cinefex archive Error Boundary caught an error:', error, errorInfo);
     }
 
     handleReset = (): void => {
@@ -53,7 +53,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
                         </div>
                         <h1 className="text-2xl font-bold text-white mb-2">Something went wrong</h1>
                         <p className="text-gray-400 mb-6">
-                            We&apos;re sorry — an unexpected error occurred while loading Cinefex Archives.
+                            We&apos;re sorry — an unexpected error occurred while loading cinefex archive.
                         </p>
                         <button
                             onClick={this.handleReset}

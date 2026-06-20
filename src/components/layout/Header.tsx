@@ -13,7 +13,7 @@ export function Header() {
         <header className="py-6 px-4 sm:px-6 lg:px-8 bg-gray-900/80 backdrop-blur-sm sticky top-0 z-20">
             <div className="max-w-7xl mx-auto text-center relative">
                 <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-white">
-                    Cinefex Archives
+                    cinefex archive
                 </h1>
                 <p className="mt-2 text-lg text-gray-300">A tribute to the journal of cinematic illusions.</p>
                 {__APP_VERSION__ && (

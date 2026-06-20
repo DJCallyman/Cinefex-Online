@@ -38,5 +38,12 @@ jobs:
       - name: Test
         run: npm test
 
+      # `npm run build` invokes `covers:webp`, which shells out to the
+      # system `cwebp` binary (provided by the `webp` package). The
+      # convert-covers-to-webp.js script now fails fast if cwebp is
+      # missing, so install it here for the Ubuntu runner.
+      - name: Install cwebp
+        run: sudo apt-get update && sudo apt-get install -y webp
+
       - name: Build
         run: npm run build
