@@ -1,10 +1,15 @@
-import { useRef, useState, useCallback, useMemo } from 'react';
+import { useRef, useState, useCallback, useMemo, useEffect } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useModalShell } from '../../hooks';
+import { useFontSize } from '../../hooks/useFontSize';
+import { useSplitView } from '../../hooks/useSplitView';
 import { useArchiveContext } from '../../context/ArchiveContext';
 import { injectStyles, appendImageGalleryToArchival } from '../../services/styleInjection';
+import { applyFontSize } from '../../services/applyFontSize';
 import { getArticleNeighbors } from '../../utils/nav';
+import { buildScrollKey, getScrollPosition, setScrollPositionDebounced } from '../../utils/scrollPosition';
 import { ViewerShell } from './ViewerShell';
+import { ArticleGallery } from './ArticleGallery';
 
 export function ArticleViewer() {
     const navigate = useNavigate();
@@ -13,19 +18,30 @@ export function ArticleViewer() {
 
     const issueNumber = parseInt(searchParams.get('issue') ?? '', 10);
     const articleIndex = parseInt(params.articleIndex ?? '', 10);
-    const viewMode = params.viewMode as 'read' | 'archive';
+    const viewMode = params.viewMode as 'read' | 'archive' | 'gallery';
 
     const { getMagazineByIssue, magazines, setSelectedIssue } = useArchiveContext();
     const magazine = getMagazineByIssue(issueNumber);
     const article = magazine?.articles[articleIndex];
 
+    const [fontSize, setFontSize] = useFontSize();
+    const [splitView, toggleSplitView] = useSplitView();
+
     const iframeRef = useRef<HTMLIFrameElement>(null);
+    const archiveIframeRef = useRef<HTMLIFrameElement>(null);
     const closeButtonRef = useRef<HTMLButtonElement>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
 
     const isReadingView = viewMode === 'read';
-    const url = isReadingView ? article?.readingUrl : article?.archiveUrl;
+    const isGallery = viewMode === 'gallery';
+    const isActiveSplit = splitView && isReadingView;
+
+    const readingUrl = article?.readingUrl;
+    const archiveUrl = article?.archiveUrl;
+    const url = isReadingView ? readingUrl : (viewMode === 'archive' ? archiveUrl : readingUrl);
+
+    const scrollKey = buildScrollKey(issueNumber, articleIndex);
 
     // Adjacent articles for prev/next navigation, scoped to the whole archive
     const { prev, next } = useMemo(
@@ -52,23 +68,74 @@ export function ArticleViewer() {
         initialFocusRef: closeButtonRef,
     });
 
+    // After main iframe loads: inject styles, restore scroll, apply font size
     const handleIframeLoad = useCallback(() => {
         setIsLoading(false);
-        if (!iframeRef.current) return;
-        injectStyles(iframeRef.current, issueNumber, isReadingView);
+        const iframe = iframeRef.current;
+        if (!iframe) return;
+
+        injectStyles(iframe, issueNumber, isReadingView);
 
         if (!isReadingView && issueNumber > 126) {
             const galleryUrl = article?.imageGalleryUrl;
             if (galleryUrl) {
-                appendImageGalleryToArchival(iframeRef.current, galleryUrl);
+                appendImageGalleryToArchival(iframe, galleryUrl);
             }
         }
-    }, [issueNumber, isReadingView, article?.imageGalleryUrl]);
+
+        if (isReadingView) {
+            // Restore scroll position
+            const savedY = getScrollPosition(scrollKey);
+            if (savedY > 0) {
+                try {
+                    iframe.contentWindow?.scrollTo(0, savedY);
+                } catch {
+                    // Ignore cross-origin errors (shouldn't happen since same-origin)
+                }
+            }
+
+            // Persist scroll position with debounce
+            const onScroll = () => {
+                try {
+                    const y = iframe.contentWindow?.scrollY ?? 0;
+                    setScrollPositionDebounced(scrollKey, y);
+                } catch {
+                    // ignore
+                }
+            };
+            try {
+                iframe.contentWindow?.addEventListener('scroll', onScroll, { passive: true });
+            } catch {
+                // ignore
+            }
+
+            // Apply font size preference
+            applyFontSize(iframe, fontSize);
+        }
+    }, [issueNumber, isReadingView, article?.imageGalleryUrl, scrollKey, fontSize]);
+
+    // After archive iframe loads in split mode: inject archival styles
+    const handleArchiveIframeLoad = useCallback(() => {
+        const iframe = archiveIframeRef.current;
+        if (!iframe) return;
+        injectStyles(iframe, issueNumber, false /* archival */);
+        if (issueNumber > 126) {
+            const galleryUrl = article?.imageGalleryUrl;
+            if (galleryUrl) appendImageGalleryToArchival(iframe, galleryUrl);
+        }
+    }, [issueNumber, article?.imageGalleryUrl]);
 
     const handleIframeError = useCallback(() => {
         setIsLoading(false);
         setHasError(true);
     }, []);
+
+    // Re-apply font size when preference changes while article is open
+    useEffect(() => {
+        const iframe = iframeRef.current;
+        if (!iframe || !isReadingView) return;
+        applyFontSize(iframe, fontSize);
+    }, [fontSize, isReadingView]);
 
     if (!magazine || !article) {
         return (
@@ -134,34 +201,76 @@ export function ArticleViewer() {
             }
             prevFallback="First"
             nextFallback="Last"
+            viewMode={viewMode}
+            fontSize={fontSize}
+            onFontSizeChange={setFontSize}
+            splitView={splitView}
+            onToggleSplitView={toggleSplitView}
+            onToggleGallery={() => {
+                const nextMode = isGallery ? 'read' : 'gallery';
+                navigate(`/article/${articleIndex}/${nextMode}?issue=${issueNumber}`);
+            }}
         >
-            {isLoading && (
-                <div className="loading-spinner visible absolute inset-0 flex items-center justify-center">
-                    <div className="w-12 h-12 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin" />
+            {isGallery ? (
+                <ArticleGallery article={article} issueNumber={issueNumber} />
+            ) : isActiveSplit ? (
+                // Side-by-side split view (desktop only)
+                <div className="split-view-container">
+                    {isLoading && (
+                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                            <div className="w-12 h-12 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin" />
+                        </div>
+                    )}
+                    <iframe
+                        key={`${issueNumber}-${articleIndex}-read`}
+                        ref={iframeRef}
+                        src={readingUrl}
+                        className="border-0"
+                        title={`Article (reading): ${article.name}`}
+                        onLoad={handleIframeLoad}
+                        onError={handleIframeError}
+                    />
+                    <iframe
+                        key={`${issueNumber}-${articleIndex}-archive-split`}
+                        ref={archiveIframeRef}
+                        src={archiveUrl}
+                        className="border-0"
+                        title={`Article (original layout): ${article.name}`}
+                        onLoad={handleArchiveIframeLoad}
+                    />
                 </div>
-            )}
+            ) : (
+                // Standard single-iframe view
+                <>
+                    {isLoading && (
+                        <div className="loading-spinner visible absolute inset-0 flex items-center justify-center">
+                            <div className="w-12 h-12 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin" />
+                        </div>
+                    )}
 
-            {hasError && (
-                <div className="load-error absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-                    <p className="text-xl text-white mb-4">Failed to load article</p>
-                    <button
-                        onClick={handleClose}
-                        className="px-4 py-2 bg-cyan-600 rounded hover:bg-cyan-500 text-white"
-                    >
-                        Close
-                    </button>
-                </div>
-            )}
+                    {hasError && (
+                        <div className="load-error absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+                            <p className="text-xl text-white mb-4">Failed to load article</p>
+                            <button
+                                onClick={handleClose}
+                                className="px-4 py-2 bg-cyan-600 rounded hover:bg-cyan-500 text-white"
+                            >
+                                Close
+                            </button>
+                        </div>
+                    )}
 
-            <iframe
-                key={`${issueNumber}-${articleIndex}-${viewMode}`}
-                ref={iframeRef}
-                src={url}
-                className="w-full h-full border-0"
-                title={`Article: ${article.name}`}
-                onLoad={handleIframeLoad}
-                onError={handleIframeError}
-            />
+                    <iframe
+                        key={`${issueNumber}-${articleIndex}-${viewMode}`}
+                        ref={iframeRef}
+                        src={url}
+                        className="w-full h-full border-0"
+                        title={`Article: ${article.name}`}
+                        onLoad={handleIframeLoad}
+                        onError={handleIframeError}
+                    />
+                </>
+            )}
         </ViewerShell>
     );
 }

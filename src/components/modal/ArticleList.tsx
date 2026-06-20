@@ -2,6 +2,7 @@ import { Magazine, Article } from '../../types';
 import { useArchiveContext } from '../../context/ArchiveContext';
 import { highlight } from '../../utils/highlight';
 import { displayTitle } from '../../utils/articleDisplay';
+import { useWordCounts, formatReadingTime } from '../../utils/wordCounts';
 
 interface ArticleListProps {
     magazine: Magazine;
@@ -11,6 +12,7 @@ interface ArticleListProps {
 
 export function ArticleList({ magazine, onSelectArticle, onViewFullIssue }: ArticleListProps) {
     const { searchQuery } = useArchiveContext();
+    const wordCounts = useWordCounts();
     const q = searchQuery.trim();
 
     return (
@@ -25,16 +27,24 @@ export function ArticleList({ magazine, onSelectArticle, onViewFullIssue }: Arti
             <div className="space-y-3">
                 {magazine.articles.map((article, index) => {
                     const subtitle = displayTitle(article.name, article.articleTitle);
+                    const readTime = formatReadingTime(wordCounts, magazine.issue, index);
                     return (
                         <button
                             key={`${magazine.issue}-${index}`}
                             className="article-btn w-full text-left px-4 py-3 bg-gray-700 hover:bg-gray-600 rounded-md font-semibold transition-colors text-white"
                             onClick={() => onSelectArticle(article, index)}
                         >
-                            <span
-                                className="block"
-                                dangerouslySetInnerHTML={{ __html: highlight(article.name, q) }}
-                            />
+                            <div className="flex items-start justify-between gap-2">
+                                <span
+                                    className="block"
+                                    dangerouslySetInnerHTML={{ __html: highlight(article.name, q) }}
+                                />
+                                {readTime && (
+                                    <span className="flex-shrink-0 text-xs text-gray-400 font-normal mt-0.5">
+                                        {readTime}
+                                    </span>
+                                )}
+                            </div>
                             {subtitle && (
                                 <span
                                     className="block text-sm font-normal text-gray-300 mt-1"

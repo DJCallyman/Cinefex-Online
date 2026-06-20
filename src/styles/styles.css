@@ -136,6 +136,10 @@ body {
     transition:
         transform 0.3s ease,
         box-shadow 0.3s ease;
+    /* Establish a stacking context so a hovered cover lifts above its row
+       siblings and its absolutely-positioned popover paints on top of the
+       neighbouring covers. Without this, late-painting siblings win. */
+    isolation: isolate;
 }
 
 .magazine-cover:hover {
@@ -143,6 +147,11 @@ body {
     box-shadow:
         0 10px 20px rgba(0, 0, 0, 0.5),
         0 6px 6px rgba(0, 0, 0, 0.3);
+    /* Bring the hovered cover (and its popover) above non-hovered siblings
+       in the same row. The Tailwind z-20 class on the component already
+       sets z-index: 20; this declaration mirrors it for cases where the
+       class is missing or stripped. */
+    z-index: 20;
 }
 
 /* ==========================================================================
@@ -228,6 +237,107 @@ mark {
 #scroll-top.visible {
     opacity: 1;
     pointer-events: auto;
+}
+
+/* ==========================================================================
+   Toast Notifications
+   ========================================================================== */
+@keyframes toastSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.toast-enter {
+    animation: toastSlideIn 0.2s ease forwards;
+}
+
+/* ==========================================================================
+   Page Transitions
+   ========================================================================== */
+@keyframes pageEnter {
+    /* Opacity-only. We deliberately do NOT animate `transform` here:
+       any non-`none` transform value (even the identity matrix that
+       `translateY(0)` produces with `animation-fill-mode: forwards`)
+       creates a new containing block, which breaks `position: fixed`
+       on descendants — e.g. the fullscreen ArticleViewer `#viewer`
+       overlay would render at the wrong size and position. Keep this
+       keyframe transform-free so fixed-positioned descendants still
+       resolve against the viewport. */
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.page-enter {
+    animation: pageEnter 0.2s ease forwards;
+}
+
+/* ==========================================================================
+   Cover Hover Popover
+   ========================================================================== */
+.cover-popover {
+    position: absolute;
+    z-index: 50;
+    top: 0;
+    left: calc(100% + 12px);
+    width: 220px;
+    background-color: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    /* Only show on true-hover devices */
+}
+
+@media (hover: none) {
+    .cover-popover {
+        display: none !important;
+    }
+}
+
+/* Invisible bridge that fills the 12px gap between a hovered cover and its
+   popover so the cursor can travel across the gap without the cover's
+   mouseLeave firing. The JS computes left/right per-cover so the bridge
+   matches whichever side the popover opens on. */
+.cover-popover-bridge {
+    position: absolute;
+    top: 0;
+    /* Width matches the 12px gap defined on .cover-popover's left/right
+       offset. If the gap is ever widened, bump this in lockstep. */
+    width: 12px;
+    height: 100%;
+    pointer-events: auto;
+    background: transparent;
+    z-index: 55;
+}
+
+/* ==========================================================================
+   Split View
+   ========================================================================== */
+.split-view-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.split-view-container iframe {
+    flex: 1;
+    border: 0;
+    height: 100%;
+}
+
+.split-view-container iframe + iframe {
+    border-left: 2px solid var(--border);
 }
 
 /* ==========================================================================

@@ -1,6 +1,7 @@
 import { useArchiveContext } from '../../context/ArchiveContext';
 import { YearBucket as YearBucketType } from '../../types';
 import { MagazineCover } from './MagazineCover';
+import { SkeletonGrid } from './SkeletonGrid';
 
 const LCP_COVER_COUNT = 4;
 
@@ -8,16 +9,7 @@ export function ArchiveGrid() {
     const { isLoading, error, buckets, filteredMagazines, searchQuery } = useArchiveContext();
 
     if (isLoading) {
-        return (
-            <p
-                id="loading-indicator"
-                className="text-center col-span-full text-gray-300"
-                role="status"
-                aria-live="polite"
-            >
-                Loading archive...
-            </p>
-        );
+        return <SkeletonGrid />;
     }
 
     if (error) {
