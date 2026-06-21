@@ -9,6 +9,25 @@ interface ArticleGalleryProps {
 interface GalleryImage {
     src: string;
     alt: string;
+    /**
+     * Full-resolution URL for the lightbox. Falls back to `src` when no
+     * larger variant is available (e.g. new-format imageGallery files,
+     * which already point at full-size images).
+     */
+    fullSrc: string;
+}
+
+/**
+ * For legacy issues (1-126), the ReadingView HTML references 400px-wide
+ * thumbnails under `images_400/`. The full-resolution versions live in a
+ * sibling `images/` directory with identical filenames. Rewrite the path
+ * so the lightbox shows the full-size image instead of the thumbnail.
+ *
+ * New-format issues (127+) already reference full-size images directly
+ * from `imageGallery*.html`, so this is a no-op for them.
+ */
+function toFullSizeSrc(resolvedSrc: string): string {
+    return resolvedSrc.replace(/\/images_400\//, '/images/');
 }
 
 function extractImages(html: string, baseUrl: string): GalleryImage[] {
@@ -21,10 +40,17 @@ function extractImages(html: string, baseUrl: string): GalleryImage[] {
         .map((img) => {
             const src = img.getAttribute('src') ?? '';
             if (!src || src.startsWith('data:')) return null;
+            // Skip the publisher's iPad chrome: thumbnail strip, navigation
+            // buttons, and the video play-icon. These appear inside the
+            // imageGallery*.html for new-format issues and would otherwise
+            // flood the gallery with hundreds of duplicate 1×1 navigators.
+            if (src.includes('th0') || src.includes('button-') || src.includes('video_icon')) {
+                return null;
+            }
             // Resolve relative to the article URL
             try {
                 const resolved = new URL(src, base).href;
-                return { src: resolved, alt: img.alt || '' };
+                return { src: resolved, alt: img.alt || '', fullSrc: toFullSizeSrc(resolved) };
             } catch {
                 return null;
             }
@@ -38,7 +64,13 @@ export function ArticleGallery({ article, issueNumber }: ArticleGalleryProps) {
     const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
 
     useEffect(() => {
-        const url = article.readingUrl;
+        // New-format issues (127+) split the article across multiple files:
+        // the readingView*.html holds the text only, and the actual
+        // screenshots/photos live in imageGallery*.html. Old-format issues
+        // (1-126) inline all images into the ReadingView, so the readingUrl
+        // is the correct source there. Prefer the dedicated gallery file
+        // when the metadata provides one; fall back to the reading view.
+        const url = article.imageGalleryUrl ?? article.readingUrl;
         setImages(null);
         setError(null);
         fetch(url)
@@ -53,7 +85,7 @@ export function ArticleGallery({ article, issueNumber }: ArticleGalleryProps) {
             .catch((e: Error) => {
                 setError(e.message);
             });
-    }, [article.readingUrl, issueNumber]);
+    }, [article.readingUrl, article.imageGalleryUrl, issueNumber]);
 
     const closeLightbox = useCallback(() => setLightboxSrc(null), []);
 
@@ -98,14 +130,14 @@ export function ArticleGallery({ article, issueNumber }: ArticleGalleryProps) {
                     {images.map((img, idx) => (
                         <button
                             key={idx}
-                            className="group relative overflow-hidden rounded-lg bg-gray-800 hover:ring-2 hover:ring-cyan-400 transition-all focus-visible:ring-2 focus-visible:ring-cyan-400"
-                            onClick={() => setLightboxSrc(img.src)}
+                            className="group relative overflow-hidden rounded-lg bg-gray-800 hover:ring-2 hover:ring-cyan-400 transition-all focus-visible:ring-2 focus-visible:ring-cyan-400 aspect-[4/3]"
+                            onClick={() => setLightboxSrc(img.fullSrc)}
                             aria-label={img.alt || `Image ${idx + 1}`}
                         >
                             <img
                                 src={img.src}
                                 alt={img.alt}
-                                className="w-full h-auto block"
+                                className="w-full h-full object-cover block"
                                 loading="lazy"
                             />
                         </button>
