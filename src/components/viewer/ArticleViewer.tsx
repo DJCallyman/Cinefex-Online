@@ -27,6 +27,14 @@ export function ArticleViewer() {
     const [fontSize, setFontSize] = useFontSize();
     const [splitView, toggleSplitView] = useSplitView();
 
+    // Reset loading/error state whenever the article or view mode changes.
+    // Without this, a prior onError leaves the "Failed to load article"
+    // overlay stuck across all subsequent prev/next navigation.
+    useEffect(() => {
+        setIsLoading(true);
+        setHasError(false);
+    }, [issueNumber, articleIndex, viewMode]);
+
     const iframeRef = useRef<HTMLIFrameElement>(null);
     const archiveIframeRef = useRef<HTMLIFrameElement>(null);
     const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -227,6 +235,7 @@ export function ArticleViewer() {
                         src={readingUrl}
                         className="border-0"
                         title={`Article (reading): ${article.name}`}
+                        sandbox="allow-same-origin"
                         onLoad={handleIframeLoad}
                         onError={handleIframeError}
                     />
@@ -236,6 +245,7 @@ export function ArticleViewer() {
                         src={archiveUrl}
                         className="border-0"
                         title={`Article (original layout): ${article.name}`}
+                        sandbox="allow-same-origin"
                         onLoad={handleArchiveIframeLoad}
                     />
                 </div>
@@ -266,6 +276,7 @@ export function ArticleViewer() {
                         src={url}
                         className="w-full h-full border-0"
                         title={`Article: ${article.name}`}
+                        sandbox="allow-same-origin"
                         onLoad={handleIframeLoad}
                         onError={handleIframeError}
                     />

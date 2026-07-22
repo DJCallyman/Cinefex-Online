@@ -1,5 +1,5 @@
-import { lazy, Suspense, useState } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { lazy, Suspense, useState, useCallback } from 'react';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { Header, SkipLink, ScrollToTop, ThemeToggle } from './components/layout';
 import { PageTransition } from './components/layout/PageTransition';
 import { ArchiveGrid } from './components/archive';
@@ -39,13 +39,18 @@ function AppContent() {
     const { selectedIssue, setSelectedIssue } = useArchiveContext();
     const [showKeyboardHelp, setShowKeyboardHelp] = useState(false);
     const { pathname } = useLocation();
+    const navigate = useNavigate();
     const hideChrome = isViewerPath(pathname);
 
     useGlobalShortcuts({ onShowHelp: () => setShowKeyboardHelp(true) });
 
-    const handleErrorReset = () => {
+    // Reset both the selected issue AND the route. Without navigating away
+    // from a crashing viewer route, the ErrorBoundary re-renders the same
+    // component and re-throws immediately, trapping the user in a loop.
+    const handleErrorReset = useCallback(() => {
         setSelectedIssue(null);
-    };
+        navigate('/');
+    }, [setSelectedIssue, navigate]);
 
     return (
         <ErrorBoundary onReset={handleErrorReset}>

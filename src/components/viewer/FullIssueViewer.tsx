@@ -157,6 +157,7 @@ export function FullIssueViewer() {
                     srcDoc={srcDoc}
                     className="w-full h-full border-0"
                     title={`Cinefex Issue ${issueNumber} (full issue)`}
+                    sandbox="allow-same-origin"
                     onLoad={handleIframeLoad}
                 />
             )}

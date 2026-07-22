@@ -128,6 +128,14 @@ async function loadIndexPayload(): Promise<SearchIndexPayload | null> {
             // of the app continues to work with metadata-only search.
             console.warn('[cinefex] search index unavailable:', err);
             return null;
+        } finally {
+            // If the load did not produce a usable payload, clear the cached
+            // promise so a later mount can retry instead of reusing a
+            // resolved-to-null promise forever (which silently killed search
+            // for the rest of the session after a single transient failure).
+            if (!cachedPayload) {
+                loadPromise = null;
+            }
         }
     })();
 
