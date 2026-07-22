@@ -7,7 +7,7 @@ import { useArchiveContext } from '../../context/ArchiveContext';
 import { injectStyles, appendImageGalleryToArchival } from '../../services/styleInjection';
 import { applyFontSize } from '../../services/applyFontSize';
 import { getArticleNeighbors } from '../../utils/nav';
-import { buildScrollKey, getScrollPosition, setScrollPositionDebounced } from '../../utils/scrollPosition';
+import { buildScrollKey, getScrollPosition, setScrollPositionDebounced, flushScrollPosition } from '../../utils/scrollPosition';
 import { ViewerShell } from './ViewerShell';
 import { ArticleGallery } from './ArticleGallery';
 
@@ -102,25 +102,54 @@ export function ArticleViewer() {
                 }
             }
 
-            // Persist scroll position with debounce
-            const onScroll = () => {
-                try {
-                    const y = iframe.contentWindow?.scrollY ?? 0;
-                    setScrollPositionDebounced(scrollKey, y);
-                } catch {
-                    // ignore
-                }
-            };
-            try {
-                iframe.contentWindow?.addEventListener('scroll', onScroll, { passive: true });
-            } catch {
-                // ignore
-            }
-
             // Apply font size preference
             applyFontSize(iframe, fontSize);
         }
     }, [issueNumber, isReadingView, article?.imageGalleryUrl, scrollKey, fontSize]);
+
+    // Attach a scroll listener to the reading-view iframe's contentWindow so
+    // we can persist the user's scroll offset. This is a dedicated effect
+    // (rather than inline in handleIframeLoad) so the listener is removed on
+    // cleanup — previously it was attached on every load and never removed,
+    // leaking one listener per prev/next navigation and accumulating stale
+    // closures that could save the wrong key's offset.
+    //
+    // The effect re-runs whenever the article/view changes (via scrollKey) and
+    // once the iframe has finished loading (isLoading flips to false). On
+    // cleanup it removes the listener and flushes any pending debounced write
+    // for the current key so the final offset is not lost.
+    useEffect(() => {
+        if (!isReadingView || isLoading) return;
+        const iframe = iframeRef.current;
+        const contentWindow = iframe?.contentWindow;
+        if (!iframe || !contentWindow) return;
+
+        const onScroll = () => {
+            try {
+                const y = contentWindow.scrollY ?? 0;
+                setScrollPositionDebounced(scrollKey, y);
+            } catch {
+                // ignore
+            }
+        };
+
+        try {
+            contentWindow.addEventListener('scroll', onScroll, { passive: true });
+        } catch {
+            // ignore
+        }
+
+        return () => {
+            try {
+                contentWindow.removeEventListener('scroll', onScroll);
+            } catch {
+                // ignore
+            }
+            // Flush the pending write for THIS key only; other keys' pending
+            // writes (e.g. a previously-visited article) are unaffected.
+            flushScrollPosition(scrollKey);
+        };
+    }, [scrollKey, isReadingView, isLoading]);
 
     // After archive iframe loads in split mode: inject archival styles
     const handleArchiveIframeLoad = useCallback(() => {

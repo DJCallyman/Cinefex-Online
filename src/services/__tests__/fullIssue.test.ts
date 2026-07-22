@@ -53,7 +53,12 @@ function makeMagazine(articleCount: number, issue = 1): Magazine {
 }
 
 function installFetchStub(files: Record<string, string | null>) {
-    const stub = vi.fn(async (url: string) => {
+    const stub = vi.fn(async (url: string, init?: RequestInit) => {
+        // Respect an AbortSignal so abort-behavior tests behave realistically.
+        if (init?.signal?.aborted) {
+            const err = new DOMException('aborted', 'AbortError');
+            throw err;
+        }
         if (url in files) {
             const body = files[url];
             if (body === null) {
@@ -192,6 +197,33 @@ describe('buildFullIssueHtml', () => {
             expect(html).toMatch(/<base\s+href="\/issues\/128\/"/);
             expect(html).toContain('Cinefex.css');
             expect(html).not.toContain('ArchivalView.css');
+        });
+    });
+
+    describe('abort signal', () => {
+        it('rejects with AbortError when the signal is aborted mid-fetch', async () => {
+            installFetchStub({
+                '/issues/1/cover.html': COVER_HTML(1),
+                '/issues/1/masthead.html': MASTHEAD_HTML(1),
+                '/issues/1/1.ArchivalView.html': ARCHIVAL_HTML(1, 1, 4),
+                '/issues/1/tail.html': TAIL_HTML(1),
+            });
+            const controller = new AbortController();
+            const mag = makeMagazine(1);
+            const promise = buildFullIssueHtml(1, mag, new DOMParser(), controller.signal);
+            controller.abort();
+            await expect(promise).rejects.toThrow('aborted');
+        });
+
+        it('does not abort when the signal is never aborted (happy path)', async () => {
+            installFetchStub({
+                '/issues/1/cover.html': COVER_HTML(1),
+                '/issues/1/1.ArchivalView.html': ARCHIVAL_HTML(1, 1, 4),
+            });
+            const controller = new AbortController();
+            const mag = makeMagazine(1);
+            const html = await buildFullIssueHtml(1, mag, new DOMParser(), controller.signal);
+            expect(html).toContain('cover-1.jpg');
         });
     });
 });

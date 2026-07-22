@@ -1,6 +1,10 @@
 import { describe, it, expect } from 'vitest';
 import { JSDOM } from 'jsdom';
-import { fixMalformedArchivalPageStructure } from '../../services/styleInjection';
+import {
+    fixMalformedArchivalPageStructure,
+    enhanceCombinedArchivalStyles,
+    appendImageGalleryToArchival,
+} from '../../services/styleInjection';
 
 /**
  * Build a DOM that reproduces the real-browser behavior on the issue 3 Empire
@@ -134,5 +138,74 @@ describe('fixMalformedArchivalPageStructure', () => {
         const plate = page.children[0] as HTMLElement;
         expect(plate.className).toBe('page');
         expect(plate.children[0].tagName).toBe('DIV');
+    });
+});
+
+describe('enhanceCombinedArchivalStyles', () => {
+    it('does not accumulate duplicate <style> blocks on repeated calls', () => {
+        // Regression test for #6: the old implementation appended a <style>
+        // with no id on every call, so each invocation of
+        // appendImageGalleryToArchival (which calls this at the end) piled
+        // up another copy of COMBINED_ARCHIVAL_CSS in <head>.
+        const doc = new JSDOM('<!doctype html><html><head></head><body></body></html>').window.document;
+
+        enhanceCombinedArchivalStyles(doc);
+        enhanceCombinedArchivalStyles(doc);
+        enhanceCombinedArchivalStyles(doc);
+
+        const styles = doc.querySelectorAll('head > style#cinefex-combined-archival-styles');
+        expect(styles.length).toBe(1);
+    });
+
+    it('injects exactly one style block with the stable id on first call', () => {
+        const doc = new JSDOM('<!doctype html><html><head></head><body></body></html>').window.document;
+        enhanceCombinedArchivalStyles(doc);
+        const styles = doc.querySelectorAll('head > style#cinefex-combined-archival-styles');
+        expect(styles.length).toBe(1);
+    });
+});
+
+describe('appendImageGalleryToArchival — staleness guard', () => {
+    it('skips mutation when the iframe document has been replaced by navigation', async () => {
+        // Regression test for #6: the fetch callback captured `doc` and
+        // mutated it with no staleness check. If the user navigated before
+        // the fetch resolved, the callback wrote into a dead document. We
+        // simulate that by swapping iframe.contentDocument to a fresh doc
+        // before the fetch resolves, then assert the original doc is
+        // untouched (no <page> appended).
+        const originalDoc = new JSDOM(
+            '<!doctype html><html><head></head><body><page page-num="1"></page></body></html>',
+        ).window.document;
+        const navigatedDoc = new JSDOM('<!doctype html><html><body></body></html>').window.document;
+
+        const fakeIframe = {
+            contentDocument: originalDoc,
+        } as unknown as HTMLIFrameElement;
+
+        // Stub fetch to return gallery HTML asynchronously.
+        const galleryHtml = '<html><body><page page-num="99"><div class="page"></div></page></body></html>';
+        const originalFetch = globalThis.fetch;
+        globalThis.fetch = (async () =>
+            new Response(galleryHtml, { status: 200, headers: { 'content-type': 'text/html' } })) as typeof fetch;
+
+        try {
+            appendImageGalleryToArchival(fakeIframe, '/issues/127/imageGallery1.html');
+            // Simulate navigation: swap the iframe's document before the
+            // fetch microtask resolves.
+            (fakeIframe as unknown as { contentDocument: Document }).contentDocument = navigatedDoc;
+            // Let the fetch promise chain settle.
+            await Promise.resolve();
+            await Promise.resolve();
+            await Promise.resolve();
+
+            // The original doc must NOT have the gallery page appended.
+            const originalPages = originalDoc.querySelectorAll('page');
+            expect(originalPages.length).toBe(1);
+            expect(originalPages[0].getAttribute('page-num')).toBe('1');
+            // The navigated doc must also be untouched (the guard bailed out).
+            expect(navigatedDoc.querySelectorAll('page').length).toBe(0);
+        } finally {
+            globalThis.fetch = originalFetch;
+        }
     });
 });

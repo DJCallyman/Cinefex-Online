@@ -7,18 +7,22 @@ import {
 import { collapseMultiVariantGalleryPages } from './collapseMultiVariant';
 import { enhanceVideoLinks } from './videoModal';
 
-async function fetchOptional(url: string): Promise<string | null> {
+async function fetchOptional(url: string, signal?: AbortSignal): Promise<string | null> {
     try {
-        const res = await fetch(url);
+        const res = await fetch(url, { signal });
         if (!res.ok) return null;
         return await res.text();
-    } catch {
+    } catch (err) {
+        // An abort is expected when the user navigates to another issue before
+        // the fetch resolves; surface it so the caller's catch can distinguish
+        // a real failure from a cancellation.
+        if (err instanceof DOMException && err.name === 'AbortError') throw err;
         return null;
     }
 }
 
-async function fetchRequired(url: string): Promise<string> {
-    const res = await fetch(url);
+async function fetchRequired(url: string, signal?: AbortSignal): Promise<string> {
+    const res = await fetch(url, { signal });
     if (!res.ok) throw new Error(`Failed to fetch required file: ${url} (HTTP ${res.status})`);
     return res.text();
 }
@@ -245,11 +249,12 @@ export async function buildFullIssueHtml(
     issueNumber: number,
     magazine: Magazine,
     parser: DOMParser = new DOMParser(),
+    signal?: AbortSignal,
 ): Promise<string> {
     const isLegacy = issueNumber <= CONFIG.FORMAT_THRESHOLD;
     const cssFile = isLegacy ? 'ArchivalView.css' : 'Cinefex.css';
 
-    const coverHtml = await fetchRequired(`/issues/${issueNumber}/cover.html`);
+    const coverHtml = await fetchRequired(`/issues/${issueNumber}/cover.html`, signal);
     // Pages in document order, but excluding any page-num="2" (the inside
     // front cover) which is collected separately so we can slot it in right
     // after the cover for proper print order.
@@ -269,7 +274,7 @@ export async function buildFullIssueHtml(
         insideFrontCover = coverPages.frontInsideCover;
     }
 
-    const mastheadHtml = await fetchOptional(`/issues/${issueNumber}/masthead.html`);
+    const mastheadHtml = await fetchOptional(`/issues/${issueNumber}/masthead.html`, signal);
     if (mastheadHtml) {
         const m = parseAndCollectPages(mastheadHtml, parser, true, isLegacy);
         pages.push(...m.rest);
@@ -278,7 +283,7 @@ export async function buildFullIssueHtml(
         }
     }
 
-    const adsHtml = await fetchOptional(`/issues/${issueNumber}/ads.html`);
+    const adsHtml = await fetchOptional(`/issues/${issueNumber}/ads.html`, signal);
     if (adsHtml) {
         const a = parseAndCollectPages(adsHtml, parser, true, isLegacy);
         pages.push(...a.rest);
@@ -291,7 +296,7 @@ export async function buildFullIssueHtml(
         const articleFile = isLegacy
             ? `${i + 1}.ArchivalView.html`
             : `manuscript${i + 1}.html`;
-        const articleHtml = await fetchOptional(`/issues/${issueNumber}/${articleFile}`);
+        const articleHtml = await fetchOptional(`/issues/${issueNumber}/${articleFile}`, signal);
         if (articleHtml) {
             const r = parseAndCollectPages(articleHtml, parser, true, isLegacy);
             pages.push(...r.rest);
@@ -303,6 +308,7 @@ export async function buildFullIssueHtml(
         if (!isLegacy) {
             const galleryHtml = await fetchOptional(
                 `/issues/${issueNumber}/imageGallery${i + 1}.html`,
+                signal,
             );
             if (galleryHtml) {
                 const g = parseAndCollectPages(galleryHtml, parser, true, false);
@@ -314,7 +320,7 @@ export async function buildFullIssueHtml(
         }
     }
 
-    const tailHtml = await fetchOptional(`/issues/${issueNumber}/tail.html`);
+    const tailHtml = await fetchOptional(`/issues/${issueNumber}/tail.html`, signal);
     if (tailHtml) {
         const t = parseAndCollectPages(tailHtml, parser, true, isLegacy);
         pages.push(...t.rest);

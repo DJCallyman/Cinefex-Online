@@ -18,7 +18,12 @@ export function FullIssueViewer() {
 
     const iframeRef = useRef<HTMLIFrameElement>(null);
     const closeButtonRef = useRef<HTMLButtonElement>(null);
-    const [srcDoc, setSrcDoc] = useState<string | null>(null);
+    // We store a Blob URL (not the raw HTML string) so the multi-MB stitched
+    // document can be released to garbage collection once the iframe has
+    // loaded it. Keeping the raw string in state for the viewer's lifetime
+    // risks out-of-memory crashes on memory-constrained devices (e.g. iPad).
+    // The URL is revoked on cleanup (issue change / unmount).
+    const [srcDocUrl, setSrcDocUrl] = useState<string | null>(null);
     const [hasError, setHasError] = useState(false);
 
     // Adjacent issues for prev/next navigation
@@ -27,29 +32,37 @@ export function FullIssueViewer() {
         [magazines, issueNumber],
     );
 
-    // Build the stitched HTML whenever the issue changes. The fetch chain is
-    // kicked off on mount and on issue-number change; in-flight requests for
-    // a stale issue are abandoned by the simple "set state when promise
-    // resolves" pattern (a later resolve just writes to a stale closure).
+    // Build the stitched HTML whenever the issue changes. An AbortController
+    // aborts all in-flight fetches when the user pages to another issue (or
+    // unmounts) so the connection pool isn't saturated by stale requests.
     useEffect(() => {
         if (!Number.isFinite(issueNumber) || !magazine) {
-            setSrcDoc(null);
+            setSrcDocUrl(null);
             return;
         }
-        let cancelled = false;
-        setSrcDoc(null);
+        const controller = new AbortController();
+        let blobUrl: string | null = null;
+        setSrcDocUrl(null);
         setHasError(false);
-        buildFullIssueHtml(issueNumber, magazine)
+        buildFullIssueHtml(issueNumber, magazine, new DOMParser(), controller.signal)
             .then((html) => {
-                if (!cancelled) setSrcDoc(html);
+                if (controller.signal.aborted) return;
+                // Wrap the HTML in a Blob URL so the string can be GC'd after
+                // the iframe loads it, instead of lingering in React state.
+                const blob = new Blob([html], { type: 'text/html' });
+                blobUrl = URL.createObjectURL(blob);
+                setSrcDocUrl(blobUrl);
             })
             .catch((err) => {
-                if (cancelled) return;
+                if (controller.signal.aborted) return;
+                // An AbortError is expected when navigating away — not a real failure.
+                if (err instanceof DOMException && err.name === 'AbortError') return;
                 console.error(`[CinefexFullIssue] Failed to build issue ${issueNumber}:`, err);
                 setHasError(true);
             });
         return () => {
-            cancelled = true;
+            controller.abort();
+            if (blobUrl !== null) URL.revokeObjectURL(blobUrl);
         };
     }, [issueNumber, magazine]);
 
@@ -132,7 +145,7 @@ export function FullIssueViewer() {
             prevFallback="First issue"
             nextFallback="Last issue"
         >
-            {!srcDoc && !hasError && (
+            {!srcDocUrl && !hasError && (
                 <div className="loading-spinner visible absolute inset-0 flex items-center justify-center">
                     <div className="w-12 h-12 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin" />
                 </div>
@@ -150,11 +163,11 @@ export function FullIssueViewer() {
                 </div>
             )}
 
-            {srcDoc && (
+            {srcDocUrl && (
                 <iframe
                     key={`full-issue-${issueNumber}`}
                     ref={iframeRef}
-                    srcDoc={srcDoc}
+                    src={srcDocUrl}
                     className="w-full h-full border-0"
                     title={`Cinefex Issue ${issueNumber} (full issue)`}
                     sandbox="allow-same-origin"

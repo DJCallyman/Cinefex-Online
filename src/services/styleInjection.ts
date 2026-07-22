@@ -134,7 +134,7 @@ export function injectStyles(iframe: HTMLIFrameElement, issueNumber: number, isR
     const isNewFormat = issueNumber > CONFIG.FORMAT_THRESHOLD;
 
     if (isNewFormat && isReadingView) {
-        injectNewReadingViewStyles(doc);
+        injectNewReadingViewStyles(doc, iframe);
     } else if (isNewFormat && !isReadingView) {
         injectNewArchivalViewStyles(doc);
     } else if (isOldFormat && !isReadingView) {
@@ -170,7 +170,7 @@ function injectStyleBlock(doc: Document, id: string, css: string): void {
     }
 }
 
-function injectNewReadingViewStyles(doc: Document): void {
+function injectNewReadingViewStyles(doc: Document, iframe: HTMLIFrameElement): void {
     // Do NOT remove the original Cinefex.css for new-format reading views.
     // These files are hybrid (full-bleed image pages + later reflow text) and depend on it.
     // We only provide minimal fixes for fonts, centering, and basic readability.
@@ -181,7 +181,7 @@ function injectNewReadingViewStyles(doc: Document): void {
 
     // Populate full-bleed magazine page images for empty .img-all containers
     // (these were dynamically supplied by the original iPad app)
-    populateNewReadingViewImages(doc);
+    populateNewReadingViewImages(doc, iframe);
 }
 
 /**
@@ -196,7 +196,7 @@ function injectNewReadingViewStyles(doc: Document): void {
  * Both files live in the same issue folder, so relative "images/..." paths
  * resolve identically.
  */
-function populateNewReadingViewImages(doc: Document): void {
+function populateNewReadingViewImages(doc: Document, iframe: HTMLIFrameElement): void {
   // Collect empty .img-all containers keyed by their page-num.
   const titleTargets: { pageNum: string; container: HTMLElement }[] = [];
 
@@ -230,6 +230,15 @@ function populateNewReadingViewImages(doc: Document): void {
   fetch(manuscriptUrl)
     .then((res) => (res.ok ? res.text() : Promise.reject(new Error(`HTTP ${res.status}`))))
     .then((html) => {
+      // Staleness guard: if the user navigated to another article before the
+      // fetch resolved, the iframe now holds a different document. Mutating the
+      // captured `doc` would write into a dead document (silently lost images)
+      // and could throw if the document was unloaded. Bail out in that case.
+      if (iframe.contentDocument !== doc) {
+        debugLog('populateNewReadingViewImages: manuscript fetch resolved after navigation; skipping.');
+        return;
+      }
+
       const manuscriptDoc = new DOMParser().parseFromString(html, 'text/html');
 
       const pageImageMap = new Map<string, string>();
@@ -253,6 +262,12 @@ function populateNewReadingViewImages(doc: Document): void {
     fetch(imageGalleryUrl)
       .then((res) => (res.ok ? res.text() : Promise.reject(new Error(`HTTP ${res.status}`))))
       .then((html) => {
+        // Staleness guard (see manuscript fetch above).
+        if (iframe.contentDocument !== doc) {
+          debugLog('populateNewReadingViewImages: imageGallery fetch resolved after navigation; skipping.');
+          return;
+        }
+
         const galleryDoc = new DOMParser().parseFromString(html, 'text/html');
 
         // Build page-num -> inline figure src map (exclude thumbs, buttons, video icons).
@@ -423,6 +438,15 @@ export function appendImageGalleryToArchival(
             return res.text();
         })
         .then((html) => {
+            // Staleness guard: if the user navigated to another article before
+            // the gallery fetch resolved, the iframe now holds a different
+            // document. Mutating the captured `doc` would write into a dead
+            // document and could throw. Bail out in that case.
+            if (iframe.contentDocument !== doc) {
+                debugLog(`Issue ${issueNum}: gallery fetch resolved after navigation; skipping append.`);
+                return;
+            }
+
             const galleryDoc = new DOMParser().parseFromString(html, 'text/html');
 
             // Collect all <page> elements from the gallery (these are the photo spreads)
@@ -475,14 +499,10 @@ export function appendImageGalleryToArchival(
 export function enhanceCombinedArchivalStyles(doc: Document): void {
     // We intentionally keep this light — the heavy lifting is already done by the base injector.
     // Here we only add/override rules that are specific to the gallery markup we now append.
-
-    const style = doc.createElement('style');
-    style.textContent = COMBINED_ARCHIVAL_CSS;
-
-    // Insert early so it can be overridden by more specific rules if needed
-    if (doc.head.firstChild) {
-        doc.head.insertBefore(style, doc.head.firstChild);
-    } else {
-        doc.head.appendChild(style);
-    }
+    //
+    // Use injectStyleBlock with a stable id so repeated calls (e.g. when
+    // appendImageGalleryToArchival runs more than once on the same document)
+    // replace the existing block instead of accumulating duplicate <style>
+    // elements in <head>.
+    injectStyleBlock(doc, 'cinefex-combined-archival-styles', COMBINED_ARCHIVAL_CSS);
 }
